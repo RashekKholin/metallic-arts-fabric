@@ -87,6 +87,20 @@ Unofficial fan project. No book text or official illustrations are bundled.
 
 This is a living implementation plan. A planned entry does not mean its mechanic exists. Future releases will update this section alongside the controls, recipes, configuration, migration notes and test evidence.
 
+### Implementation order and completion rules
+
+Work proceeds in the order below. Shared data and server validation come before dependent powers. A phase is complete only when its usable behavior, documentation and recorded validation agree; registering an item or declaring a data contract does not complete its gameplay system.
+
+1. **Validate the physical foundation.** Finish equipment/contact and canonical metalmind accounting, meaningful storing disadvantages, paid tapping, separate Tin senses, carrying, selection wheels and coin-pouch behavior. Check copied items, full inventories, conflicting modes, depleted charge, lifecycle transitions and exact save/reload accounting. Publish the resulting tested checkpoint and its controls.
+2. **Build Hemalurgy on that foundation.** Add canonical spike accounting and researched material compatibility, then binding-point data and insertion/removal, then intentional extraction and donor consequences. Test each transaction's success and rejection paths before enabling its UI. Player extraction stays disabled by default. Document which placements are evidenced and which are gameplay interpretations.
+3. **Prove the shared systems in multiplayer.** Test two simultaneous clients, ownership/privacy, independent players' inventories, interacting forces, contested assets and disconnects during actions. Test a fresh server process loading saved invested items. Fix duplication, authority or persistence failures before expanding the number of powers.
+4. **Complete remaining Allomancy in dependency order.** Start with Bronze/Copper detection and concealment; add the emotional state model for Zinc/Brass; implement Aluminum/Duralumin and contact Chromium/Nicrosil using explicit per-metal amplification/depletion handlers. Build recorded history before Gold, bounded prediction before Electrum, and a tested local-time model before Cadmium/Bendalloy. Each pair needs its own gameplay, fuel, interruption and multiplayer acceptance tests.
+5. **Complete remaining Feruchemy by subsystem.** Introduce fatigue/temperature/respiration/nutrition before their metal effects; implement healing and determination deliberately; then build memory, Identity, Connection, typed Investiture and Fortune. Identity and Investiture support must precede ordinary unkeyed filling and unsealed equipment. Test costs and benefits together so storage cannot manufacture value from a capped or absent disadvantage.
+6. **Connect the advanced systems.** Add Compounding only after ordinary fuel, stored attributes and Identity have independent accounting. Implement researched construct templates and their critical dependencies, then survival acquisition and world content. Add migration/recovery tools before changing saved schemas or invested-item formats.
+7. **Prepare a public release.** Finish tutorials, accessibility, localization and configuration guidance; run longer sessions, compatibility and performance checks; publish versioned installable jars with checksums, source, changelogs and repeatable test instructions. Keep known approximations and unsupported interactions visible.
+
+Every implemented step should update this README's current-feature list, installation/download instructions, controls and test results. Validation notes must identify the tested version, actual commands and outcomes, remaining gaps and any manual checks a player still needs to perform. A planned test is not a passed test.
+
 | Stage | Current status | Acceptance target |
 | --- | --- | --- |
 | Phase 1: foundation | Implemented and validated | Build, launch, persistent data, owner-only networking |
