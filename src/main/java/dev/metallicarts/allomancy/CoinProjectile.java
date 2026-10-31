@@ -44,6 +44,16 @@ public final class CoinProjectile extends ThrowableItemProjectile {
             if(!player.level().addFreshEntity(projectile))return false;
             stack.shrink(1);return true;
         }
+        for(int i=0;i<inventory.getContainerSize();i++){
+            var pouch=inventory.getItem(i);
+            if(!(pouch.getItem() instanceof dev.metallicarts.economy.CoinPouchItem))continue;
+            var coin=dev.metallicarts.economy.CoinPouchItem.peek(pouch);
+            if(coin.isEmpty())continue;
+            var projectile=new CoinProjectile(player.level(),player,coin.get());
+            projectile.shootFromRotation(player,player.getXRot(),player.getYRot(),0,.8f,0);
+            if(!player.level().addFreshEntity(projectile))return false;
+            dev.metallicarts.economy.CoinPouchItem.takeOne(pouch);return true;
+        }
         return false;
     }
 }

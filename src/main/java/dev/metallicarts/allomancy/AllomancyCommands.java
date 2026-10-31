@@ -22,12 +22,24 @@ public final class AllomancyCommands {
                 .then(Commands.literal("grant").then(Commands.argument("player",EntityArgument.player())
                     .then(metal().then(Commands.argument("strength",DoubleArgumentType.doubleArg(0.000001,1000))
                         .executes(c->edit(c,"grant"))))))
+                .then(Commands.literal("grantferuchemy").then(Commands.argument("player",EntityArgument.player())
+                    .then(metal().then(Commands.argument("strength",DoubleArgumentType.doubleArg(0.000001,1000))
+                        .executes(c->edit(c,"grantferuchemy"))))))
                 .then(Commands.literal("revoke").then(Commands.argument("player",EntityArgument.player())
                     .then(Commands.argument("grant",StringArgumentType.word()).executes(c->edit(c,"revoke")))))
                 .then(Commands.literal("fuel").then(Commands.argument("player",EntityArgument.player())
                     .then(metal().then(Commands.argument("micrograms",LongArgumentType.longArg(1,Spiritweb.MAX_RESERVE))
                         .executes(c->edit(c,"fuel"))))))
                 .then(Commands.literal("inspect").then(Commands.argument("player",EntityArgument.player()).executes(AllomancyCommands::inspect)))
+                .then(Commands.literal("unkeymetalmind").then(Commands.argument("player",EntityArgument.player()).executes(c->{
+                    var player=EntityArgument.getPlayer(c,"player");var stack=player.getMainHandItem();var mind=stack.get(ModRegistries.METALMIND);
+                    if(stack.getCount()!=1||mind==null)throw new SimpleCommandExceptionType(Component.literal("Hold one registered metalmind")).create();
+                    try{
+                        var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(player.level().getServer()).unkey(mind.token());
+                        stack.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(asset));
+                        c.getSource().sendSuccess(()->Component.literal("Administrative unkeying complete; charge retained; Feruchemical ability still required"),true);return 1;
+                    }catch(IllegalArgumentException e){throw new SimpleCommandExceptionType(Component.literal(e.getMessage())).create();}
+                })))
         ));
     }
     private static com.mojang.brigadier.builder.RequiredArgumentBuilder<CommandSourceStack,String> metal() {
@@ -48,10 +60,11 @@ public final class AllomancyCommands {
                 String name=StringArgumentType.getString(c,"metal");
                 Metal metal=Arrays.stream(Metal.values()).filter(m->m.id().equals(name)).findFirst()
                     .orElseThrow(()->new IllegalArgumentException("Unknown standard metal"));
-                if(operation.equals("grant")) {
+                if(operation.startsWith("grant")) {
                     UUID id=UUID.randomUUID();
-                    var grant=new PowerGrant(id,Art.ALLOMANCY,metal,PowerGrant.Origin.ADMIN,id,DoubleArgumentType.getDouble(c,"strength"));
-                    after=ReserveLedger.grant(before,grant);detail="Granted "+metal.id()+" Allomancy; grant/source "+id+(AllomancyConfig.SUPPORTED.contains(metal)?"":" (effect not implemented)");
+                    var art=operation.equals("grantferuchemy")?Art.FERUCHEMY:Art.ALLOMANCY;
+                    var grant=new PowerGrant(id,art,metal,PowerGrant.Origin.ADMIN,id,DoubleArgumentType.getDouble(c,"strength"));
+                    after=ReserveLedger.grant(before,grant);detail="Granted "+metal.id()+" "+art+"; grant/source "+id+(AllomancyConfig.SUPPORTED.contains(metal)?"":" (effect not implemented)");
                 } else {
                     long amount=LongArgumentType.getLong(c,"micrograms");
                     after=ReserveLedger.credit(before,metal,amount);detail="Added "+amount+" micrograms of ordinary "+metal.id();

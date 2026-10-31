@@ -11,7 +11,7 @@ const item=(m,k)=>vanilla.has(m)&&['ingot','nugget'].includes(k)?'minecraft:'+m+
 const human=s=>s.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 let lang=JSON.parse(fs.readFileSync(path.join(root,'assets/metallicarts/lang/en_us.json'),'utf8'));
 lang['container.metallicarts.metallurgy']='Metallurgy Table';
-lang['screen.metallicarts.phase']='Phase 2 • metal economy';
+lang['screen.metallicarts.phase']='Development build • physical Metallic Arts';
 lang['screen.metallicarts.legend']='A: Allomancy • F: Feruchemy • Esc: close';
 function crc32(buf){let c=0xffffffff;for(const b of buf){c^=b;for(let j=0;j<8;j++)c=(c>>>1)^((c&1)?0xedb88320:0);}return(c^0xffffffff)>>>0;}
 function png(p,pixel,w=16,h=16){
@@ -27,16 +27,19 @@ function texture(name,kind,color){
  else if(kind==='nugget'||kind==='portion')on=(x-8)**2+(y-8)**2<(kind==='portion'?12:24);
  else if(kind==='flakes')on=[[4,5],[9,4],[7,9],[12,10],[3,12]].some(([a,b])=>Math.abs(x-a)<=1&&Math.abs(y-b)<=1);
  else if(kind==='coin')on=((x-8)/1.2)**2+(y-8)**2<30;
+ else if(kind==='pouch'){if(y===4&&x>=5&&x<=11)return[205,172,98,255];on=y>=5&&y<=13&&x>=4+(y===13?1:0)&&x<=12-(y===13?1:0);}
  else if(['ring','bracelet','bracer'].includes(kind)) {const r=(x-8)**2+(y-8)**2;on=r<40&&r>(kind==='bracer'?5:kind==='bracelet'?10:15);}
  else if(kind==='spike')on=(y>2&&y<13&&Math.abs(x-8)<(y<5?3:1.6))||(y===13&&x===8);
  else if(kind==='vial') {if(y>=5&&y<=13&&x>=5&&x<=11){if(x===5||x===11||y===13)return[185,219,233,230];on=y>=9;}if(y>=2&&y<=4&&x>=6&&x<=10)return[118,83,52,255];}
  else on=(x-8)**2+(y-8)**2<35&&((x*7+y*3)%11<9);
  if(!on)return[0,0,0,0];let shade=((x*17+y*11)%19)-9+(y<7?22:0);return rgb.map(v=>Math.max(0,Math.min(255,v+shade))).concat(255);
  });}
-function itemAsset(name,kind,color){lang['item.metallicarts.'+name]=human(name);write('assets/metallicarts/items/'+name+'.json',{model:{type:'minecraft:model',model:'metallicarts:item/'+name}});write('assets/metallicarts/models/item/'+name+'.json',{parent:'minecraft:item/generated',textures:{layer0:'metallicarts:item/'+name}});texture(name,kind,color);}
+function itemAsset(name,kind,color){lang['item.metallicarts.'+name]=human(name);write('assets/metallicarts/items/'+name+'.json',{model:{type:'minecraft:model',model:'metallicarts:item/'+name}});write('assets/metallicarts/models/item/'+name+'.json',{parent:'minecraft:item/generated',textures:{layer0:'metallicarts:item/'+(kind==='earring'?name.replace(/_earring$/,'_ring'):name)}});if(kind!=='earring')texture(name,kind,color);}
+itemAsset('coin_pouch','pouch','956d42');
+write('data/metallicarts/recipe/coin_pouch.json',{type:'minecraft:crafting_shaped',pattern:['L L','LSL',' L '],key:{L:'minecraft:leather',S:'minecraft:string'},result:{id:'metallicarts:coin_pouch',count:1}});
 for(let n=0;n<materials.length;n++){const m=materials[n],color=colors[n];
  for(const k of ['ingot','nugget','portion','flakes'])if(!vanilla.has(m)||!['ingot','nugget'].includes(k))itemAsset(m+'_'+k,k,color);
- if(metals.includes(m))for(const k of ['coin','ring','bracelet','bracer','spike','vial'])itemAsset(m+'_'+k,k,color);
+ if(metals.includes(m))for(const k of ['coin','ring','bracelet','bracer','earring','spike','vial'])itemAsset(m+'_'+k,k,color);
  write('data/c/tags/item/ingots/'+m+'.json',{replace:false,values:[item(m,'ingot')]});
  write('data/c/tags/item/nuggets/'+m+'.json',{replace:false,values:[item(m,'nugget')]});
  lang['tag.item.c.ingots.'+m]=human(m)+' Ingots';
@@ -116,7 +119,9 @@ for(const m of materials){
    recipe(m+'_'+k,2,[[item(m,'ingot'),1]],[[item(m,k),1]],60);
    recipe(m+'_'+k+'_to_ingot',2,[[item(m,k),1]],[[item(m,'ingot'),1]],60);
   }
-  for(const k of ['ingot','nugget','coin','ring','bracelet','bracer','spike'])recipes.push({id:m+'_'+k+'_invested_flaking',tab:2,ticks:40,inputs:[{item:item(m,k),count:1}],outputs:[{item:item(m,'flakes'),count:1}],slice:true});
+  recipe(m+'_earring',2,[[item(m,'nugget'),1]],[[item(m,'earring'),1]],40);
+  recipe(m+'_earring_to_nugget',2,[[item(m,'earring'),1]],[[item(m,'nugget'),1]],40);
+  for(const k of ['ingot','nugget','coin','ring','bracelet','bracer','earring','spike'])recipes.push({id:m+'_'+k+'_invested_flaking',tab:2,ticks:40,inputs:[{item:item(m,k),count:1}],outputs:[{item:item(m,'flakes'),count:1}],slice:true});
  }
 }
 write('data/metallicarts/metallurgy/catalog.json',recipes);

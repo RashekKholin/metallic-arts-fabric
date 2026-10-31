@@ -17,8 +17,14 @@ public class MaterialItem extends Item {
         var data = stack.get(ModRegistries.METAL_DATA);
         if (data != null) {
             text.accept(Component.literal("Mass: " + data.massMicrograms() + " µg • purity " + Math.round(data.purity() * 100) + "%"));
-            text.accept(Component.literal("Stored charge: " + data.charge() + (data.identity().isPresent() ? " • Identity keyed" : " • no Identity key")));
+            if(!stack.has(ModRegistries.METALMIND))text.accept(Component.literal("Stored charge: " + data.charge() + (data.identity().isPresent() ? " • Identity keyed" : " • no Identity key")));
         }
-        if (form != null && java.util.List.of("ring","bracelet","bracer","spike").contains(form.kind())) text.accept(Component.literal("Equipment • powers arrive in later phases"));
+        var mind=stack.get(ModRegistries.METALMIND);
+        if(mind!=null){
+            text.accept(Component.literal("Feruchemical "+mind.attribute().id()+" • "+mind.charge()+"/"+mind.capacity()+" charge units"));
+            text.accept(Component.literal(mind.keyed()?"Identity keyed • ability and matching Identity required":mind.unkeyed()?"Unkeyed • relevant Feruchemical ability still required":"Unfilled • keys to the first filler"));
+        }
+        if(form!=null&&java.util.List.of("ring","bracelet","bracer","earring").contains(form.kind()))text.accept(Component.literal("Contact equipment • M then F"));
+        if(form!=null&&form.kind().equals("spike"))text.accept(Component.literal("Uncharged spike form • Hemalurgy in development"));
     }
 }

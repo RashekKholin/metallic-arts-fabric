@@ -884,6 +884,40 @@
     ]
   },
   {
+    "id": "iron_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "iron_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -980,6 +1014,24 @@
     "inputs": [
       {
         "item": "metallicarts:iron_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_earring",
         "count": 1
       }
     ],
@@ -1282,6 +1334,40 @@
     ]
   },
   {
+    "id": "steel_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "steel_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -1378,6 +1464,24 @@
     "inputs": [
       {
         "item": "metallicarts:steel_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_earring",
         "count": 1
       }
     ],
@@ -1680,6 +1784,40 @@
     ]
   },
   {
+    "id": "tin_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "tin_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -1776,6 +1914,24 @@
     "inputs": [
       {
         "item": "metallicarts:tin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_earring",
         "count": 1
       }
     ],
@@ -2078,6 +2234,40 @@
     ]
   },
   {
+    "id": "pewter_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "pewter_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -2174,6 +2364,24 @@
     "inputs": [
       {
         "item": "metallicarts:pewter_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_earring",
         "count": 1
       }
     ],
@@ -2476,6 +2684,40 @@
     ]
   },
   {
+    "id": "zinc_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "zinc_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -2572,6 +2814,24 @@
     "inputs": [
       {
         "item": "metallicarts:zinc_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_earring",
         "count": 1
       }
     ],
@@ -2874,6 +3134,40 @@
     ]
   },
   {
+    "id": "brass_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "brass_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -2970,6 +3264,24 @@
     "inputs": [
       {
         "item": "metallicarts:brass_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_earring",
         "count": 1
       }
     ],
@@ -3272,6 +3584,40 @@
     ]
   },
   {
+    "id": "copper_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "copper_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -3368,6 +3714,24 @@
     "inputs": [
       {
         "item": "metallicarts:copper_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_earring",
         "count": 1
       }
     ],
@@ -3670,6 +4034,40 @@
     ]
   },
   {
+    "id": "bronze_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "bronze_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -3766,6 +4164,24 @@
     "inputs": [
       {
         "item": "metallicarts:bronze_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_earring",
         "count": 1
       }
     ],
@@ -4068,6 +4484,40 @@
     ]
   },
   {
+    "id": "aluminum_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "aluminum_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -4164,6 +4614,24 @@
     "inputs": [
       {
         "item": "metallicarts:aluminum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_earring",
         "count": 1
       }
     ],
@@ -4466,6 +4934,40 @@
     ]
   },
   {
+    "id": "duralumin_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "duralumin_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -4562,6 +5064,24 @@
     "inputs": [
       {
         "item": "metallicarts:duralumin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_earring",
         "count": 1
       }
     ],
@@ -4864,6 +5384,40 @@
     ]
   },
   {
+    "id": "chromium_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "chromium_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -4960,6 +5514,24 @@
     "inputs": [
       {
         "item": "metallicarts:chromium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_earring",
         "count": 1
       }
     ],
@@ -5262,6 +5834,40 @@
     ]
   },
   {
+    "id": "nicrosil_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "nicrosil_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -5358,6 +5964,24 @@
     "inputs": [
       {
         "item": "metallicarts:nicrosil_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_earring",
         "count": 1
       }
     ],
@@ -5660,6 +6284,40 @@
     ]
   },
   {
+    "id": "gold_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "gold_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -5756,6 +6414,24 @@
     "inputs": [
       {
         "item": "metallicarts:gold_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_earring",
         "count": 1
       }
     ],
@@ -6058,6 +6734,40 @@
     ]
   },
   {
+    "id": "electrum_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "electrum_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -6154,6 +6864,24 @@
     "inputs": [
       {
         "item": "metallicarts:electrum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_earring",
         "count": 1
       }
     ],
@@ -6456,6 +7184,40 @@
     ]
   },
   {
+    "id": "cadmium_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "cadmium_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -6552,6 +7314,24 @@
     "inputs": [
       {
         "item": "metallicarts:cadmium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_earring",
         "count": 1
       }
     ],
@@ -6854,6 +7634,40 @@
     ]
   },
   {
+    "id": "bendalloy_earring",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_earring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_earring_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_earring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
     "id": "bendalloy_ingot_invested_flaking",
     "tab": 2,
     "ticks": 40,
@@ -6950,6 +7764,24 @@
     "inputs": [
       {
         "item": "metallicarts:bendalloy_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_earring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_earring",
         "count": 1
       }
     ],

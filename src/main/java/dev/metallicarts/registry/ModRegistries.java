@@ -21,6 +21,14 @@ public final class ModRegistries {
         BuiltInRegistries.DATA_COMPONENT_TYPE, MetallicArts.id("metal_data"),
         DataComponentType.<MetalItemData>builder().persistent(MetalItemData.CODEC)
             .networkSynchronized(ByteBufCodecs.fromCodec(MetalItemData.CODEC)).build());
+    public static final AttachmentType<dev.metallicarts.equipment.ContactEquipment> CONTACT_EQUIPMENT=AttachmentRegistry.create(MetallicArts.id("contact_equipment"),
+        b->b.initializer(dev.metallicarts.equipment.ContactEquipment::empty).persistent(dev.metallicarts.equipment.ContactEquipment.CODEC).copyOnDeath());
+    public static final DataComponentType<dev.metallicarts.feruchemy.MetalmindData> METALMIND=Registry.register(
+        BuiltInRegistries.DATA_COMPONENT_TYPE,MetallicArts.id("metalmind"),
+        DataComponentType.<dev.metallicarts.feruchemy.MetalmindData>builder().persistent(dev.metallicarts.feruchemy.MetalmindData.CODEC)
+            .networkSynchronized(ByteBufCodecs.fromCodec(dev.metallicarts.feruchemy.MetalmindData.CODEC)).build());
+    public static final AttachmentType<java.util.UUID> PHYSICAL_CARGO=AttachmentRegistry.create(MetallicArts.id("physical_cargo"),
+        b->b.persistent(net.minecraft.core.UUIDUtil.CODEC));
     public static void initialize() { MetallicArts.LOGGER.info("Registered {} base metal IDs, spiritweb attachment and metal component", METALS.size()); }
     private ModRegistries() {}
 }

@@ -20,6 +20,7 @@ public final class AllomancyRuntime {
         final ServerPlayer player;final Object level;
         final BurnEngine engine=new BurnEngine(Set.copyOf(AllomancyConfig.SUPPORTED));
         final LinkedHashMap<String,MetalPhysics.Target> selected=new LinkedHashMap<>();
+        Map<Metal,Double> lastPowers=Map.of();
         int requests,window,held,heartbeat,pewterTicks,fatigue,lastModes=-1,lastFlags=-1,lastToss=-20;boolean overload,dirty,explicitSelection;
         Session(ServerPlayer p){player=p;level=p.level();}
     }
@@ -56,6 +57,7 @@ public final class AllomancyRuntime {
         ServerPlayNetworking.registerGlobalReceiver(SelectionIntent.TYPE,(payload,context)->
             select(context.player(),payload.action(),context.server().getTickCount()));
         ServerTickEvents.END_SERVER_TICK.register(server->{
+            for(var player:server.getPlayerList().getPlayers())dev.metallicarts.feruchemy.FeruchemyRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())tick(player,server.getTickCount());
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler,server)->stop(handler.player));
@@ -83,7 +85,11 @@ public final class AllomancyRuntime {
         s.selected.put(key,target.get());s.explicitSelection=true;return true;
     }
     public static void stop(ServerPlayer p) {var s=SESSIONS.remove(p.getUUID());if(s!=null)clear(s);}
-    private static void clear(Session s){s.engine.stopAll();s.selected.clear();s.explicitSelection=false;s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);}
+    private static void clear(Session s){s.engine.stopAll();s.lastPowers=Map.of();s.selected.clear();s.explicitSelection=false;s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);}
+    public static double tinStrength(ServerPlayer p){
+        var s=SESSIONS.get(p.getUUID());
+        return s!=null&&s.player==p&&s.level==p.level()&&s.engine.mode(Metal.TIN)!=BurnMode.OFF?s.lastPowers.getOrDefault(Metal.TIN,0.0):0;
+    }
     public static void tick(ServerPlayer p,int tick) {
         var s=session(p);
         if(!p.isAlive()||p.isSpectator()){clear(s);send(s);return;}
@@ -91,6 +97,7 @@ public final class AllomancyRuntime {
         var step=s.engine.step(before,config);
         if(!step.state().equals(before)){p.setAttached(ModRegistries.SPIRITWEB,step.state());s.dirty=true;}
         var powers=step.strengths();
+        s.lastPowers=powers;
         double pewter=powers.getOrDefault(Metal.PEWTER,0.0);
         if(pewter>0) {
             s.pewterTicks=Math.min(12000,s.pewterTicks+1);

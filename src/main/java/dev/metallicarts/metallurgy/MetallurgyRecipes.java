@@ -79,6 +79,7 @@ public final class MetallurgyRecipes {
             throw new IllegalArgumentException("Invested slicing requires a single-item input and output");
     }
     public static Plan plan(Recipe recipe, List<ItemStack> inputs) {
+        if(inputs.stream().anyMatch(s->s.has(ModRegistries.METALMIND)))return null;
         if (!recipe.kindsMatch(inputs)) return null;
         if (recipe.slice) return slicePlan(recipe,inputs);
         if (recipe.alloy != null) return alloyPlan(recipe, inputs);
@@ -112,7 +113,7 @@ public final class MetallurgyRecipes {
             if (firstBatch != null) result.set(EconomyContent.COMPOSITION, firstBatch);
             if (firstData != null && (!firstData.metal().id().equals(form.material()) ||
                 invested && firstData.massMicrograms() != form.units() * Materials.PORTION_MASS)) return null;
-            if (form != null && Materials.metal(form.material()).isPresent() && (firstData != null || List.of("ring","bracelet","bracer","spike").contains(form.kind()))) {
+            if (form != null && Materials.metal(form.material()).isPresent() && (firstData != null || List.of("ring","bracelet","bracer","earring","spike").contains(form.kind()))) {
                 result.set(ModRegistries.METAL_DATA, invested ? firstData : new MetalItemData(1, UUID.randomUUID(),
                     Materials.metal(form.material()).orElseThrow(), form.units() * Materials.PORTION_MASS,
                     firstData == null ? firstBatch == null ? 1 : firstBatch.purity() : firstData.purity(), 0, Optional.empty()));

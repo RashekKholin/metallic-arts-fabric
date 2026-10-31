@@ -1,6 +1,6 @@
 # Phase 3 development: first Allomancy
 
-This is an experimental milestone, version 0.3.0-alpha.2. Phase 3 is not complete. The other twelve Allomantic effects, Feruchemy, Hemalurgic extraction, Compounding, god metals and survival power acquisition remain unimplemented.
+This is a playable physical-power alpha, version 0.4.0-alpha.1. The other twelve Allomantic effects, Hemalurgic extraction, Compounding, god metals and survival power acquisition remain unimplemented. Physical Feruchemy, contact equipment and carrying are documented in FERUCHEMY.md. Multiplayer/compatibility acceptance remains incomplete.
 
 ## Try it
 
@@ -29,7 +29,7 @@ Every selected target is revalidated on the server. Removed/replaced blocks, rem
 
 Pewter increases attack, armor, knockback resistance, movement, jump and safe fall distance. It does not grant invulnerability or erase ordinary fall hazards. It adds food exhaustion; stopping after at least 200 continuous ticks causes 200 ticks of movement fatigue. Only this mod's own attribute modifiers are removed.
 
-Tin improves dark vision and increases environmental, creature and player sound volume. Music/UI categories are untouched. Flaring Tin in bright light or among more than twelve nearby entities produces an overload cue and a small movement penalty. These thresholds are gameplay policies, not canonical measurements. Smell, taste, touch, zoom and advanced filtering are not implemented.
+Tin improves dark vision and increases environmental, creature and player sound volume. Music/UI categories are untouched. Flaring Tin in bright light or among more than twelve nearby entities produces an overload cue and a small movement penalty. These thresholds are gameplay policies, not canonical measurements. Bounded smell, taste and touch text cues now share the sensory framework, while Feruchemical Tin keeps separate sense-specific charge. Zoom, advanced filtering and complete sensory simulation remain unimplemented.
 
 ## Operator tools
 
@@ -66,12 +66,12 @@ Forces follow the line from player to target; equal opposite impulses apply to f
 
 Opposing simultaneous push/pull strengths combine before application. Multiple targets split that combined strength equally; player recoil vectors sum before applying the player speed cap. This avoids multiplying total force by target count or making recoil depend on selection order. Equal splitting is an explicit gameplay policy, not a canonical numeric claim. There is no creative flight switch, teleport movement, wall clipping, target-coordinate packet or client-provided strength. Held input expires after ten server ticks without a heartbeat and is released while a screen is open.
 
-Coins preserve their actual component-bearing stack, inflict speed-dependent impact damage capped at twelve, and return one item on impact or after 1200 ticks. No inventory coin means no toss, including in creative mode. There is no coin pouch yet.
+Coins preserve their actual component-bearing stack, inflict speed-dependent impact damage capped at twelve, and return one item on impact or after 1200 ticks. No inventory coin means no toss, including in creative mode. A coin pouch now accepts real coins through vanilla bundle controls. Tossing prefers loose inventory coins, then the selected/first eligible pouch coin, retaining components. See FERUCHEMY.md for the recipe and capacity policy.
 
 ## Accessibility
 
 `config/metallicarts-client.json` has `brighterVision`, `louderSound` and `showOverload` switches. Restart the client after changing them. They alter presentation only; server costs and overload penalties remain authoritative. Overload feedback is static text with no flashing overlay. Tin does not overwrite vanilla potion effects or save changes to Minecraft brightness, sound or FOV settings.
 
-## Before the Phase 3 release
+## Remaining acceptance and polish
 
-Finish a radial interface and clearer metal lines, broaden profiles without guessing ore/invested behavior, improve Tin sensory coverage, add coin inventory conveniences, exercise two simultaneous live clients, and balance sustained multiplayer movement. See PHASE3_VALIDATION.md for observed results and remaining checks.
+Grid/wheel controls, coin pouches and bounded five-sense cues now exist. Improve metal-line rendering, broaden profiles without guessing ore/invested behavior, exercise two simultaneous live clients and balance sustained multiplayer movement. PHASE3_VALIDATION.md preserves historical results; PHASE4_VALIDATION.md records the newer shared physical-power checks.

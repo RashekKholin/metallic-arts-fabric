@@ -27,7 +27,8 @@ public final class MetallicArts implements ModInitializer {
         LOGGER.info("Loaded {} provenance rules", RuleRegistry.load().size());
         ModNetworking.initialize();
         dev.metallicarts.allomancy.AllomancyCommands.initialize();
+        dev.metallicarts.feruchemy.FeruchemyRuntime.initialize();
         dev.metallicarts.allomancy.AllomancyRuntime.initialize();
-        LOGGER.info("The Metallic Arts initialized with Phase 3 development Allomancy");
+        LOGGER.info("The Metallic Arts initialized with physical Allomancy and Feruchemy");
     }
 }

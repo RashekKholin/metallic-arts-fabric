@@ -7,7 +7,7 @@
   "mixins": ["metallicarts-test.mixins.json"],
   "entrypoints": {
     "main": ["dev.metallicarts.test.RestartSmoke"],
-    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest", "dev.metallicarts.test.EconomyGameTest", "dev.metallicarts.test.AllomancyFoundationGameTest", "dev.metallicarts.test.AllomancyGameTest"],
-    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest", "dev.metallicarts.test.EconomyClientGameTest", "dev.metallicarts.test.AllomancyClientGameTest"]
+    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest", "dev.metallicarts.test.EconomyGameTest", "dev.metallicarts.test.AllomancyFoundationGameTest", "dev.metallicarts.test.AllomancyGameTest", "dev.metallicarts.test.FeruchemyGameTest", "dev.metallicarts.test.PhysicalEquipmentGameTest"],
+    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest", "dev.metallicarts.test.EconomyClientGameTest", "dev.metallicarts.test.AllomancyClientGameTest", "dev.metallicarts.test.FeruchemyClientGameTest"]
   }
 }

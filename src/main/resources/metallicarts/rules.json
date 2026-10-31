@@ -46,6 +46,31 @@
     "implementation": "Advanced powers remain unimplemented. Eight interpreted alloy formulas are implemented in Phase 2."
   },
   {
+    "id": "small_metal_anchors",
+    "status": "AUTHOR_STATEMENT",
+    "statement": "The author describes larger metal sources as stronger Push/Pull anchors and small flakes as poor anchors.",
+    "sources": [
+      "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-2-chapter-eight"
+    ],
+    "implementation": "MetalPhysics weakens small grounded item anchors. Exact mass scales and force values are gameplay policies."
+  },
+  {
+    "id": "ordinary_burn_accounting",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Ordinary fuel excludes the invested subset. Integer prepaid costs, a fourfold flare cost, a 1.8 flare strength multiplier, effect caps and transient active modes are implementation policies.",
+    "sources": [],
+    "implementation": "ReserveLedger, BurnBudget, BurnEngine and AllomancyRuntime. Invested fuel is reserved until Compounding is designed."
+  },
+  {
+    "id": "first_physical_powers",
+    "status": "INTERPRETATION",
+    "statement": "The initial Minecraft adaptation uses reciprocal line forces for Steel/Iron, temporary physical attribute modifiers for Pewter, and dark vision plus environmental hearing for Tin. Numeric fatigue, overload, collision damage and complete ordinary-force resistance for invested items are gameplay policies.",
+    "sources": [
+      "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-twenty-six"
+    ],
+    "implementation": "First four Allomantic powers with up to eight selected targets, shared force and combined recoil. Grid/wheel switching and bounded five-sense cues exist. Particle lines, advanced Investiture resistance and savantism remain limited or future work."
+  },
+  {
     "id": "alloy_ratio_policy",
     "status": "INTERPRETATION",
     "statement": "The eight alloy ratios are documented gameplay interpretations. Exact and off-ratio batches are distinguished; these numbers are not claimed to be verified universal canon.",
@@ -67,24 +92,10 @@
     "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
   },
   {
-    "id": "small_metal_anchors",
-    "status": "AUTHOR_STATEMENT",
-    "statement": "The author describes larger metal sources as stronger Push/Pull anchors and small flakes as poor anchors.",
-    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-2-chapter-eight"],
-    "implementation": "MetalPhysics weakens small grounded item anchors. Exact mass scales and force values are gameplay policies."
-  },
-  {
-    "id": "ordinary_burn_accounting",
+    "id": "physical_feruchemy_policy",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Ordinary fuel excludes the invested subset. Integer prepaid costs, a fourfold flare cost, a 1.8 flare strength multiplier, effect caps and transient active modes are implementation policies.",
+    "statement": "Physical Feruchemy uses individual contacted assets, integer charge, up to 75% storing, aggregate tapping up to 400% and superlinear high-rate costs. Numerical effects, capacity, death-retained equipment and carrying profiles are game adaptations.",
     "sources": [],
-    "implementation": "ReserveLedger, BurnBudget, BurnEngine and AllomancyRuntime. Invested fuel is reserved until Compounding is designed."
-  },
-  {
-    "id": "first_physical_powers",
-    "status": "INTERPRETATION",
-    "statement": "The initial Minecraft adaptation uses reciprocal line forces for Steel/Iron, temporary physical attribute modifiers for Pewter, and dark vision plus environmental hearing for Tin. Numeric fatigue, overload, collision damage and complete ordinary-force resistance for invested items are gameplay policies.",
-    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-twenty-six"],
-    "implementation": "Experimental first four powers. Up to eight server-owned selected targets share one force budget with combined recoil; equal splitting is a gameplay policy. Particle lines remain initial feedback. No full five-sense simulation, radial interface, advanced Investiture resistance or savantism."
+    "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, unsealed access and Compounding are not implemented."
   }
 ]

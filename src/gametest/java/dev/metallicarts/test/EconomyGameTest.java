@@ -56,7 +56,7 @@ public final class EconomyGameTest {
         throw new AssertionError("Unaccounted material "+path);
     }
     @GameTest public void allRecipesConserveMass(GameTestHelper c) {
-        c.assertTrue(MetallurgyRecipes.all().size()==437,"Full recipe catalog loaded");
+        c.assertTrue(MetallurgyRecipes.all().size()==485,"Full recipe catalog including earrings loaded");
         for(var recipe:MetallurgyRecipes.all()) {
             if(recipe.slice())continue; // The invested path is checked separately with residual mass and charge.
             var in=inputs();int slot=0;

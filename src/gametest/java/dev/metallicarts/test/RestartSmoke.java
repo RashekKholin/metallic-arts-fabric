@@ -41,6 +41,14 @@ public final class RestartSmoke implements ModInitializer {
                     player.setAttached(ModRegistries.SPIRITWEB,expected());
                     ItemStack vial=new ItemStack(EconomyContent.item("gold","vial"));vial.set(ModRegistries.METAL_DATA,itemData());
                     player.getInventory().setItem(0,vial);
+                    var ledger=dev.metallicarts.feruchemy.MetalmindLedger.get(server);
+                    var lease=new dev.metallicarts.equipment.AssetLease(PLAYER,0);
+                    // A fresh test world is used for this fixture; charge belongs to SavedData, not the preview.
+                    var asset=ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.WEIGHT,9000000,1,false);
+                    asset=ledger.claim(asset.token(),lease);asset=ledger.change(asset.token(),lease,IDENTITY,123456);
+                    var mind=new ItemStack(EconomyContent.item("iron","ring"));
+                    mind.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(asset));
+                    player.setAttached(ModRegistries.CONTACT_EQUIPMENT,dev.metallicarts.equipment.ContactEquipment.empty().with(0,mind));
                     ((ServerStorageAccess)server).metallicarts$storage().save(player);
                     server.overworld().setBlock(pos,Blocks.AIR.defaultBlockState(),3);
                     server.overworld().setBlock(pos,EconomyContent.TABLE.defaultBlockState(),3);
@@ -61,6 +69,11 @@ public final class RestartSmoke implements ModInitializer {
                     player.load(TagValueInput.create(ProblemReporter.DISCARDING,server.registryAccess(),tag));
                     if(!expected().equals(player.getAttached(ModRegistries.SPIRITWEB)))throw new AssertionError("Restart lost spiritweb");
                     if(!itemData().equals(player.getInventory().getItem(0).get(ModRegistries.METAL_DATA)))throw new AssertionError("Restart lost item data");
+                    var mind=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(0).get(ModRegistries.METALMIND);
+                    if(mind==null)throw new AssertionError("Restart lost contact item");
+                    var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(server).owned(mind.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,0));
+                    if(asset.charge()!=123456||!asset.identity().orElseThrow().equals(IDENTITY)||asset.capacity()!=9000000)
+                        throw new AssertionError("Restart lost canonical metalmind data");
                     var table=(MetallurgyBlockEntity)server.overworld().getBlockEntity(pos);
                     if(table==null||table.getItem(0).getCount()!=3||table.burn!=321||table.progress!=12||!table.batch||!table.running)throw new AssertionError("Restart lost workstation data");
                     for(int n=0;n<28;n++)MetallurgyBlockEntity.tick(server.overworld(),pos,table.getBlockState(),table);

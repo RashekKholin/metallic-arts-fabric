@@ -1,16 +1,16 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.3.0-alpha.2**
+Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.4.0-alpha.1**
 
-The Phase 2 metal economy remains available: **ores → concentrates → refined metal → measured flakes → Brewing Stand vials → persistent ingested reserves**. This development build adds the first server-controlled Steel, Iron, Pewter and Tin effects. Drinking supplies fuel; it never grants a power.
+The Phase 2 metal economy remains available: **ores → concentrates → refined metal → measured flakes → Brewing Stand vials → persistent ingested reserves**. This development build includes server-controlled Steel, Iron, Pewter and Tin Allomancy and physical Feruchemy, with individual contacted metalminds. Drinking supplies fuel; it never grants a power.
 
-**Phase 3 is in progress.** Read the [Allomancy testing guide](docs/ALLOMANCY.md) and [validation record](docs/PHASE3_VALIDATION.md). Aim-based control now supports up to eight selected targets with shared force and stable locks. Particle metal lines and two Tin senses remain initial implementations; a radial interface, broader sensory behavior and two simultaneous live clients remain unfinished.
+**Physical powers are a playable alpha.** Read the [Allomancy guide](docs/ALLOMANCY.md), [Feruchemy guide](docs/FERUCHEMY.md) and [Phase 4 validation record](docs/PHASE4_VALIDATION.md). Selection wheels, a coin pouch, physical carrying and separate Tin sensory minds are available. Two simultaneous live clients and broader compatibility remain acceptance gaps.
 
-**Current development direction:** finish the physical-magic interfaces, then implement **Phase 4 Feruchemy** and **Phase 5 Hemalurgy**. These later systems are planned/in development and are **not present in the alpha.2 download**. The detailed plan below separates future work from tested functionality.
+**Next:** Phase 5 Hemalurgy. Spike forms exist, but anatomical implantation and intentional extraction are not implemented in this version. The detailed roadmap below separates current behavior from future work.
 
 ## Install / upgrade
 
-Use `metallic-arts-fabric-0.3.0-alpha.2.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
+Use `metallic-arts-fabric-0.4.0-alpha.1.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
 
 Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding Phase 2 blocks/items. Ores appear in newly generated chunks; existing terrain is not rewritten.
 
@@ -38,11 +38,11 @@ Read the [complete economy guide](docs/ECONOMY.md) for ore recovery, alloy ratio
 
 ## Included
 
-- Sixteen standard metal IDs; ingots/nuggets, portions/flakes, coins, rings, bracelets, bracers, spikes and vials. Vanilla iron/copper/gold ingots and nuggets are reused.
+- Sixteen standard metal IDs; ingots/nuggets, portions/flakes, coins, rings, bracelets, bracers, earrings, spikes and vials. Vanilla iron/copper/gold ingots and nuggets are reused.
 - Six supporting materials: silver, nickel, lead, bismuth, carbon and silicon.
 - Eight new ore families with stone/deepslate variants, mining tags, Fortune/Silk Touch loot, experience and data-driven Overworld distribution.
 - A persistent server-owned Metallurgy Table with Refine/Alloy/Shape tabs, recipe selection, fuel, progress, batch processing and output preflight.
-- **437** processing definitions: **325** ordinary refining/shaping/alloy operations and **112** invested-flaking definitions.
+- **485** processing definitions: **357** ordinary refining/shaping/alloy operations and **128** invested-flaking definitions.
 - Eight alloy formulas with preserved composition and viable/imperfect/invalid outcomes. Incorrect batches cannot become viable through reshaping.
 - Four Metallurgist specialties, Novice–Master trade sets, deterministic category access, finite stock and bulk offers using vanilla trading behavior.
 - Sixteen water-bottle brewing paths with ordinary fuel/timing and one-flake-per-bottle accounting.
@@ -51,9 +51,16 @@ Read the [complete economy guide](docs/ECONOMY.md) for ore recovery, alloy ratio
 - Experimental independent burning/flaring for Steel, Iron, Pewter and Tin; server-controlled fuel costs, basic reciprocal forces, owner-only particle target lines, Pewter attributes/fatigue, Tin dark vision/hearing/overload and recoverable coin projectiles.
 - Operator grant/revoke/fuel/inspect tools, rebindable push/pull/toss keys, M-menu burn controls and a mode HUD.
 
+- Twelve contact slots and canonical world-bound metalmind accounting; Store/Off/Tap rates, Identity checks, duplicate-reference protection and separate Iron/Steel/Pewter/five-sense Tin storage.
+- Grid/wheel controls, coin pouch, strength-dependent heavy-block carrying and sensory cues. See the Feruchemy guide for exact controls, policies and limits.
+
 ## Not implemented
 
-The remaining twelve Allomantic effects, Feruchemical storage/tapping, anatomical spike placement, Hemalurgic extraction, Compounding, god metals, survival power acquisition and optional mixed-metal vials are not implemented. A radial interface, a coin pouch and full Tin sensory coverage remain Phase 3 work. Equipment created in normal play is uncharged. Invested-material support preserves data for later systems and test/mod-provided data.
+The remaining twelve Allomantic effects, anatomical spike placement, Hemalurgic extraction, the remaining twelve Feruchemical attributes, Compounding, unsealed metalminds, god metals, survival power acquisition and optional mixed-metal vials are not implemented. Equipment crafted in normal play is initially uncharged. Granting access uses operator tools; there is no automatic Mistborn/Feruchemist progression yet.
+
+## Quick physical-power test
+
+In a cheats-enabled test world use `/metallicarts grantferuchemy @s iron 1`; hold one Iron ring/bracelet/bracer/earring, press **M → F**, select a slot and **Equip held**. Select a rate with **+/-**, then **Store**, **Off**, or **Tap**. **W** switches grid/wheel. Repeat with Steel, Pewter or Tin; select a new Tin mind's sense before equipping it. Each item keeps its own charge. **B** lifts/drops supported nearby blocks when strength permits. **C** tosses actual loose/pouched coins. Full instructions, cost formulas and administrative unkeying are in [FERUCHEMY.md](docs/FERUCHEMY.md).
 
 ## Build and validate
 
@@ -106,21 +113,23 @@ Every implemented step should update this README's current-feature list, install
 | Phase 1: foundation | Implemented and validated | Build, launch, persistent data, owner-only networking |
 | Phase 2: metal economy | Implemented and validated | Mine/trade → refine/alloy/shape → brew → ingest |
 | Phase 3: physical Allomancy | Playable alpha; unfinished work below | Usable Steel/Iron/Pewter/Tin with robust controls and multiplayer physics |
-| Phase 4: physical Feruchemy | Next implementation work; absent from alpha.2 | Separate contacted metalminds, meaningful storing costs and adjustable tapping |
+| Phase 4: physical Feruchemy | Implemented playable alpha; validation limits documented | Separate contacted metalminds, meaningful storing costs and adjustable tapping |
 | Phase 5: Hemalurgy foundation | Planned after the shared equipment/attribute foundations | Obtain, implant and remove source-tracked spikes with real consequences |
 | Phase 6: remaining Allomancy | Planned | All sixteen standard Allomantic effects |
 | Phase 7: remaining Feruchemy | Planned | All sixteen Feruchemical attributes and their dedicated supporting systems |
 | Advanced systems and release | Planned; subject to documented research | Compounding, constructs, progression, compatibility and release-quality validation |
 
-### Finish Phase 3: physical Allomancy
+### Physical foundation: implemented scope and remaining polish
 
-- Replace the initial button/particle presentation with a more discoverable Allomancy selection wheel, clearer target highlighting and accessible line rendering. Keep keyboard rebinding and server-validated targeting.
-- Add coin-pouch storage and convenient coin selection without creating ammunition, duplicating component-bearing coins or losing them on inventory changes.
-- Extend Tin beyond vision/hearing: distinct touch, smell and taste feedback, overload behavior and options that remain usable without flashing or forced audio.
+- Grid/wheel switching is implemented. Refine target highlighting and accessible line rendering beyond the current particle feedback; preserve rebinding and server validation.
+- Coin-pouch storage and component-preserving tossing are implemented. Broaden selection usability and compatibility checks without creating ammunition.
+- Distinct bounded touch/smell/taste feedback and five-sense metalminds are implemented. Improve cue presentation and accessibility; this is not a complete sensory simulation.
 - Broaden explicit metal profiles and compatibility tags. Document aluminum/alloy/ore and Investiture-resistance policies rather than treating every vaguely metallic block alike.
 - Exercise interacting forces from multiple Allomancers, collision/landing behavior, projectile synchronization, sustained play, two simultaneous live clients and mod compatibility. Current active death/respawn and dimension checks must remain regressions.
 
-### Phase 4: Feruchemy foundation and physical metalminds
+### Phase 4: implemented physical Feruchemy and its acceptance contract
+
+The equipment, accounting and first-four-metal behaviors below exist in this alpha. Remaining acceptance limits are listed in the validation record; later Identity/unsealed/Compounding systems remain planned.
 
 **Equipment and persistence**
 

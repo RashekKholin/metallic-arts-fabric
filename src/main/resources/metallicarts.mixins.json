@@ -2,6 +2,6 @@
   "required": true,
   "package": "dev.metallicarts.mixin",
   "compatibilityLevel": "JAVA_25",
-  "mixins": ["BrewingStandMixin", "PotionBrewingMixin", "MerchantOfferMixin"],
+  "mixins": ["BrewingStandMixin", "PotionBrewingMixin", "MerchantOfferMixin", "FeruchemicalKnockbackMixin", "SensoryTasteMixin", "BlockDisplayAccess"],
   "injectors": { "defaultRequire": 1 }
 }

@@ -43,15 +43,16 @@ public final class EconomyContent {
                 FORMS.put(item, new Form(material, kind, 1));
             }
             if (Materials.metal(material).isPresent()) {
-                for (String kind : List.of("coin", "ring", "bracelet", "bracer", "spike")) {
+                for (String kind : List.of("coin", "ring", "bracelet", "bracer", "earring", "spike")) {
                     Item item = add(material + "_" + kind, kind.equals("coin") ? 64 : 1, MaterialItem::new);
-                    FORMS.put(item, new Form(material, kind, kind.equals("coin") ? 10 : 900));
+                    FORMS.put(item, new Form(material, kind, kind.equals("coin") ? 10 : kind.equals("earring") ? 100 : 900));
                 }
                 Metal metal = Materials.metal(material).orElseThrow();
                 add(material + "_vial", 1, p -> new MetalVialItem(p, metal));
             }
         }
         SLAG = add("invalid_alloy", 99, MaterialItem::new);
+        add("coin_pouch",1,CoinPouchItem::new);
         for (String ore : List.of("tin", "zinc", "silver", "bauxite", "nickel", "chromite", "lead", "bismuth")) {
             add("raw_" + ore, 64, MaterialItem::new);
             add(ore + "_concentrate",64,MaterialItem::new);

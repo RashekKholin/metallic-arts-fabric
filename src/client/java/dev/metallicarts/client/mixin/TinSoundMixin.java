@@ -10,9 +10,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class TinSoundMixin {
     @Inject(method="calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F",at=@At("RETURN"),cancellable=true)
     private void metallicarts$tin(SoundInstance sound,CallbackInfoReturnable<Float> cir){
-        if(AllomancyClient.tin()&&TinOptions.INSTANCE.louderSound()&&
+        if(
             java.util.Set.of(net.minecraft.sounds.SoundSource.BLOCKS,net.minecraft.sounds.SoundSource.HOSTILE,
                 net.minecraft.sounds.SoundSource.NEUTRAL,net.minecraft.sounds.SoundSource.AMBIENT,net.minecraft.sounds.SoundSource.PLAYERS).contains(sound.getSource()))
-            cir.setReturnValue(Math.min(4f,cir.getReturnValue()*(AllomancyClient.status.mode(3)==2?2f:1.4f)));
+        {
+            double gain=FeruchemyClient.senses.hearing();
+            if(!TinOptions.INSTANCE.louderSound())gain=Math.min(1,gain);
+            else if(AllomancyClient.tin())gain*=AllomancyClient.status.mode(3)==2?2:1.4;
+            cir.setReturnValue((float)Math.min(4,cir.getReturnValue()*gain));
+        }
     }
 }

@@ -32,14 +32,20 @@ public final class MetalPhysics {
         }
         var entity=target.entity();
         if(entity==player||entity.isRemoved()||entity.level()!=player.level()||entity.isSpectator()||
+            entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo&&cargo.carrier()==player||
             entity.getBoundingBox().getCenter().distanceTo(player.getEyePosition())>config.detectionRange())return Optional.empty();
         return entityTarget(entity);
     }
     private static Optional<Target> entityTarget(Entity entity) {
-        boolean metallic=false;double mass=80;
-        if(entity instanceof CoinProjectile coin){metallic=external(coin.getItem());mass=1;}
+        boolean metallic=false;double mass=entity instanceof ServerPlayer p?dev.metallicarts.feruchemy.FeruchemyRuntime.mass(p):80;
+        if(entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo){
+            var owner=cargo.carrier();
+            return cargo.metallic()&&owner!=null&&owner.isAlive()&&!owner.isSpectator()&&owner.level()==entity.level()
+                ?Optional.of(new Target(entity.position().add(.5,.5,.5),entity,dev.metallicarts.feruchemy.FeruchemyRuntime.mass(owner),false)):Optional.empty();
+        }
+        if(entity instanceof CoinProjectile coin){metallic=externalInWorld(coin.getItem(),entity);mass=1;}
         else if(entity instanceof ItemEntity item){
-            metallic=external(item.getItem());
+            metallic=externalInWorld(item.getItem(),entity);
             var form=EconomyContent.form(item.getItem().getItem());
             mass=Math.max(.01,(form==null?1:form.units()/10.0)*item.getItem().getCount());
         } else if(entity instanceof LivingEntity living&&living.isAlive()){
@@ -47,8 +53,18 @@ public final class MetalPhysics {
         }
         return metallic&&!entity.isSpectator()?Optional.of(new Target(entity.getBoundingBox().getCenter(),entity,mass,false)):Optional.empty();
     }
+    private static boolean externalInWorld(ItemStack stack,Entity entity){
+        var mind=stack.get(ModRegistries.METALMIND);
+        if(mind!=null&&entity.level() instanceof net.minecraft.server.level.ServerLevel level)try{
+            var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(level.getServer()).resolve(mind.token());
+            if(asset.charge()>0||asset.lease().isPresent())return false;
+        }catch(IllegalArgumentException e){return false;}
+        return external(stack);
+    }
     public static boolean external(ItemStack stack) {
         if(stack.isEmpty())return false;
+        var mind=stack.get(ModRegistries.METALMIND);
+        if(mind!=null&&mind.charge()>0)return false;
         var form=EconomyContent.form(stack.getItem());
         // Invested items resist ordinary forces; alloys retain metal behavior except pure aluminum.
         var data=stack.get(ModRegistries.METAL_DATA);
@@ -66,11 +82,12 @@ public final class MetalPhysics {
             if(level.getBlockState(pos).is(ANCHORS)){best=new Target(Vec3.atCenterOf(pos),null,Double.POSITIVE_INFINITY,true);bestDistance=d;break;}
         }
         // Entity query is limited by the loaded spatial index and range, then examined up to the configured cap.
-        var entities=level.getEntities(player,player.getBoundingBox().inflate(config.detectionRange()),e->e instanceof ItemEntity||e instanceof LivingEntity||e instanceof CoinProjectile);
+        var entities=level.getEntities(player,player.getBoundingBox().inflate(config.detectionRange()),e->e instanceof ItemEntity||e instanceof LivingEntity||e instanceof CoinProjectile||e instanceof dev.metallicarts.feruchemy.PhysicalCargo);
         int checked=0;
         for(var entity:entities) {
             if(checked++>=config.maximumTargets())break;
-            Vec3 position=entity.getBoundingBox().getCenter(),relative=position.subtract(eye);
+            if(entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo&&cargo.carrier()==player)continue;
+            Vec3 position=entity instanceof dev.metallicarts.feruchemy.PhysicalCargo?entity.position().add(.5,.5,.5):entity.getBoundingBox().getCenter(),relative=position.subtract(eye);
             double along=relative.dot(look),distance=relative.length();
             if(along<0||distance>config.detectionRange()||distance>=bestDistance||relative.subtract(look.scale(along)).length()>0.8)continue;
             var candidate=entityTarget(entity);
@@ -89,24 +106,26 @@ public final class MetalPhysics {
     public static void applyMany(ServerPlayer player,List<Target> targets,double strength,boolean push,AllomancyConfig config) {
         if(targets.isEmpty())return;
         Vec3 recoil=Vec3.ZERO;
-        for(Target target:targets)recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config).scale(1.0/80));
+        var motion=new HashMap<Entity,Vec3>();
+        for(Target target:targets)recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config,motion).scale(1.0/dev.metallicarts.feruchemy.FeruchemyRuntime.mass(player)));
         player.setDeltaMovement(limited(player.getDeltaMovement().add(recoil),config.maximumPlayerSpeed()));
         player.hurtMarked=true;
+        motion.forEach((entity,change)->{
+            entity.setDeltaMovement(limited(entity.getDeltaMovement().add(change),entity instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed()));
+            entity.hurtMarked=true;
+        });
     }
-    private static Vec3 impulse(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config) {
+    private static Vec3 impulse(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config,Map<Entity,Vec3> motion) {
         Vec3 separation=target.position().subtract(player.getBoundingBox().getCenter());
         if(separation.lengthSqr()<0.04)return Vec3.ZERO;
         Vec3 direction=separation.normalize().scale(push?1:-1);
-        boolean braced=target.anchored()||(target.entity()!=null&&target.entity().onGround()&&direction.y<-.25);
+        Entity body=target.entity() instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo?cargo.carrier():target.entity();
+        boolean braced=target.anchored()||(body!=null&&body.onGround()&&direction.y<-.25);
         double momentum=config.force()*strength;
         if(braced&&!target.anchored())momentum*=Math.min(1,target.mass());
         if(!braced)momentum=Math.min(momentum,target.mass()*config.maximumObjectSpeed());
         Vec3 impulse=direction.scale(momentum);
-        if(!braced&&target.entity()!=null) {
-            target.entity().setDeltaMovement(limited(target.entity().getDeltaMovement().add(impulse.scale(1/target.mass())),
-                target.entity() instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed()));
-            target.entity().hurtMarked=true;
-        }
+        if(!braced&&body!=null)motion.merge(body,impulse.scale(1/target.mass()),Vec3::add);
         return impulse;
     }
     private MetalPhysics(){}

@@ -37,3 +37,11 @@ His [Hero of Ages chapter twenty-six annotation](https://www.brandonsanderson.co
 The first four effects use the strongest ownership grant, with capped effective strength. Pure aluminum forms are excluded; invested item forms conservatively resist ordinary forces entirely pending advanced resistance rules. Tagged fixtures and external armor are supported; internal reserves are not external targets. This is not a complete treatment of aluminum alloys, ores, living Investiture, anchored structures or in-body metal.
 
 Prepaid microgram rounding prevents free effects through toggling. Reserving the invested subset from ordinary burning protects charge and Identity; it does not implement Compounding. See [ALLOMANCY.md](ALLOMANCY.md) for every current numeric policy and the remaining Phase 3 scope.
+
+## Phase 4 choices
+
+The physical Feruchemy ledger enforces separate assets, contact, relevant access and Identity. It does not reinterpret ordinary micrograms of ingested fuel as stored attributes. First filling binds an ordinary empty mind; unkeyed access still requires the ability. Administrative unkeying exists for validation; normal Aluminum/Nicrosil interactions are future work.
+
+Every capacity, rate, unit, high-rate cost, mass, carrying profile, cue radius, body-scale change and sensory overload threshold is a gameplay policy, documented in FERUCHEMY.md. Separate Tin senses are represented by separately typed minds. Contact gear survives death as an explicit game policy; modes and effects stop on lifecycle changes. Copied previews cannot mint canonical charge.
+
+Human equipment slot names and the heavy-block whitelist are Minecraft adaptations, not a canonical anatomical map or exhaustive material physics. Full anatomy and extraction research belongs to Phase 5; the mod does not claim those systems exist merely because spike items exist.

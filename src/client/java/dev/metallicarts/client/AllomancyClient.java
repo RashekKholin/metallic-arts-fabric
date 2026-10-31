@@ -39,7 +39,7 @@ public final class AllomancyClient {
         });
         HudElementRegistry.addLast(MetallicArts.id("allomancy"),(graphics,delta)->{
             var client=net.minecraft.client.Minecraft.getInstance();
-            if(client.player==null||client.options.hideGui||client.screen instanceof SpiritwebScreen)return;
+            if(client.player==null||client.options.hideGui||client.screen!=null)return;
             StringBuilder line=new StringBuilder();
             for(int i=0;i<4;i++)if(status.mode(i)>0)line.append(AllomancyConfig.SUPPORTED.get(i).id()).append(status.mode(i)==2?" FLARE  ":" burn  ");
             if((status.flags()&1)!=0&&TinOptions.INSTANCE.showOverload())line.append("Tin overload  ");

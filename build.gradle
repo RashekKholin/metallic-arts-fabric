@@ -40,7 +40,7 @@ loom.runs {
     restartSmoke {
         server()
         source sourceSets.gametest
-        runDir 'build/run/restartSmoke'
+        runDir providers.gradleProperty('smokeRunDir').getOrElse('build/run/restartSmoke')
         vmArg "-Dmetallicarts.restartSmoke=${providers.gradleProperty('smokeMode').getOrElse('verify')}"
         programArg 'nogui'
     }

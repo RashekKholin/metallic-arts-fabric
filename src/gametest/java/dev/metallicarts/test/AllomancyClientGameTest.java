@@ -40,6 +40,7 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
             });
             c.waitFor(client->MetallicArtsClient.snapshot()!=null&&MetallicArtsClient.snapshot().grants().size()==4);
             c.getInput().pressKey(GLFW.GLFW_KEY_M);c.waitForScreen(SpiritwebScreen.class);
+            c.getInput().pressKey(GLFW.GLFW_KEY_W);c.takeScreenshot("metallicarts-allomancy-wheel");c.getInput().pressKey(GLFW.GLFW_KEY_W);
             c.clickScreenButton("steel");c.waitFor(client->AllomancyClient.status.mode(0)==1);
             c.clickScreenButton("pewter");c.waitFor(client->AllomancyClient.status.mode(2)==1);
             c.clickScreenButton("tin");c.waitFor(client->AllomancyClient.status.mode(3)==1);
@@ -142,10 +143,8 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
                 old.kill(old.level());
             });
             c.waitFor(client->client.player!=null&&!client.player.isAlive()&&AllomancyClient.status.modes()==0);
-            world.getServer().runOnServer(server->{
-                var old=server.getPlayerList().getPlayers().getFirst();
-                server.getPlayerList().respawn(old,false,net.minecraft.world.entity.Entity.RemovalReason.KILLED);
-            });
+            c.runOnClient(client->client.getConnection().send(new net.minecraft.network.protocol.game.ServerboundClientCommandPacket(
+                net.minecraft.network.protocol.game.ServerboundClientCommandPacket.Action.PERFORM_RESPAWN)));
             c.waitFor(client->client.player!=null&&client.player.isAlive()&&AllomancyClient.status.modes()==0);
             world.getServer().runOnServer(server->{
                 var p=server.getPlayerList().getPlayers().getFirst();
