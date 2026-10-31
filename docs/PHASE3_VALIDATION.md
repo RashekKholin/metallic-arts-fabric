@@ -1,4 +1,28 @@
-# Phase 3 alpha validation
+# Phase 3 alpha.2 validation
+
+Version: **0.3.0-alpha.2**, continuing from alpha.1 commit b83b3ae9e97a8bd99053bf0d915b95b376bf42ea. Phase 3 remains in progress.
+
+The final local `build runDatagen runClientGameTest -PacceptMinecraftEula=true --console=plain` passed in **1m 50s**: **39 unit tests (zero failures/errors), 27 required server game tests, all three client entrypoints and datagen**. The two-target HUD screenshot was inspected. Git whitespace validation passed.
+
+Installable alpha.2 jar SHA-256: `b10f73c8c52969489221b5a477a0dd72f2e25da808a2097985c90bfca00fab10`. This build retains Minecraft 26.1, Java 25 and the pinned Fabric dependencies. The separate-JVM smoke evidence below belongs to alpha.1; alpha.2's new acceptance run includes world reload and exact data checks across active death/respawn and dimension changes.
+
+## Alpha.2 changes and acceptance
+
+The new selection intent accepts only toggle-aimed/clear actions. Up to eight unique targets are resolved and retained by the server. Each tick rechecks range, world, removal and current metal profile. One strength budget is shared across the selection; player recoil sums before applying its speed limit. Cyan lines identify selected targets, blue lines preview the aimed metal, and the HUD/menu shows selection count.
+
+An invalidated final lock leaves selection mode empty. It does not redirect a held push/pull to an arbitrary newly aimed metal. H explicitly clears selection and returns to ordinary aiming. Death, world/player replacement and loss of both active metal-force powers clear selection. Owner snapshots refresh on replacement to avoid stale fuel displays after burns stop.
+
+Three additional server tests cover eight-target capacity/authorization, world/component/range revalidation, and order-independent recoil with a fixed total force budget. The full server suite now contains **27 required tests**. The unit suite remains **39 tests**.
+
+The expanded real-client suite exercises G selecting two anchors, G deselecting one, aiming away while using a retained lock, H clearing selection, and replacing the final selected anchor while another eligible anchor is behind it. The held-force check verifies no silent retargeting.
+
+It also changes to the Nether while Tin and Pewter are active, verifies both stop and Pewter's modifier disappears, then reactivates Pewter, actually kills the player and invokes the server respawn path. Persistent Identity, all grants and exact reserves are checked across both transitions. This verifies actual death plus server respawn with a real connected client, but does not claim a manual click on the death screen or every possible death cause.
+
+The retained three client entrypoints continue to cover dedicated-server connection/relog, economy regressions and world reload. Two simultaneously connected live clients remain unverified. A radial interface, finished line rendering, broader metal profiles, fuller Tin senses, coin pouch, balance and stress/compatibility tests remain outstanding.
+
+The alpha.1 record below is historical and its narrower limitations should not be read as the latest alpha.2 feature set.
+
+# Historical alpha.1 validation
 
 Date: 2026-10-31. Version: 0.3.0-alpha.1. Baseline: Phase 2 commit fce5ea1f37c4a46f7a9b03a1703431eec72f574a. Work is on phase3-allomancy; main remains the stable Phase 2 branch.
 

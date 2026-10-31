@@ -24,6 +24,7 @@ public final class SpiritwebScreen extends Screen {
         var modes=new StringBuilder();
         for(int i=0;i<4;i++)modes.append(dev.metallicarts.allomancy.AllomancyConfig.SUPPORTED.get(i).id()).append(": ")
             .append(dev.metallicarts.allomancy.BurnMode.from(AllomancyClient.status.mode(i)).name().toLowerCase(java.util.Locale.ROOT)).append("  ");
+        if((AllomancyClient.status.flags()&4)!=0)modes.append("targets: ").append(AllomancyClient.status.flags()>>8);
         graphics.centeredText(font,Component.literal(modes.toString()),width/2,44,0xFF77BBFF);
         Spiritweb state = MetallicArtsClient.snapshot;
         if (state == null) {
@@ -43,6 +44,6 @@ public final class SpiritwebScreen extends Screen {
         }
         graphics.centeredText(font, Component.translatable("screen.metallicarts.legend"), width / 2, 184, 0xFFAAAAAA);
         graphics.centeredText(font,Component.literal("Ordinary fuel (g / µg); invested metal reserved"),width/2,195,0xFFAAAAAA);
-        graphics.centeredText(font,Component.literal("Buttons: off → burn → flare • R push / V pull / C coin"),width/2,231,0xFFAAAAAA);
+        graphics.centeredText(font,Component.literal("G select / H clear • R push / V pull / C coin"),width/2,231,0xFFAAAAAA);
     }
 }

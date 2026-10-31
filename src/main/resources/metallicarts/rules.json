@@ -85,6 +85,6 @@
     "status": "INTERPRETATION",
     "statement": "The initial Minecraft adaptation uses reciprocal line forces for Steel/Iron, temporary physical attribute modifiers for Pewter, and dark vision plus environmental hearing for Tin. Numeric fatigue, overload, collision damage and complete ordinary-force resistance for invested items are gameplay policies.",
     "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-twenty-six"],
-    "implementation": "Experimental first four powers. Single aim target and particle lines; no full five-sense simulation, advanced Investiture resistance, multi-target selection or savantism."
+    "implementation": "Experimental first four powers. Up to eight server-owned selected targets share one force budget with combined recoil; equal splitting is a gameplay policy. Particle lines remain initial feedback. No full five-sense simulation, radial interface, advanced Investiture resistance or savantism."
   }
 ]

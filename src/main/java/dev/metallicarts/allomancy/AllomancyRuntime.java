@@ -19,12 +19,16 @@ public final class AllomancyRuntime {
     private static final class Session {
         final ServerPlayer player;final Object level;
         final BurnEngine engine=new BurnEngine(Set.copyOf(AllomancyConfig.SUPPORTED));
-        int requests,window,held,heartbeat,pewterTicks,fatigue,lastModes=-1,lastFlags=-1,lastToss=-20;boolean overload,dirty;
+        final LinkedHashMap<String,MetalPhysics.Target> selected=new LinkedHashMap<>();
+        int requests,window,held,heartbeat,pewterTicks,fatigue,lastModes=-1,lastFlags=-1,lastToss=-20;boolean overload,dirty,explicitSelection;
         Session(ServerPlayer p){player=p;level=p.level();}
     }
     private static Session session(ServerPlayer p) {
         Session previous=SESSIONS.get(p.getUUID());
-        if(previous!=null&&(previous.player!=p||previous.level!=p.level())){clear(previous);SESSIONS.remove(p.getUUID());previous=null;}
+        if(previous!=null&&(previous.player!=p||previous.level!=p.level())){
+            clear(previous);SESSIONS.remove(p.getUUID());previous=null;
+            ModNetworking.send(p);
+        }
         if(previous==null){previous=new Session(p);SESSIONS.put(p.getUUID(),previous);}
         return previous;
     }
@@ -34,6 +38,7 @@ public final class AllomancyRuntime {
         PayloadTypeRegistry.serverboundPlay().register(BurnIntent.TYPE,BurnIntent.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(ForceIntent.TYPE,ForceIntent.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(TossCoin.TYPE,TossCoin.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SelectionIntent.TYPE,SelectionIntent.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(AllomancyStatus.TYPE,AllomancyStatus.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(BurnIntent.TYPE,(payload,context)->{
             request(context.player(),payload.metal(),payload.mode(),context.server().getTickCount());
@@ -48,6 +53,8 @@ public final class AllomancyRuntime {
             if(!allow(s,tick)||tick-s.lastToss<4)return;
             s.lastToss=tick;CoinProjectile.toss(context.player());
         });
+        ServerPlayNetworking.registerGlobalReceiver(SelectionIntent.TYPE,(payload,context)->
+            select(context.player(),payload.action(),context.server().getTickCount()));
         ServerTickEvents.END_SERVER_TICK.register(server->{
             for(var player:server.getPlayerList().getPlayers())tick(player,server.getTickCount());
         });
@@ -63,8 +70,20 @@ public final class AllomancyRuntime {
         if(!allow(s,tick)||metal<0||metal>=4||mode<0||mode>2||!player.isAlive()||player.isSpectator())return false;
         return s.engine.request(player.getAttachedOrCreate(ModRegistries.SPIRITWEB),AllomancyConfig.SUPPORTED.get(metal),BurnMode.from(mode));
     }
+    public static boolean select(ServerPlayer player,int action,int tick) {
+        var s=session(player);
+        if(!allow(s,tick)||action<0||action>1||!player.isAlive()||player.isSpectator())return false;
+        if(action==1){s.selected.clear();s.explicitSelection=false;return true;}
+        if(s.engine.mode(Metal.STEEL)==BurnMode.OFF&&s.engine.mode(Metal.IRON)==BurnMode.OFF)return false;
+        var target=MetalPhysics.aimed(player,config);
+        if(target.isEmpty())return false;
+        var key=MetalPhysics.key(target.get());
+        if(s.selected.remove(key)!=null)return true;
+        if(s.selected.size()>=8)return false;
+        s.selected.put(key,target.get());s.explicitSelection=true;return true;
+    }
     public static void stop(ServerPlayer p) {var s=SESSIONS.remove(p.getUUID());if(s!=null)clear(s);}
-    private static void clear(Session s){s.engine.stopAll();s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);}
+    private static void clear(Session s){s.engine.stopAll();s.selected.clear();s.explicitSelection=false;s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);}
     public static void tick(ServerPlayer p,int tick) {
         var s=session(p);
         if(!p.isAlive()||p.isSpectator()){clear(s);send(s);return;}
@@ -96,20 +115,25 @@ public final class AllomancyRuntime {
         else remove(p,Attributes.MOVEMENT_SPEED,"tin_overload");
         if(tick-s.heartbeat>10)s.held=0;
         if(powers.containsKey(Metal.STEEL)||powers.containsKey(Metal.IRON)) {
-            var target=MetalPhysics.aimed(p,config);
-            target.ifPresent(t->{
-                double net=((s.held&1)!=0?powers.getOrDefault(Metal.STEEL,0.0):0)-
-                    ((s.held&2)!=0?powers.getOrDefault(Metal.IRON,0.0):0);
-                if(net!=0)MetalPhysics.apply(p,t,Math.abs(net),net>0,config);
+            s.selected.replaceAll((key,target)->MetalPhysics.refresh(p,target,config).orElse(null));
+            s.selected.values().removeIf(Objects::isNull);
+            var aimed=MetalPhysics.aimed(p,config);
+            var targets=s.explicitSelection?List.copyOf(s.selected.values()):aimed.stream().toList();
+            double net=((s.held&1)!=0?powers.getOrDefault(Metal.STEEL,0.0):0)-
+                ((s.held&2)!=0?powers.getOrDefault(Metal.IRON,0.0):0);
+            if(net!=0)MetalPhysics.applyMany(p,targets,Math.abs(net),net>0,config);
+            var visible=new ArrayList<>(targets);
+            aimed.filter(t->visible.stream().noneMatch(v->MetalPhysics.key(v).equals(MetalPhysics.key(t)))).ifPresent(visible::add);
+            for(var t:visible){
                 if(tick%5==0) {
                     var origin=p.getEyePosition().add(0,-.3,0);
                     for(int n=1;n<=12;n++){
                         var point=origin.lerp(t.position(),n/12.0);
-                        p.level().sendParticles(p,new DustParticleOptions(0x3388FF,0.6f),true,false,point.x,point.y,point.z,1,0,0,0,0);
+                        p.level().sendParticles(p,new DustParticleOptions(s.selected.containsKey(MetalPhysics.key(t))?0x44FFFF:0x3388FF,0.6f),true,false,point.x,point.y,point.z,1,0,0,0,0);
                     }
                 }
-            });
-        }
+            }
+        } else {s.selected.clear();s.explicitSelection=false;}
         send(s);
         if(tick%10==0&&s.dirty){ModNetworking.send(p);s.dirty=false;}
     }
@@ -127,7 +151,7 @@ public final class AllomancyRuntime {
     private static void removeModifiers(ServerPlayer p){removePewter(p);remove(p,Attributes.MOVEMENT_SPEED,"pewter_fatigue");remove(p,Attributes.MOVEMENT_SPEED,"tin_overload");}
     private static void send(Session s) {
         int modes=0;for(int i=0;i<4;i++)modes|=s.engine.mode(AllomancyConfig.SUPPORTED.get(i)).ordinal()<<(i*2);
-        int flags=(s.overload?1:0)|(s.fatigue>0?2:0);
+        int flags=(s.overload?1:0)|(s.fatigue>0?2:0)|(s.explicitSelection?4:0)|(s.selected.size()<<8);
         if(modes==s.lastModes&&flags==s.lastFlags)return;
         if(ServerPlayNetworking.canSend(s.player,AllomancyStatus.TYPE))ServerPlayNetworking.send(s.player,new AllomancyStatus(modes,flags));
         s.lastModes=modes;s.lastFlags=flags;

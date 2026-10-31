@@ -25,9 +25,13 @@ public final class AllomancyClient {
         var push=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.metallicarts.push",InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_R,category));
         var pull=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.metallicarts.pull",InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_V,category));
         var toss=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.metallicarts.toss",InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_C,category));
+        var select=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.metallicarts.select",InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_G,category));
+        var clear=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.metallicarts.clear",InputConstants.Type.KEYSYM,GLFW.GLFW_KEY_H,category));
         ClientTickEvents.END_CLIENT_TICK.register(client->{
             if(client.player==null)return;
             while(toss.consumeClick())if(client.screen==null&&ClientPlayNetworking.canSend(TossCoin.TYPE))ClientPlayNetworking.send(new TossCoin());
+            while(select.consumeClick())if(client.screen==null&&ClientPlayNetworking.canSend(SelectionIntent.TYPE))ClientPlayNetworking.send(new SelectionIntent(0));
+            while(clear.consumeClick())if(client.screen==null&&ClientPlayNetworking.canSend(SelectionIntent.TYPE))ClientPlayNetworking.send(new SelectionIntent(1));
             int flags=client.screen==null?((push.isDown()?1:0)|(pull.isDown()?2:0)):0;
             if((flags!=lastFlags||++ticks%3==0)&&ClientPlayNetworking.canSend(ForceIntent.TYPE)){
                 ClientPlayNetworking.send(new ForceIntent(flags));lastFlags=flags;
@@ -40,6 +44,7 @@ public final class AllomancyClient {
             for(int i=0;i<4;i++)if(status.mode(i)>0)line.append(AllomancyConfig.SUPPORTED.get(i).id()).append(status.mode(i)==2?" FLARE  ":" burn  ");
             if((status.flags()&1)!=0&&TinOptions.INSTANCE.showOverload())line.append("Tin overload  ");
             if((status.flags()&2)!=0)line.append("Pewter fatigue");
+            if((status.flags()&4)!=0)line.append(" targets: ").append(status.flags()>>8);
             if(!line.isEmpty())graphics.text(client.font,Component.literal(line.toString()),8,8,0xFF77BBFF);
         });
     }

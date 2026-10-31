@@ -1,14 +1,14 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.3.0-alpha.1**
+Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.3.0-alpha.2**
 
 The Phase 2 metal economy remains available: **ores → concentrates → refined metal → measured flakes → Brewing Stand vials → persistent ingested reserves**. This development build adds the first server-controlled Steel, Iron, Pewter and Tin effects. Drinking supplies fuel; it never grants a power.
 
-**Phase 3 is in progress.** Read the [Allomancy testing guide](docs/ALLOMANCY.md) and [validation record](docs/PHASE3_VALIDATION.md). Single-target aim, particle metal lines and two Tin senses are initial implementations. Multi-target controls, broader sensory behavior and two simultaneous live clients are not claimed complete.
+**Phase 3 is in progress.** Read the [Allomancy testing guide](docs/ALLOMANCY.md) and [validation record](docs/PHASE3_VALIDATION.md). Aim-based control now supports up to eight selected targets with shared force and stable locks. Particle metal lines and two Tin senses remain initial implementations; a radial interface, broader sensory behavior and two simultaneous live clients remain unfinished.
 
 ## Install / upgrade
 
-Use `metallic-arts-fabric-0.3.0-alpha.1.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
+Use `metallic-arts-fabric-0.3.0-alpha.2.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
 
 Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding Phase 2 blocks/items. Ores appear in newly generated chunks; existing terrain is not rewritten.
 
@@ -41,7 +41,7 @@ Read the [complete economy guide](docs/ECONOMY.md) for ore recovery, alloy ratio
 
 ## Not implemented
 
-The remaining twelve Allomantic effects, Feruchemical storage/tapping, anatomical spike placement, Hemalurgic extraction, Compounding, god metals, survival power acquisition and optional mixed-metal vials are not implemented. Multi-target selection, a coin pouch and full Tin sensory coverage remain Phase 3 work. Equipment created in normal play is uncharged. Invested-material support preserves data for later systems and test/mod-provided data.
+The remaining twelve Allomantic effects, Feruchemical storage/tapping, anatomical spike placement, Hemalurgic extraction, Compounding, god metals, survival power acquisition and optional mixed-metal vials are not implemented. A radial interface, a coin pouch and full Tin sensory coverage remain Phase 3 work. Equipment created in normal play is uncharged. Invested-material support preserves data for later systems and test/mod-provided data.
 
 ## Build and validate
 

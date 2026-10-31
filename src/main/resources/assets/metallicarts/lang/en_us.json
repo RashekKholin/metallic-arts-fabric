@@ -300,6 +300,8 @@
   "key.metallicarts.push": "Hold Steelpush",
   "key.metallicarts.pull": "Hold Ironpull",
   "key.metallicarts.toss": "Toss one inventory coin",
+  "key.metallicarts.select": "Toggle aimed metal target",
+  "key.metallicarts.clear": "Clear selected metal targets",
   "tag.item.metallicarts.external_metals": "External Allomantic Metal",
   "tag.block.metallicarts.metal_anchors": "Allomantic Metal Anchors"
 }

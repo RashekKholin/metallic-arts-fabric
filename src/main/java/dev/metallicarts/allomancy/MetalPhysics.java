@@ -19,6 +19,34 @@ public final class MetalPhysics {
     public static final TagKey<Block> ANCHORS=TagKey.create(Registries.BLOCK,MetallicArts.id("metal_anchors"));
     public static final TagKey<net.minecraft.world.item.Item> ITEMS=TagKey.create(Registries.ITEM,MetallicArts.id("external_metals"));
     public record Target(Vec3 position,Entity entity,double mass,boolean anchored) {}
+    public static String key(Target target) {
+        return target.entity()==null?"block:"+BlockPos.containing(target.position()).asLong():"entity:"+target.entity().getUUID();
+    }
+    /** Revalidate saved server targets every tick; never load chunks or trust a stale entity/profile. */
+    public static Optional<Target> refresh(ServerPlayer player,Target target,AllomancyConfig config) {
+        if(target.entity()==null) {
+            var pos=BlockPos.containing(target.position());
+            if(player.getEyePosition().distanceTo(target.position())>config.detectionRange()||
+                !player.level().hasChunkAt(pos)||!player.level().getBlockState(pos).is(ANCHORS))return Optional.empty();
+            return Optional.of(target);
+        }
+        var entity=target.entity();
+        if(entity==player||entity.isRemoved()||entity.level()!=player.level()||entity.isSpectator()||
+            entity.getBoundingBox().getCenter().distanceTo(player.getEyePosition())>config.detectionRange())return Optional.empty();
+        return entityTarget(entity);
+    }
+    private static Optional<Target> entityTarget(Entity entity) {
+        boolean metallic=false;double mass=80;
+        if(entity instanceof CoinProjectile coin){metallic=external(coin.getItem());mass=1;}
+        else if(entity instanceof ItemEntity item){
+            metallic=external(item.getItem());
+            var form=EconomyContent.form(item.getItem().getItem());
+            mass=Math.max(.01,(form==null?1:form.units()/10.0)*item.getItem().getCount());
+        } else if(entity instanceof LivingEntity living&&living.isAlive()){
+            for(var slot:EquipmentSlot.values())if(slot.isArmor()&&external(living.getItemBySlot(slot))){metallic=true;break;}
+        }
+        return metallic&&!entity.isSpectator()?Optional.of(new Target(entity.getBoundingBox().getCenter(),entity,mass,false)):Optional.empty();
+    }
     public static boolean external(ItemStack stack) {
         if(stack.isEmpty())return false;
         var form=EconomyContent.form(stack.getItem());
@@ -45,17 +73,8 @@ public final class MetalPhysics {
             Vec3 position=entity.getBoundingBox().getCenter(),relative=position.subtract(eye);
             double along=relative.dot(look),distance=relative.length();
             if(along<0||distance>config.detectionRange()||distance>=bestDistance||relative.subtract(look.scale(along)).length()>0.8)continue;
-            boolean metallic=false;double mass=80;
-            if(entity instanceof CoinProjectile coin) {
-                metallic=external(coin.getItem());mass=1;
-            } else if(entity instanceof ItemEntity item) {
-                metallic=external(item.getItem());
-                var form=EconomyContent.form(item.getItem().getItem());
-                mass=Math.max(0.01,(form==null?1:form.units()/10.0)*item.getItem().getCount());
-            } else if(entity instanceof LivingEntity living) {
-                for(var slot:EquipmentSlot.values())if(slot.isArmor()&&external(living.getItemBySlot(slot))){metallic=true;break;}
-            }
-            if(metallic){best=new Target(position,entity,mass,false);bestDistance=distance;}
+            var candidate=entityTarget(entity);
+            if(candidate.isPresent()){best=candidate.get();bestDistance=distance;}
         }
         return Optional.ofNullable(best);
     }
@@ -64,21 +83,31 @@ public final class MetalPhysics {
         return velocity.lengthSqr()>maximum*maximum?velocity.normalize().scale(maximum):velocity;
     }
     public static void apply(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config) {
+        applyMany(player,List.of(target),strength,push,config);
+    }
+    /** Split a fixed force budget and combine player recoil before applying the player speed cap. */
+    public static void applyMany(ServerPlayer player,List<Target> targets,double strength,boolean push,AllomancyConfig config) {
+        if(targets.isEmpty())return;
+        Vec3 recoil=Vec3.ZERO;
+        for(Target target:targets)recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config).scale(1.0/80));
+        player.setDeltaMovement(limited(player.getDeltaMovement().add(recoil),config.maximumPlayerSpeed()));
+        player.hurtMarked=true;
+    }
+    private static Vec3 impulse(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config) {
         Vec3 separation=target.position().subtract(player.getBoundingBox().getCenter());
-        if(separation.lengthSqr()<0.04)return;
+        if(separation.lengthSqr()<0.04)return Vec3.ZERO;
         Vec3 direction=separation.normalize().scale(push?1:-1);
         boolean braced=target.anchored()||(target.entity()!=null&&target.entity().onGround()&&direction.y<-.25);
         double momentum=config.force()*strength;
         if(braced&&!target.anchored())momentum*=Math.min(1,target.mass());
         if(!braced)momentum=Math.min(momentum,target.mass()*config.maximumObjectSpeed());
         Vec3 impulse=direction.scale(momentum);
-        player.setDeltaMovement(limited(player.getDeltaMovement().subtract(impulse.scale(1.0/80)),config.maximumPlayerSpeed()));
-        player.hurtMarked=true;
         if(!braced&&target.entity()!=null) {
             target.entity().setDeltaMovement(limited(target.entity().getDeltaMovement().add(impulse.scale(1/target.mass())),
                 target.entity() instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed()));
             target.entity().hurtMarked=true;
         }
+        return impulse;
     }
     private MetalPhysics(){}
 }

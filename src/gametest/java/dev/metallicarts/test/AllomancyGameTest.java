@@ -14,6 +14,56 @@ import net.minecraft.world.phys.Vec3;
 import java.util.*;
 
 public final class AllomancyGameTest {
+    @GameTest public void combinedRecoilIsOrderIndependentAndSharesForceBudget(GameTestHelper c) {
+        var p=c.makeMockServerPlayerInLevel();var center=p.getBoundingBox().getCenter();
+        var left=new MetalPhysics.Target(center.add(-3,0,0),null,Double.POSITIVE_INFINITY,true);
+        var right=new MetalPhysics.Target(center.add(3,0,0),null,Double.POSITIVE_INFINITY,true);
+        for(var targets:List.of(List.of(left,right),List.of(right,left))){
+            p.setDeltaMovement(2.3,0,0);
+            MetalPhysics.applyMany(p,targets,2,true,AllomancyConfig.DEFAULT);
+            c.assertTrue(Math.abs(p.getDeltaMovement().x-2.3)<.000001,"Opposing anchors cancel before the speed cap");
+        }
+        p.setDeltaMovement(Vec3.ZERO);
+        MetalPhysics.applyMany(p,List.of(right,new MetalPhysics.Target(center.add(4,0,0),null,Double.POSITIVE_INFINITY,true)),1,true,AllomancyConfig.DEFAULT);
+        c.assertTrue(Math.abs(p.getDeltaMovement().x+AllomancyConfig.DEFAULT.force()/80)<.000001,"Selection shares one force budget");
+        c.succeed();
+    }
+    @GameTest public void selectedTargetsAreRevalidatedAgainstWorldAndComponents(GameTestHelper c) {
+        var p=c.makeMockServerPlayerInLevel();var pos=c.absolutePos(new net.minecraft.core.BlockPos(2,1,2));
+        p.teleportTo(pos.getX(),pos.getY()+2,pos.getZ());
+        c.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.IRON_BLOCK.defaultBlockState(),3);
+        var anchor=new MetalPhysics.Target(Vec3.atCenterOf(pos),null,Double.POSITIVE_INFINITY,true);
+        c.assertTrue(MetalPhysics.refresh(p,anchor,AllomancyConfig.DEFAULT).isPresent(),"Existing metal anchor remains valid");
+        c.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+        c.assertTrue(MetalPhysics.refresh(p,anchor,AllomancyConfig.DEFAULT).isEmpty(),"Replaced anchor is removed");
+        var item=new ItemEntity(c.getLevel(),pos.getX()+2,pos.getY()+2,pos.getZ(),new ItemStack(EconomyContent.item("steel","coin")));
+        var target=new MetalPhysics.Target(item.position(),item,1,false);
+        c.assertTrue(MetalPhysics.refresh(p,target,AllomancyConfig.DEFAULT).isPresent(),"External metal stack remains valid");
+        item.setItem(new ItemStack(EconomyContent.item("aluminum","coin")));
+        c.assertTrue(MetalPhysics.refresh(p,target,AllomancyConfig.DEFAULT).isEmpty(),"Component/material changes invalidate selection");
+        item.setItem(new ItemStack(EconomyContent.item("steel","coin")));item.setPos(p.getX()+100,p.getY(),p.getZ());
+        c.assertTrue(MetalPhysics.refresh(p,target,AllomancyConfig.DEFAULT).isEmpty(),"Out-of-range target is removed");
+        c.succeed();
+    }
+    @GameTest public void selectionIsBoundedAndRequiresActivePower(GameTestHelper c) {
+        var p=c.makeMockServerPlayerInLevel();var pos=c.absolutePos(new net.minecraft.core.BlockPos(1,3,0));
+        p.teleportTo(pos.getX()+.5,pos.getY(),pos.getZ()+.5);
+        c.assertFalse(AllomancyRuntime.select(p,0,100),"No active power cannot select");
+        p.setAttached(ModRegistries.SPIRITWEB,power(Metal.STEEL,10000));
+        c.assertTrue(AllomancyRuntime.request(p,0,1,100),"Steel enabled");
+        for(int i=0;i<9;i++){
+            var block=c.absolutePos(new net.minecraft.core.BlockPos(i%3,1+i/3,6));
+            c.getLevel().setBlock(block,net.minecraft.world.level.block.Blocks.IRON_BLOCK.defaultBlockState(),3);
+            Vec3 delta=Vec3.atCenterOf(block).subtract(p.getEyePosition());
+            p.setYRot((float)Math.toDegrees(Math.atan2(-delta.x,delta.z)));
+            p.setXRot((float)-Math.toDegrees(Math.atan2(delta.y,Math.hypot(delta.x,delta.z))));
+            c.assertTrue(AllomancyRuntime.select(p,0,100)==(i<8),"At most eight unique targets");
+        }
+        c.assertFalse(AllomancyRuntime.select(p,-1,100),"Invalid action refused");
+        c.assertTrue(AllomancyRuntime.select(p,1,100),"Clear selection");
+        c.assertTrue(AllomancyRuntime.select(p,0,100),"Room available after clear");
+        AllomancyRuntime.stop(p);c.succeed();
+    }
     private static Spiritweb power(Metal metal,long fuel) {
         UUID id=UUID.randomUUID();
         return new Spiritweb(1,UUID.randomUUID(),List.of(new PowerGrant(id,Art.ALLOMANCY,metal,PowerGrant.Origin.ADMIN,id,1)),Map.of(metal,fuel));

@@ -1,6 +1,6 @@
 # Phase 3 development: first Allomancy
 
-This is an experimental milestone, version 0.3.0-alpha.1. Phase 3 is not complete. The other twelve Allomantic effects, Feruchemy, Hemalurgic extraction, Compounding, god metals and survival power acquisition remain unimplemented.
+This is an experimental milestone, version 0.3.0-alpha.2. Phase 3 is not complete. The other twelve Allomantic effects, Feruchemy, Hemalurgic extraction, Compounding, god metals and survival power acquisition remain unimplemented.
 
 ## Try it
 
@@ -22,6 +22,10 @@ Fuel quantities are **micrograms**: 100000 is 0.1 gram. You can instead drink th
 Press **M**. Each of the four buttons cycles **off → burn → flare → off**. The HUD shows active modes. Ownership is still read-only in this screen.
 
 While Steel or Iron burns, aim toward an eligible metal target. The blue particle line identifies the current target. Hold **R** to Steelpush or **V** to Ironpull. Push downward on an iron block to lift yourself. Aim at an external dropped metal stack or metal-armored creature to move it with reciprocal recoil. **C** tosses one coin from your inventory; a coin must actually be present. All three controls can be rebound in Minecraft settings.
+
+Press **G** to select or deselect the aimed metal. Select up to **eight** targets by aiming at each and pressing G. Selected targets have cyan particle lines, remain selected when you look away, and share one fixed force budget. The HUD/menu reports the selection count. **H** clears the selection and returns to ordinary aim-based control. These keys are rebindable too.
+
+Every selected target is revalidated on the server. Removed/replaced blocks, removed entities, lost metal equipment/components, dimension mismatches and out-of-range targets are dropped. If the last selected target becomes invalid, selection mode stays empty and applies no force until you select another target or press H. It never silently redirects a held push/pull to another object. Blue lines can still preview a newly aimed metal.
 
 Pewter increases attack, armor, knockback resistance, movement, jump and safe fall distance. It does not grant invulnerability or erase ordinary fall hazards. It adds food exhaustion; stopping after at least 200 continuous ticks causes 200 ticks of movement fatigue. Only this mod's own attribute modifiers are removed.
 
@@ -52,7 +56,7 @@ The version-1 save shape is unchanged. Decoding refuses duplicate grant IDs, dup
 
 ## Detection and physics policies
 
-The first implementation aims at one target, with a 24-block default range, at most 64 block probes and a configured maximum of 48 entity candidates examined. Only loaded chunks are probed. It does not load terrain to search for metal. Nonmetal walls do not hide tagged external anchors.
+Aim detection has a 24-block default range, at most 64 block probes and a configured maximum of 48 entity candidates examined. Selection holds at most eight server-resolved targets. Only loaded chunks are probed. It does not load terrain to search for metal. Nonmetal walls do not hide tagged external anchors.
 
 Data packs can extend `metallicarts:metal_anchors` block and `metallicarts:external_metals` item tags. Initial anchors cover basic iron/gold/copper storage blocks, iron fixtures, anvils and rails. Weathered copper variants, every modded block, raw ores and arbitrary machines are not blanket-classified as metal. Registered metal forms are detected directly. Carbon, silicon and pure aluminum forms are excluded.
 
@@ -60,7 +64,7 @@ Invested item forms resist this ordinary force implementation completely. This i
 
 Forces follow the line from player to target; equal opposite impulses apply to free targets before speed caps. Anchors absorb recoil, and pushing downward on a grounded item can brace it. Small flakes are weaker anchors than coins. Player effective mass is 80; metal form mass is a separate gameplay scale, unrelated to credited ingestible grams. Default maximum speeds are 2.4 blocks/tick for players and 4 for objects. Vanilla collision and gravity remain active.
 
-Opposing simultaneous push/pull strengths combine before application. There is no creative flight switch, teleport movement, wall clipping, target-coordinate packet or client-provided strength. Held input expires after ten server ticks without a heartbeat and is released while a screen is open.
+Opposing simultaneous push/pull strengths combine before application. Multiple targets split that combined strength equally; player recoil vectors sum before applying the player speed cap. This avoids multiplying total force by target count or making recoil depend on selection order. Equal splitting is an explicit gameplay policy, not a canonical numeric claim. There is no creative flight switch, teleport movement, wall clipping, target-coordinate packet or client-provided strength. Held input expires after ten server ticks without a heartbeat and is released while a screen is open.
 
 Coins preserve their actual component-bearing stack, inflict speed-dependent impact damage capped at twelve, and return one item on impact or after 1200 ticks. No inventory coin means no toss, including in creative mode. There is no coin pouch yet.
 
@@ -70,4 +74,4 @@ Coins preserve their actual component-bearing stack, inflict speed-dependent imp
 
 ## Before the Phase 3 release
 
-Finish multi-target selection and clearer metal lines, broaden profiles without guessing ore/invested behavior, improve Tin sensory coverage, add coin inventory conveniences, exercise active death/dimension transitions and two simultaneous live clients, and balance sustained multiplayer movement. See PHASE3_VALIDATION.md for observed results and remaining checks.
+Finish a radial interface and clearer metal lines, broaden profiles without guessing ore/invested behavior, improve Tin sensory coverage, add coin inventory conveniences, exercise two simultaneous live clients, and balance sustained multiplayer movement. See PHASE3_VALIDATION.md for observed results and remaining checks.
