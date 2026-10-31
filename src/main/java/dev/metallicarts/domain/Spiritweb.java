@@ -16,8 +16,8 @@ public record Spiritweb(int schema, UUID identity, List<PowerGrant> grants, Map<
         PowerGrant.CODEC.listOf(0, 128).fieldOf("grants").forGetter(Spiritweb::grants),
         Codec.unboundedMap(Metal.CODEC, DomainCodecs.longRange(0, MAX_RESERVE)).fieldOf("reserves").forGetter(Spiritweb::reserves),
         MetalItemData.CODEC.listOf(0, 128).optionalFieldOf("invested_reserves", List.of()).forGetter(Spiritweb::investedReserves)
-    ).apply(i, Spiritweb::new)).validate(s -> s.grants.stream().map(PowerGrant::id).distinct().count() == s.grants.size()
-        ? DataResult.success(s) : DataResult.error(() -> "Duplicate power grant IDs"));
+    ).apply(i, Spiritweb::new)).validate(s -> dev.metallicarts.allomancy.ReserveLedger.valid(s)
+        ? DataResult.success(s) : DataResult.error(() -> "Inconsistent spiritweb grants or invested reserve subset"));
 
     public Spiritweb {
         Objects.requireNonNull(identity);

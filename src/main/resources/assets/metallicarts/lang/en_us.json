@@ -295,5 +295,11 @@
   "tag.item.c.raw_materials.bismuth": "Raw Bismuth",
   "tag.item.c.raw_materials.iron": "Raw Iron",
   "tag.item.c.raw_materials.copper": "Raw Copper",
-  "tag.item.c.raw_materials.gold": "Raw Gold"
+  "tag.item.c.raw_materials.gold": "Raw Gold",
+  "key.category.metallicarts.allomancy": "The Metallic Arts: Allomancy",
+  "key.metallicarts.push": "Hold Steelpush",
+  "key.metallicarts.pull": "Hold Ironpull",
+  "key.metallicarts.toss": "Toss one inventory coin",
+  "tag.item.metallicarts.external_metals": "External Allomantic Metal",
+  "tag.block.metallicarts.metal_anchors": "Allomantic Metal Anchors"
 }

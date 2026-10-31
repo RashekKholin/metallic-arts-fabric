@@ -26,4 +26,14 @@ Credited ore yields, mass units, fuel cost, processing time, cadmium byproduct q
 
 Unsafe metals are refused by brewing/ingestion. Drinking stores fuel without granting or activating access. Invested flaking preserves material, proportional charge and Identity on the source/remainder/output; it does not establish that a character may tap that charge or Compound it.
 
-The provenance catalog now contains nine entries and labels these policies explicitly. Advanced canonical anatomy, god metals, Fortune and Connection remain unresolved and unimplemented.
+The Phase 2 catalog contained nine entries. Advanced canonical anatomy, god metals, Fortune and Connection remain unresolved and unimplemented.
+
+## Phase 3 development choices
+
+The catalog now contains twelve entries. Sanderson's [Well of Ascension chapter eight annotation](https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-2-chapter-eight) describes larger metal sources as stronger Push/Pull anchors and small flakes as poor anchors. The force implementation preserves that qualitative distinction; effective masses, grounded bracing, speed limits and exact impulses are explicit game adaptations.
+
+His [Hero of Ages chapter twenty-six annotation](https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-twenty-six) discusses Tin's sensory filtering and the alertness associated with Tin and Pewter. This does not establish our night-vision brightness, sound gain, overload thresholds, movement penalties or fatigue duration. Those remain gameplay policies.
+
+The first four effects use the strongest ownership grant, with capped effective strength. Pure aluminum forms are excluded; invested item forms conservatively resist ordinary forces entirely pending advanced resistance rules. Tagged fixtures and external armor are supported; internal reserves are not external targets. This is not a complete treatment of aluminum alloys, ores, living Investiture, anchored structures or in-body metal.
+
+Prepaid microgram rounding prevents free effects through toggling. Reserving the invested subset from ordinary burning protects charge and Identity; it does not implement Compounding. See [ALLOMANCY.md](ALLOMANCY.md) for every current numeric policy and the remaining Phase 3 scope.

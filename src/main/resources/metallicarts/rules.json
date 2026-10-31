@@ -20,9 +20,9 @@
   {
     "id": "duplicate_power_resolution",
     "status": "INTERPRETATION",
-    "statement": "For the Phase 1 access display, use the strongest applicable grant. Preserve every grant so later canon research can revise stacking without losing provenance.",
+    "statement": "Use the strongest applicable grant for access and the first four effects. Preserve every grant so later canon research can revise stacking without losing provenance.",
     "sources": [],
-    "implementation": "Spiritweb.strength; no additive strength or effect engine."
+    "implementation": "Spiritweb.strength and BurnEngine; no additive grant multiplication. Effect strength is capped at four before the flare multiplier."
   },
   {
     "id": "identity_and_charged_items",
@@ -65,5 +65,26 @@
     "statement": "Non-Allomantic and off-ratio metals are refused by the brewing/drinking path rather than inventing canonical injury values. Drinking transfers fuel without granting access or activating a power.",
     "sources": [],
     "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
+  },
+  {
+    "id": "small_metal_anchors",
+    "status": "AUTHOR_STATEMENT",
+    "statement": "The author describes larger metal sources as stronger Push/Pull anchors and small flakes as poor anchors.",
+    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-2-chapter-eight"],
+    "implementation": "MetalPhysics weakens small grounded item anchors. Exact mass scales and force values are gameplay policies."
+  },
+  {
+    "id": "ordinary_burn_accounting",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Ordinary fuel excludes the invested subset. Integer prepaid costs, a fourfold flare cost, a 1.8 flare strength multiplier, effect caps and transient active modes are implementation policies.",
+    "sources": [],
+    "implementation": "ReserveLedger, BurnBudget, BurnEngine and AllomancyRuntime. Invested fuel is reserved until Compounding is designed."
+  },
+  {
+    "id": "first_physical_powers",
+    "status": "INTERPRETATION",
+    "statement": "The initial Minecraft adaptation uses reciprocal line forces for Steel/Iron, temporary physical attribute modifiers for Pewter, and dark vision plus environmental hearing for Tin. Numeric fatigue, overload, collision damage and complete ordinary-force resistance for invested items are gameplay policies.",
+    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-twenty-six"],
+    "implementation": "Experimental first four powers. Single aim target and particle lines; no full five-sense simulation, advanced Investiture resistance, multi-target selection or savantism."
   }
 ]

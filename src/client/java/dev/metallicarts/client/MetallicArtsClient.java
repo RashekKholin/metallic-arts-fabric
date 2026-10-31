@@ -17,6 +17,7 @@ public final class MetallicArtsClient implements ClientModInitializer {
     static Spiritweb snapshot;
     public static Spiritweb snapshot() { return snapshot; }
     @Override public void onInitializeClient() {
+        AllomancyClient.initialize();
         MenuScreens.register(EconomyContent.TABLE_MENU, MetallurgyScreen::new);
         var category = KeyMapping.Category.register(MetallicArts.id("general"));
         KeyMapping open = KeyMappingHelper.registerKeyMapping(new KeyMapping(

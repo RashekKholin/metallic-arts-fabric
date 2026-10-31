@@ -26,6 +26,8 @@ public final class MetallicArts implements ModInitializer {
         EconomyWorld.initialize();
         LOGGER.info("Loaded {} provenance rules", RuleRegistry.load().size());
         ModNetworking.initialize();
-        LOGGER.info("The Metallic Arts Phase 2 economy initialized (power effects are Phase 3+)");
+        dev.metallicarts.allomancy.AllomancyCommands.initialize();
+        dev.metallicarts.allomancy.AllomancyRuntime.initialize();
+        LOGGER.info("The Metallic Arts initialized with Phase 3 development Allomancy");
     }
 }

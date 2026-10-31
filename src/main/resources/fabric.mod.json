@@ -3,9 +3,9 @@
   "id": "metallicarts",
   "version": "${version}",
   "name": "The Metallic Arts",
-  "description": "A server-authoritative metal economy: metallurgy, ores, Metallurgists and metal vials. Power effects are Phase 3+.",
+  "description": "Metal economy and experimental server-controlled Steel, Iron, Pewter and Tin Allomancy. Phase 3 development build; other powers remain unimplemented.",
   "environment": "*",
-  "mixins": ["metallicarts.mixins.json"],
+  "mixins": ["metallicarts.mixins.json", "metallicarts.client.mixins.json"],
   "entrypoints": {
     "main": ["dev.metallicarts.MetallicArts"],
     "client": ["dev.metallicarts.client.MetallicArtsClient"],
