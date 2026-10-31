@@ -28,7 +28,7 @@ class SpiritwebTest {
     @Test void removingSpikeDoesNotEraseInnatePower() {
         UUID spike = UUID.randomUUID();
         var state = new Spiritweb(1, identity, List.of(grant(PowerGrant.Origin.INNATE, identity, 1), grant(PowerGrant.Origin.HEMALURGIC, spike, 2)), Map.of());
-        assertEquals(2, state.strength(Art.ALLOMANCY, Metal.STEEL));
+        assertEquals(3, state.strength(Art.ALLOMANCY, Metal.STEEL));
         assertEquals(1, state.withoutSource(spike).strength(Art.ALLOMANCY, Metal.STEEL));
         assertEquals(2, state.grants().size());
     }

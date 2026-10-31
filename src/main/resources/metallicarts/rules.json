@@ -6,7 +6,7 @@
     "sources": [
       "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
     ],
-    "implementation": "PowerGrant stores the art, metal and source. Extraction and binding points are deferred."
+    "implementation": "Canonical SpikeLedger records typed extraction and donor provenance; intentional extraction and source-specific implantation/removal are implemented. Exact point coordinates remain labelled interpretations."
   },
   {
     "id": "source_scoped_ownership",
@@ -15,35 +15,35 @@
     "sources": [
       "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
     ],
-    "implementation": "PowerGrant and Spiritweb.withoutSource; no spike insertion/removal gameplay."
+    "implementation": "PowerGrant and canonical anatomical leases preserve unrelated grants. Removing an implant revokes only its source; extracting an externally granted power drains the parent spike."
   },
   {
     "id": "duplicate_power_resolution",
     "status": "INTERPRETATION",
-    "statement": "Use the strongest applicable grant for access and the first four effects. Preserve every grant so later canon research can revise stacking without losing provenance.",
+    "statement": "Distinct Allomantic spike sources add to the strongest non-spike base; duplicate records from one source count once. Feruchemy uses the strongest access grant. Exact stacking and technical/effect caps are gameplay interpretations.",
     "sources": [],
-    "implementation": "Spiritweb.strength and BurnEngine; no additive grant multiplication. Effect strength is capped at four before the flare multiplier."
+    "implementation": "Spiritweb.strength preserves raw grants and source identities. Physical handlers retain effect caps; stronger Feruchemy does not bypass charge costs."
   },
   {
     "id": "identity_and_charged_items",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Reserve distinct item and Identity UUIDs. An absent Identity field does not itself grant permission to tap an item. Charge units remain abstract pending the attribute engine.",
+    "statement": "Canonical world ledgers own individual invested assets. Item references never mint charge. Relevant ability, contact and Identity are revalidated; a matching implanted stolen Feruchemical source can authorize its donor key as an explicit interpretation.",
     "sources": [],
-    "implementation": "Identity/charge persist through invested slicing, brewing and ingestion. Access checks, storage and tapping mechanics are deferred."
+    "implementation": "MetalmindLedger, SpikeLedger and FeruchemicalEngine. New recipient-filled minds key to the recipient; removing/draining the matching spike removes donor-key authorization."
   },
   {
     "id": "new_character_and_death",
     "status": "GAMEPLAY_POLICY",
-    "statement": "New characters begin without powers. Player spiritweb data copies on death; active effects are never persisted. Acquisition and death balance remain future design decisions.",
+    "statement": "New characters begin without powers. Persistent spiritweb/contact/implant equipment survives death as a game policy; active effects do not persist. Hemalurgy can transfer a real donor source; natural power acquisition and broader death balance remain future work.",
     "sources": [],
-    "implementation": "Persistent Fabric attachment with copyOnDeath. No active-effect fields."
+    "implementation": "Persistent Fabric attachments and transient runtime modes; powered-NPC setup is explicitly administrative."
   },
   {
     "id": "uncertain_advanced_rules",
     "status": "DEFERRED",
-    "statement": "God metals, anatomical binding points, Compounding, Fortune, Connection and unsealed metalmind behavior remain unresolved. Current alloy ratios are explicit gameplay interpretations rather than verified universal canonical quantities.",
+    "statement": "God metals, a complete canonical anatomy map, advanced constructs, Compounding, Fortune, Connection and unsealed metalmind behavior remain unresolved. Working metal compatibility and point grids are explicit interpretations.",
     "sources": [],
-    "implementation": "Advanced powers remain unimplemented. Eight interpreted alloy formulas are implemented in Phase 2."
+    "implementation": "First physical powers and Hemalurgy transactions exist. Cognitive/Spiritual stolen types retain labelled hooks without claiming their advanced effects are implemented."
   },
   {
     "id": "small_metal_anchors",
@@ -71,6 +71,13 @@
     "implementation": "First four Allomantic powers with up to eight selected targets, shared force and combined recoil. Grid/wheel switching and bounded five-sense cues exist. Particle lines, advanced Investiture resistance and savantism remain limited or future work."
   },
   {
+    "id": "physical_feruchemy_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Physical Feruchemy uses individual contacted assets, integer charge, up to 75% storing, aggregate tapping up to 400% and superlinear high-rate costs. Numerical effects, capacity, death-retained equipment and carrying profiles are game adaptations.",
+    "sources": [],
+    "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, unsealed access and Compounding are not implemented."
+  },
+  {
     "id": "alloy_ratio_policy",
     "status": "INTERPRETATION",
     "statement": "The eight alloy ratios are documented gameplay interpretations. Exact and off-ratio batches are distinguished; these numbers are not claimed to be verified universal canon.",
@@ -92,10 +99,26 @@
     "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
   },
   {
-    "id": "physical_feruchemy_policy",
+    "id": "hemalurgic_decay_policy",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Physical Feruchemy uses individual contacted assets, integer charge, up to 75% storing, aggregate tapping up to 400% and superlinear high-rate costs. Numerical effects, capacity, death-retained equipment and carrying profiles are game adaptations.",
+    "statement": "Extraction retains 90 percent potency; logarithmic outside decay approaches a nonzero floor, blood slows exposure twentyfold and implantation stops exposure. Rates, curve and world-time accounting are gameplay policies.",
     "sources": [],
-    "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, unsealed access and Compounding are not implemented."
+    "implementation": "Canonical spike assets preserve original potency, exposure and source tombstones; tooltips are previews. Rejected damage rolls back provisional ownership and held-item escrow."
+  },
+  {
+    "id": "anatomical_game_policy",
+    "status": "INTERPRETATION",
+    "statement": "Twelve stable anatomical points, material compatibility and an explicit dangerous upper-back linchpin hook are game interpretations. The source establishes placement-dependent transfer, not these exact points or a complete construct anatomy.",
+    "sources": [
+      "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+    ],
+    "implementation": "BindingPoints evidence catalog and M-H inventory; default-off player extraction additionally requires consent and PvP permission. Implant/contact equipment retention on death is a game policy."
+  },
+  {
+    "id": "stolen_advanced_hooks",
+    "status": "DEFERRED",
+    "statement": "Typed cognition, Connection/Identity, Fortune/destiny and Investiture charge does not imply working memory, social, destiny or arbitrary-power effects. Full construct templates and exceptional nonlethal extraction remain future research.",
+    "sources": [],
+    "implementation": "StolenPower labels every available vs planned handler in the UI. Aluminum extraction is a destructive spent record, not a transferable nullification power."
   }
 ]

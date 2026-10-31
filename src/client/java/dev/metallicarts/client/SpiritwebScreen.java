@@ -24,6 +24,7 @@ public final class SpiritwebScreen extends Screen {
     @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent event){
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_W){wheel=!wheel;rebuildWidgets();return true;}
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_F){FeruchemyClient.open();return true;}
+        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_H){HemalurgyClient.open();return true;}
         return super.keyPressed(event);
     }
     @Override public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
@@ -45,7 +46,7 @@ public final class SpiritwebScreen extends Screen {
                 graphics.centeredText(font,Component.literal(mode+" • "+fuel+"µg"),x,y,0xFFCCDDFF);
             }
             graphics.centeredText(font,Component.literal("Click: off → burn → flare"),width/2,208,0xFFCCCCCC);
-            graphics.centeredText(font,Component.literal("F: metalminds • W: grid/wheel • Esc: close"),width/2,224,0xFFAAAAAA);
+            graphics.centeredText(font,Component.literal("F: metalminds • H: spikes • W: grid/wheel"),width/2,224,0xFFAAAAAA);
             return;
         }
         var modes=new StringBuilder();

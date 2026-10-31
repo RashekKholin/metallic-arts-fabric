@@ -1,6 +1,6 @@
 # Phase 3 development: first Allomancy
 
-This is a playable physical-power alpha, version 0.4.0-alpha.1. The other twelve Allomantic effects, Hemalurgic extraction, Compounding, god metals and survival power acquisition remain unimplemented. Physical Feruchemy, contact equipment and carrying are documented in FERUCHEMY.md. Multiplayer/compatibility acceptance remains incomplete.
+This is a playable physical-power alpha, version 0.5.0-alpha.1. The other twelve Allomantic effects, advanced cognitive/Spiritual Hemalurgy, Compounding, god metals and survival power acquisition remain unimplemented. Physical Feruchemy, contact equipment and carrying are documented in FERUCHEMY.md. Real Hemalurgic extraction and implantation are documented in HEMALURGY.md. Multiplayer/compatibility acceptance remains incomplete.
 
 ## Try it
 
@@ -40,7 +40,7 @@ Tin improves dark vision and increases environmental, creature and player sound 
 /metallicarts inspect <player>
 ```
 
-These require Minecraft's gamemaster/operator permission. Grants have explicit ADMIN origin and individual grant/source UUIDs. Inspect lists those IDs. Revoking one grant preserves other grants, fuel and Identity. The strongest remaining applicable grant wins; effect strength is capped at 4 before the flare multiplier. Granting another metal records ownership but explicitly reports its effect as unimplemented; unsupported metals cannot burn.
+These require Minecraft's gamemaster/operator permission. Grants have explicit ADMIN origin and individual grant/source UUIDs. Inspect lists those IDs. Revoking one grant preserves other grants, fuel and Identity. The strongest non-spike base combines with distinct Allomantic spike sources; duplicate records for one spike count once. Feruchemy retains strongest access. Physical Allomantic effect strength is capped at 4 before the flare multiplier. Granting another metal records ownership but explicitly reports its effect as unimplemented; unsupported metals cannot burn.
 
 ## Costs and persistence
 

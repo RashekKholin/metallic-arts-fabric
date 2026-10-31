@@ -1,0 +1,212 @@
+[
+  {
+    "id": "left_upper_arm",
+    "name": "Left upper arm",
+    "region": "arms",
+    "materials": [
+      "iron",
+      "steel",
+      "tin",
+      "pewter"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "right_upper_arm",
+    "name": "Right upper arm",
+    "region": "arms",
+    "materials": [
+      "iron",
+      "steel",
+      "tin",
+      "pewter"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "left_ear",
+    "name": "Left ear",
+    "region": "head",
+    "materials": [
+      "zinc",
+      "brass",
+      "copper",
+      "bronze",
+      "tin"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "right_ear",
+    "name": "Right ear",
+    "region": "head",
+    "materials": [
+      "zinc",
+      "brass",
+      "copper",
+      "bronze",
+      "tin"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "left_chest",
+    "name": "Left chest",
+    "region": "torso",
+    "materials": [
+      "iron",
+      "steel",
+      "tin",
+      "pewter",
+      "zinc",
+      "brass",
+      "copper",
+      "bronze",
+      "aluminum",
+      "duralumin",
+      "chromium",
+      "nicrosil",
+      "gold",
+      "electrum",
+      "cadmium",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "right_chest",
+    "name": "Right chest",
+    "region": "torso",
+    "materials": [
+      "iron",
+      "steel",
+      "tin",
+      "pewter",
+      "zinc",
+      "brass",
+      "copper",
+      "bronze",
+      "aluminum",
+      "duralumin",
+      "chromium",
+      "nicrosil",
+      "gold",
+      "electrum",
+      "cadmium",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "left_forearm",
+    "name": "Left forearm",
+    "region": "arms",
+    "materials": [
+      "pewter",
+      "gold",
+      "cadmium",
+      "electrum",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "right_forearm",
+    "name": "Right forearm",
+    "region": "arms",
+    "materials": [
+      "pewter",
+      "gold",
+      "cadmium",
+      "electrum",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "left_thigh",
+    "name": "Left thigh",
+    "region": "legs",
+    "materials": [
+      "pewter",
+      "gold",
+      "cadmium",
+      "electrum",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "right_thigh",
+    "name": "Right thigh",
+    "region": "legs",
+    "materials": [
+      "pewter",
+      "gold",
+      "cadmium",
+      "electrum",
+      "bendalloy"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "lower_back",
+    "name": "Lower back",
+    "region": "torso",
+    "materials": [
+      "aluminum",
+      "duralumin",
+      "chromium",
+      "nicrosil"
+    ],
+    "critical": false,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "upper_back_linchpin",
+    "name": "Upper back (critical)",
+    "region": "torso",
+    "materials": [
+      "iron",
+      "steel",
+      "tin",
+      "pewter",
+      "zinc",
+      "brass",
+      "copper",
+      "bronze",
+      "aluminum",
+      "duralumin",
+      "chromium",
+      "nicrosil",
+      "gold",
+      "electrum",
+      "cadmium",
+      "bendalloy"
+    ],
+    "critical": true,
+    "evidence": "GAMEPLAY_INTERPRETATION",
+    "source": "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  }
+]

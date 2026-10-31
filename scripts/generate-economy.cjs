@@ -12,7 +12,7 @@ const human=s=>s.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 let lang=JSON.parse(fs.readFileSync(path.join(root,'assets/metallicarts/lang/en_us.json'),'utf8'));
 lang['container.metallicarts.metallurgy']='Metallurgy Table';
 lang['screen.metallicarts.phase']='Development build • physical Metallic Arts';
-lang['screen.metallicarts.legend']='A: Allomancy • F: Feruchemy • Esc: close';
+lang['screen.metallicarts.legend']='F: Feruchemy • H: Hemalurgy • Esc: close';
 function crc32(buf){let c=0xffffffff;for(const b of buf){c^=b;for(let j=0;j<8;j++)c=(c>>>1)^((c&1)?0xedb88320:0);}return(c^0xffffffff)>>>0;}
 function png(p,pixel,w=16,h=16){
  const rows=Buffer.alloc(h*(w*4+1));for(let y=0;y<h;y++)for(let x=0;x<w;x++){const c=pixel(x,y);let i=y*(w*4+1)+1+x*4;for(let j=0;j<4;j++)rows[i+j]=c[j]??255;}
@@ -36,6 +36,7 @@ function texture(name,kind,color){
  });}
 function itemAsset(name,kind,color){lang['item.metallicarts.'+name]=human(name);write('assets/metallicarts/items/'+name+'.json',{model:{type:'minecraft:model',model:'metallicarts:item/'+name}});write('assets/metallicarts/models/item/'+name+'.json',{parent:'minecraft:item/generated',textures:{layer0:'metallicarts:item/'+(kind==='earring'?name.replace(/_earring$/,'_ring'):name)}});if(kind!=='earring')texture(name,kind,color);}
 itemAsset('coin_pouch','pouch','956d42');
+itemAsset('blood_vial','vial','a52a3b');
 write('data/metallicarts/recipe/coin_pouch.json',{type:'minecraft:crafting_shaped',pattern:['L L','LSL',' L '],key:{L:'minecraft:leather',S:'minecraft:string'},result:{id:'metallicarts:coin_pouch',count:1}});
 for(let n=0;n<materials.length;n++){const m=materials[n],color=colors[n];
  for(const k of ['ingot','nugget','portion','flakes'])if(!vanilla.has(m)||!['ingot','nugget'].includes(k))itemAsset(m+'_'+k,k,color);
@@ -173,8 +174,6 @@ const economyRules=[
 ];
 rules=rules.filter(r=>!economyRules.some(e=>e.id===r.id)).concat(economyRules);
 rules.find(r=>r.id==='identity_and_charged_items').implementation='Identity/charge persist through invested slicing, brewing and ingestion. Access checks, storage and tapping mechanics are deferred.';
-rules.find(r=>r.id==='uncertain_advanced_rules').statement='God metals, anatomical binding points, Compounding, Fortune, Connection and unsealed metalmind behavior remain unresolved. Current alloy ratios are explicit gameplay interpretations rather than verified universal canonical quantities.';
-rules.find(r=>r.id==='uncertain_advanced_rules').implementation='Advanced powers remain unimplemented. Eight interpreted alloy formulas are implemented in Phase 2.';
 write('metallicarts/rules.json',rules);
 // Version the small original textures as one deterministic archive. Gradle expands it with Java only.
 function packTextures(){

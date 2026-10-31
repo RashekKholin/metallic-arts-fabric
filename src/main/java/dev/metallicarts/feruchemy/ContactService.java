@@ -19,6 +19,7 @@ public final class ContactService {
         var equipment=equipment(player);
         if(slot<0||slot>=12||sense<0||sense>=5||!equipment.item(slot).isEmpty())throw new IllegalArgumentException("Choose an empty contact slot");
         var held=player.getMainHandItem();
+        if(held.has(ModRegistries.SPIKE))throw new IllegalArgumentException("Hemalurgic charge cannot be repurposed as a metalmind");
         var form=EconomyContent.form(held.getItem());
         if(held.isEmpty()||held.getCount()!=1||form==null||!List.of("ring","bracelet","bracer","earring").contains(form.kind()))
             throw new IllegalArgumentException("Hold one ring, bracelet, bracer or earring");

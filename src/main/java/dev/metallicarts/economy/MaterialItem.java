@@ -25,6 +25,11 @@ public class MaterialItem extends Item {
             text.accept(Component.literal(mind.keyed()?"Identity keyed • ability and matching Identity required":mind.unkeyed()?"Unkeyed • relevant Feruchemical ability still required":"Unfilled • keys to the first filler"));
         }
         if(form!=null&&java.util.List.of("ring","bracelet","bracer","earring").contains(form.kind()))text.accept(Component.literal("Contact equipment • M then F"));
-        if(form!=null&&form.kind().equals("spike"))text.accept(Component.literal("Uncharged spike form • Hemalurgy in development"));
+        var spike=stack.get(ModRegistries.SPIKE);
+        if(spike!=null){
+            text.accept(Component.literal("Hemalurgic "+spike.power().label()+" • "+String.format(java.util.Locale.ROOT,"%.3f",spike.potency())+" potency preview"));
+            text.accept(Component.literal(spike.drained()?"Spent • grants no power":spike.blood()?"Blood preserved • slower outside decay":"Outside-body decay • preview refreshes on use"));
+            text.accept(Component.literal("M then H • later power handlers may be unavailable"));
+        }else if(form!=null&&form.kind().equals("spike"))text.accept(Component.literal("Uncharged spike • M then H for intentional extraction"));
     }
 }

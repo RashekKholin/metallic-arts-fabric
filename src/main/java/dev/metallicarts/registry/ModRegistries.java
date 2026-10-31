@@ -29,6 +29,12 @@ public final class ModRegistries {
             .networkSynchronized(ByteBufCodecs.fromCodec(dev.metallicarts.feruchemy.MetalmindData.CODEC)).build());
     public static final AttachmentType<java.util.UUID> PHYSICAL_CARGO=AttachmentRegistry.create(MetallicArts.id("physical_cargo"),
         b->b.persistent(net.minecraft.core.UUIDUtil.CODEC));
+    public static final AttachmentType<dev.metallicarts.equipment.ContactEquipment> SPIKES=AttachmentRegistry.create(MetallicArts.id("implanted_spikes"),
+        b->b.initializer(dev.metallicarts.equipment.ContactEquipment::empty).persistent(dev.metallicarts.equipment.ContactEquipment.CODEC).copyOnDeath());
+    public static final DataComponentType<dev.metallicarts.hemalurgy.SpikeData> SPIKE=Registry.register(
+        BuiltInRegistries.DATA_COMPONENT_TYPE,MetallicArts.id("spike"),
+        DataComponentType.<dev.metallicarts.hemalurgy.SpikeData>builder().persistent(dev.metallicarts.hemalurgy.SpikeData.CODEC)
+            .networkSynchronized(ByteBufCodecs.fromCodec(dev.metallicarts.hemalurgy.SpikeData.CODEC)).build());
     public static void initialize() { MetallicArts.LOGGER.info("Registered {} base metal IDs, spiritweb attachment and metal component", METALS.size()); }
     private ModRegistries() {}
 }

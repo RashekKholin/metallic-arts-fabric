@@ -31,8 +31,13 @@ public record Spiritweb(int schema, UUID identity, List<PowerGrant> grants, Map<
     public Spiritweb withoutSource(UUID source) {
         return new Spiritweb(schema, identity, grants.stream().filter(g -> !g.source().equals(source)).toList(), reserves, investedReserves);
     }
-    /** Phase 1 interpretation: strongest grant wins. No additive power multiplication yet. */
+    /** Phase 5 policy: distinct Allomantic spike sources add to the strongest non-spike base. */
     public double strength(Art art, Metal metal) {
-        return grants.stream().filter(g -> g.art() == art && g.metal() == metal).mapToDouble(PowerGrant::strength).max().orElse(0);
+        var applicable=grants.stream().filter(g->g.art()==art&&g.metal()==metal).toList();
+        if(art==Art.FERUCHEMY)return applicable.stream().mapToDouble(PowerGrant::strength).max().orElse(0);
+        double base=applicable.stream().filter(g->g.origin()!=PowerGrant.Origin.HEMALURGIC).mapToDouble(PowerGrant::strength).max().orElse(0);
+        var sources=new HashMap<UUID,Double>();
+        for(var g:applicable)if(g.origin()==PowerGrant.Origin.HEMALURGIC)sources.merge(g.source(),g.strength(),Math::max);
+        return Math.min(1000,base+sources.values().stream().mapToDouble(Double::doubleValue).sum());
     }
 }

@@ -1,4 +1,4 @@
-# Physical Feruchemy (0.4.0-alpha.1)
+# Physical Feruchemy (0.5.0-alpha.1)
 
 This build implements Iron weight, Steel speed, Pewter strength and five separate Tin senses. The other twelve Feruchemical metals have no effects yet. Power acquisition remains administrative; crafting jewelry does not grant Feruchemy.
 
@@ -38,8 +38,8 @@ Craft a **coin pouch** from five leather and one string (`L L / LSL /  L `). Fil
 
 A canonical server-world ledger owns charge. Item components contain references/tooltips, never authority to mint charge. Transfer revisions invalidate stale copies; an asset can have only one contact lease. Copying an item does not duplicate usable charge. Registered assets are world-bound; importing a token into another world is refused.
 
-The first fill keys an ordinary mind to the filler. Foreign keyed use is refused. An unkeyed mind still requires the relevant Feruchemical ability. For testing, unequip and hold a registered mind, then use `/metallicarts unkeymetalmind @s`; this administrative operation retains charge. Normal Identity-free filling and unsealed power-granting equipment remain future Aluminum/Nicrosil systems.
+The first fill keys an ordinary mind to the filler. Foreign keyed use is refused unless a matching implanted stolen Feruchemical source authorizes that donor's key; see HEMALURGY.md for the implemented exception and its limits. An unkeyed mind still requires the relevant Feruchemical ability. For testing, unequip and hold a registered mind, then use `/metallicarts unkeymetalmind @s`; this administrative operation retains charge. Normal Identity-free filling and unsealed power-granting equipment remain future Aluminum/Nicrosil systems.
 
-Contact gear and charge survive death as an explicit game policy. Active modes do not survive death, respawn, dimension changes, logout or server/world reload. Legacy abstract invested charge is not silently converted into canonical spendable Feruchemical charge. Current crafting/trading guards protect registered metalminds; Compounding and charged-item reshaping are not implemented.
+Contact gear and charge survive death as an explicit game policy. Active modes do not survive death, respawn, dimension changes, logout or server/world reload. Legacy abstract invested charge is not silently converted into canonical spendable Feruchemical charge. Current crafting/trading guards protect registered metalminds and spikes; Compounding and charged-item reshaping are not implemented.
 
 See the README roadmap for later attributes, Hemalurgy, Compounding and release work. See PHASE4_VALIDATION.md for recorded checks and remaining acceptance gaps.

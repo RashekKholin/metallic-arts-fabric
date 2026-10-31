@@ -49,6 +49,11 @@ public final class RestartSmoke implements ModInitializer {
                     var mind=new ItemStack(EconomyContent.item("iron","ring"));
                     mind.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(asset));
                     player.setAttached(ModRegistries.CONTACT_EQUIPMENT,dev.metallicarts.equipment.ContactEquipment.empty().with(0,mind));
+                    var spikeLedger=dev.metallicarts.hemalurgy.SpikeLedger.get(server);
+                    var spike=spikeLedger.create(Metal.STEEL,new dev.metallicarts.hemalurgy.StolenPower(dev.metallicarts.hemalurgy.StolenPower.Kind.ALLOMANCY,Metal.STEEL),GRANT,ITEM,UUID.fromString("f8105a93-0d95-4885-9ce8-c9a38165295b"),1,server.overworld().getGameTime());
+                    spike=spikeLedger.claim(spike.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,4),server.overworld().getGameTime());
+                    var spikeItem=new ItemStack(EconomyContent.item("steel","spike"));spikeItem.set(ModRegistries.SPIKE,dev.metallicarts.hemalurgy.SpikeData.of(spike));
+                    player.setAttached(ModRegistries.SPIKES,dev.metallicarts.equipment.ContactEquipment.empty().with(4,spikeItem));
                     ((ServerStorageAccess)server).metallicarts$storage().save(player);
                     server.overworld().setBlock(pos,Blocks.AIR.defaultBlockState(),3);
                     server.overworld().setBlock(pos,EconomyContent.TABLE.defaultBlockState(),3);
@@ -74,6 +79,11 @@ public final class RestartSmoke implements ModInitializer {
                     var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(server).owned(mind.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,0));
                     if(asset.charge()!=123456||!asset.identity().orElseThrow().equals(IDENTITY)||asset.capacity()!=9000000)
                         throw new AssertionError("Restart lost canonical metalmind data");
+                    var spikeData=player.getAttachedOrCreate(ModRegistries.SPIKES).item(4).get(ModRegistries.SPIKE);
+                    if(spikeData==null)throw new AssertionError("Restart lost physical implant");
+                    var spikeLedger=dev.metallicarts.hemalurgy.SpikeLedger.get(server);
+                    var spike=spikeLedger.owned(spikeData.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,4));
+                    if(spike.potency()!=.9||!spike.donorIdentity().equals(ITEM)||!spikeLedger.extracted(spike.donorSource()))throw new AssertionError("Restart lost canonical spike provenance/charge");
                     var table=(MetallurgyBlockEntity)server.overworld().getBlockEntity(pos);
                     if(table==null||table.getItem(0).getCount()!=3||table.burn!=321||table.progress!=12||!table.batch||!table.running)throw new AssertionError("Restart lost workstation data");
                     for(int n=0;n<28;n++)MetallurgyBlockEntity.tick(server.overworld(),pos,table.getBlockState(),table);

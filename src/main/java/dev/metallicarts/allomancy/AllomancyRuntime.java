@@ -57,6 +57,7 @@ public final class AllomancyRuntime {
         ServerPlayNetworking.registerGlobalReceiver(SelectionIntent.TYPE,(payload,context)->
             select(context.player(),payload.action(),context.server().getTickCount()));
         ServerTickEvents.END_SERVER_TICK.register(server->{
+            for(var player:server.getPlayerList().getPlayers())dev.metallicarts.hemalurgy.HemalurgyRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())dev.metallicarts.feruchemy.FeruchemyRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())tick(player,server.getTickCount());
         });

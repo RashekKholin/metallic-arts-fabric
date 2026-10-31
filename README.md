@@ -1,18 +1,20 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.4.0-alpha.1**
+Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.5.0-alpha.1**
 
 The Phase 2 metal economy remains available: **ores → concentrates → refined metal → measured flakes → Brewing Stand vials → persistent ingested reserves**. This development build includes server-controlled Steel, Iron, Pewter and Tin Allomancy and physical Feruchemy, with individual contacted metalminds. Drinking supplies fuel; it never grants a power.
 
 **Physical powers are a playable alpha.** Read the [Allomancy guide](docs/ALLOMANCY.md), [Feruchemy guide](docs/FERUCHEMY.md) and [Phase 4 validation record](docs/PHASE4_VALIDATION.md). Selection wheels, a coin pouch, physical carrying and separate Tin sensory minds are available. Two simultaneous live clients and broader compatibility remain acceptance gaps.
 
-**Next:** Phase 5 Hemalurgy. Spike forms exist, but anatomical implantation and intentional extraction are not implemented in this version. The detailed roadmap below separates current behavior from future work.
+**Phase 5 Hemalurgy foundation is now playable:** intentional donor extraction, individual charged spikes, anatomical insertion/removal, source-specific art access, decay and blood preservation. Read [HEMALURGY.md](docs/HEMALURGY.md) for the setup, protections, compatibility table and explicit limits. Cognitive/Spiritual stolen types retain labelled hooks; their advanced effects and full construct templates remain future work.
+
+**Observed local validation:** 55 unit tests, all 44 required server game tests, all five client suites, datagen and separate-process invested-data restart checks passed. [Validation details and limits](docs/PHASE5_VALIDATION.md).
 
 ## Install / upgrade
 
-Use `metallic-arts-fabric-0.4.0-alpha.1.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
+Use `metallic-arts-fabric-0.5.0-alpha.1.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
 
-Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding Phase 2 blocks/items. Ores appear in newly generated chunks; existing terrain is not rewritten.
+Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding newer blocks/items or canonical invested assets. Back up the whole world folder so player equipment and the world's charge/provenance ledgers stay together; copying an invested token into another world does not transfer its charge. Ores appear in newly generated chunks; existing terrain is not rewritten.
 
 ### Download a prebuilt development jar
 
@@ -53,14 +55,20 @@ Read the [complete economy guide](docs/ECONOMY.md) for ore recovery, alloy ratio
 
 - Twelve contact slots and canonical world-bound metalmind accounting; Store/Off/Tap rates, Identity checks, duplicate-reference protection and separate Iron/Steel/Pewter/five-sense Tin storage.
 - Grid/wheel controls, coin pouch, strength-dependent heavy-block carrying and sensory cues. See the Feruchemy guide for exact controls, policies and limits.
+- Canonical Hemalurgic spikes, typed donor provenance, decay, blood preservation, source-tracked anatomical implantation/removal and intentional lethal extraction. Player extraction is disabled by default and additionally requires consent and PvP permission.
+- Stolen physical Allomancy/Feruchemy use the existing real handlers; innate strength/senses and a limited fortitude/instability handler exist. Other typed capabilities are explicitly marked as planned effects.
 
 ## Not implemented
 
-The remaining twelve Allomantic effects, anatomical spike placement, Hemalurgic extraction, the remaining twelve Feruchemical attributes, Compounding, unsealed metalminds, god metals, survival power acquisition and optional mixed-metal vials are not implemented. Equipment crafted in normal play is initially uncharged. Granting access uses operator tools; there is no automatic Mistborn/Feruchemist progression yet.
+The remaining twelve Allomantic effects, the remaining twelve Feruchemical attributes, full cognitive/Spiritual stolen-attribute handlers, researched construct transformations, exceptional nonlethal Hemalurgy, Compounding, unsealed metalminds, god metals, natural survival power acquisition and optional mixed-metal vials are not implemented. Equipment crafted in normal play is initially uncharged. Direct testing grants and powered-NPC setup use operator tools; Hemalurgy can transfer a valid donor's actual source, but there is no automatic Mistborn/Feruchemist progression yet.
 
 ## Quick physical-power test
 
 In a cheats-enabled test world use `/metallicarts grantferuchemy @s iron 1`; hold one Iron ring/bracelet/bracer/earring, press **M → F**, select a slot and **Equip held**. Select a rate with **+/-**, then **Store**, **Off**, or **Tap**. **W** switches grid/wheel. Repeat with Steel, Pewter or Tin; select a new Tin mind's sense before equipping it. Each item keeps its own charge. **B** lifts/drops supported nearby blocks when strength permits. **C** tosses actual loose/pouched coins. Full instructions, cost formulas and administrative unkeying are in [FERUCHEMY.md](docs/FERUCHEMY.md).
+
+## Quick Hemalurgy test
+
+Read [HEMALURGY.md](docs/HEMALURGY.md) before testing the lethal interaction. In a controlled cheats-enabled world, set up a villager with an actual development donor grant, hold a compatible uncharged spike, aim at its chest within three blocks and press **M → H**. Select the stolen capability, turn **Intent: ON**, then **Extract aimed**. Insert the resulting charged item at a compatible point to gain its source; remove it to lose only that source. Blood collection/preservation, the full material table, player consent/policy and dangerous critical removal are documented in the guide. Natural powered-NPC progression is still planned.
 
 ## Build and validate
 
@@ -80,9 +88,9 @@ Set `JAVA_HOME` to a JDK 25. The checked-in wrapper downloads and checksum-verif
 
 macOS/Linux: use `./gradlew`. Normal builds need Java, not Node. Original pixel textures are versioned in `src/main/texture-assets.zip` and expanded by Gradle. The committed data and texture archive can optionally be regenerated with `node scripts/generate-economy.cjs`; the generator uses no external packages.
 
-Server policy loads from `config/metallicarts-server.json`. The snapshot cooldown is enforced. `allowPlayerHemalurgy` remains reserved and enables no mechanics yet. Ore distribution, processing recipes and trades are configured through data packs.
+Server policy loads from `config/metallicarts-server.json`. The snapshot cooldown is enforced. `allowPlayerHemalurgy` defaults to false; enabling it alone is insufficient for player extraction, which also needs donor consent, valid reach/material and PvP permission. Ore distribution, processing recipes and trades are configured through data packs.
 
-See [Phase 2 validation](docs/PHASE2_VALIDATION.md), [architecture](docs/ARCHITECTURE.md), [canon policy](docs/CANON.md), and [historical Phase 1 results](docs/VALIDATION.md).
+See [current Hemalurgy validation](docs/PHASE5_VALIDATION.md), [physical-power validation](docs/PHASE4_VALIDATION.md), [Phase 2 validation](docs/PHASE2_VALIDATION.md), [architecture](docs/ARCHITECTURE.md), [canon policy](docs/CANON.md), and [historical Phase 1 results](docs/VALIDATION.md).
 
 ## Sources
 
@@ -98,9 +106,9 @@ This is a living implementation plan. A planned entry does not mean its mechanic
 
 Work proceeds in the order below. Shared data and server validation come before dependent powers. A phase is complete only when its usable behavior, documentation and recorded validation agree; registering an item or declaring a data contract does not complete its gameplay system.
 
-1. **Validate the physical foundation.** Finish equipment/contact and canonical metalmind accounting, meaningful storing disadvantages, paid tapping, separate Tin senses, carrying, selection wheels and coin-pouch behavior. Check copied items, full inventories, conflicting modes, depleted charge, lifecycle transitions and exact save/reload accounting. Publish the resulting tested checkpoint and its controls.
-2. **Build Hemalurgy on that foundation.** Add canonical spike accounting and researched material compatibility, then binding-point data and insertion/removal, then intentional extraction and donor consequences. Test each transaction's success and rejection paths before enabling its UI. Player extraction stays disabled by default. Document which placements are evidenced and which are gameplay interpretations.
-3. **Prove the shared systems in multiplayer.** Test two simultaneous clients, ownership/privacy, independent players' inventories, interacting forces, contested assets and disconnects during actions. Test a fresh server process loading saved invested items. Fix duplication, authority or persistence failures before expanding the number of powers.
+1. **Complete multiplayer acceptance for the shared foundation.** Individual contact/charge, storing/tapping, sensory types, carrying, wheels and coin pouches are implemented and locally tested. Next exercise two simultaneous live clients, privacy, interacting forces, contested assets, disconnects during actions and compatibility with real protection mods. Keep the exact lifecycle/save/restart checks as regressions.
+2. **Extend the Hemalurgy foundation deliberately.** Core typed extraction, canonical spikes, anatomical ownership, removal, decay and blood preservation exist. Research exact placements and exceptions further, test successful consensual player extraction, and improve balancing/feedback. Keep cognitive/Spiritual types visibly labelled as hooks until their dependent effect systems exist. Build full construct templates after the relevant body/emotional/Investiture systems are available.
+3. **Harden transfers and saved-world upgrades.** Expand cross-player asset contention, removal during active use, recovery from invalid references and future schema migrations. Test a new server process loading invested items and provenance after each format change. Keep whole-world backup/recovery instructions current; fix authority, duplication or persistence failures before expanding powers.
 4. **Complete remaining Allomancy in dependency order.** Start with Bronze/Copper detection and concealment; add the emotional state model for Zinc/Brass; implement Aluminum/Duralumin and contact Chromium/Nicrosil using explicit per-metal amplification/depletion handlers. Build recorded history before Gold, bounded prediction before Electrum, and a tested local-time model before Cadmium/Bendalloy. Each pair needs its own gameplay, fuel, interruption and multiplayer acceptance tests.
 5. **Complete remaining Feruchemy by subsystem.** Introduce fatigue/temperature/respiration/nutrition before their metal effects; implement healing and determination deliberately; then build memory, Identity, Connection, typed Investiture and Fortune. Identity and Investiture support must precede ordinary unkeyed filling and unsealed equipment. Test costs and benefits together so storage cannot manufacture value from a capped or absent disadvantage.
 6. **Connect the advanced systems.** Add Compounding only after ordinary fuel, stored attributes and Identity have independent accounting. Implement researched construct templates and their critical dependencies, then survival acquisition and world content. Add migration/recovery tools before changing saved schemas or invested-item formats.
@@ -114,7 +122,7 @@ Every implemented step should update this README's current-feature list, install
 | Phase 2: metal economy | Implemented and validated | Mine/trade → refine/alloy/shape → brew → ingest |
 | Phase 3: physical Allomancy | Playable alpha; unfinished work below | Usable Steel/Iron/Pewter/Tin with robust controls and multiplayer physics |
 | Phase 4: physical Feruchemy | Implemented playable alpha; validation limits documented | Separate contacted metalminds, meaningful storing costs and adjustable tapping |
-| Phase 5: Hemalurgy foundation | Planned after the shared equipment/attribute foundations | Obtain, implant and remove source-tracked spikes with real consequences |
+| Phase 5: Hemalurgy foundation | Playable transactions and ownership; advanced types/constructs remain limited | Obtain, implant and remove source-tracked spikes with real consequences |
 | Phase 6: remaining Allomancy | Planned | All sixteen standard Allomantic effects |
 | Phase 7: remaining Feruchemy | Planned | All sixteen Feruchemical attributes and their dedicated supporting systems |
 | Advanced systems and release | Planned; subject to documented research | Compounding, constructs, progression, compatibility and release-quality validation |
@@ -155,12 +163,14 @@ The equipment, accounting and first-four-metal behaviors below exist in this alp
 
 **Acceptance:** equip multiple distinct metalminds, store at a measurable personal cost, tap at adjustable rates, combine with Allomancy, reject foreign Identity and duplicated items, and preserve exact data through real save/lifecycle tests.
 
-### Phase 5: Hemalurgy foundation
+### Phase 5: Hemalurgy foundation, implemented scope and remaining extensions
+
+The core extraction/implantation/accounting path below is implemented. Specific future-effect hooks and construct gaps are identified here and in the Hemalurgy guide; typed charge does not complete its associated advanced gameplay.
 
 **Typed spikes**
 
 - Extend the sixteen existing spike forms with typed charge: stolen art/attribute, donor, material, original potency, extraction loss and current potency.
-- Support Allomantic/Feruchemical abilities plus typed innate physical, cognitive and Spiritual attributes. Keep later attribute-system hooks explicit; a stored type alone is not a functioning effect.
+- Allomantic/Feruchemical typed grants and innate physical handlers exist. Cognitive and Spiritual types retain explicit contracts; implement memory/cognition, Connection/Identity, Fortune/destiny and Investiture effects as their dependent systems become available. A stored type alone is not a functioning effect.
 - Implement outside-body decay, preservation by implantation and a blood-preservation path, with researched behavior and clearly labeled numerical interpretations.
 - Prevent invalid stacking, copied charge, duplicate implantation and repeated theft of an already-extracted attribute. Keep unusual Invested/god-metal extensions separate from unverified mechanics.
 
@@ -170,7 +180,7 @@ The equipment, accounting and first-four-metal behaviors below exist in this alp
 - Clearly distinguish documented placements from inferred gameplay placements. Do not present a guessed complete binding-point map as canon.
 - Add an anatomical spike inventory with occupied/empty points, compatibility feedback, charge inspection and ability previews.
 - Implement insertion/removal, source-specific ability grants and removal, recalculation after every change, multiple implanted spikes and duplicate-power resolution.
-- Model dangerous removal, critical/linchpin configurations, instability and spiritual vulnerability where supported. Reserve explicit construct templates for Inquisitors, koloss and kandra rather than silently treating them as ordinary humans.
+- An explicitly dangerous critical-point removal hook, instability penalty and vulnerability score exist. Build researched Inquisitor/koloss/kandra templates, complete dependencies, psychological/emotional interactions and exceptional survivability; the current human layout is not a completed construct simulation.
 
 **Acquiring charge**
 
@@ -179,7 +189,7 @@ The equipment, accounting and first-four-metal behaviors below exist in this alp
 - Keep player-to-player extraction under server policy and multiplayer protections; it must not become enabled merely by installing the update.
 - Implement exceptional/nonlethal methods only when their rules are deliberately supported and documented.
 
-**Acceptance:** acquire a real charged spike, insert it at a compatible point, gain its sourced ability, remove it and lose only that spike's grants; verify donor effects, protection rules, decay, transfer, survival and persistence.
+**Acceptance:** acquire a real charged spike, insert it at a compatible point, gain its sourced ability, remove it and lose only that spike's grants; verify donor effects, protection rules, decay, transfer, survival and persistence. See [Phase 5 validation](docs/PHASE5_VALIDATION.md) for actual results, remaining live-multiplayer checks and the distinction between working effects and typed hooks.
 
 ### Phase 6: complete the remaining Allomantic metals
 

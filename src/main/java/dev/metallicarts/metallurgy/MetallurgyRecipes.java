@@ -79,7 +79,7 @@ public final class MetallurgyRecipes {
             throw new IllegalArgumentException("Invested slicing requires a single-item input and output");
     }
     public static Plan plan(Recipe recipe, List<ItemStack> inputs) {
-        if(inputs.stream().anyMatch(s->s.has(ModRegistries.METALMIND)))return null;
+        if(inputs.stream().anyMatch(s->s.has(ModRegistries.METALMIND)||s.has(ModRegistries.SPIKE)))return null;
         if (!recipe.kindsMatch(inputs)) return null;
         if (recipe.slice) return slicePlan(recipe,inputs);
         if (recipe.alloy != null) return alloyPlan(recipe, inputs);

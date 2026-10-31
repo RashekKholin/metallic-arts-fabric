@@ -4,7 +4,7 @@
   "screen.metallicarts.title": "The Metallic Arts — Spiritweb",
   "screen.metallicarts.phase": "Development build • physical Metallic Arts",
   "screen.metallicarts.waiting": "Waiting for a compatible server snapshot…",
-  "screen.metallicarts.legend": "A: Allomancy • F: Feruchemy • Esc: close",
+  "screen.metallicarts.legend": "F: Feruchemy • H: Hemalurgy • Esc: close",
   "metal.metallicarts.iron": "Iron",
   "metal.metallicarts.steel": "Steel",
   "metal.metallicarts.tin": "Tin",
@@ -322,5 +322,6 @@
   "item.metallicarts.electrum_earring": "Electrum Earring",
   "item.metallicarts.cadmium_earring": "Cadmium Earring",
   "item.metallicarts.bendalloy_earring": "Bendalloy Earring",
-  "item.metallicarts.coin_pouch": "Coin Pouch"
+  "item.metallicarts.coin_pouch": "Coin Pouch",
+  "item.metallicarts.blood_vial": "Blood Vial"
 }

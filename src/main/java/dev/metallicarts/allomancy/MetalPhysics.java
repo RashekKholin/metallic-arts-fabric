@@ -63,6 +63,7 @@ public final class MetalPhysics {
     }
     public static boolean external(ItemStack stack) {
         if(stack.isEmpty())return false;
+        if(stack.has(ModRegistries.SPIKE))return false;
         var mind=stack.get(ModRegistries.METALMIND);
         if(mind!=null&&mind.charge()>0)return false;
         var form=EconomyContent.form(stack.getItem());

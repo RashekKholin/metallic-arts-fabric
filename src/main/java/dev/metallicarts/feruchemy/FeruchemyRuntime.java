@@ -60,7 +60,7 @@ public final class FeruchemyRuntime {
             if(intent.action()==0){ContactService.equip(p,intent.slot(),intent.sense());s.engine.stop(intent.slot());}
             else if(intent.action()==1){ContactService.unequip(p,intent.slot());s.engine.stop(intent.slot());}
             else if(!s.engine.request(intent.slot(),FeruchemicalEngine.Mode.values()[intent.mode()],intent.rate(),
-                ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB)))
+                ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m->dev.metallicarts.hemalurgy.HemalurgyRuntime.donorKeys(p,m)))
                 throw new IllegalArgumentException("Check ability, Identity, contact, rate or opposite active action");
             s.dirty=true;send(p,s,"");return true;
         }catch(IllegalArgumentException|ArithmeticException e){send(p,s,e.getMessage());return false;}
@@ -79,7 +79,7 @@ public final class FeruchemyRuntime {
         }
         var before=new ArrayList<FeruchemicalEngine.Mode>();for(int i=0;i<12;i++)before.add(s.engine.mode(i));
         s.effects=s.engine.step(ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),
-            p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB));
+            p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m->dev.metallicarts.hemalurgy.HemalurgyRuntime.donorKeys(p,m));
         for(int i=0;i<12;i++)if(before.get(i)!=s.engine.mode(i))s.dirty=true;
         apply(p,Attributes.MOVEMENT_SPEED,"feruchemical_speed",delta(s,FeruchemicalAttribute.SPEED),AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         apply(p,Attributes.ATTACK_SPEED,"feruchemical_actions",delta(s,FeruchemicalAttribute.SPEED),AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
@@ -87,8 +87,9 @@ public final class FeruchemyRuntime {
         apply(p,Attributes.ATTACK_DAMAGE,"feruchemical_strength",2*delta(s,FeruchemicalAttribute.STRENGTH),AttributeModifier.Operation.ADD_VALUE);
         apply(p,Attributes.ATTACK_KNOCKBACK,"feruchemical_force",.5*delta(s,FeruchemicalAttribute.STRENGTH),AttributeModifier.Operation.ADD_VALUE);
         apply(p,Attributes.SCALE,"feruchemical_bulk",.15*delta(s,FeruchemicalAttribute.STRENGTH),AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        double sight=1+delta(s,FeruchemicalAttribute.SIGHT),hearing=1+delta(s,FeruchemicalAttribute.HEARING),
-            touch=1+delta(s,FeruchemicalAttribute.TOUCH),smell=1+delta(s,FeruchemicalAttribute.SMELL),taste=1+delta(s,FeruchemicalAttribute.TASTE);
+        double innate=.25*dev.metallicarts.hemalurgy.HemalurgyRuntime.passive(p,dev.metallicarts.hemalurgy.StolenPower.Kind.SENSES);
+        double sight=1+delta(s,FeruchemicalAttribute.SIGHT)+innate,hearing=1+delta(s,FeruchemicalAttribute.HEARING)+innate,
+            touch=1+delta(s,FeruchemicalAttribute.TOUCH)+innate,smell=1+delta(s,FeruchemicalAttribute.SMELL)+innate,taste=1+delta(s,FeruchemicalAttribute.TASTE)+innate;
         boolean overload=Math.max(sight,hearing)>3&&(p.level().getMaxLocalRawBrightness(p.blockPosition())>=14||
             p.level().getEntities(p,p.getBoundingBox().inflate(5)).size()>12);
         apply(p,Attributes.MOVEMENT_SPEED,"feruchemical_overload",overload?-.015:0,AttributeModifier.Operation.ADD_VALUE);
@@ -103,7 +104,8 @@ public final class FeruchemyRuntime {
     }
     public static double carryCapacity(ServerPlayer p){
         var s=SESSIONS.get(p.getUUID());
-        return s!=null&&s.player==p&&s.level==p.level()?40*(1+delta(s,FeruchemicalAttribute.STRENGTH)):40;
+        double innate=dev.metallicarts.hemalurgy.HemalurgyRuntime.passive(p,dev.metallicarts.hemalurgy.StolenPower.Kind.STRENGTH);
+        return 40*(1+innate+(s!=null&&s.player==p&&s.level==p.level()?delta(s,FeruchemicalAttribute.STRENGTH):0));
     }
     public static float miningMultiplier(ServerPlayer p){
         var s=SESSIONS.get(p.getUUID());if(s==null||s.player!=p||s.level!=p.level())return 1;

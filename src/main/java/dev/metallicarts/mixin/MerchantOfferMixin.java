@@ -13,7 +13,7 @@ public abstract class MerchantOfferMixin {
     @Inject(method="satisfiedBy",at=@At("HEAD"),cancellable=true)
     private void metallicarts$protectInvestedItems(ItemStack a,ItemStack b,CallbackInfoReturnable<Boolean> cir) {
         for (ItemStack stack : new ItemStack[]{a,b}) {
-            if(stack.has(ModRegistries.METALMIND)){cir.setReturnValue(false);return;}
+            if(stack.has(ModRegistries.METALMIND)||stack.has(ModRegistries.SPIKE)){cir.setReturnValue(false);return;}
             var data=stack.get(ModRegistries.METAL_DATA);
             if (data!=null && Ingestion.invested(data)) { cir.setReturnValue(false); return; }
             var batch=stack.get(dev.metallicarts.economy.EconomyContent.COMPOSITION);

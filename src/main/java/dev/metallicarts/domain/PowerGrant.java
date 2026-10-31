@@ -15,7 +15,7 @@ public record PowerGrant(UUID id, Art art, Metal metal, Origin origin, UUID sour
         Metal.CODEC.fieldOf("metal").forGetter(PowerGrant::metal),
         DomainCodecs.enumeration(Origin.values(), Origin::name).fieldOf("origin").forGetter(PowerGrant::origin),
         UUIDUtil.CODEC.fieldOf("source").forGetter(PowerGrant::source),
-        Codec.doubleRange(0.000001, 1000).fieldOf("strength").forGetter(PowerGrant::strength)
+        Codec.doubleRange(0.000000001, 1000).fieldOf("strength").forGetter(PowerGrant::strength)
     ).apply(i, PowerGrant::new));
     public PowerGrant {
         Objects.requireNonNull(id); Objects.requireNonNull(art); Objects.requireNonNull(metal);

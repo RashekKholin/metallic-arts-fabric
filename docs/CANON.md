@@ -45,3 +45,13 @@ The physical Feruchemy ledger enforces separate assets, contact, relevant access
 Every capacity, rate, unit, high-rate cost, mass, carrying profile, cue radius, body-scale change and sensory overload threshold is a gameplay policy, documented in FERUCHEMY.md. Separate Tin senses are represented by separately typed minds. Contact gear survives death as an explicit game policy; modes and effects stop on lifecycle changes. Copied previews cannot mint canonical charge.
 
 Human equipment slot names and the heavy-block whitelist are Minecraft adaptations, not a canonical anatomical map or exhaustive material physics. Full anatomy and extraction research belongs to Phase 5; the mod does not claim those systems exist merely because spike items exist.
+
+## Phase 5 choices
+
+Hemalurgy has canonical charged assets, typed donor/source provenance, intentional lethal extraction, material/binding checks, anatomical leases, blood preservation, decay and source-specific art grants. The [Hemalurgy guide](HEMALURGY.md) documents all numeric adaptations and the working material matrix. The primary author annotation supports typed transfer and placement-dependent outcomes, not an exhaustive exact anatomy or these gameplay numbers.
+
+This phase revises the historical strongest-only Allomantic policy: distinct spike sources add to the strongest non-spike base, deduplicated by source and bounded by access/effect caps. Feruchemy retains strongest access with its throughput limits. Raw grants and their provenance remain preserved. A matching stolen Feruchemical source can authorize its donor's keyed minds as an explicit interpretation; new recipient-filled minds retain the recipient's Identity.
+
+The twelve anatomical point layouts and critical upper-back hook are labelled interpretations. Critical removal attempts lethal damage once, respecting ordinary damage handling. Full construct transformations, complete canonical binding maps, cognitive/memory theft, Connection/Identity rewrites, Fortune/destiny and arbitrary Investiture effects remain deferred. Their typed records do not count as working powers.
+
+Player extraction is off by default and further requires current donor consent plus PvP permission. Humanoid NPC eligibility uses an explicit Minecraft data-pack tag. Blood collection is an ordinary damaging collection action, not a claim to implement exceptional nonlethal extraction. Aluminum's destructive spent-record behavior, 90-percent extraction retention, the nonzero-floor decay curve, twentyfold blood preservation and equipment retained on death are game policies.
