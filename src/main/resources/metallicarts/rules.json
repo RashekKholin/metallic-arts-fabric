@@ -1,0 +1,44 @@
+[
+  {
+    "id": "hemalurgy_transfers_typed_powers",
+    "status": "AUTHOR_STATEMENT",
+    "statement": "Hemalurgy can transfer Allomantic or Feruchemical powers; its outcome depends on how and where the spike is used. This does not define a complete binding-point map.",
+    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"],
+    "implementation": "PowerGrant stores the art, metal and source. Extraction and binding points are deferred."
+  },
+  {
+    "id": "source_scoped_ownership",
+    "status": "INTERPRETATION",
+    "statement": "Represent each grant independently and retain its origin. Removing one source preserves unrelated grants. This is a data-model interpretation, not a complete account of spiritweb damage.",
+    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"],
+    "implementation": "PowerGrant and Spiritweb.withoutSource; no spike insertion/removal gameplay."
+  },
+  {
+    "id": "duplicate_power_resolution",
+    "status": "INTERPRETATION",
+    "statement": "For the Phase 1 access display, use the strongest applicable grant. Preserve every grant so later canon research can revise stacking without losing provenance.",
+    "sources": [],
+    "implementation": "Spiritweb.strength; no additive strength or effect engine."
+  },
+  {
+    "id": "identity_and_charged_items",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Reserve distinct item and Identity UUIDs. An absent Identity field does not itself grant permission to tap an item. Charge units remain abstract pending the attribute engine.",
+    "sources": [],
+    "implementation": "MetalItemData persistence contract only. No Identity simulation or access-control gameplay."
+  },
+  {
+    "id": "new_character_and_death",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "New characters begin without powers. Player spiritweb data copies on death; active effects are never persisted. Acquisition and death balance remain future design decisions.",
+    "sources": [],
+    "implementation": "Persistent Fabric attachment with copyOnDeath. No active-effect fields."
+  },
+  {
+    "id": "uncertain_advanced_rules",
+    "status": "DEFERRED",
+    "statement": "God metals, precise alloy ratios, anatomical binding points, Compounding, Fortune, Connection and unsealed metalmind behavior require explicit evidence and documented interpretations before implementation.",
+    "sources": [],
+    "implementation": "No mechanics registered. Base catalog contains the sixteen standard metal IDs only."
+  }
+]

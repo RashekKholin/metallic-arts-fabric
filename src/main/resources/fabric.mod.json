@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "metallicarts",
+  "version": "${version}",
+  "name": "The Metallic Arts",
+  "description": "Server-authoritative Metallic Arts foundations. Phase 1; no magic effects yet.",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.metallicarts.MetallicArts"],
+    "client": ["dev.metallicarts.client.MetallicArtsClient"],
+    "fabric-datagen": ["dev.metallicarts.datagen.MetallicArtsDataGenerator"]
+  },
+  "depends": { "fabricloader": ">=0.18.4", "minecraft": "26.1", "java": ">=25", "fabric-api": ">=0.145.1+26.1" }
+}

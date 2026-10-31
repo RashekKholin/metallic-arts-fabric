@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "metallicarts-test",
+  "version": "1.0.0",
+  "name": "The Metallic Arts Tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest"],
+    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest"]
+  }
+}
