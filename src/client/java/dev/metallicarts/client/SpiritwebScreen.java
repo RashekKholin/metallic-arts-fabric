@@ -25,8 +25,10 @@ public final class SpiritwebScreen extends Screen {
             int y = 58 + (n % 8) * 18;
             String access = (state.strength(Art.ALLOMANCY, metal) > 0 ? "A" : "-")
                 + "/" + (state.strength(Art.FERUCHEMY, metal) > 0 ? "F" : "-");
-            graphics.text(font, Component.translatable("metal.metallicarts." + metal.id()).append("  " + access), x, y, 0xFFFFFFFF);
+            String reserve = String.format(java.util.Locale.ROOT, " | %.2fg", state.reserves().getOrDefault(metal,0L) / 1_000_000.0);
+            graphics.text(font, Component.translatable("metal.metallicarts." + metal.id()).append("  " + access + reserve), x, y, 0xFFFFFFFF);
         }
         graphics.centeredText(font, Component.translatable("screen.metallicarts.legend"), width / 2, 210, 0xFFAAAAAA);
+        graphics.centeredText(font,Component.literal("Numbers show ingested metal in grams"),width/2,223,0xFFAAAAAA);
     }
 }

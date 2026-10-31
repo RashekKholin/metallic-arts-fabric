@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "metallicarts:metallurgist",
+    "metallicarts:alloy_metallurgist",
+    "metallicarts:rare_metallurgist",
+    "metallicarts:equipment_metallurgist"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "metallicarts:metallurgist/level_5/iron_bulk",
+    "metallicarts:metallurgist/level_5/tin_bulk",
+    "metallicarts:metallurgist/level_5/copper_bulk",
+    "metallicarts:metallurgist/level_5/zinc_bulk",
+    "metallicarts:metallurgist/level_5/lead_bulk",
+    "metallicarts:metallurgist/level_5/carbon_bulk"
+  ],
+  "amount": 6,
+  "allow_duplicates": false
+}

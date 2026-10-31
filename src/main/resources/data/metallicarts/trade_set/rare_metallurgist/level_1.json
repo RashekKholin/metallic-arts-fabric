@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:rare_metallurgist/level_1/aluminum_sell",
+    "metallicarts:rare_metallurgist/level_1/aluminum_buy",
+    "metallicarts:rare_metallurgist/level_1/chromium_sell",
+    "metallicarts:rare_metallurgist/level_1/chromium_buy",
+    "metallicarts:rare_metallurgist/level_1/cadmium_sell",
+    "metallicarts:rare_metallurgist/level_1/cadmium_buy",
+    "metallicarts:rare_metallurgist/level_1/gold_sell",
+    "metallicarts:rare_metallurgist/level_1/gold_buy"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

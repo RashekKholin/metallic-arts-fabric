@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:alloy_metallurgist/level_5/steel_bulk",
+    "metallicarts:alloy_metallurgist/level_5/pewter_bulk",
+    "metallicarts:alloy_metallurgist/level_5/brass_bulk",
+    "metallicarts:alloy_metallurgist/level_5/bronze_bulk",
+    "metallicarts:alloy_metallurgist/level_5/electrum_bulk",
+    "metallicarts:alloy_metallurgist/level_5/duralumin_bulk",
+    "metallicarts:alloy_metallurgist/level_5/nicrosil_bulk",
+    "metallicarts:alloy_metallurgist/level_5/bendalloy_bulk"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

@@ -1,0 +1,23 @@
+{
+  "trades": [
+    "metallicarts:equipment_metallurgist/level_2/iron",
+    "metallicarts:equipment_metallurgist/level_2/steel",
+    "metallicarts:equipment_metallurgist/level_2/tin",
+    "metallicarts:equipment_metallurgist/level_2/pewter",
+    "metallicarts:equipment_metallurgist/level_2/zinc",
+    "metallicarts:equipment_metallurgist/level_2/brass",
+    "metallicarts:equipment_metallurgist/level_2/copper",
+    "metallicarts:equipment_metallurgist/level_2/bronze",
+    "metallicarts:equipment_metallurgist/level_2/aluminum",
+    "metallicarts:equipment_metallurgist/level_2/duralumin",
+    "metallicarts:equipment_metallurgist/level_2/chromium",
+    "metallicarts:equipment_metallurgist/level_2/nicrosil",
+    "metallicarts:equipment_metallurgist/level_2/gold",
+    "metallicarts:equipment_metallurgist/level_2/electrum",
+    "metallicarts:equipment_metallurgist/level_2/cadmium",
+    "metallicarts:equipment_metallurgist/level_2/bendalloy",
+    "metallicarts:equipment_metallurgist/level_2/bottles"
+  ],
+  "amount": 17,
+  "allow_duplicates": false
+}

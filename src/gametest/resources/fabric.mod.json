@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "name": "The Metallic Arts Tests",
   "environment": "*",
+  "mixins": ["metallicarts-test.mixins.json"],
   "entrypoints": {
-    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest"],
-    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest"]
+    "main": ["dev.metallicarts.test.RestartSmoke"],
+    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest", "dev.metallicarts.test.EconomyGameTest"],
+    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest", "dev.metallicarts.test.EconomyClientGameTest"]
   }
 }

@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:alloy_metallurgist/level_4/steel_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/pewter_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/brass_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/bronze_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/electrum_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/duralumin_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/nicrosil_nuggets",
+    "metallicarts:alloy_metallurgist/level_4/bendalloy_nuggets"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

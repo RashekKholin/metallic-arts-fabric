@@ -7,3 +7,5 @@ run-*/
 .vscode/
 *.log
 src/main/generated/.cache/
+# Original texture sources are reproduced by the generator and versioned in the asset archive.
+src/main/resources/assets/metallicarts/textures/**/*.png

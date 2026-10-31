@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:alloy_metallurgist/level_3/steel_portion",
+    "metallicarts:alloy_metallurgist/level_3/pewter_portion",
+    "metallicarts:alloy_metallurgist/level_3/brass_portion",
+    "metallicarts:alloy_metallurgist/level_3/bronze_portion",
+    "metallicarts:alloy_metallurgist/level_3/electrum_portion",
+    "metallicarts:alloy_metallurgist/level_3/duralumin_portion",
+    "metallicarts:alloy_metallurgist/level_3/nicrosil_portion",
+    "metallicarts:alloy_metallurgist/level_3/bendalloy_portion"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

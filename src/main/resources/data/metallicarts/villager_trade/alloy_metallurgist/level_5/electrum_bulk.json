@@ -1,0 +1,13 @@
+{
+  "wants": {
+    "id": "minecraft:emerald",
+    "count": 32
+  },
+  "gives": {
+    "id": "metallicarts:electrum_ingot",
+    "count": 8
+  },
+  "max_uses": 4,
+  "xp": 25,
+  "reputation_discount": 0.05
+}

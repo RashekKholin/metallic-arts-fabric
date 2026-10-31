@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:alloy_metallurgist/level_2/electrum_sell",
+    "metallicarts:alloy_metallurgist/level_2/electrum_buy",
+    "metallicarts:alloy_metallurgist/level_2/duralumin_sell",
+    "metallicarts:alloy_metallurgist/level_2/duralumin_buy",
+    "metallicarts:alloy_metallurgist/level_2/nicrosil_sell",
+    "metallicarts:alloy_metallurgist/level_2/nicrosil_buy",
+    "metallicarts:alloy_metallurgist/level_2/bendalloy_sell",
+    "metallicarts:alloy_metallurgist/level_2/bendalloy_buy"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

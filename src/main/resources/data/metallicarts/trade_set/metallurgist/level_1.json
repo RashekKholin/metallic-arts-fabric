@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "metallicarts:metallurgist/level_1/iron_sell",
+    "metallicarts:metallurgist/level_1/iron_buy",
+    "metallicarts:metallurgist/level_1/tin_sell",
+    "metallicarts:metallurgist/level_1/tin_buy",
+    "metallicarts:metallurgist/level_1/copper_sell",
+    "metallicarts:metallurgist/level_1/copper_buy"
+  ],
+  "amount": 6,
+  "allow_duplicates": false
+}

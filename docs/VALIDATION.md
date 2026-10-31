@@ -1,5 +1,7 @@
 # Phase 1 validation
 
+Historical results for 0.1.0. See [Phase 2 validation](PHASE2_VALIDATION.md) for the current version, including the dedicated-process restart checks.
+
 Verified locally on Windows with a Java 25 JDK, Minecraft **26.1**, Fabric Loader **0.18.4**, Fabric API **0.145.1+26.1**, Loom **1.15.5**, Gradle **9.4.0**. Results recorded October 31, 2026 (America/Denver).
 
 | Check | Actual result |

@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "metallicarts:tin_ore",
+    "metallicarts:deepslate_tin_ore",
+    "metallicarts:zinc_ore",
+    "metallicarts:deepslate_zinc_ore",
+    "metallicarts:silver_ore",
+    "metallicarts:deepslate_silver_ore",
+    "metallicarts:bauxite_ore",
+    "metallicarts:deepslate_bauxite_ore",
+    "metallicarts:nickel_ore",
+    "metallicarts:deepslate_nickel_ore",
+    "metallicarts:chromite_ore",
+    "metallicarts:deepslate_chromite_ore",
+    "metallicarts:lead_ore",
+    "metallicarts:deepslate_lead_ore",
+    "metallicarts:bismuth_ore",
+    "metallicarts:deepslate_bismuth_ore",
+    "metallicarts:metallurgy_table"
+  ]
+}

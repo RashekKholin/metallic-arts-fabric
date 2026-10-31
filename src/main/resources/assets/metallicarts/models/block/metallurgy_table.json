@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "metallicarts:block/metallurgy_top",
+    "up": "metallicarts:block/metallurgy_top",
+    "down": "minecraft:block/spruce_planks",
+    "north": "minecraft:block/smithing_table_front",
+    "south": "minecraft:block/smithing_table_front",
+    "east": "minecraft:block/smithing_table_side",
+    "west": "minecraft:block/smithing_table_side"
+  }
+}

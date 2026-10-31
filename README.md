@@ -1,63 +1,68 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts`
+Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.2.0**
 
-Phase 1 technical foundation for a canon-informed Mistborn mod. This is not yet a playable magic system.
+Phase 2 adds a working metal economy: **ores → concentrates → refined metal → measured flakes → Brewing Stand vials → persistent ingested reserves**. Power effects start in Phase 3; drinking metal does not grant or activate powers.
 
-## Build and run
+## Install / upgrade
 
-Install a JDK 25 and set `JAVA_HOME` to it. The checked-in Gradle wrapper downloads Gradle 9.4.0 and verifies its SHA-256.
+Use `metallic-arts-fabric-0.2.0.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the old 0.1.0 jar before adding this version. Keep a backup of existing worlds before upgrading.
+
+Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding Phase 2 blocks/items. Ores appear in newly generated chunks; existing terrain is not rewritten.
+
+## Start playing
+
+Craft a **Metallurgy Table** from three iron ingots, three cobblestone and three planks in three horizontal rows. Fuel it with coal or another furnace fuel.
+
+In **Shape**, turn an ingot into nuggets, one nugget into 100 portions, and a portion into flakes. Use the arrows to select an operation; hover the ghost item for requirements. Press **Start/Stop**. **Batch** repeats work while ingredients and output space permit.
+
+Brew flakes with **water bottles and blaze powder in a normal Brewing Stand**. One flake fills one bottle. Drink the vial, then press **M** to see your ingested reserve. Every standard metal has this path.
+
+Sneak-right-click the table with an empty hand to choose a Metallurgist specialty. An unemployed adult villager can claim it during working hours.
+
+Read the [complete economy guide](docs/ECONOMY.md) for ore recovery, alloy ratios, specialties, invested material handling and data-pack customization.
+
+## Included
+
+- Sixteen standard metal IDs; ingots/nuggets, portions/flakes, coins, rings, bracelets, bracers, spikes and vials. Vanilla iron/copper/gold ingots and nuggets are reused.
+- Six supporting materials: silver, nickel, lead, bismuth, carbon and silicon.
+- Eight new ore families with stone/deepslate variants, mining tags, Fortune/Silk Touch loot, experience and data-driven Overworld distribution.
+- A persistent server-owned Metallurgy Table with Refine/Alloy/Shape tabs, recipe selection, fuel, progress, batch processing and output preflight.
+- **437** processing definitions: **325** ordinary refining/shaping/alloy operations and **112** invested-flaking definitions.
+- Eight alloy formulas with preserved composition and viable/imperfect/invalid outcomes. Incorrect batches cannot become viable through reshaping.
+- Four Metallurgist specialties, Novice–Master trade sets, deterministic category access, finite stock and bulk offers using vanilla trading behavior.
+- Sixteen water-bottle brewing paths with ordinary fuel/timing and one-flake-per-bottle accounting.
+- Server-validated ingestion, bottle return, reserve synchronization, Identity/charge retention and a read-only Spiritweb screen.
+- Phase 1 persistent source-tracked power contracts, server configuration, provenance catalog and owner-only networking.
+
+## Not implemented
+
+Burning/flaring, Steelpushing/Ironpulling, metal lines, Feruchemical storage/tapping, anatomical spike placement, Hemalurgic extraction, Compounding, god metals, and optional mixed-metal vials are not implemented. Equipment created in normal play is uncharged. Invested-material support is a data-safe processing path for later systems and test/mod-provided data, not an ability-acquisition system.
+
+## Build and validate
+
+Set `JAVA_HOME` to a JDK 25. The checked-in wrapper downloads and checksum-verifies Gradle 9.4.0.
 
 ```powershell
-# Windows: compilation, unit tests and jar; no Minecraft EULA acceptance implied
+# Build the installable jar and run unit tests without accepting the Minecraft EULA
 .\gradlew.bat clean build -x runGameTest
-# Datagen entrypoint/empty provider pack validation
+# Existing datagen entrypoint
 .\gradlew.bat runDatagen
-# Run these only if you agree to https://aka.ms/MinecraftEULA
-.\gradlew.bat runGameTest -PacceptMinecraftEula=true
-.\gradlew.bat runClientGameTest -PacceptMinecraftEula=true
-# Interactive development client / dedicated server
+# Run only if you agree to https://aka.ms/MinecraftEULA
+.\gradlew.bat build runClientGameTest -PacceptMinecraftEula=true
+# Interactive development
 .\gradlew.bat runClient
 .\gradlew.bat runServer
 ```
 
-macOS/Linux: use `./gradlew` instead. `build` also runs server game tests unless `-x runGameTest` is supplied. Game-test EULA consent is opt-in via the property shown above. Interactive dedicated servers have their own `eula.txt` consent step.
+macOS/Linux: use `./gradlew`. Normal builds need Java, not Node. Original pixel textures are versioned in `src/main/texture-assets.zip` and expanded by Gradle. The committed data and texture archive can optionally be regenerated with `node scripts/generate-economy.cjs`; the generator uses no external packages.
 
-The installable mod is `build/libs/metallic-arts-fabric-0.1.0.jar` (not the sources jar). Install it with Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 on both the client and server, targeting exactly Minecraft 26.1. Other Minecraft versions are not declared compatible.
+Server policy loads from `config/metallicarts-server.json`. The snapshot cooldown is enforced. `allowPlayerHemalurgy` remains reserved and enables no mechanics yet. Ore distribution, processing recipes and trades are configured through data packs.
 
-Press **M** in a world to open the read-only Spiritweb screen; rebind it in Controls. The screen shows Allomantic/Feruchemical access for all sixteen metals. New characters have no powers. The screen cannot grant or activate powers.
+See [Phase 2 validation](docs/PHASE2_VALIDATION.md), [architecture](docs/ARCHITECTURE.md), [canon policy](docs/CANON.md), and [historical Phase 1 results](docs/VALIDATION.md).
 
-## Implemented
+## Sources
 
-- Pinned unobfuscated Fabric Loom 1.15.5 build, split common/client source sets, Java 25 compilation, versioned metadata and GitHub Actions build/unit-test/datagen workflow.
-- Shared immutable catalog of sixteen stable metal IDs, independent of enum ordinal order. This is a closed application catalog, not a datapack-extensible Minecraft registry.
-- Registered persistent, copy-on-death player spiritweb attachment with a schema, independent Identity UUID, source-tracked power grants, strengths and ingested reserve quantities.
-- Registered persistent/networked `metallicarts:metal_data` item component with unique instance ID, metal, mass, purity, charge and optional Identity. Phase 1 adds no metalmind items or recipes; game tests attach sample data to a vanilla gold ingot.
-- Server-host configuration in `config/metallicarts-server.json`, created on first initialization. Invalid or unsupported config fails visibly. Restart required after edits.
-- Versioned request/snapshot payload types. The server reads only the requesting player's data, enforces a request cooldown, and sends snapshots only to that owner. Clients cannot upload grants, target another player's UUID, or change reserves.
-- Client snapshot cache cleared on disconnect, key mapping, and read-only screen. Server initialization imports no Minecraft client classes.
-- Datagen entrypoint/empty provider pack, asset and data folder scaffolding, English labels, rule-provenance catalog, unit and in-game test foundations.
+The [Fabric 26.1 guidance](https://fabricmc.net/2026/03/14/261.html) informed the unobfuscated Java 25/Loom setup and data-driven trading approach. Implementation was compiled and exercised against Minecraft **26.1**, including its local unobfuscated sources. Alloy quantities and recovery yields are explicitly documented gameplay interpretations, not verified universal canonical measurements.
 
-## Configuration
-
-```json
-{
-  "schema": 1,
-  "allowPlayerHemalurgy": false,
-  "snapshotCooldownTicks": 20
-}
-```
-
-`snapshotCooldownTicks` is enforced (1–1200 ticks). `allowPlayerHemalurgy` is a reserved policy field for future extraction mechanics; changing it currently enables no gameplay. The server host owns the configuration, including in singleplayer. It is not a client preference or per-world config.
-
-## Deferred
-
-No ores, metallurgy, economy, vials, ingestion, burning/flaring, metal lines, physics, Feruchemical storage/tapping, charged spikes, anatomy, extraction, Compounding, god metals, HUD/radial controls, or power acquisition are implemented. Item UUIDs are foundations, not a completed duplication-prevention system. An absent item Identity does not automatically authorize tapping. Migration from future or historical schemas is not implemented; unsupported schemas are rejected.
-
-See [architecture](docs/ARCHITECTURE.md), [canon and interpretations](docs/CANON.md), and [actual validation](docs/VALIDATION.md).
-
-## Toolchain sources
-
-The [Fabric 26.1 announcement](https://www.fabricmc.net/2026/03/14/261.html) establishes Java 25, unobfuscated `net.fabricmc.fabric-loom`, ordinary `implementation` dependencies, and the `fabric-api` dependency ID. The [official 26.1 example](https://github.com/FabricMC/fabric-example-mod/tree/26.1) and [versioned Fabric documentation](https://github.com/FabricMC/fabric-docs/tree/main/versions/26.1.2) informed the implementation; compilation and game tests target **26.1**, not 26.1.2.
-
-Unofficial fan project. Mistborn and its setting belong to their respective rights holders. No book text or official illustrations are bundled.
+Unofficial fan project. No book text or official illustrations are bundled.

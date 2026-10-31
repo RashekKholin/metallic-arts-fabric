@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "dev.metallicarts.test.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": ["ServerStorageAccess"],
+  "injectors": { "defaultRequire": 1 }
+}

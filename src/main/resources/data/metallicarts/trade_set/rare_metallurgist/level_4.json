@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:rare_metallurgist/level_4/aluminum_nuggets",
+    "metallicarts:rare_metallurgist/level_4/chromium_nuggets",
+    "metallicarts:rare_metallurgist/level_4/cadmium_nuggets",
+    "metallicarts:rare_metallurgist/level_4/gold_nuggets",
+    "metallicarts:rare_metallurgist/level_4/silver_nuggets",
+    "metallicarts:rare_metallurgist/level_4/nickel_nuggets",
+    "metallicarts:rare_metallurgist/level_4/bismuth_nuggets",
+    "metallicarts:rare_metallurgist/level_4/silicon_nuggets"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

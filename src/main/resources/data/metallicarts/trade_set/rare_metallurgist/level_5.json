@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:rare_metallurgist/level_5/aluminum_bulk",
+    "metallicarts:rare_metallurgist/level_5/chromium_bulk",
+    "metallicarts:rare_metallurgist/level_5/cadmium_bulk",
+    "metallicarts:rare_metallurgist/level_5/gold_bulk",
+    "metallicarts:rare_metallurgist/level_5/silver_bulk",
+    "metallicarts:rare_metallurgist/level_5/nickel_bulk",
+    "metallicarts:rare_metallurgist/level_5/bismuth_bulk",
+    "metallicarts:rare_metallurgist/level_5/silicon_bulk"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

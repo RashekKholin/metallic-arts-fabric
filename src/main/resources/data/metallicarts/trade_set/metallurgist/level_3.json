@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "metallicarts:metallurgist/level_3/iron_portion",
+    "metallicarts:metallurgist/level_3/tin_portion",
+    "metallicarts:metallurgist/level_3/copper_portion",
+    "metallicarts:metallurgist/level_3/zinc_portion",
+    "metallicarts:metallurgist/level_3/lead_portion",
+    "metallicarts:metallurgist/level_3/carbon_portion"
+  ],
+  "amount": 6,
+  "allow_duplicates": false
+}

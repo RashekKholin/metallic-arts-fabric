@@ -1,0 +1,7594 @@
+[
+  {
+    "id": "concentrate_tin",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_tin",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_zinc",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_zinc",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 8
+      },
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_silver",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/silver",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_silver",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:silver_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_bauxite",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bauxite_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_bauxite",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:bauxite_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_nickel",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/nickel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_nickel",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:nickel_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_chromite",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromite_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_chromite",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:chromite_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_lead",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/lead",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_lead",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:lead_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_bismuth",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/bismuth",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_bismuth",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:bismuth_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_iron",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_iron",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_copper",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_copper",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "concentrate_gold",
+    "tab": 0,
+    "ticks": 80,
+    "inputs": [
+      {
+        "tag": "c:raw_materials/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_concentrate",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "refine_gold",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_concentrate",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "carbon",
+    "tab": 0,
+    "ticks": 100,
+    "inputs": [
+      {
+        "item": "minecraft:coal",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "charcoal_carbon",
+    "tab": 0,
+    "ticks": 100,
+    "inputs": [
+      {
+        "item": "minecraft:charcoal",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silicon",
+    "tab": 0,
+    "ticks": 160,
+    "inputs": [
+      {
+        "item": "minecraft:sand",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "alloy_steel",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:carbon_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "steel",
+    "ratio": {
+      "iron": 98,
+      "carbon": 2
+    }
+  },
+  {
+    "id": "alloy_pewter",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "pewter",
+    "ratio": {
+      "tin": 91,
+      "lead": 9
+    }
+  },
+  {
+    "id": "alloy_brass",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:zinc_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "brass",
+    "ratio": {
+      "copper": 65,
+      "zinc": 35
+    }
+  },
+  {
+    "id": "alloy_bronze",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "bronze",
+    "ratio": {
+      "copper": 88,
+      "tin": 12
+    }
+  },
+  {
+    "id": "alloy_electrum",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:silver_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "electrum",
+    "ratio": {
+      "gold": 45,
+      "silver": 55
+    }
+  },
+  {
+    "id": "alloy_duralumin",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "duralumin",
+    "ratio": {
+      "aluminum": 96,
+      "copper": 4
+    }
+  },
+  {
+    "id": "alloy_nicrosil",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:nickel_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:chromium_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:silicon_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "nicrosil",
+    "ratio": {
+      "nickel": 84,
+      "chromium": 14,
+      "silicon": 2
+    }
+  },
+  {
+    "id": "alloy_bendalloy",
+    "tab": 1,
+    "ticks": 200,
+    "inputs": [
+      {
+        "item": "metallicarts:bismuth_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 1
+      },
+      {
+        "item": "metallicarts:cadmium_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [],
+    "alloy": "bendalloy",
+    "ratio": {
+      "bismuth": 50,
+      "lead": 27,
+      "tin": 13,
+      "cadmium": 10
+    }
+  },
+  {
+    "id": "iron_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "iron_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/iron",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "iron_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "iron_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/iron",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "iron_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:iron_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:iron_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "iron_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:iron_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:iron_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "steel_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/steel",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "steel_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "steel_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/steel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "steel_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "steel_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:steel_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:steel_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "tin_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/tin",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "tin_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "tin_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/tin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "tin_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "tin_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:tin_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:tin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "pewter_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/pewter",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "pewter_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "pewter_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/pewter",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "pewter_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "pewter_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:pewter_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:pewter_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "zinc_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/zinc",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "zinc_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "zinc_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/zinc",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "zinc_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "zinc_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:zinc_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:zinc_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "brass_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/brass",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "brass_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "brass_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/brass",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "brass_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "brass_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:brass_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:brass_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "copper_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/copper",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "copper_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "copper_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/copper",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "copper_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:copper_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:copper_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "copper_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:copper_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:copper_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "bronze_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bronze",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "bronze_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "bronze_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bronze",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bronze_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bronze_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bronze_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bronze_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "aluminum_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/aluminum",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "aluminum_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "aluminum_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/aluminum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "aluminum_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "aluminum_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:aluminum_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:aluminum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "duralumin_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/duralumin",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "duralumin_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "duralumin_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/duralumin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "duralumin_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "duralumin_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:duralumin_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:duralumin_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "chromium_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/chromium",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "chromium_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "chromium_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/chromium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "chromium_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "chromium_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:chromium_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:chromium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nicrosil",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/nicrosil",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nicrosil_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "nicrosil_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nicrosil_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nicrosil_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "gold_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/gold",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "gold_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "gold_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/gold",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "gold_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:gold_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "minecraft:gold_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "gold_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:gold_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:gold_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "electrum_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/electrum",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "electrum_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "electrum_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/electrum",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "electrum_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "electrum_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:electrum_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:electrum_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "cadmium_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/cadmium",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "cadmium_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "cadmium_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/cadmium",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "cadmium_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "cadmium_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:cadmium_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:cadmium_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bendalloy",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_coins",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_coin",
+        "count": 10
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_coins_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_coin",
+        "count": 10
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_ring",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ring",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_ring_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_bracelet",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_bracelet",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_bracelet_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_bracer",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_bracer",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_bracer_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_spike",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "tag": "c:ingots/bendalloy",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_spike",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_spike_to_ingot",
+    "tab": 2,
+    "ticks": 60,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bendalloy_ingot_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_ingot",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_nugget_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_nugget",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_coin_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_coin",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_ring_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_ring",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_bracelet_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_bracelet",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_bracer_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_bracer",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "bendalloy_spike_invested_flaking",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bendalloy_spike",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bendalloy_flakes",
+        "count": 1
+      }
+    ],
+    "slice": true
+  },
+  {
+    "id": "silver_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/silver",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "silver_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/silver",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silver_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/silver",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "silver_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:silver_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silver_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:silver_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silver_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:silver_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silver_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nickel_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/nickel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "nickel_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nickel",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nickel_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/nickel",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "nickel_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:nickel_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nickel_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:nickel_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "nickel_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:nickel_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:nickel_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "lead_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/lead",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "lead_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/lead",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "lead_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/lead",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "lead_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "lead_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "lead_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:lead_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:lead_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bismuth_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/bismuth",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "bismuth_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bismuth",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bismuth_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/bismuth",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "bismuth_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:bismuth_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bismuth_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bismuth_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "bismuth_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:bismuth_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:bismuth_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "carbon_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/carbon",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "carbon_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/carbon",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "carbon_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/carbon",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "carbon_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:carbon_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "carbon_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:carbon_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "carbon_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:carbon_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:carbon_portion",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silicon_ingot_to_nuggets",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:ingots/silicon",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_nugget",
+        "count": 9
+      }
+    ]
+  },
+  {
+    "id": "silicon_nuggets_to_ingot",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/silicon",
+        "count": 9
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_ingot",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silicon_nugget_to_portions",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "tag": "c:nuggets/silicon",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_portion",
+        "count": 100
+      }
+    ]
+  },
+  {
+    "id": "silicon_portions_to_nugget",
+    "tab": 2,
+    "ticks": 40,
+    "inputs": [
+      {
+        "item": "metallicarts:silicon_portion",
+        "count": 100
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_nugget",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silicon_portion_to_flakes",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:silicon_portion",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_flakes",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "id": "silicon_flakes_to_portion",
+    "tab": 2,
+    "ticks": 20,
+    "inputs": [
+      {
+        "item": "metallicarts:silicon_flakes",
+        "count": 1
+      }
+    ],
+    "outputs": [
+      {
+        "item": "metallicarts:silicon_portion",
+        "count": 1
+      }
+    ]
+  }
+]

@@ -3,14 +3,18 @@
     "id": "hemalurgy_transfers_typed_powers",
     "status": "AUTHOR_STATEMENT",
     "statement": "Hemalurgy can transfer Allomantic or Feruchemical powers; its outcome depends on how and where the spike is used. This does not define a complete binding-point map.",
-    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"],
+    "sources": [
+      "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+    ],
     "implementation": "PowerGrant stores the art, metal and source. Extraction and binding points are deferred."
   },
   {
     "id": "source_scoped_ownership",
     "status": "INTERPRETATION",
     "statement": "Represent each grant independently and retain its origin. Removing one source preserves unrelated grants. This is a data-model interpretation, not a complete account of spiritweb damage.",
-    "sources": ["https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"],
+    "sources": [
+      "https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+    ],
     "implementation": "PowerGrant and Spiritweb.withoutSource; no spike insertion/removal gameplay."
   },
   {
@@ -25,7 +29,7 @@
     "status": "GAMEPLAY_POLICY",
     "statement": "Reserve distinct item and Identity UUIDs. An absent Identity field does not itself grant permission to tap an item. Charge units remain abstract pending the attribute engine.",
     "sources": [],
-    "implementation": "MetalItemData persistence contract only. No Identity simulation or access-control gameplay."
+    "implementation": "Identity/charge persist through invested slicing, brewing and ingestion. Access checks, storage and tapping mechanics are deferred."
   },
   {
     "id": "new_character_and_death",
@@ -37,8 +41,29 @@
   {
     "id": "uncertain_advanced_rules",
     "status": "DEFERRED",
-    "statement": "God metals, precise alloy ratios, anatomical binding points, Compounding, Fortune, Connection and unsealed metalmind behavior require explicit evidence and documented interpretations before implementation.",
+    "statement": "God metals, anatomical binding points, Compounding, Fortune, Connection and unsealed metalmind behavior remain unresolved. Current alloy ratios are explicit gameplay interpretations rather than verified universal canonical quantities.",
     "sources": [],
-    "implementation": "No mechanics registered. Base catalog contains the sixteen standard metal IDs only."
+    "implementation": "Advanced powers remain unimplemented. Eight interpreted alloy formulas are implemented in Phase 2."
+  },
+  {
+    "id": "alloy_ratio_policy",
+    "status": "INTERPRETATION",
+    "statement": "The eight alloy ratios are documented gameplay interpretations. Exact and off-ratio batches are distinguished; these numbers are not claimed to be verified universal canon.",
+    "sources": [],
+    "implementation": "Data-driven alloy recipes with composition and viable/imperfect/invalid outcomes."
+  },
+  {
+    "id": "material_accounting_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "One ingot equals nine nuggets, nine hundred measured portions, or nine grams of credited metal. Ore recovery yields and silicon/carbon processing are game abstractions, not real smelting chemistry.",
+    "sources": [],
+    "implementation": "Integer mass bookkeeping and recipe-conservation tests. Zinc refining credits eight zinc nuggets plus one cadmium nugget."
+  },
+  {
+    "id": "unsafe_ingestion_policy",
+    "status": "INTERPRETATION",
+    "statement": "Non-Allomantic and off-ratio metals are refused by the brewing/drinking path rather than inventing canonical injury values. Drinking transfers fuel without granting access or activating a power.",
+    "sources": [],
+    "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
   }
 ]

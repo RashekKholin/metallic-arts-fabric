@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:rare_metallurgist/level_2/silver_sell",
+    "metallicarts:rare_metallurgist/level_2/silver_buy",
+    "metallicarts:rare_metallurgist/level_2/nickel_sell",
+    "metallicarts:rare_metallurgist/level_2/nickel_buy",
+    "metallicarts:rare_metallurgist/level_2/bismuth_sell",
+    "metallicarts:rare_metallurgist/level_2/bismuth_buy",
+    "metallicarts:rare_metallurgist/level_2/silicon_sell",
+    "metallicarts:rare_metallurgist/level_2/silicon_buy"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

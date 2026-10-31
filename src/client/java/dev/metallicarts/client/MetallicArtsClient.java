@@ -10,11 +10,14 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.*;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
+import dev.metallicarts.economy.EconomyContent;
+import net.minecraft.client.gui.screens.MenuScreens;
 
 public final class MetallicArtsClient implements ClientModInitializer {
     static Spiritweb snapshot;
     public static Spiritweb snapshot() { return snapshot; }
     @Override public void onInitializeClient() {
+        MenuScreens.register(EconomyContent.TABLE_MENU, MetallurgyScreen::new);
         var category = KeyMapping.Category.register(MetallicArts.id("general"));
         KeyMapping open = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "key.metallicarts.open", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_M, category));

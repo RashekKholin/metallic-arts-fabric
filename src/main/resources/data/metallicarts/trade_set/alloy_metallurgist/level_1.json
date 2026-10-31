@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:alloy_metallurgist/level_1/steel_sell",
+    "metallicarts:alloy_metallurgist/level_1/steel_buy",
+    "metallicarts:alloy_metallurgist/level_1/pewter_sell",
+    "metallicarts:alloy_metallurgist/level_1/pewter_buy",
+    "metallicarts:alloy_metallurgist/level_1/brass_sell",
+    "metallicarts:alloy_metallurgist/level_1/brass_buy",
+    "metallicarts:alloy_metallurgist/level_1/bronze_sell",
+    "metallicarts:alloy_metallurgist/level_1/bronze_buy"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

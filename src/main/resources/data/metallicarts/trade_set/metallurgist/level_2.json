@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "metallicarts:metallurgist/level_2/zinc_sell",
+    "metallicarts:metallurgist/level_2/zinc_buy",
+    "metallicarts:metallurgist/level_2/lead_sell",
+    "metallicarts:metallurgist/level_2/lead_buy",
+    "metallicarts:metallurgist/level_2/carbon_sell",
+    "metallicarts:metallurgist/level_2/carbon_buy"
+  ],
+  "amount": 6,
+  "allow_duplicates": false
+}

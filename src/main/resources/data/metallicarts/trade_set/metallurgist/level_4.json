@@ -1,0 +1,12 @@
+{
+  "trades": [
+    "metallicarts:metallurgist/level_4/iron_nuggets",
+    "metallicarts:metallurgist/level_4/tin_nuggets",
+    "metallicarts:metallurgist/level_4/copper_nuggets",
+    "metallicarts:metallurgist/level_4/zinc_nuggets",
+    "metallicarts:metallurgist/level_4/lead_nuggets",
+    "metallicarts:metallurgist/level_4/carbon_nuggets"
+  ],
+  "amount": 6,
+  "allow_duplicates": false
+}

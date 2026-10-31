@@ -1,2 +1,2 @@
-Phase 2 data packs belong here: recipe/, loot_table/, tags/, worldgen/.
-No economy, ores, alloys or power effects are supplied in Phase 1.
+Phase 2 data: metallurgy/ contains processing definitions; recipe/ contains the workstation recipe.
+loot_table/, worldgen/, villager_trade/ and trade_set/ provide the metal economy. Shared tags are under data/c/ and data/minecraft/.

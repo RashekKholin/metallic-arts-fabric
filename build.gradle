@@ -32,4 +32,16 @@ java { toolchain.languageVersion = JavaLanguageVersion.of(25); withSourcesJar() 
 tasks.withType(JavaCompile).configureEach { options.release = 25; options.encoding = 'UTF-8' }
 test { useJUnitPlatform() }
 processResources { exclude '**/.gitkeep', '**/README.md' }
+sourceSets.main.resources.exclude 'assets/metallicarts/textures/**/*.png'
+processResources { from(zipTree('src/main/texture-assets.zip')) }
 tasks.named('sourcesJar') { mustRunAfter 'runDatagen' }
+
+loom.runs {
+    restartSmoke {
+        server()
+        source sourceSets.gametest
+        runDir 'build/run/restartSmoke'
+        vmArg "-Dmetallicarts.restartSmoke=${providers.gradleProperty('smokeMode').getOrElse('verify')}"
+        programArg 'nogui'
+    }
+}

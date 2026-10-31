@@ -1,0 +1,14 @@
+{
+  "trades": [
+    "metallicarts:rare_metallurgist/level_3/aluminum_portion",
+    "metallicarts:rare_metallurgist/level_3/chromium_portion",
+    "metallicarts:rare_metallurgist/level_3/cadmium_portion",
+    "metallicarts:rare_metallurgist/level_3/gold_portion",
+    "metallicarts:rare_metallurgist/level_3/silver_portion",
+    "metallicarts:rare_metallurgist/level_3/nickel_portion",
+    "metallicarts:rare_metallurgist/level_3/bismuth_portion",
+    "metallicarts:rare_metallurgist/level_3/silicon_portion"
+  ],
+  "amount": 8,
+  "allow_duplicates": false
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "specialty=0": {
+      "model": "metallicarts:block/metallurgy_table"
+    },
+    "specialty=1": {
+      "model": "metallicarts:block/metallurgy_table"
+    },
+    "specialty=2": {
+      "model": "metallicarts:block/metallurgy_table"
+    },
+    "specialty=3": {
+      "model": "metallicarts:block/metallurgy_table"
+    }
+  }
+}
