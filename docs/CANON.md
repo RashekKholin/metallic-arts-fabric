@@ -1,3 +1,5 @@
+> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+
 # Canon and interpretation policy
 
 The executable provenance catalog is `src/main/resources/metallicarts/rules.json`. Common initialization validates that entries have unique IDs and that author-statement entries cite a source. It is bundled evidence, not a datapack loader or finished canonical rules engine.
@@ -61,3 +63,12 @@ Player extraction is off by default and further requires current donor consent p
 ## Phase 6–7 interpretations
 
 ADVANCED_ARTS.md and bundled rules.json explicitly distinguish observed Minecraft behavior from canonical claims. Local temporal clocks, finite body escrow, recorded-path Gold, collision-bounded Electrum, villager Connection, Luck/opportunity Fortune and single-type unsealed construction are documented game adaptations. The consumed Duralumin binder is not a verified canonical Excisor recipe. The original Phase 7 baseline deferred constructs, god metals and Compounding; bounded player constructs, compounding and Lerasium now exist as documented in ADVANCED_SYSTEMS.md. Unresolved god metals and complete canonical metaphysics remain deferred.
+
+
+## Current release-candidate provenance
+
+The 1.0.0-rc.1 generator reconciles old deferred status and adds separate rules for authored NPC provenance, consent-based memory movement, camp/faction progression, distinct Atium/alloy prediction and Harmonium separation. Initial NPC implants are authored generated-world sources, not invented theft from real accounts. Exact numerical costs, body slots, predictions, finite bead windows and faction scores are explicit interpretations/game policy.
+
+The official publisher's [Lost Metal chapters sixteen–eighteen excerpt](https://reactormag.com/read-the-lost-metal-by-brandon-sanderson-chapters-sixteen-through-eighteen/) and adjacent official excerpts were consulted for Harmonium/Trellium separation context. They do not establish our crafting recipe, safe workstation, water damage or quantities. The [author Q&A event distinguishing Atium/Electrum](https://wob.coppermind.net/events/486-general-reddit-2022/#e15955) was discoverable in the search index but direct event retrieval was blocked during research; this access limitation remains recorded. No precise new ability or quantity is presented as a directly verified quote from that blocked page.
+
+Unknown god-metal alloys and the unpublished Excisor process remain unresolved. The implemented subset is listed explicitly in RELEASE_CANDIDATE.md; its existence does not certify complete canon.

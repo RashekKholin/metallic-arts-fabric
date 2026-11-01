@@ -38,6 +38,7 @@ public final class AdvancedAllomancy {
         ServerPlayConnectionEvents.DISCONNECT.register((handler,server)->{stop(handler.player);EffectivePower.stop(handler.player);});
         ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.clear();PulseHistory.clear();TemporalEngine.clear();EmotionService.clear();EffectivePower.clear();});
     }
+    public static void amplify(ServerPlayer p){session(p).burst=true;}
     public static Spiritweb drain(Spiritweb state,Set<Metal> metals){
         var reserves=new EnumMap<Metal,Long>(Metal.class);state.reserves().forEach((m,v)->{if(!metals.contains(m))reserves.put(m,v);});
         return new Spiritweb(state.schema(),state.identity(),state.grants(),reserves,state.investedReserves().stream().filter(d->!metals.contains(d.metal())).toList());
@@ -102,8 +103,8 @@ public final class AdvancedAllomancy {
         if(bronze>0&&tick%dev.metallicarts.config.AdvancedConfig.get().detection().interval()==0){
             var pulses=PulseHistory.detectable(p,bronze);
             for(var pulse:pulses){cues.add("Pulse "+String.join("/",pulse.metals().stream().map(Metal::id).sorted().toList())+" • "+(int)p.position().distanceTo(pulse.position())+"m"+(pulse.concealment()>0?" (pierced cloud)":""));point(p,pulse.position().add(0,1,0),0xDD8833);}
-            if(pulses.isEmpty())cues.add("Bronze: no detectable Allomantic pulse");
-            else if(dev.metallicarts.config.AdvancedConfig.get().detection().sound()){var metal=pulses.getFirst().metals().stream().min(Comparator.naturalOrder()).orElse(Metal.IRON);p.connection.send(new net.minecraft.network.protocol.game.ClientboundSoundPacket(net.minecraft.core.Holder.direct(net.minecraft.sounds.SoundEvents.AMETHYST_BLOCK_CHIME),net.minecraft.sounds.SoundSource.PLAYERS,p.getX(),p.getY(),p.getZ(),.15f,.6f+metal.ordinal()*.04f,p.getRandom().nextLong()));}
+            var godPulses=GodmetalRuntime.signatures(p,bronze);cues.addAll(godPulses);if(pulses.isEmpty()&&godPulses.isEmpty())cues.add("Bronze: no detectable Allomantic pulse");
+            else if(!pulses.isEmpty()&&dev.metallicarts.config.AdvancedConfig.get().detection().sound()){var metal=pulses.getFirst().metals().stream().min(Comparator.naturalOrder()).orElse(Metal.IRON);p.connection.send(new net.minecraft.network.protocol.game.ClientboundSoundPacket(net.minecraft.core.Holder.direct(dev.metallicarts.registry.ModPresentation.BRONZE_PULSE),net.minecraft.sounds.SoundSource.PLAYERS,p.getX(),p.getY(),p.getZ(),.15f,.6f+metal.ordinal()*.04f,p.getRandom().nextLong()));}
         }
         if(powers.containsKey(Metal.COPPER))cues.add("Coppercloud • emotional immunity");
         if(powers.containsKey(Metal.GOLD))gold(p,s,cues,tick,powers.get(Metal.GOLD));
@@ -159,7 +160,7 @@ public final class AdvancedAllomancy {
                 var next=position.add(motion);
                 if(body.inflate(.25).clip(position,next).isPresent()){best=Math.min(best,n);break;}
                 if(p.level().clip(new ClipContext(position,next,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p)).getType()!=HitResult.Type.MISS)break;
-                position=next;if(!projectile.isNoGravity())motion=motion.add(0,-.03,0);
+                position=next;double drag=projectile instanceof net.minecraft.world.entity.projectile.arrow.AbstractArrow?(projectile.isInWater()?.6:.99):.99;motion=motion.scale(drag);if(!projectile.isNoGravity())motion=motion.add(0,-projectile.getGravity(),0);
             }
         }
         return best==Integer.MAX_VALUE?Optional.empty():Optional.of(best);
@@ -177,13 +178,13 @@ public final class AdvancedAllomancy {
         feedback(p,s.notice,true);return true;
     }
     private static boolean dodge(ServerPlayer p,Session s,int tick){
-        if(AllomancyRuntime.power(p,Metal.ELECTRUM)<=0||tick-s.dodge<Math.clamp((int)(dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCooldown()/(1+AdvancedFeruchemy.effect(p,dev.metallicarts.feruchemy.FeruchemicalAttribute.MENTAL_SPEED)*.5)),4,20)||threat(p,p.getBoundingBox(),15).isEmpty())return false;
-        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);if(ReserveLedger.ordinary(state,Metal.ELECTRUM)<dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost())return false;
+        if(AllomancyRuntime.power(p,Metal.ELECTRUM)<=0&&!GodmetalRuntime.canOpen(p)||tick-s.dodge<Math.clamp((int)(dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCooldown()/(1+AdvancedFeruchemy.effect(p,dev.metallicarts.feruchemy.FeruchemicalAttribute.MENTAL_SPEED)*.5)),4,20)||threat(p,p.getBoundingBox(),15).isEmpty())return false;
+        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);boolean god=GodmetalRuntime.canOpen(p);if(!god&&ReserveLedger.ordinary(state,Metal.ELECTRUM)<dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost())return false;
         var right=p.getLookAngle().multiply(1,0,1).normalize().yRot((float)(Math.PI/2));
         for(double side:new double[]{1,-1}){
             var change=right.scale(side*.65);var destination=p.getBoundingBox().move(change);
             if(!p.level().noCollision(p,destination)||threat(p,destination,15).isPresent())continue;
-            p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.debit(state,Metal.ELECTRUM,dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost()));
+            if(god){if(!GodmetalRuntime.payOpening(p))return false;}else p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.debit(state,Metal.ELECTRUM,dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost()));
             p.setDeltaMovement(MetalPhysics.limited(p.getDeltaMovement().add(change),AllomancyRuntime.config.maximumPlayerSpeed()));p.hurtMarked=true;s.dodge=tick;s.notice="Followed a predicted opening";ModNetworking.send(p);return true;
         }return false;
     }
@@ -200,7 +201,7 @@ public final class AdvancedAllomancy {
         json.addProperty("memoryTotal",j.memories().size());json.addProperty("historyTotal",j.history().size());json.addProperty("page",page);
         var access=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())access.addProperty(art.name()+":"+metal.name(),EffectivePower.strength(p,art,metal));json.add("access",access);var owned=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())owned.addProperty(art.name()+":"+metal.name(),EffectivePower.base(p,art,metal));json.add("baseAccess",owned);return json;
     }
-    private static void point(ServerPlayer p,Vec3 position,int color){if(p.level().hasChunkAt(net.minecraft.core.BlockPos.containing(position)))p.level().sendParticles(p,new DustParticleOptions(color,.6f),true,false,position.x,position.y,position.z,1,0,0,0,0);}
+    private static void point(ServerPlayer p,Vec3 position,int color){if(p.level().hasChunkAt(net.minecraft.core.BlockPos.containing(position)))p.level().sendParticles(p,new dev.metallicarts.registry.ModPresentation.Dust(color,.6f),true,false,position.x,position.y,position.z,1,0,0,0,0);}
     private static void modifier(ServerPlayer p,net.minecraft.core.Holder<Attribute> attribute,String name,double amount,AttributeModifier.Operation operation){
         var instance=p.getAttribute(attribute);if(instance==null)return;var id=MetallicArts.id(name);if(amount==0)instance.removeModifier(id);
         else if(instance.getModifier(id)==null||instance.getModifier(id).amount()!=amount)instance.addOrUpdateTransientModifier(new AttributeModifier(id,amount,operation));

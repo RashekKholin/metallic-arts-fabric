@@ -21,6 +21,8 @@ import java.util.*;
 public final class EconomyWorld {
     public static final List<ResourceKey<VillagerProfession>> PROFESSIONS = new ArrayList<>();
     public static void initialize() {
+        Registry.register(BuiltInRegistries.FEATURE,MetallicArts.id("research_camp"),new ResearchCampFeature());
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),GenerationStep.Decoration.SURFACE_STRUCTURES,ResourceKey.create(Registries.PLACED_FEATURE,MetallicArts.id("research_camp")));
         for (String ore : List.of("tin","zinc","silver","bauxite","nickel","chromite","lead","bismuth")) {
             ResourceKey<PlacedFeature> feature = ResourceKey.create(Registries.PLACED_FEATURE, MetallicArts.id(ore + "_ore"));
             BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),GenerationStep.Decoration.UNDERGROUND_ORES,feature);

@@ -25,5 +25,6 @@
     "minecraft": "26.1",
     "java": ">=25",
     "fabric-api": ">=0.145.1+26.1"
-  }
+  },
+  "license": "LicenseRef-All-Rights-Reserved"
 }

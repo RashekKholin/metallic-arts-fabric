@@ -13,28 +13,29 @@ public final class SpiritwebScreen extends Screen {
     @Override protected void init(){
         AdvancedArtsClient.action(3,0);
         addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.translatable("metallicarts.guide.title"),b->minecraft.setScreen(new GuideScreen())).bounds(8,8,70,18).build());
+        int burnWidth=Math.min(72,(width-88)/4),burnLeft=(width-4*(burnWidth+4)+4)/2;
         for(int i=0;i<4;i++){
             final int index=page*4+i;
             double angle=-Math.PI/2+i*Math.PI/2;
             addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
-                Component.literal(dev.metallicarts.allomancy.AllomancyConfig.SUPPORTED.get(index).id()),
+                UiText.of(dev.metallicarts.allomancy.AllomancyConfig.SUPPORTED.get(index).id()),
                 button->AllomancyClient.cycle(index)).bounds(
-                    wheel?width/2+(int)Math.round(Math.cos(angle)*70)-36:width/2-150+i*76,
-                    wheel?120+(int)Math.round(Math.sin(angle)*60)-10:206,72,20).build());
+                    wheel?width/2+(int)Math.round(Math.cos(angle)*70)-36:burnLeft+i*(burnWidth+4),
+                    wheel?120+(int)Math.round(Math.sin(angle)*60)-10:206,wheel?72:burnWidth,20).build());
         }
-        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.literal("<"),b->{page=Math.floorMod(page-1,4);rebuildWidgets();}).bounds(12,207,24,18).build());
-        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.literal(">"),b->{page=(page+1)%4;rebuildWidgets();}).bounds(width-36,207,24,18).build());
-        if(page==1)addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.literal("Emotion: "+dev.metallicarts.arts.EmotionProfile.Emotion.values()[emotion].name().toLowerCase()),b->{emotion=(emotion+1)%4;AdvancedArtsClient.action(0,emotion);rebuildWidgets();}).bounds(width/2-70,44,140,12).build());
-        if(page==3)addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.literal("Recorded paths / K"),b->AdvancedArtsClient.openJournal()).bounds(width/2-70,44,140,12).build());
+        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.c4dd3c8cdd8d"),b->{page=Math.floorMod(page-1,4);rebuildWidgets();}).bounds(12,207,24,18).build());
+        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.091385be99b4"),b->{page=(page+1)%4;rebuildWidgets();}).bounds(width-36,207,24,18).build());
+        if(page==1)addRenderableWidget(net.minecraft.client.gui.components.Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.53b1d9dd0bf4", (dev.metallicarts.arts.EmotionProfile.Emotion.values()[emotion].name().toLowerCase())),b->{emotion=(emotion+1)%4;AdvancedArtsClient.action(0,emotion);rebuildWidgets();}).bounds(width/2-70,44,140,12).build());
+        if(page==3)addRenderableWidget(net.minecraft.client.gui.components.Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.2734f687a7bf"),b->AdvancedArtsClient.openJournal()).bounds(width/2-70,44,140,12).build());
     }
     @Override public void tick(){if(++refresh%20==0)AdvancedArtsClient.action(3,0);}
     @Override public boolean isPauseScreen() { return false; }
     @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent event){
-        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_W){wheel=!wheel;rebuildWidgets();return true;}
-        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_P){SystemsClient.open();return true;}
-        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_F){FeruchemyClient.open();return true;}
-        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_H){HemalurgyClient.open();return true;}
-        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_BRACKET||event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_BRACKET){page=Math.floorMod(page+(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_BRACKET?-1:1),4);rebuildWidgets();return true;}
+        if(ContextKeys.LAYOUT.matches(event)){wheel=!wheel;rebuildWidgets();return true;}
+        if(net.minecraft.client.KeyMapping.get("key.metallicarts.systems").matches(event)){SystemsClient.open();return true;}
+        if(ContextKeys.F.matches(event)){FeruchemyClient.open();return true;}
+        if(ContextKeys.H.matches(event)){HemalurgyClient.open();return true;}
+        if(ContextKeys.PREVIOUS.matches(event)||ContextKeys.NEXT.matches(event)){page=Math.floorMod(page+(ContextKeys.PREVIOUS.matches(event)?-1:1),4);rebuildWidgets();return true;}
         return super.keyPressed(event);
     }
     @Override public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
@@ -44,26 +45,27 @@ public final class SpiritwebScreen extends Screen {
         }
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
         graphics.centeredText(font, title, width / 2, 16, 0xFFFFFFFF);
-        graphics.centeredText(font, Component.literal("Allomancy • "+new String[]{"Physical","Mental","Enhancement","Temporal"}[page]+" ("+(page+1)+"/4)"), width / 2, 32, 0xFFFFCC77);
+        graphics.centeredText(font, net.minecraft.network.chat.Component.translatable("ui.metallicarts.3addf7707fdc", (new String[]{"Physical","Mental","Enhancement","Temporal"}[page]), ((page+1))), width / 2, 32, 0xFFFFCC77);
         if(wheel){
             Spiritweb state=MetallicArtsClient.snapshot;
-            for(int i=0;i<4;i++){
+            int burnWidth=Math.min(72,(width-88)/4),burnLeft=(width-4*(burnWidth+4)+4)/2;
+        for(int i=0;i<4;i++){
                 var metal=dev.metallicarts.allomancy.AllomancyConfig.SUPPORTED.get(page*4+i);
                 double a=-Math.PI/2+i*Math.PI/2;
                 int x=width/2+(int)Math.round(Math.cos(a)*70),y=120+(int)Math.round(Math.sin(a)*60)+12;
                 String mode=dev.metallicarts.allomancy.BurnMode.from(AllomancyClient.status.mode(page*4+i)).name().toLowerCase(java.util.Locale.ROOT);
                 long fuel=state!=null&&dev.metallicarts.allomancy.ReserveLedger.valid(state)?dev.metallicarts.allomancy.ReserveLedger.ordinary(state,metal):0;
-                graphics.centeredText(font,Component.literal(mode+" • "+fuel+"µg"),x,y,0xFFCCDDFF);
+                graphics.centeredText(font,net.minecraft.network.chat.Component.translatable("ui.metallicarts.2b2bafa3c6dc", (mode), (fuel)),x,y,0xFFCCDDFF);
             }
-            graphics.centeredText(font,Component.literal("Click: off → burn → flare"),width/2,208,0xFFCCCCCC);
-            graphics.centeredText(font,Component.literal("F: metalminds • H: spikes • W: grid/wheel"),width/2,224,0xFFAAAAAA);
+            graphics.centeredText(font,net.minecraft.network.chat.Component.translatable("ui.metallicarts.493c212ae538"),width/2,208,0xFFCCCCCC);
+            graphics.centeredText(font,net.minecraft.network.chat.Component.translatable("ui.metallicarts.5093d7afc3b4"),width/2,224,0xFFAAAAAA);
             return;
         }
         var modes=new StringBuilder();
         for(int i=0;i<4;i++)modes.append(dev.metallicarts.allomancy.AllomancyConfig.SUPPORTED.get(page*4+i).id()).append(": ")
             .append(dev.metallicarts.allomancy.BurnMode.from(AllomancyClient.status.mode(page*4+i)).name().toLowerCase(java.util.Locale.ROOT)).append("  ");
         if((AllomancyClient.status.flags()&4)!=0)modes.append("targets: ").append(AllomancyClient.status.flags()>>8);
-        if(page==0||page==2)graphics.centeredText(font,Component.literal(modes.toString()),width/2,44,0xFF77BBFF);
+        if(page==0||page==2)graphics.centeredText(font,UiText.of(modes.toString()),width/2,44,0xFF77BBFF);
         Spiritweb state = MetallicArtsClient.snapshot;
         if (state == null) {
             graphics.centeredText(font, Component.translatable("screen.metallicarts.waiting"), width / 2, 64, 0xFFFFFFFF);
@@ -81,9 +83,7 @@ public final class SpiritwebScreen extends Screen {
             graphics.text(font, Component.translatable("metal.metallicarts." + metal.id()).append("  " + access + reserve), x, y, 0xFFFFFFFF);
         }
         graphics.centeredText(font, Component.translatable("screen.metallicarts.legend"), width / 2, 184, 0xFFAAAAAA);
-        graphics.centeredText(font,Component.literal("Ordinary fuel (g / µg); invested metal reserved"),width/2,195,0xFFAAAAAA);
-        graphics.centeredText(font,Component.literal(page==0?"G select / H clear • R push / V pull / C coin":"[ / ] group • J predicted opening • K journal"),width/2,231,0xFFAAAAAA);
+        graphics.centeredText(font,net.minecraft.network.chat.Component.translatable("ui.metallicarts.1da2ee60dfa3"),width/2,195,0xFFAAAAAA);
+        graphics.centeredText(font,(page==0?net.minecraft.network.chat.Component.translatable("ui.metallicarts.9417475f3edd"):net.minecraft.network.chat.Component.translatable("ui.metallicarts.46fd6c953019")),width/2,231,0xFFAAAAAA);
     }
 }
-
-

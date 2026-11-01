@@ -1,4 +1,4 @@
-param([switch]$AcceptMinecraftEula)
+param([switch]$AcceptMinecraftEula,[ValidateRange(1,120)][int]$SoakMinutes=1)
 $ErrorActionPreference='Stop'
 if(!$AcceptMinecraftEula){throw 'Read https://aka.ms/MinecraftEULA and use -AcceptMinecraftEula only if you agree.'}
 $repo=Split-Path $PSScriptRoot -Parent
@@ -16,11 +16,11 @@ foreach($name in @('multiplayerClientA','multiplayerClientB')){Set-Content (Join
 $processes=@()
 try {
  foreach($role in @('Server','ClientA','ClientB')){
-  $arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File',('"'+(Join-Path $PSScriptRoot 'run-multiplayer-role.ps1')+'"'),'-Role',$role,'-RunRoot',$runRoot)
+  $arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File',('"'+(Join-Path $PSScriptRoot 'run-multiplayer-role.ps1')+'"'),'-Role',$role,'-RunRoot',$runRoot,'-SoakTicks',($SoakMinutes*1200))
   $processes+=Start-Process powershell.exe -ArgumentList $arguments -WorkingDirectory $repo -WindowStyle Hidden -RedirectStandardOutput (Join-Path $base ($role+'.log')) -RedirectStandardError (Join-Path $base ($role+'.stderr.log')) -PassThru
  }
  $result=Join-Path $base 'multiplayerServer/multiplayer-result.json'
- $deadline=(Get-Date).AddMinutes(6)
+ $deadline=(Get-Date).AddMinutes(6+$SoakMinutes*1.5)
  while(!(Test-Path -LiteralPath $result)){
   if((Get-Date) -gt $deadline){throw "Timed out. See $base"}
   if($processes | Where-Object {$_.HasExited -and $_.ExitCode -ne 0}){throw "A test process failed. See $base"}

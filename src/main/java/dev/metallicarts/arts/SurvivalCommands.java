@@ -17,8 +17,14 @@ public final class SurvivalCommands {
  public static int count(ServerPlayer p,Item item){int n=0;for(int i=0;i<36;i++)if(p.getInventory().getItem(i).is(item))n+=p.getInventory().getItem(i).getCount();return n;}
  public static void take(ServerPlayer p,Item item,int n){for(int i=0;i<36&&n>0;i++){var stack=p.getInventory().getItem(i);if(stack.is(item)){int amount=Math.min(n,stack.getCount());stack.shrink(amount);n-=amount;}}}
  private static int act(ServerPlayer p,String action){try{switch(action){
+ case "sharememories"->{boolean next=!p.getAttachedOrCreate(ModRegistries.MEMORY_SHARING);p.setAttached(ModRegistries.MEMORY_SHARING,next);p.sendSystemMessage(Component.literal("Receive shared memories: "+(next?"ON":"OFF")));}
  case "guide"->{for(int i=0;i<7;i++)p.sendSystemMessage(Component.translatable("metallicarts.guide."+i));}
  case "discover"->{if(!SurvivalProgression.awaken(p,false))throw new IllegalArgumentException("Discovery needs the configured XP level and happens once per character");var s=p.getAttachedOrCreate(ModRegistries.PROGRESSION);p.sendSystemMessage(Component.literal(s.feruchemy().map(m->"Discovered Feruchemy: "+m.id()).orElse("No innate Feruchemy. Trade for unsealed ability cores or study Hemalurgy.")));}
+ case "pastvision"->{boolean next=!p.getAttachedOrCreate(ModRegistries.PAST_VISION_CONSENT);p.setAttached(ModRegistries.PAST_VISION_CONSENT,next);p.sendSystemMessage(Component.literal("Allow Malatium past echoes: "+(next?"ON":"OFF")));}
+ case "atiumalloy"->GodmetalCrafting.alloy(p);
+ case "split"->GodmetalCrafting.split(p);
+ case "factions"->p.sendSystemMessage(Component.literal("Faction standing: "+p.getAttachedOrCreate(ModRegistries.FACTIONS).values()));
+ case "tribute"->Factions.tribute(p);
  case "mix"->MixedVialItem.mix(p);
  case "bind"->Medallions.bind(p);
  case "alloy"->{var held=p.getMainHandItem();var form=EconomyContent.form(p.getOffhandItem().getItem());if(held.getItem()!=EconomyContent.ITEMS.get("lerasium_bead")||held.getCount()!=1||form==null||!form.kind().equals("ingot")||Materials.metal(form.material()).isEmpty()||p.getOffhandItem().has(ModRegistries.METALMIND)||p.getOffhandItem().has(ModRegistries.SPIKE)||p.getOffhandItem().get(ModRegistries.METAL_DATA)!=null&&Ingestion.invested(p.getOffhandItem().get(ModRegistries.METAL_DATA))||p.getOffhandItem().get(EconomyContent.COMPOSITION)!=null&&p.getOffhandItem().get(EconomyContent.COMPOSITION).purity()<.999999)throw new IllegalArgumentException("Hold one pure bead and one ordinary standard-metal ingot in the off hand");p.getOffhandItem().shrink(1);p.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND,new ItemStack(EconomyContent.ITEMS.get("lerasium_"+form.material()+"_bead")));}
@@ -28,13 +34,10 @@ public final class SurvivalCommands {
  public static void initialize(){
   CommandRegistrationCallback.EVENT.register((d,r,e)->{
    var root=Commands.literal("metallicarts-survival");
-   root.then(Commands.argument("action",StringArgumentType.word()).suggests((c,b)->{for(var s:List.of("guide","discover","mix","bind","alloy","mistwraith","lerasium"))b.suggest(s);return b.buildFuture();}).executes(c->act(c.getSource().getPlayerOrException(),StringArgumentType.getString(c,"action"))));
+   root.then(Commands.argument("action",StringArgumentType.word()).suggests((c,b)->{for(var s:List.of("guide","factions","tribute","pastvision","sharememories","atiumalloy","split","discover","mix","bind","alloy","mistwraith","lerasium"))b.suggest(s);return b.buildFuture();}).executes(c->act(c.getSource().getPlayerOrException(),StringArgumentType.getString(c,"action"))));
    root.then(Commands.literal("medallion").then(Commands.argument("firstSlot",IntegerArgumentType.integer(0,11)).executes(c->{var p=c.getSource().getPlayerOrException();try{Medallions.equip(p,IntegerArgumentType.getInteger(c,"firstSlot"));return 1;}catch(IllegalArgumentException ex){p.sendSystemMessage(Component.literal(ex.getMessage()));return 0;}})));
+   root.then(Commands.literal("unspike").then(Commands.argument("point",IntegerArgumentType.integer(1,12)).executes(c->{var p=c.getSource().getPlayerOrException();try{dev.metallicarts.hemalurgy.NpcConstructs.remove(p,IntegerArgumentType.getInteger(c,"point")-1);return 1;}catch(IllegalArgumentException ex){p.sendSystemMessage(Component.literal(ex.getMessage()));return 0;}})));
    d.register(root);
   });
  } private SurvivalCommands(){}
 }
-
-
-
-

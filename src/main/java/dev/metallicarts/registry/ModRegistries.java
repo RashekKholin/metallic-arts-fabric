@@ -13,6 +13,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class ModRegistries {
+    public static final AttachmentType<dev.metallicarts.arts.FactionStanding> FACTIONS=AttachmentRegistry.create(MetallicArts.id("faction_standing"),b->b.initializer(dev.metallicarts.arts.FactionStanding::empty).persistent(dev.metallicarts.arts.FactionStanding.CODEC).copyOnDeath());
+    public static final AttachmentType<Boolean> RESEARCHER=AttachmentRegistry.create(MetallicArts.id("researcher"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL));
+    public static final AttachmentType<Boolean> NPC_CONSTRUCT_READY=AttachmentRegistry.create(MetallicArts.id("npc_construct_ready"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL));
+    public static final AttachmentType<Boolean> PAST_VISION_CONSENT=AttachmentRegistry.create(MetallicArts.id("past_vision_consent"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL).copyOnDeath());
+    public static final AttachmentType<Boolean> MEMORY_SHARING=AttachmentRegistry.create(MetallicArts.id("memory_sharing"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL).copyOnDeath());
     public static final AttachmentType<dev.metallicarts.arts.ProgressionState> PROGRESSION=AttachmentRegistry.create(MetallicArts.id("survival_progression"),b->b.initializer(()->dev.metallicarts.arts.ProgressionState.EMPTY).persistent(dev.metallicarts.arts.ProgressionState.CODEC).copyOnDeath());
     public static final AttachmentType<Boolean> LERASIUM_CLAIMED=AttachmentRegistry.create(MetallicArts.id("lerasium_claimed"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL).copyOnDeath());
     public static final AttachmentType<dev.metallicarts.arts.Relationships> RELATIONSHIPS=AttachmentRegistry.create(MetallicArts.id("relationships"),b->b.initializer(dev.metallicarts.arts.Relationships::empty).persistent(dev.metallicarts.arts.Relationships.CODEC).copyOnDeath());
@@ -52,4 +57,3 @@ public final class ModRegistries {
     public static void initialize() { MetallicArts.LOGGER.info("Registered {} base metal IDs, spiritweb attachment and metal component", METALS.size()); }
     private ModRegistries() {}
 }
-

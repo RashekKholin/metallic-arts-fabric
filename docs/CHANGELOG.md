@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.0-rc.1
+
+- Selects All rights reserved with gameplay/server-use permission, jar/source notices and contribution guidance.
+- Implements actual NPC attribute storage/tapping and typed Copper/Nicrosil, paid sixteen-metal AI, distinct dependent construct NPCs, original skins, bounded permanent-despawn cleanup and safe provisioning limits.
+- Adds rare new-chunk research camps, finite loot, advancements, field guide, faction standing, consenting memory movement, separate researched god-metal windows/material interactions and protected opportunities.
+- Adds actual OpenPAC API integration and force-anchor protection, canonical lease recovery, deliberate partial-save crash and real historical-source migration fixtures.
+- Adds 32 metal lessons, eleven-page narrated guide, client sensory preferences, rebindable context keys, translatable UI catalog and original item art. English remains reference; Spanish partial.
+- Expands native CI across server operating systems, software-rendered Linux clients and pinned compatibility/recovery before immutable prerelease publication. Exact observed results and unresolved acceptance gates are separate in RELEASE_VALIDATION.md and REMAINING_WORK.md.
+
 ## 0.8.0-alpha.2
 
 - Corrects stale bundled provenance, historical phase-guide status and release metadata. The tested alpha.1 mechanics are unchanged.

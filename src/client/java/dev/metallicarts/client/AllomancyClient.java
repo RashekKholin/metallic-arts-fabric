@@ -45,7 +45,7 @@ public final class AllomancyClient {
             if((status.flags()&1)!=0&&TinOptions.INSTANCE.showOverload())line.append("Tin overload  ");
             if((status.flags()&2)!=0)line.append("Pewter fatigue");
             if((status.flags()&4)!=0)line.append(" targets: ").append(status.flags()>>8);
-            if(!line.isEmpty()){int y=8;for(var text:client.font.split(Component.literal(line.toString()),client.getWindow().getGuiScaledWidth()-16)){graphics.text(client.font,text,8,y,0xFF77BBFF);y+=10;if(y>38)break;}}
+            if(!line.isEmpty()){int y=8;for(var text:client.font.split(UiText.of(line.toString()),client.getWindow().getGuiScaledWidth()-16)){graphics.text(client.font,text,8,y,0xFF77BBFF);y+=10;if(y>38)break;}}
         });
     }
     public static void cycle(int index){

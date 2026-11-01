@@ -23,7 +23,7 @@ public final class MetalVialItem extends MaterialItem {
         var data = player.getItemInHand(hand).get(ModRegistries.METAL_DATA);
         if (data == null || data.metal() != metal) return InteractionResult.FAIL;
         if (player instanceof ServerPlayer serverPlayer && !Ingestion.canAccept(serverPlayer.getAttachedOrCreate(ModRegistries.SPIRITWEB), data)) {
-            player.sendOverlayMessage(Component.literal("Unsafe metal or full reserves. The vial was kept."));
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("ui.metallicarts.330bf7fe96b3"));
             return InteractionResult.FAIL;
         }
         player.startUsingItem(hand);
@@ -40,7 +40,7 @@ public final class MetalVialItem extends MaterialItem {
         ModNetworking.send(player);
         // Even creative consumption uses the vial: ingested resources cannot be duplicated by drinking it repeatedly.
         stack.shrink(1);
-        player.sendOverlayMessage(Component.literal("Ingested " + metal.id() + "; no power activated."));
+        player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("ui.metallicarts.f9f04fc6732c", (metal.id())));
         ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
         if (stack.isEmpty()) return bottle;
         if (!player.getInventory().add(bottle)) player.drop(bottle, false);

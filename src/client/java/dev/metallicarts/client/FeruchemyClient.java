@@ -23,9 +23,9 @@ public final class FeruchemyClient {
         ClientPlayConnectionEvents.DISCONNECT.register((handler,client)->{snapshot=null;senses=SenseStatus.NORMAL;});
         HudElementRegistry.addLast(MetallicArts.id("physical_senses"),(graphics,delta)->{
             var client=Minecraft.getInstance();
-            if(client.player==null||client.screen!=null||client.options.hideGui||senses.cue().isEmpty())return;
+            if(!ClientPreferences.value(5)||client.player==null||client.screen!=null||client.options.hideGui||senses.cue().isEmpty())return;
             int y=22,count=0;
-            for(var line:client.font.split(Component.literal(senses.cue()),client.getWindow().getGuiScaledWidth()-16)){
+            for(var line:client.font.split(UiText.of(senses.cue()),client.getWindow().getGuiScaledWidth()-16)){
                 if(count++>=2)break;
                 graphics.text(client.font,line,8,y,0xFFCCDDCC);y+=10;
             }

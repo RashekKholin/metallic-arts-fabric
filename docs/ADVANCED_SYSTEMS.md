@@ -1,3 +1,5 @@
+> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+
 # Advanced systems in 0.8.0-alpha.2
 
 These are playable, bounded Minecraft interpretations. A listed feature does not imply every cosmere interaction has been simulated. See the bundled `metallicarts/rules.json` and [canon policy](CANON.md).

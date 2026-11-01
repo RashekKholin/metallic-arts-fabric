@@ -190,5 +190,13 @@ function packTextures(){
  const directory=Buffer.concat(central),end=Buffer.alloc(22);end.writeUInt32LE(0x06054b50);end.writeUInt16LE(files.length,8);end.writeUInt16LE(files.length,10);end.writeUInt32LE(directory.length,12);end.writeUInt32LE(offset,16);
  fs.writeFileSync(path.resolve(__dirname,'../src/main/texture-assets.zip'),Buffer.concat([...local,directory,end]));
 }
+// Original sprites for the release-candidate invested materials and equipment.
+for(const [name,kind,color] of [['field_guide','pouch','344f79'],['mixed_vial','vial','79b4ac'],['medallion','ring','d5bc6b'],['lerasium_bead','portion','d8ffe9'],['atium_bead','portion','9ca6bc'],['nalatium_bead','portion','b7abc7'],['malatium_bead','portion','d1b798'],['harmonium_sample','raw','b7b9e3'],['trellium_sample','raw','b76c6c'],...metals.map((m,i)=>['lerasium_'+m+'_bead','portion',colors[i]])])itemAsset(name,kind,color);
+// Original 64x64 humanoid skins; no official or third-party artwork is copied.
+for(const [kind,skin,cloth] of [['koloss',[78,111,176],[79,58,51]],['inquisitor',[155,149,142],[40,35,42]],['kandra',[188,148,120],[66,83,78]]]){
+ const pixel=(x,y)=>{if(y<16&&x>=32||y>=32&&y<48||y>=48&&(x<16||x>=48))return[0,0,0,0];const head=x>=8&&x<32&&y<16;let color=head?skin:cloth;const shade=(x*7+y*13)%15-7;color=color.map(c=>Math.max(0,Math.min(255,c+shade)));if(y===11&&(x===10||x===13))color=kind==='inquisitor'?[220,225,235]:[25,25,30];if(kind==='inquisitor'&&y>=9&&y<=12&&(x===10||x===13))color=[200,210,225];if(kind==='koloss'&&(x*3+y*5)%31===0)color=[44,70,137];return [...color,255];};
+ png('assets/metallicarts/textures/entity/'+kind+'.png',pixel,64,64);lang['entity.metallicarts.'+kind]=human(kind);
+}
+write('assets/metallicarts/lang/en_us.json',lang);
 packTextures();
 console.log(JSON.stringify({materials:materials.length,ores:oreNames.length,metallurgyRecipes:recipes.length,professions:4,levelsPerProfession:5}));

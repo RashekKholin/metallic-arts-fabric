@@ -31,6 +31,9 @@ public final class MetalmindLedger extends SavedData {
     }
     public static MetalmindLedger get(MinecraftServer server){return server.overworld().getDataStorage().computeIfAbsent(TYPE);}
     public List<MetalmindAsset> all(){return assets.values().stream().sorted(Comparator.comparing(a->a.token().instance())).toList();}
+    public boolean room(){return assets.size()<LIMIT;}
+    /** Destroy only leases belonging to a permanently removed NPC, never a chunk unload. */
+    public void discardOwned(UUID owner){boolean changed=false;for(var a:new ArrayList<>(assets.values()))if(a.lease().filter(l->l.player().equals(owner)).isPresent()){assets.remove(a.token().instance());a.lease().ifPresent(leases::remove);a.content().memories().forEach(m->memoryOwners.remove(m.id()));changed=true;}if(changed)setDirty();}
     public MetalmindAsset resolve(AssetToken token){
         var asset=assets.get(token.instance());
         if(asset==null||asset.consumed()||!asset.token().equals(token))throw new IllegalArgumentException("Unknown, copied or stale metalmind reference");

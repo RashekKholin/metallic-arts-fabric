@@ -51,6 +51,9 @@ public final class EconomyContent {
                 add(material + "_vial", 1, p -> new MetalVialItem(p, metal));
             }
         }
+        add("field_guide",1,MaterialItem::new);
+        for(var kind:dev.metallicarts.arts.GodmetalRuntime.Kind.values())add(kind.name().toLowerCase(java.util.Locale.ROOT)+"_bead",16,p->new GodmetalItem(p,kind));
+        add("harmonium_sample",16,MaterialItem::new);add("trellium_sample",16,MaterialItem::new);
         add("mixed_vial",1,MixedVialItem::new);
         add("medallion",1,MaterialItem::new);
         dev.metallicarts.equipment.Medallions.CORES.toString();
@@ -99,4 +102,3 @@ public final class EconomyContent {
     public static boolean flakes(ItemStack stack) { Form form = form(stack.getItem()); return form != null && form.kind().equals("flakes") && Materials.metal(form.material()).isPresent(); }
     private EconomyContent() {}
 }
-

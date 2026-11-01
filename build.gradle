@@ -39,7 +39,7 @@ tasks.named('sourcesJar') { mustRunAfter 'runDatagen' }
 loom.runs {
     multiplayerServer {
         server(); source sourceSets.gametest; runDir providers.gradleProperty('multiplayerRunRoot').getOrElse('build/run')+'/multiplayerServer'
-        vmArg '-Dmetallicarts.multiplayer=server'; programArg 'nogui'
+        vmArg '-Dmetallicarts.multiplayer=server'; vmArg "-Dmetallicarts.soakTicks=${providers.gradleProperty('soakTicks').getOrElse('1200')}"; programArg 'nogui'
     }
     ['A','B'].each { role ->
         create("multiplayerClient${role}") {
@@ -56,3 +56,13 @@ loom.runs {
         programArg 'nogui'
     }
 }
+
+jar { from('LICENSE') { rename { 'LICENSE_metallicarts' } } }
+
+// Optional isolated compatibility fixture. Never bundles or installs third-party mods for normal users.
+if (providers.gradleProperty('claimsIntegrationTest').isPresent()) {
+    def claimsDir=providers.gradleProperty('claimsModsDir').getOrElse('../../work/compat-mods')
+    dependencies { gametestRuntimeOnly files(claimsDir+'/openpac.jar',claimsDir+'/configport.jar') }
+}
+
+tasks.named('sourcesJar') { from('LICENSE') }

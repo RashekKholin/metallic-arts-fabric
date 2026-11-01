@@ -22,9 +22,13 @@ public final class MetallicArts implements ModInitializer {
         config = ServerConfig.load();
         dev.metallicarts.config.AdvancedConfig.load();
         dev.metallicarts.config.ProgressionConfig.load();
+        dev.metallicarts.config.WorldConfig.load();
         LOGGER.info("Documented account power access: {} (RashekKholin, The17thShard); config enableAccountPowers controls this perk",config.enableAccountPowers());
         ModRegistries.initialize();
+        dev.metallicarts.registry.ModPresentation.initialize();
+        dev.metallicarts.compat.OpenPacAdapter.initialize();
         EconomyContent.initialize();
+        dev.metallicarts.hemalurgy.NpcConstructs.initialize();
         MetallurgyRecipes.initialize();
         EconomyWorld.initialize();
         LOGGER.info("Loaded {} provenance rules", RuleRegistry.load().size());
@@ -35,12 +39,16 @@ public final class MetallicArts implements ModInitializer {
         dev.metallicarts.hemalurgy.HemalurgyRuntime.initialize();
         dev.metallicarts.arts.AdvancedAllomancy.initialize();
         dev.metallicarts.arts.MemoryCapture.initialize();
+        dev.metallicarts.arts.Factions.initialize();
+        dev.metallicarts.api.FortuneOpportunities.initialize();
+        dev.metallicarts.arts.GodmetalRuntime.initialize();
+        dev.metallicarts.arts.HarmoniumReactions.initialize();
         dev.metallicarts.arts.Injuries.initialize();
         dev.metallicarts.arts.AdvancedSystems.initialize();
+        dev.metallicarts.arts.NpcFeruchemy.initialize();
         dev.metallicarts.arts.SurvivalProgression.initialize();
         dev.metallicarts.arts.SurvivalCommands.initialize();
         dev.metallicarts.allomancy.AllomancyRuntime.initialize();
         LOGGER.info("The Metallic Arts initialized with the sixteen standard Allomantic and Feruchemical metals");
     }
 }
-

@@ -6,7 +6,7 @@ const langPath=path.join(root,'assets/metallicarts/lang/en_us.json');const lang=
 const metals=['iron','steel','tin','pewter','zinc','brass','copper','bronze','aluminum','duralumin','chromium','nicrosil','gold','electrum','cadmium','bendalloy'];
 for(const [name,texture] of [['mixed_vial','potion'],['medallion','clock'],['lerasium_bead','nether_star'],...metals.map(m=>['lerasium_'+m+'_bead','nether_star'])]){
  write('assets/metallicarts/items/'+name+'.json',{model:{type:'minecraft:model',model:'metallicarts:item/'+name}});
- write('assets/metallicarts/models/item/'+name+'.json',{parent:'minecraft:item/generated',textures:{layer0:'minecraft:item/'+texture}});
+ write('assets/metallicarts/models/item/'+name+'.json',{parent:'minecraft:item/generated',textures:{layer0:'metallicarts:item/'+name}});
  lang['item.metallicarts.'+name]=name==='mixed_vial'?'Mixed Metal Vial':name==='medallion'?'Ability Core Medallion':name==='lerasium_bead'?'Lerasium Bead':'Lerasium–'+name.split('_')[1]+' Bead';
 }
 Object.assign(lang,{

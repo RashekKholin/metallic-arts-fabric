@@ -62,6 +62,7 @@ public final class AllomancyRuntime {
             for(var player:server.getPlayerList().getPlayers())dev.metallicarts.hemalurgy.ConstructRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())dev.metallicarts.feruchemy.FeruchemyRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())prepare(player,server.getTickCount());
+            dev.metallicarts.arts.NpcFeruchemy.frame(server);
             dev.metallicarts.arts.NpcArts.prepare(server);
             dev.metallicarts.arts.AdvancedAllomancy.frame(server);
             try(var frame=MetalPhysics.beginFrame()){
@@ -149,7 +150,7 @@ public final class AllomancyRuntime {
                     var origin=p.getEyePosition().add(0,-.3,0);
                     for(int n=1;n<=12;n++){
                         var point=origin.lerp(t.position(),n/12.0);
-                        p.level().sendParticles(p,new DustParticleOptions(s.selected.containsKey(MetalPhysics.key(t))?0x44FFFF:0x3388FF,0.6f),true,false,point.x,point.y,point.z,1,0,0,0,0);
+                        p.level().sendParticles(p,new dev.metallicarts.registry.ModPresentation.Dust(s.selected.containsKey(MetalPhysics.key(t))?0x44FFFF:0x3388FF,0.6f),true,false,point.x,point.y,point.z,1,0,0,0,0);
                     }
                 }
             }

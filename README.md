@@ -1,144 +1,96 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **0.8.0-alpha.2**
+Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **1.0.0-rc.1**
 
-Playable fan-mod alpha: all sixteen standard Allomantic metals and sixteen Feruchemical metals (five separate Tin senses), metal economy, source-tracked Hemalurgy, canonical equipment, compounding and prepared player constructs. This update also adds survival discovery, powered hostile populations, mixed vials, multi-core medallions and a researched Lerasium subset. These are bounded Minecraft interpretations, not every canonical interaction.
+A playable unofficial Mistborn fan mod: sixteen standard Allomantic metals, sixteen Feruchemical metals with five separate Tin senses, metallurgy, source-tracked Hemalurgy, compounding, unsealed equipment, player and NPC constructs, survival discovery and researched god-metal interpretations. **Release candidate, pending the acceptance checks below.** This does not implement every unpublished canonical interaction.
 
-**Current validation:** 83 unit tests, 80 required native server tests, all seven native client suites, and datagen/build passed. Dedicated restart and two-client results are recorded separately in [current validation](docs/RELEASE_VALIDATION.md); historical reports are not substituted for current evidence.
-
-Read [advanced systems and exact limits](docs/ADVANCED_SYSTEMS.md), [host configuration/recovery](docs/OPERATIONS.md), [advanced per-metal controls](docs/ADVANCED_ARTS.md), [economy](docs/ECONOMY.md), [physical Allomancy](docs/ALLOMANCY.md), [Feruchemy](docs/FERUCHEMY.md) and [Hemalurgy](docs/HEMALURGY.md).
+**License: All rights reserved.** The [LICENSE](LICENSE) permits official downloads, gameplay, server use, configuration and local backups. It does not grant general modification or redistribution rights. Third-party rights remain separate. Read [attribution](docs/ATTRIBUTION_REVIEW.md) and [contribution policy](CONTRIBUTING.md).
 
 ## Download and launch
 
-1. Open [versioned GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Choose **v0.8.0-alpha.2** and download **metallic-arts-fabric-0.8.0-alpha.2.jar**. The `-sources.jar` is source code, not the playable mod. Releases are published after successful main-branch CI; if that release is not present, use a successful [build artifact](https://github.com/RashekKholin/metallic-arts-fabric/actions/workflows/build.yml) or build below.
-2. Create a Minecraft **26.1** instance using **Java 25**, **Fabric Loader 0.18.4+**, and **Fabric API 0.145.1+26.1**. Download dependencies from their official projects; this jar does not bundle them.
-3. Put the ordinary mod jar and matching Fabric API jar in that instance's `mods` folder. Install the same mod version on the dedicated server and every client. Keep only one Metallic Arts jar.
-4. Launch the Fabric profile and create/join a world. Press **M**, then **Guide**. The mod's keys can be rebound in vanilla Controls.
-5. Upgrading: stop Minecraft/server, back up the entire world and configs, remove the old mod jar, then test the new build on a copy. Do not downgrade the world in place. Canonical charge belongs to world data; copying charged item previews between worlds does not transfer charge.
+1. Open [GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Download the ordinary **metallic-arts-fabric-1.0.0-rc.1.jar** when that candidate is published after CI passes. **Do not install the `-sources.jar`**; that is developer source. If the candidate is absent, the latest published alpha is a different, earlier build; use it or build this checkout yourself.
+2. Create a Minecraft **26.1** instance with **Java 25**, **Fabric Loader 0.18.4+** and **Fabric API 0.145.1+26.1** from their official projects. The mod does not bundle these dependencies.
+3. Place the ordinary mod jar and Fabric API jar in the instance's `mods` folder. Use the same mod version on server and clients; remove duplicate/older Metallic Arts jars.
+4. Launch the Fabric profile, join a world and press **M → Guide**. All world and contextual keys can be rebound under vanilla Controls.
+5. Before upgrading, stop the game/server and back up the **whole world plus configs**. Test a copy first. Do not downgrade in place. A copied item preview from another world cannot transfer canonical charge.
 
-GitHub Releases include the installable jar, sources and SHA-256 checksums. CI artifacts require sign-in and can expire. A successful CI run proves build/unit/datagen only; native local validation has its own report. The release automation retains existing versions rather than overwriting them.
+Versioned releases include sources and SHA-256 checksums. CI artifacts may expire and require sign-in. See [actual validation](docs/RELEASE_VALIDATION.md), including precise platform, multiplayer and migration limits.
 
-## Start playing in survival
+## Your first survival session
 
-Craft a **Metallurgy Table** using three iron ingots, three cobblestone and three planks in horizontal rows. Fuel it with furnace fuel. Refine raw ores, alloy exact compositions, then use **Shape** to make nuggets, portions, flakes and equipment. One nugget makes 100 portions; one portion makes one flake. Use recipe arrows/ghost ingredient requirements and **Start/Stop**; **Batch** repeats while resources/space permit.
+Craft a **Metallurgy Table**: three iron ingots, three cobblestone and three planks in horizontal rows. Supply furnace fuel, refine ores and alloy exact compositions; use **Shape** for equipment, portions and flakes. A nugget makes 100 portions; a portion makes a flake. The table shows ingredients, remaining work and batch/start/stop controls.
 
-Brew flakes with **water bottles and blaze powder in a normal Brewing Stand**. One flake fills one vial. Drinking provides fuel; it does not grant standard-metal powers. Ore appears in newly generated Overworld chunks. Sneak-right-click the table empty-handed to choose one of four metallurgist specialties; unemployed adult villagers can claim it.
+Brew flakes using water bottles and blaze powder in a normal Brewing Stand. Drinking provides fuel, **not standard-metal ownership**. Ore and rare research camps generate in new Overworld chunks. Camps contain a finite loot chest, a workstation and a Terris researcher; they do not overwrite existing containers. Craft a field guide from a book and copper nugget, or use M → Guide. Advancements lead through fuel, equipment, mixed vials, medallions and god-metal discovery.
 
-Each character receives a once-only latent allocation: default independent 50% chances of one Allomantic and one Feruchemical metal. Survive an unblocked hit of at least six damage with six health or less to awaken latent Allomancy. At XP level five, use `/metallicarts-survival discover` to reveal Feruchemy. Some characters have neither. Death, rejoining and extraction cannot reroll or regrant powers. These probabilities/thresholds are host-configurable gameplay rules.
+Each character has a once-only latent allocation: default independent 50% chances of one Allomantic and one Feruchemical metal. Survive an unblocked hit of at least six damage with six health or less to awaken latent Allomancy. At XP level five, `/metallicarts-survival discover` reveals Feruchemy. Some characters have neither Art. Death/rejoining/extraction cannot reroll powers. Hosts can adjust these gameplay choices.
 
-A default 2% powered hostile population carries real owned abilities and finite fuel. Its active AI supports Iron/Steel/Pewter/Tin/Copper; some also carry extractable Feruchemy. It is not full sixteen-metal NPC combat AI. Other players' real unsealed cores and Hemalurgy provide alternate access; merchants do not create free infinite Investiture.
+Powered hostile populations use finite actual fuel and owned powers. NPC Feruchemists surrender attributes while resting and spend canonical charge in combat; their physical rings can be recovered on death. Rare Koloss, Inquisitors and Kandra are distinct entities with real implanted dependencies. Their generated initial powers represent authored NPC backstories, never extraction from an unseen real player. Four metallurgist professions trade ordinary materials; merchants cannot mint unlimited Investiture.
 
-## Controls and new workflows
+## Controls
 
-| Key/action | Use |
+| Action | Use |
 |---|---|
-| **M** | Ownership, reserves, Allomancy burn/flare; Guide button |
-| **F** | Equip/contact, store/tap, rate, Tin sense and typed Nicrosil; W switches grid/wheel |
-| **H** | Source-aware Hemalurgy, implantation/removal, explicit donor consent |
-| **K** | Recorded history; selected coppermind memory search/annotation |
-| **P** | Compounding, prepared spikes, constructs, body forms, finite compulsion, exceptional extraction |
-| **C / B / J** | Toss coins / supported cargo / paid Electrum prediction; see detailed guides |
-| **Esc** | Close |
+| **M** | Ownership, reserves, burn/flare, Guide |
+| **F** within an Arts menu | Contact gear, store/tap, rate, Tin sense, typed Nicrosil |
+| **H** within an Arts menu | Hemalurgy anatomy, source-aware insert/remove and explicit donor consent |
+| **K** | Recorded history and selected coppermind records |
+| **P** | Compounding, prepared spikes, constructs/forms, bounded compulsion and extraction |
+| **C / B / J** | Toss coins / supported cargo / paid prediction opening |
+| **W**, arrows and other menu shortcuts | Contextual grid/wheel/navigation; separately rebindable |
+| **Esc** | Close/back |
 
-- **Compounding:** own both Arts, hold a charged free mind, wear a compatible destination with capacity, select its slot in P and enable Intent. The whole source burns once; the destination receives the configured amplified attribute. Copies stay spent after restart. Copper restores actual records once, not duplicate facts.
-- **Constructs:** prepare real charged spikes in P. Koloss needs four prepared Iron strength staples; Inquisitor needs researched eye/linchpin/Gold dependencies; Kandra needs mistwraith lineage and a genuine paired innate Blessing. Dependency loss has consequences. Wolf/slime Kandra forms have material costs and real collision/rendering changes. Exact anatomy and the optional mistwraith ritual are documented adaptations.
-- **Mixed fuel:** hold two filled ordinary vials in opposite hands; `/metallicarts-survival mix` combines them (up to sixteen batches), returning one empty bottle. All reserve checks finish before drinking consumes anything. Invested previews are refused.
-- **Medallions:** `/metallicarts-survival bind` joins two free charged unsealed typed Nicrosil cores held in opposite hands; add a third similarly. `/metallicarts-survival medallion 0` equips them in adjacent empty contact slots, starting with UI slot one. Tap each core to borrow its specific ability. Independent canonical charge/leases remain; copies cannot double-equip. This is a carrier adaptation, not a verified Excisor process.
-- **Lerasium:** crouch-use a pure bead for standard Allomancy or an alloy bead for one metal. It does not grant Feruchemy. `/metallicarts-survival alloy` consumes a pure bead plus an ordinary standard-metal ingot offhand. The optional boss/material acquisition is disabled by default. Other god metals remain unimplemented rather than guessed.
-- **Recovery:** craft bandages to heal bounded trauma while still, or pay Gold charge. Operators can audit/refresh matching owned references without inventing charge. See [operations](docs/OPERATIONS.md).
+M → Guide has eleven pages and 32 per-metal lessons. **Sensory settings** control Tin brightness/sound, overload indicators, Bronze sound, mod particles, cues and high contrast. These affect presentation, never ownership or payment. Mod-only sound/particle filtering preserves unrelated vanilla effects. The guide wraps, scrolls and narrates its text. English is the complete reference locale; Spanish coverage is explicitly partial pending translation review.
 
-## Documented account access
+## Main workflows
 
-**RashekKholin and The17thShard have baseline access to all standard Allomancy/Feruchemy**, matched by verified account UUID. Normal fuel, contact, charge, Identity and suppression rules apply. Hosts can set `enableAccountPowers` to false in `metallicarts-server.json` and restart. Earned grants remain intact. This public perk grants no operator rights, uses no username fallback and has no hidden dependency/tamper penalty. See [exact UUID policy](docs/ACCOUNT_ACCESS.md).
+- **Feruchemy:** equip an actual contacted mind, own its matching ability, then store at an actual attribute cost or tap finite charge. Identity and typed content matter. Preview numbers never create charge.
+- **Hemalurgy:** use intentional, material-compatible extraction and prepared placement. Donor sources, decay and ownership remain canonical. Player extraction is default-off and needs host permission/consent/protection checks. Missing Inquisitor linchpins are lethal; test on disposable worlds.
+- **Compounding:** own both matching Arts, hold a charged free source, wear a compatible destination with space, select its slot in P and enable Intent. The whole source burns once. Copper restores existing records once. This is an explicit whole-source gameplay interface.
+- **Constructs:** P prepares genuine spikes and transformations. Koloss needs four strength staples; Inquisitors need their eye/linchpin dependencies; Kandra needs mistwraith lineage and a linked innate Blessing. Wolf/slime forms cost real materials. Sneak-feed a functioning NPC Kandra bones/leather or slime to teach those bodies; empty-handed interaction restores human form.
+- **Mixed vials:** hold two ordinary filled vials in opposite hands; `/metallicarts-survival mix` combines up to sixteen batches and returns an empty bottle. All reserve checks finish before consumption.
+- **Medallions:** `/metallicarts-survival bind` joins two free charged unsealed typed Nicrosil cores held in opposite hands; add a third similarly. `/metallicarts-survival medallion 0` equips them from UI slot one. Each core keeps its independent charge/lease. This carrier is an adaptation, not a claim to reproduce the unpublished Excisor process.
+- **Memory sharing:** the recipient opts in with `/metallicarts-survival sharememories`. In the memory menu choose sharing and a record while aiming at that nearby recipient. The exact record moves once, preserving provenance; the recipient must be within three blocks with line of sight and protection permission. `/metallicarts-survival pastvision` separately opts into Malatium observations.
+- **Factions:** trade, gifts and injury affect bounded persistent Terris/Empire/village/independent standing. `/metallicarts-survival factions` shows your standing. Aim at an eligible member and use `tribute` to pay one Gold/four Steel ingots for a gift; twenty-second cooldown. Standing influences prices and some hostility, never account authentication or claim permissions.
+- **God metals:** crouch-use a Lerasium bead for standard Allomancy, or a standard alloy bead for that metal. Pure Atium, Atium/Electrum (Nalatium) and Atium/Gold (Malatium) have distinct finite prepaid windows. Nalatium requires Electrum access; Malatium requires Gold access as documented interpretations. Predictions are uncertain nearby trajectories, not guaranteed futures or fabricated biographies.
+- **God-metal crafting:** hold one Atium bead and an ordinary Gold/Electrum ingot offhand; `/metallicarts-survival atiumalloy` makes the supported alloy. `split` uses one Harmonium sample, a retained Trellium catalyst, eight blaze powder, inventory space and a dry permitted Metallurgy Table underfoot. The host's default-off Lerasium acquisition policy must permit it. Wet dropped Harmonium reacts without destroying terrain; ownerless reactions cannot anonymously damage entities.
 
-## Configuration and safety
+See [release-candidate mechanics](docs/RELEASE_CANDIDATE.md), [economy](docs/ECONOMY.md), [Allomancy](docs/ALLOMANCY.md), [Feruchemy](docs/FERUCHEMY.md), [Hemalurgy](docs/HEMALURGY.md), [advanced Arts](docs/ADVANCED_ARTS.md) and [advanced systems](docs/ADVANCED_SYSTEMS.md). Earlier phase notes describe their historical scope; the current release notes and validation supersede their old status statements.
 
-Host files: `metallicarts-server.json`, `metallicarts-allomancy.json`, `metallicarts-advanced.json` and `metallicarts-progression.json`. Restart after edits. Advanced policy exposes detection/emotions/time/body/cure/burst/social/compounding/construct limits. Numeric strings, fractional integer costs and invalid ranges fail visibly. Player extraction and exceptional nonlethal extraction are separately default-off; player consent, PvP and protection checks still apply. No actual third-party protection mod is certified merely by the presence of adapter hooks.
+## Account access and server policy
 
-Back up player data and world ledgers together. `/metallicarts assets PLAYER audit|repairrefs` can refresh only an existing matching seal/owner/slot; it cannot restore charge from a preview. Detailed configuration, adapters and rollback steps are in [OPERATIONS.md](docs/OPERATIONS.md).
+**RashekKholin and The17thShard have access to all standard Allomancy/Feruchemy**, matched by verified UUIDs. They still pay normal fuel, charge, contact, Identity and suppression costs. Hosts can set `enableAccountPowers: false` in `metallicarts-server.json` and restart. This public perk grants no operator rights and has no hidden dependency/tamper penalty. [Exact policy](docs/ACCOUNT_ACCESS.md).
+
+Configuration files: `metallicarts-server.json`, `metallicarts-allomancy.json`, `metallicarts-advanced.json`, `metallicarts-progression.json`, **`metallicarts-world.json`** and client-only `metallicarts-client.json`. Restart after host edits. Invalid values fail visibly. World policy controls research camps, Harmonium reactions, construct rarity, NPC session/scan budgets and god-metal duration. Open Parties and Claims integration is optional and fails closed on API errors; only the pinned tested version pair is documented as verified. Other claim mods need their own adapter.
+
+Back up player data and world ledgers together. Operators can use `/metallicarts assets PLAYER audit|repairrefs|recoverleases`. Recovery restores only references for assets already canonically leased to that UUID and empty slot; it never invents charge, free items or foreign ownership. See [operations](docs/OPERATIONS.md).
 
 ## Build and test
 
-Use JDK **25**. The wrapper pins Gradle **9.4.0**, Loom **1.15.5**, Minecraft **26.1**, Loader **0.18.4** and API **0.145.1+26.1**.
+Use PowerShell 7 (`pwsh`) for the portable recovery/migration scripts. The wrapper pins Gradle **9.4.0**, Loom **1.15.5**, Minecraft **26.1**, Loader **0.18.4** and API **0.145.1+26.1**. Use JDK **25**. Native tests require accepting Minecraft's EULA; this repository does not accept it for ordinary users automatically.
 
 ```powershell
-# Build + unit tests, without accepting Minecraft's EULA
 .\gradlew.bat clean build -x runGameTest --console=plain
-# Data generation
 .\gradlew.bat runDatagen
-# Native server and seven graphical client suites; only if you accept the EULA
-.\gradlew.bat build runClientGameTest -PacceptMinecraftEula=true --console=plain
-# Two ordinary loopback clients + dedicated server (port 25570 must be free)
-.\scripts\verify-multiplayer.ps1 -AcceptMinecraftEula
-# Real dedicated save/reload, fresh fixture directory, two separate JVM runs
-.\gradlew.bat runRestartSmoke -PsmokeMode=seed -PsmokeRunDir=build/run/restartSmoke-new -PacceptMinecraftEula=true
-.\gradlew.bat runRestartSmoke -PsmokeMode=verify -PsmokeRunDir=build/run/restartSmoke-new -PacceptMinecraftEula=true
-# Interactive development
+# Native server + eight graphical client suites, if you accept the EULA:
+.\gradlew.bat runGameTest runClientGameTest -PacceptMinecraftEula=true --console=plain
+# Windows: two ordinary offline-mode loopback clients, port 25570 free:
+.\scripts\verify-multiplayer.ps1 -AcceptMinecraftEula -SoakMinutes 15
+# Isolated orderly reload, deliberate partial-save crash and canonical recovery:
+.\scripts\verify-save-recovery.ps1 -AcceptMinecraftEula
+# PowerShell 7; full Git history required; actual older-source-generated worlds:
+.\scripts\verify-legacy-migration.ps1 -AcceptMinecraftEula
+# Optional exact third-party fixture; no jars are bundled:
+.\scripts\setup-claim-fixture.ps1 -Destination build/claims-fixture
+.\gradlew.bat runGameTest -PclaimsIntegrationTest=true -PclaimsModsDir=build/claims-fixture -PacceptMinecraftEula=true
+# Development:
 .\gradlew.bat runClient
 .\gradlew.bat runServer
-# Reproduce generated economy/advanced data and original assets
-node scripts/generate-economy.cjs
-node scripts/generate-advanced.cjs
 ```
 
-Build output: `build/libs/metallic-arts-fabric-0.8.0-alpha.2.jar`. Test XML/reports: `build/test-results` and `build/reports/tests`. Client screenshots: `build/run/clientGameTest/screenshots`. Multiplayer writes a timestamped result under `build/run/multiplayer-*`. Never run resource rebuilds concurrently with Minecraft test processes using those resources.
+On Linux/macOS use `./gradlew` and PowerShell 7 (`pwsh`) for portable fixture scripts. Build output: `build/libs/metallic-arts-fabric-1.0.0-rc.1.jar`. Reports: `build/reports/tests`; graphical screenshots: `build/run/clientGameTest/screenshots`; isolated fixtures retain logs/results in their timestamped directories. Do not rebuild classes/resources while a test JVM is using them.
 
-Manual smoke test: open/close M/F/H/P and Guide; reconnect; store/tap a real contacted mind; verify its balance after saving/restarting; test failed compounding preserves its source; test medallion copies cannot equip twice. Use a disposable backed-up test world for extraction/body dependency consequences. [Current validation](docs/RELEASE_VALIDATION.md) records actual automated scope and exclusions.
+Asset/data regeneration order: `node scripts/generate-economy.cjs`, `node scripts/generate-advanced.cjs`, `node scripts/generate-release.cjs`, `node scripts/localize-ui.cjs`. All art is original deterministic pixel art; no Minecraft textures are copied. [Canon provenance](docs/CANON.md) separates author evidence from intuitive interpretations and balance policy.
 
-## Status, attribution and future work
+## Acceptance and future plans
 
-Phases 1–7 retain their playable foundations. Steps 1–8 of the follow-up now include advanced mechanics, survival/equipment and release infrastructure, with the limits below. This remains an **alpha**. [Changelog](docs/CHANGELOG.md), [canon provenance](docs/CANON.md), [attribution/license review](docs/ATTRIBUTION_REVIEW.md) and [detailed new mechanics](docs/ADVANCED_SYSTEMS.md) explain decisions. Source-license selection and fan-use/branding clearance remain unresolved; no open-source or commercial permission is implied.
-
-## 1. External acceptance before a stable release
-
-- Run authenticated accounts on a remote dedicated server, then test latency, loss, extra players and long sessions. Local ordinary clients use offline-mode loopback.
-- Install actual claim/PvP/protection mods and test adapters against their APIs. Deny-wins hooks and native cancellation tests do not certify an untested mod.
-- Profile temporal fields, entities, projectiles and machines over hours; measure CPU, bandwidth, save growth and interpolation. The 60-second load fixture is a regression baseline, not capacity certification.
-- Test archived real 0.5/0.7 world upgrades, crashes during transfers/saves and whole-backup restoration. Serialization fixtures do not certify every historical save or crash boundary.
-- Validate Linux/macOS native clients and servers. Linux CI covers build/unit/datagen, not the graphical runtime.
-
-## 2. Presentation and accessibility
-
-- Replace remaining English literals and translate the full UI/tutorial. Current coverage is the English guide and initial Spanish navigation/messages.
-- Rebind every contextual shortcut; test keyboard/narration, high GUI scales and narrow windows across all menus. Add per-client sensory controls; Bronze sound is currently a host setting.
-- Add per-metal tutorial examples, clearer typed ownership/charge tooltips, source shutdown explanations and combined medallion status. Current carriers unfold into independent slots.
-- Replace shared vanilla placeholder item references with distinctive original art, with provenance review.
-
-## 3. Standard-metal depth
-
-- Bronze: broader evidenced Investiture detection and weak/strong concealment tuning beyond paid player/NPC Allomancy pulses.
-- Zinc/Brass: richer NPC decisions, competing influences and awareness; add each NPC metal with actual ownership/fuel.
-- Enhancement: researched per-metal burst duration/output and actual third-party protection/mutual-contact tests. Current one-frame capped burst is an approximation.
-- Gold/Electrum: more actual character alternatives and projectile/latency uncertainty. No fabricated biography or perfect future prediction.
-- Temporal: explicit new machine/vehicle adapters and entry/exit tests. General redstone, random/scheduled ticks and player physiology remain global.
-- Body Feruchemy: environmental/survival-mod adapters, long balance sessions and healing priorities. Bounded trauma is not amputation/regrowth, ageing or disease simulation.
-- Copper: permission-safe sharing, richer organization and knowledge-system adapters. Real human knowledge cannot be erased.
-- Identity/Connection/Fortune: explicit faction/language/social adapters and meaningful bounded opportunities. No arbitrary impersonation, universal translation or destiny control.
-- Compounding: consider a separately swallowed-metalmind interface and residual-material recovery; current whole-source burn is deliberate and canonical-once.
-
-## 4. Constructs and spiritual consequences
-
-- Add distinct NPC construct species/AI and more researched forms. Current player templates are Koloss/Inquisitor/Kandra, with wolf/slime Kandra bodies.
-- Research more placements, unusual spikes, multiple-power extraction, anatomy and psychology. The twelve-point grid and preparation recipes are adaptations.
-- Expand exceptional extraction and Invested resistance only with explicit source accounting and consent/protection policy.
-- Balance growth, collapse, lineage acquisition and recovery through survival playthroughs. The human-to-mistwraith ritual is a game recipe, not asserted canon.
-
-## 5. Survival depth
-
-- Add custom powered NPC identities, factions, quests, structures and authored discoveries. Current powered population uses vanilla hostile mobs, finite fuel and a bounded active subset.
-- Add autonomous NPC storage/tapping and more metal AI. NPC Feruchemy is currently an actual donor source, not active Feruchemical AI.
-- Balance latent allocation/snapping/discovery through playtests. Some characters have neither Art; unsealed equipment and Hemalurgy are alternate paths. Death/extraction must not reroll powers.
-- Add authored advancements, recipe-book onboarding, rare loot/trade structures and individual-metal tutorials. Existing ore economy/four professions remain the baseline.
-
-## 6. Invested material research
-
-- Verify a published Excisor process before asserting canonical manufacturing. Extend the 2–3 core carrier only with independent charge/lease accounting and evidence.
-- Design pure Atium separately from Era-one Atium/electrum; design Malatium and researched prediction interactions.
-- Research Harmonium, Trellium and other shard metals/alloys/hazards individually. Unknown effects remain disabled rather than guessed.
-- Recheck direct author sources when accessible. Lerasium strength, non-stacking and acquisition costs are balance choices, not canon quantities.
-
-## 7. Release governance
-
-- Obtain the owner's source-license choice and any branding/fan-use review. The technical attribution inventory is not legal clearance.
-- Maintain immutable versioned Releases, checksums, matching dependency notes and changelogs; do not overwrite existing assets under the same version.
-- Expand CI/native/multiplayer regressions and issue templates as adapters land; distinguish implemented scope, observed tests and open acceptance.
+See the [ordered remaining work](docs/REMAINING_WORK.md) for concrete acceptance tasks and future expansion, and [current validation](docs/RELEASE_VALIDATION.md) for results. In particular, a local two-client fixture does not prove authenticated remote play, a short profile does not certify hours of load, and CI cannot supply real macOS graphical/user acceptance or third-party intellectual-property clearance. Those gates remain explicit before a stable 1.0 declaration or eventual Modrinth submission. The source-license choice is now resolved: **All rights reserved**.

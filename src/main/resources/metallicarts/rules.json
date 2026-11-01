@@ -29,7 +29,7 @@
     "status": "GAMEPLAY_POLICY",
     "statement": "Canonical world ledgers own individual invested assets. Item references never mint charge. Relevant ability, contact and Identity are revalidated; a matching implanted stolen Feruchemical source can authorize its donor key as an explicit interpretation.",
     "sources": [],
-    "implementation": "MetalmindLedger, SpikeLedger and FeruchemicalEngine. New recipient-filled minds key to the recipient; removing/draining the matching spike removes donor-key authorization."
+    "implementation": "Identity/charge persist through invested slicing, brewing and ingestion. Physical contact, Identity checks, storage and finite tapping are implemented separately from fuel."
   },
   {
     "id": "new_character_and_death",
@@ -41,7 +41,7 @@
   {
     "id": "uncertain_advanced_rules",
     "status": "DEFERRED",
-    "statement": "Unknown god metals, a complete canonical anatomy map and exact Excisor metaphysics remain deferred. Bounded player constructs, compounding, Lerasium, Fortune, Connection and unsealed carriers are implemented interpretations, not complete canonical simulation.",
+    "statement": "Unknown god metals, complete canonical anatomy and Excisor metaphysics remain deferred. Compounding, prepared player constructs and Lerasium have documented bounded implementations.",
     "sources": [],
     "implementation": "ADVANCED_ARTS.md records actual handlers and limits. No Excisor simulation or arbitrary causality/language translation is claimed."
   },
@@ -78,27 +78,6 @@
     "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, finite unsealed typed access and canonical-once Compounding now have separate documented implementations."
   },
   {
-    "id": "alloy_ratio_policy",
-    "status": "INTERPRETATION",
-    "statement": "The eight alloy ratios are documented gameplay interpretations. Exact and off-ratio batches are distinguished; these numbers are not claimed to be verified universal canon.",
-    "sources": [],
-    "implementation": "Data-driven alloy recipes with composition and viable/imperfect/invalid outcomes."
-  },
-  {
-    "id": "material_accounting_policy",
-    "status": "GAMEPLAY_POLICY",
-    "statement": "One ingot equals nine nuggets, nine hundred measured portions, or nine grams of credited metal. Ore recovery yields and silicon/carbon processing are game abstractions, not real smelting chemistry.",
-    "sources": [],
-    "implementation": "Integer mass bookkeeping and recipe-conservation tests. Zinc refining credits eight zinc nuggets plus one cadmium nugget."
-  },
-  {
-    "id": "unsafe_ingestion_policy",
-    "status": "INTERPRETATION",
-    "statement": "Non-Allomantic and off-ratio metals are refused by the brewing/drinking path rather than inventing canonical injury values. Drinking transfers fuel without granting access or activating a power.",
-    "sources": [],
-    "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
-  },
-  {
     "id": "hemalurgic_decay_policy",
     "status": "GAMEPLAY_POLICY",
     "statement": "Extraction retains 90 percent potency; logarithmic outside decay approaches a nonzero floor, blood slows exposure twentyfold and implantation stops exposure. Rates, curve and world-time accounting are gameplay policies.",
@@ -119,7 +98,7 @@
     "status": "INTERPRETATION",
     "statement": "Native cognition supports analysis; Connection/Identity adds bounded rapport and donor-key authorization; Fortune changes Luck and opportunity cues; Investiture scales existing access. These bounded handlers do not complete destiny, constructs or arbitrary abilities.",
     "sources": [],
-    "implementation": "HemalurgyRuntime, EffectivePower and AdvancedFeruchemy; prepared player constructs and default-off exceptional nonlethal extraction have explicit dependency and source-accounting rules; arbitrary NPC constructs remain deferred."
+    "implementation": "HemalurgyRuntime, EffectivePower and AdvancedFeruchemy; prepared player constructs and default-off exceptional nonlethal extraction have explicit dependency and source-accounting rules; Distinct Koloss, Inquisitor and Kandra NPCs use canonical prepared dependencies; arbitrary species remain deferred."
   },
   {
     "id": "mental_emotional_policy",
@@ -229,8 +208,68 @@
   {
     "id": "unresolved_god_metals",
     "status": "DEFERRED",
-    "statement": "Pure Atium, Era-one Atium/electrum, Malatium, Harmonium, Trellium and other shard metals/alloys need separate evidenced designs. No invented unknown effect is enabled.",
+    "statement": "Other unpublished shard-metal/alloy abilities and the Excisor process remain unresolved. No unknown allomantic effect is invented.",
     "sources": [],
-    "implementation": "Stable sixteen-metal contracts are unchanged; Lerasium is separate."
+    "implementation": "Lerasium, separate pure Atium/Nalatium/Malatium windows and finite Harmonium/Trellium material interactions have explicit bounded implementations."
+  },
+  {
+    "id": "alloy_ratio_policy",
+    "status": "INTERPRETATION",
+    "statement": "The eight alloy ratios are documented gameplay interpretations. Exact and off-ratio batches are distinguished; these numbers are not claimed to be verified universal canon.",
+    "sources": [],
+    "implementation": "Data-driven alloy recipes with composition and viable/imperfect/invalid outcomes."
+  },
+  {
+    "id": "material_accounting_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "One ingot equals nine nuggets, nine hundred measured portions, or nine grams of credited metal. Ore recovery yields and silicon/carbon processing are game abstractions, not real smelting chemistry.",
+    "sources": [],
+    "implementation": "Integer mass bookkeeping and recipe-conservation tests. Zinc refining credits eight zinc nuggets plus one cadmium nugget."
+  },
+  {
+    "id": "unsafe_ingestion_policy",
+    "status": "INTERPRETATION",
+    "statement": "Non-Allomantic and off-ratio metals are refused by the brewing/drinking path rather than inventing canonical injury values. Drinking transfers fuel without granting access or activating a power.",
+    "sources": [],
+    "implementation": "Server-side vial validation. Invested slicing and ingestion preserve residual mass, charge and Identity."
+  },
+  {
+    "id": "atium_prediction_interpretation",
+    "status": "INTERPRETATION",
+    "statement": "Pure Atium and Era-one Atium/Electrum are distinct. Trajectory horizons, associated alloy access, finite prepaid bead windows and paid collision-checked openings are game interpretations, not exact canonical quantities.",
+    "sources": [
+      "https://wob.coppermind.net/events/486-general-reddit-2022/#e15955"
+    ],
+    "implementation": "GodmetalRuntime uses uncertain nearby loaded visible trajectories. Malatium uses actual history and separate player consent; no fabricated biography or private journal payload."
+  },
+  {
+    "id": "harmonium_separation",
+    "status": "INTERPRETATION",
+    "statement": "Harmonium and Trellium have a researched relationship to separation into Atium and Lerasium. Catalyst retention, eight blaze powder, dry workstation, one-sample yields and terrain-safe water reactions are explicit Minecraft policies.",
+    "sources": [
+      "https://reactormag.com/read-the-lost-metal-by-brandon-sanderson-chapters-sixteen-through-eighteen/"
+    ],
+    "implementation": "GodmetalCrafting and HarmoniumReactions preserve finite inventory inputs, host acquisition policy and protection checks."
+  },
+  {
+    "id": "npc_authored_provenance",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Generated NPCs have authored backstory sources; their initial powers do not imply a theft from any unseen real account. Storage surrenders actual NPC attributes and tapping spends canonical charge.",
+    "sources": [],
+    "implementation": "NpcArts/NpcFeruchemy/NpcConstructs preserve physical leases and dependent anatomy; permanent discard does not regrant or duplicate loot."
+  },
+  {
+    "id": "research_and_factions",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Rare new-chunk camps, finite loot, advancement milestones and bounded reputation provide survival onboarding. Gifts, injury, trade and costs are authored game rules, not canonical quantities.",
+    "sources": [],
+    "implementation": "ResearchCampFeature preflights placement; FactionStanding persists bounded scores and never authorizes claims/accounts."
+  },
+  {
+    "id": "consensual_memory_transfer",
+    "status": "INTERPRETATION",
+    "statement": "A separately consenting nearby player can receive one actually accessible memory, moving the exact record with provenance. Private content is not broadcast to bystanders.",
+    "sources": [],
+    "implementation": "MemorySharing preflights both immutable journals, line of sight, consent, range and protection before movement."
   }
 ]

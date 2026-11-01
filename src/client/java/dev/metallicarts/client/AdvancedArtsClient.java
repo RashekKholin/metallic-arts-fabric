@@ -25,8 +25,8 @@ public final class AdvancedArtsClient {
             while(knowledge.consumeClick())if(client.player!=null)openJournal();
         });
         HudElementRegistry.addLast(MetallicArts.id("advanced_feedback"),(g,delta)->{
-            var client=Minecraft.getInstance();if(client.player==null||client.screen!=null||client.options.hideGui||cue.isEmpty())return;
-            int y=46,count=0;for(var line:client.font.split(Component.literal(cue),client.getWindow().getGuiScaledWidth()-16)){if(count++>=3)break;g.text(client.font,line,8,y,0xFFEEDDCC);y+=10;}
+            var client=Minecraft.getInstance();if(!ClientPreferences.value(5)||client.player==null||client.screen!=null||client.options.hideGui||cue.isEmpty())return;
+            int y=46,count=0;for(var line:client.font.split(UiText.of(cue),client.getWindow().getGuiScaledWidth()-16)){if(count++>=3)break;g.text(client.font,line,8,y,0xFFEEDDCC);y+=10;}
         });
     }
     public static void action(int action,int value){if(ClientPlayNetworking.canSend(ArtAction.TYPE))ClientPlayNetworking.send(new ArtAction(action,value));}

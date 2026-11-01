@@ -6,7 +6,7 @@
     "TinLightmapMixin",
     "TinSoundMixin",
     "TouchCameraMixin",
-    "ConstructAvatarStateMixin",
+    "ConstructLivingStateMixin",
     "ConstructRendererMixin"
   ],
   "injectors": {

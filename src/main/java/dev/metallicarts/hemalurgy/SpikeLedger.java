@@ -36,6 +36,9 @@ public final class SpikeLedger extends SavedData {
     public boolean extracted(UUID source){return extractions.contains(source);}
     public boolean known(UUID source){return assets.containsKey(source);}
     public boolean canCreate(UUID source){return assets.size()<LIMIT&&extractions.size()<LIMIT&&!extracted(source);}
+    public boolean room(int count){return count>=0&&assets.size()+count<=LIMIT&&extractions.size()+count<=LIMIT;}
+    /** Permanent entity destruction only. Retain extraction tombstones; stale physical tokens stay invalid. */
+    public Set<UUID> discardOwned(UUID owner){var removed=new HashSet<UUID>();for(var a:new ArrayList<>(assets.values()))if(a.lease().filter(l->l.player().equals(owner)).isPresent()){assets.remove(a.token().instance());a.lease().ifPresent(leases::remove);removed.add(a.token().instance());}if(!removed.isEmpty())setDirty();return removed;}
     public SpikeAsset create(Metal metal,StolenPower power,UUID donor,UUID identity,UUID source,double strength,long now){
         return create(metal,power,donor,identity,source,strength,now,.9);
     }

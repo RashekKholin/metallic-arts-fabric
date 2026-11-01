@@ -43,3 +43,15 @@ Old Spiritweb/Metalmind records default new optional fields; spent defaults fals
 The two-process restart fixture covers real dedicated world/player serialization and spent-source refusal. It is not an archived production-world migration, crash-consistency/fault-injection certification or proof for every prior alpha save. Real archived save upgrades and all operating systems remain acceptance tasks.
 
 
+
+## Release-candidate additions
+
+`metallicarts-world.json` schema 1 defaults: `researchCamps: true`, `harmoniumReactions: true`, `constructChance: 0.002`, `maximumNpcSessions: 256`, `scanBudget: 2048`, `godmetalBurnTicks: 100`. Valid ranges are enforced; chances must be finite 0..1, sessions 16..1024, scans 64..8192, duration 20..1200. World generation applies only to new terrain. Client preferences live in `metallicarts-client.json` and are also editable through Guide → Sensory settings.
+
+`/metallicarts assets PLAYER recoverleases` reconstructs only missing references in empty slots for assets already leased canonically to that exact UUID. It never creates charge or reclaims a foreign/free/spent asset. Run `audit` before/after, keep all world/player files together and preserve a whole backup before repairs. Canonical ownership prevents duplication but is not a multi-file transactional database; arbitrary disk damage still requires backup restoration.
+
+The checked-in recovery fixture uses distinct orderly and crash worlds: seed/verify in one, seed/deliberate player-only save/crash/recover in the other. The intentional exit code 71 and exact fault marker are required, so ordinary crashes do not count as a passing fault test. Legacy fixtures archive committed 0.5/0.7 sources, let each version create its own save, then upgrade and reload twice with current code. This tests real historical-format generation, not every archived production world or every crash boundary.
+
+**Run native fixtures sequentially.** Fabric's `deleteGameTestRunDir` dependency can clear graphical-test storage even when starting another server fixture. Do not start server/restart/legacy/multiplayer Gradle runs while a graphical suite is using its run directory, or rebuild shared classes/resources under running JVMs.
+
+Optional OpenPAC fixture versions and precise supported behavior are documented in RELEASE_CANDIDATE.md. `scripts/setup-claim-fixture.ps1` fetches official pinned Modrinth version IDs and verifies SHA-512 metadata before use. These jars are never bundled in the normal release.

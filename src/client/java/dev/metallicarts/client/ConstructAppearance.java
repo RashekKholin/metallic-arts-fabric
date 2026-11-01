@@ -14,7 +14,7 @@ public final class ConstructAppearance {
  public record Visual(EntityRenderer renderer,EntityRenderState state,float factor){}
  private static Object level;private static Wolf wolf;private static Slime slime;
  @SuppressWarnings({"rawtypes","unchecked"}) public static void extract(LivingEntity entity,LivingEntityRenderState state){
-  if(!(state instanceof AvatarRenderState)||!(state instanceof Data data))return;var appearance=SystemsClient.APPEARANCE.get(entity.getUUID());if(appearance==null){data.metallicarts$appearance(0,0,false,null);return;}
+  if(!(state instanceof Data data))return;var appearance=entity instanceof dev.metallicarts.hemalurgy.ConstructMob mob?new dev.metallicarts.network.PublicConstruct(entity.getUUID(),dev.metallicarts.hemalurgy.NpcConstructs.kind(mob).ordinal(),mob.bodyShape(),mob.collapsed()):SystemsClient.APPEARANCE.get(entity.getUUID());if(appearance==null){data.metallicarts$appearance(0,0,false,null);return;}
   Visual visual=null;
   if(appearance.kind()==3&&(appearance.collapsed()||appearance.shape()!=0)){
    var client=Minecraft.getInstance();if(client.level!=level){level=client.level;wolf=null;slime=null;}

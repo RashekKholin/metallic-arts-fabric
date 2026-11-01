@@ -3,6 +3,7 @@ package dev.metallicarts.test;
 import com.google.gson.*;
 import dev.metallicarts.MetallicArts;
 import dev.metallicarts.allomancy.ReserveLedger;
+import dev.metallicarts.allomancy.AllomancyRuntime;
 import dev.metallicarts.config.ServerConfig;
 import dev.metallicarts.domain.*;
 import dev.metallicarts.economy.EconomyContent;
@@ -26,6 +27,7 @@ import java.util.function.BooleanSupplier;
 
 /** Opt-in loopback fixture. Only test sources contain this orchestration/probe protocol. */
 public final class MultiplayerServer implements ModInitializer {
+    private static final int SOAK_TICKS=Math.clamp(Integer.getInteger("metallicarts.soakTicks",1200),1200,144000);
     private record Step(String name,Runnable start,BooleanSupplier ready,Runnable verify){}
     private MinecraftServer server;private List<Step> steps;private int index,startTick=-1,sequence;
     private final Map<UUID,Integer> expected=new HashMap<>();private final Map<UUID,JsonObject> reports=new HashMap<>();
@@ -87,12 +89,12 @@ public final class MultiplayerServer implements ModInitializer {
     }
     private void tick(){
         try{
-            if(System.currentTimeMillis()-began>240000)throw new AssertionError("Multiplayer fixture exceeded four minutes");
+            if(System.currentTimeMillis()-began>240000L+SOAK_TICKS*75L)throw new AssertionError("Multiplayer fixture exceeded bounded startup/soak allowance");
             if(forceItem!=null){lastForceX=forceItem.getDeltaMovement().x;forceItem.setPos(0,81.9,.5);forceItem.setDeltaMovement(Vec3.ZERO);}
             if(steps==null){if(a()==null||b()==null)return;setup();steps=plan();}
             if(index>=steps.size()){finish(null);return;}
             var step=steps.get(index);if(startTick<0){startTick=server.getTickCount();step.start().run();}
-            if(server.getTickCount()-startTick>1800)throw new AssertionError("Timed out: "+step.name()+" reports="+reports);
+            if(server.getTickCount()-startTick>(stressing?SOAK_TICKS+1800:1800))throw new AssertionError("Timed out: "+step.name()+" reports="+reports);
             if(server.getTickCount()-startTick>=20&&step.ready().getAsBoolean()){
                 step.verify().run();passed.add(step.name());MetallicArts.LOGGER.info("MULTIPLAYER PASS: {}",step.name());index++;startTick=-1;
             }
@@ -151,11 +153,11 @@ public final class MultiplayerServer implements ModInitializer {
         new Step("real contact Nicrosil exhausts concurrently active target Steel",()->{command(a(),"BURN:11");command(b(),"BURN_STEEL");},this::bothAck,()->check(ReserveLedger.ordinary(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.STEEL)==0,"Forced burst did not consume actual concurrent fuel")),
         new Step("private advanced journals remain owner-only",()->both("M"),this::bothAck,()->{check(report(a()).get("journal").getAsString().contains("A private route")&&!report(a()).get("journal").getAsString().contains("B private route"),"A received foreign memory");check(report(b()).get("journal").getAsString().contains("B private route")&&!report(b()).get("journal").getAsString().contains("A private route"),"B received foreign memory");}),
         new Step("prepare temporal load with forty mobs and four real furnaces",()->both("STOP"),this::bothAck,()->{
-            a().teleportTo(.5,81,.5);b().teleportTo(2.5,81,.5);for(var p:List.of(a(),b()))for(var m:List.of(Metal.CADMIUM,Metal.BENDALLOY))p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m,200000));
+            a().teleportTo(.5,81,.5);b().teleportTo(2.5,81,.5);for(var p:List.of(a(),b()))for(var m:List.of(Metal.CADMIUM,Metal.BENDALLOY))p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m,SOAK_TICKS*100L+200000));
             for(int i=0;i<40;i++){var mob=net.minecraft.world.entity.EntityType.PIG.create(server.overworld(),net.minecraft.world.entity.EntitySpawnReason.COMMAND);mob.setPos(.5+i%8,81,.5+i/8);mob.setInvulnerable(true);server.overworld().addFreshEntity(mob);stressMobs.add(mob);}
             for(int i=0;i<4;i++){var pos=new BlockPos(i*2,80,4);server.overworld().setBlock(pos,Blocks.FURNACE.defaultBlockState(),3);var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(pos);furnace.setItem(0,new ItemStack(Items.IRON_ORE,64));furnace.setItem(1,new ItemStack(Items.COAL,8));}
         }),
-        new Step("sixty seconds of overlapping paid temporal fields under load",()->{command(a(),"BURN:14");command(b(),"BURN:15");stressStarted=server.getTickCount();stressing=true;},()->bothAck()&&server.getTickCount()-stressStarted>=1200,()->{stressing=false;check(stressTicks>=1190,"Insufficient measured ticks");for(int i=0;i<4;i++){var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(new BlockPos(i*2,80,4));check(furnace.getItem(0).getCount()+furnace.getItem(2).getCount()==64&&furnace.getItem(2).getCount()>0,"Temporal machine lost/created inputs or stopped");}stressMobs.forEach(net.minecraft.world.entity.Entity::discard);}),
+        new Step("bounded extended overlapping paid temporal fields under load",()->{command(a(),"BURN:14");command(b(),"BURN:15");stressStarted=server.getTickCount();stressing=true;},()->bothAck()&&server.getTickCount()-stressStarted>=SOAK_TICKS,()->{stressing=false;check(stressTicks>=SOAK_TICKS-10,"Insufficient measured ticks");check(AllomancyRuntime.power(a(),Metal.CADMIUM)>0&&AllomancyRuntime.power(b(),Metal.BENDALLOY)>0,"Temporal fuel ran out during soak");for(int i=0;i<4;i++){var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(new BlockPos(i*2,80,4));check(furnace.getItem(0).getCount()+furnace.getItem(2).getCount()==64&&furnace.getItem(2).getCount()>0,"Temporal machine lost/created inputs or stopped");}stressMobs.forEach(net.minecraft.world.entity.Entity::discard);}),
         new Step("final owner-only snapshots on both live clients",()->both("M"),this::bothAck,this::privateData)
     );}
     private void finish(Throwable failure){
@@ -168,5 +170,3 @@ public final class MultiplayerServer implements ModInitializer {
         }catch(Exception e){throw new RuntimeException(e);}finally{var s=server;server=null;s.halt(false);}
     }
 }
-
-

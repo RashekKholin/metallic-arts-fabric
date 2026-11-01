@@ -1,3 +1,5 @@
+> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+
 # Phase 6–7 playable alpha guide
 
 Version **0.7.0-alpha.2**, Minecraft 26.1/Fabric/Java 25. These are bounded Minecraft implementations. Numerical values are gameplay policies, recorded in the provenance catalog. Physical Arts and the economy remain available.

@@ -132,7 +132,12 @@ public final class MetalPhysics {
         if(targets.isEmpty())return;
         Vec3 recoil=Vec3.ZERO;
         var motion=new HashMap<Entity,Vec3>();
-        for(Target target:targets)recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config,motion).scale(1.0/dev.metallicarts.feruchemy.FeruchemyRuntime.mass(player)));
+        for(Target target:targets){
+            Entity protectedBody=target.entity() instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo?cargo.carrier():target.entity();
+            if(protectedBody!=null&&!dev.metallicarts.api.ArtsProtection.allowsEntity(player,protectedBody,dev.metallicarts.api.ArtsProtection.Action.FORCE))continue;
+            if(protectedBody==null&&!dev.metallicarts.api.ArtsProtection.BLOCK_EVENT.invoker().allow(player,BlockPos.containing(target.position()),dev.metallicarts.api.ArtsProtection.Action.FORCE))continue;
+            recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config,motion).scale(1.0/dev.metallicarts.feruchemy.FeruchemyRuntime.mass(player)));
+        }
         motion(player,recoil,config.maximumPlayerSpeed());
         motion.forEach((entity,change)->{
             motion(entity,change,entity instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed());

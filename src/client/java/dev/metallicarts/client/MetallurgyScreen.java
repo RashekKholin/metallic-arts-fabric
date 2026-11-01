@@ -14,11 +14,11 @@ public final class MetallurgyScreen extends AbstractContainerScreen<MetallurgyMe
     @Override protected void init() {
         super.init();
         String[] names={"Refine","Alloy","Shape"};
-        for (int i=0;i<3;i++) { int id=i; tabs[i]=addRenderableWidget(Button.builder(Component.literal(names[i]),b -> action(id)).bounds(leftPos+8+i*54,topPos+18,52,20).build()); }
-        addRenderableWidget(Button.builder(Component.literal("<"),b -> action(3)).bounds(leftPos+60,topPos+90,20,20).build());
-        addRenderableWidget(Button.builder(Component.literal(">"),b -> action(4)).bounds(leftPos+110,topPos+90,20,20).build());
-        addRenderableWidget(Button.builder(Component.literal("Batch"),b -> action(5)).bounds(leftPos+8,topPos+118,52,20).build());
-        addRenderableWidget(Button.builder(Component.literal("Start/Stop"),b -> action(6)).bounds(leftPos+68,topPos+118,100,20).build());
+        for (int i=0;i<3;i++) { int id=i; tabs[i]=addRenderableWidget(Button.builder(UiText.of(names[i]),b -> action(id)).bounds(leftPos+8+i*54,topPos+18,52,20).build()); }
+        addRenderableWidget(Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.c4dd3c8cdd8d"),b -> action(3)).bounds(leftPos+60,topPos+90,20,20).build());
+        addRenderableWidget(Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.091385be99b4"),b -> action(4)).bounds(leftPos+110,topPos+90,20,20).build());
+        addRenderableWidget(Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.8bf1ef5668b1"),b -> action(5)).bounds(leftPos+8,topPos+118,52,20).build());
+        addRenderableWidget(Button.builder(net.minecraft.network.chat.Component.translatable("ui.metallicarts.4873cc0821e9"),b -> action(6)).bounds(leftPos+68,topPos+118,100,20).build());
     }
     @Override protected void containerTick() { super.containerTick(); for(int i=0;i<3;i++) tabs[i].active=menu.data.get(0)!=i; }
     @Override public void extractBackground(GuiGraphicsExtractor g,int mouseX,int mouseY,float partialTick) {

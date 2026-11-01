@@ -1,36 +1,34 @@
-# 0.8.0-alpha.2 validation
+# 1.0.0-rc.1 validation
 
-Observed on Windows, this development laptop, Java 25.0.5, Minecraft 26.1, Loader 0.18.4, Fabric API 0.145.1+26.1, Loom 1.15.5 and Gradle 9.4.0, 2026-10-31 local time. Historical 0.7/0.5 reports are separate evidence.
+Observed locally on Windows, Java 25.0.5, Minecraft 26.1, Fabric Loader 0.18.4, Fabric API 0.145.1+26.1, Loom 1.15.5 and Gradle 9.4.0 on 2026-11-01. Historical alpha reports remain separate.
 
-| Check | Actual result |
+| Check | Observed result |
 |---|---|
-| Build and unit tests | PASS, 83 tests, zero failures/errors |
-| Native required server tests | PASS, 80 required tests |
-| Native graphical client tests | PASS, all seven registered suites |
+| Complete build / unit tests | PASS; 87 tests, zero failures/errors |
+| Native required server suite | PASS; 98 required tests |
+| Real claim-mod integration | PASS with OpenPAC 0.33.0 + Forge Config API Port 26.1.3; claim owner/stranger block, temporal and loose-cargo checks |
+| Native graphical clients | PASS; eight registered suites, minimum scaled menus and real construct renderer checks |
 | Datagen | PASS |
-| Two ordinary clients + dedicated server | PASS, 50 checks; offline loopback, not authenticated accounts |
-| Temporal load baseline | PASS, 1,200 ticks, 40 mobs, four furnaces; mean server processing 3.4064 ms/tick, max 9.471 ms |
-| Dedicated save + separate-process reload | PASS for both seed and verify |
+| Separate-process orderly save/reload | PASS in isolated fresh world |
+| Intentional partial player-save crash / canonical lease recovery | PASS in a separate isolated world; expected exit 71 and fault marker required |
+| Actual old-version save upgrades | PASS; committed 0.5 and 0.7 sources generated worlds; current version upgraded/reloaded each twice |
+| Two-client extended load | Pending current-candidate run; prior alpha's 50-check/1,200-tick baseline is not substituted |
+| Cross-platform native CI | Pending workflow execution; do not infer native platform success from a local Windows build |
 
-The final server regression adds an invested-input rejection/typed Lerasium alloy test and verifies two medallion powers coexist while independently spending charge. The seven graphical suites and two-client/restart runs preceded that small alloy-input hardening; the changed transaction itself was exercised by the final server suite. No change to those client, temporal or persistence paths followed their passing runs. Final metadata/source packaging is checked separately.
+## Exercised behavior
 
-## What the checks exercise
+The server suite covers canonical mass/charge, source-specific power loss, consent/protection, contact/Identity, spent-copy refusal, compounding and medallions, finite NPC storage/tapping, typed Copper/Nicrosil behavior, NPC construct anatomy/death, permanent-despawn cleanup, faction injury/trade, finite god-metal windows/alloy preflight, camp placement/containers, memory movement and ownerless water-reaction safety. The real optional claim fixture installs its exact third-party jars; the normal suite skips that one test when the optional mod is absent.
 
-- Existing economy, all standard-metal bounded handlers, five Tin senses, ownership, ordinary/invested fuel separation, physical force order, canonical contact, copied leases, keyed transfers, implants, source-scoped removal, consent/PvP, body/memory/typed Investiture and documented UUID policy remain regressions.
-- New pure tests check compounding transaction preflight, exact type/Identity, capacity rollback, spent-source codec, nonduplicating memories, fractional clocks, construct preparations and strict policy types/probabilities.
-- New native server tests exercise actual deliberate compounding and refused Intent; protected emotion/compounding; Koloss anatomy; linked Blessing/material/shape/loss; Inquisitor eye/Gold/linchpin consequences; default-off/lower-retention exceptional extraction and cancelled-damage rollback; Gold trauma curing; owned-reference repair; NPC paid attributes and leech; short-pulse retention; inaccessible memory annotation refusal.
-- Survival/equipment tests exercise deterministic allocation and independent once-only markers, stolen-source non-restoration, atomic mixed-vial failure/success and invested-preview refusal, medallion leases/copies, independently paid simultaneous powers, explicit Lerasium use, ordinary alloy transaction and separation of public survival commands from operator grant permissions.
-- The new graphical suite uses actual P/H controls to compound, prepare Blessings, implant, transform and learn a wolf body, then checks an actual vanilla Wolf render state and collapse presentation. The existing foundation suite opens the new Guide, changes pages and closes it. The Guide screenshot was visually inspected for readable wrapping and visible buttons at 854×480; this is not a full GUI-scale/accessibility matrix.
-- Two-client fixture retains private snapshots, duplicate contention, real physical transfers, disconnect/rejoin, death/respawn, competing forces, consent/extraction/implantation, pulse concealment, emotions and mutual contact resource tests. Its new temporal run checks input/output conservation and actual furnace progress with overlapping fields and forty loaded mobs. Timing measures START→END server processing, excluding normal idle time, on one machine; it is not a public-server throughput guarantee.
-- Dedicated restart saves real player/world storage, then a new JVM reloads compounded destination charge, spent-source refusal, linked Blessing preparation, construct shape, trauma, merchant relationships, progression/one-time Lerasium markers, original canonical equipment, unique stored memory, typed unsealed ability and partially completed processing/brewing jobs. No fixture reseeds an old user world.
+Graphical suites use actual native Minecraft clients and integrated/dedicated connections: open menus, consume server-authorized actions, powers/equipment, dimension/death/reconnect, real disk reopen and body rendering. The eighth suite additionally checks controls inside the 320×240 scaled viewport, guide narration, lessons/settings and distinct NPC renderer state. Screenshots are captured by Minecraft, not generated promotional art.
 
-Machine-readable [two-client result](validation/0.8/multiplayer-result.json), [seed result](validation/0.8/restart-seed.result) and [reload result](validation/0.8/restart-verify.result) are retained. Full local reports remain under `build/reports/tests` and client screenshots under `build/run/clientGameTest/screenshots`.
+The historical migration fixtures generate old saves using archived committed sources (`79639da` for 0.5 and `993d9f8` for 0.7), then load/resave/reload current code. They verify old spiritweb/fuel, canonical mind charge/spike potency and appropriate new-field defaults. They are not arbitrary production-world certification. The crash fixture tests a deliberately missing player contact reference while the world lease remains; recovery cannot repair arbitrary lost/corrupt world ledgers or every multi-file crash boundary.
 
-## Practical limits
+## Reproduction and evidence
 
-Not observed: authenticated real-account perk login, a remote public server, packet loss/latency injection, an installed third-party protection/claim mod, Linux/macOS native clients, archived production-world migrations, crash fault injection or hours-long capacity tests. Linux GitHub CI validates build/unit/datagen and publishes the matching alpha assets; it does not run the local native suites. Loader/Mixin emits its existing Java compatibility/remap warnings in the development harness; they did not fail these tests. Development client profile/Realms authentication warnings are not authenticated-account evidence.
+Use the README commands. Run fixtures sequentially: Fabric's test-directory deletion task invalidates a concurrent graphical run, even when starting a different server fixture. One earlier client run was invalidated by that test orchestration mistake and was not counted as passing; the isolated rerun passed. An asynchronous reaction test's original 20-tick deadline matched its scheduled 20-tick assertion and was corrected to a 100-tick deadline before the final successful build.
 
-Unknown god metals, full Excisor manufacture, arbitrary local time, every NPC metal/construct AI, universal social/language systems and complete translations are not claimed complete. [Ordered remaining work](REMAINING_WORK.md) states what remains. Attribution inventory does not resolve owner licensing/third-party rights.
+Local retained fixtures: `build/run/recovery-20261101-001228` and `build/legacy-20261101-002529`. Final local logs/screenshots are preserved outside disposable build directories in the task's `rc-evidence` output. CI uploads separate unit/server/client/recovery evidence and gates immutable prerelease publication on all required jobs.
 
+## What remains unverified
 
-Alpha.2 retains the tested alpha.1 mechanics and test classes, with corrected bundled provenance, historical guide status and release metadata. No mechanics changed in this documentation follow-up.
+Authenticated remote licensed accounts, a real latency/loss deployment, hours-long capacity/bandwidth/save-growth certification, an ordinary full survival balance playthrough, complete Spanish translation, real screen-reader acceptance and native macOS graphical drivers remain open. A pinned OpenPAC result does not certify other claim mods or future versions. Working code and the selected source license do not establish third-party fan-use/branding clearance or Modrinth eligibility. See REMAINING_WORK.md and DISTRIBUTION.md.

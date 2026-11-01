@@ -1,0 +1,42 @@
+{
+  "parent": "metallicarts:root",
+  "display": {
+    "icon": {
+      "id": "metallicarts:atium_bead"
+    },
+    "title": {
+      "translate": "advancement.metallicarts.godmetals.title"
+    },
+    "description": {
+      "translate": "advancement.metallicarts.godmetals.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "metallicarts:atium_bead"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "metallicarts:field_guide"
+    ]
+  }
+}

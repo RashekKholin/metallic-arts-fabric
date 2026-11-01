@@ -14,14 +14,14 @@ import java.util.*;
 
 /** One frame of combined influences; no order-dependent clamp or client-selected victim. */
 public final class EmotionService {
-    private record Pending(Map<EmotionProfile.Emotion,Double> changes,ServerPlayer caster){}
+    private record Pending(Map<EmotionProfile.Emotion,Double> changes,LivingEntity caster){}
     private static final Map<LivingEntity,Pending> PENDING=new HashMap<>();
-    private static final Map<LivingEntity,ServerPlayer> AFFECTED=new HashMap<>();
+    private static final Map<LivingEntity,LivingEntity> AFFECTED=new HashMap<>();
     public static boolean susceptible(LivingEntity target){return target instanceof ServerPlayer||target.getType().builtInRegistryHolder().is(TagKey.create(Registries.ENTITY_TYPE,MetallicArts.id("emotion_susceptible")));}
     public static boolean influence(ServerPlayer caster,LivingEntity target,EmotionProfile.Emotion emotion,double amount){
         if(!dev.metallicarts.api.ArtsProtection.allows(caster,target,dev.metallicarts.api.ArtsProtection.Action.EMOTION))return false;
         if(!susceptible(target)||!target.isAlive()||target.isSpectator()||caster.distanceToSqr(target)>Math.pow(dev.metallicarts.config.AdvancedConfig.get().emotions().range(),2)||!caster.hasLineOfSight(target))return false;
-        double resistance=1;
+        double resistance=1+Math.max(0,NpcFeruchemy.effect(target,dev.metallicarts.feruchemy.FeruchemicalAttribute.IDENTITY))*2;
         if(target instanceof ServerPlayer other){
             if(!caster.canHarmPlayer(other)||other.isCreative()||AllomancyRuntime.power(other,Metal.COPPER)>0)return false;
             resistance=Math.max(.25,resistance+2*AdvancedFeruchemy.effect(other,dev.metallicarts.feruchemy.FeruchemicalAttribute.DETERMINATION)+AdvancedFeruchemy.effect(other,dev.metallicarts.feruchemy.FeruchemicalAttribute.IDENTITY));
@@ -30,6 +30,12 @@ public final class EmotionService {
         }
         var pending=PENDING.computeIfAbsent(target,t->new Pending(new EnumMap<>(EmotionProfile.Emotion.class),caster));
         pending.changes().merge(emotion,Math.clamp(amount/resistance,-dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap(),dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap()),Double::sum);return true;
+    }
+    public static boolean influenceMob(Mob caster,LivingEntity target,EmotionProfile.Emotion emotion,double amount){
+        if(!susceptible(target)||!dev.metallicarts.api.ArtsProtection.npcAllows(caster,target,dev.metallicarts.api.ArtsProtection.Action.EMOTION)||caster.distanceToSqr(target)>144||!caster.hasLineOfSight(target))return false;
+        if(target instanceof ServerPlayer p&&AllomancyRuntime.power(p,Metal.COPPER)>0||target instanceof Mob m&&NpcArts.powers(m).getOrDefault(Metal.COPPER,0.0)>0)return false;
+        double resistance=1+Math.max(0,NpcFeruchemy.effect(target,dev.metallicarts.feruchemy.FeruchemicalAttribute.IDENTITY))*2+Math.max(0,NpcFeruchemy.effect(target,dev.metallicarts.feruchemy.FeruchemicalAttribute.DETERMINATION));
+        var pending=PENDING.computeIfAbsent(target,t->new Pending(new EnumMap<>(EmotionProfile.Emotion.class),caster));pending.changes().merge(emotion,Math.clamp(amount/resistance,-dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap(),dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap()),Double::sum);return true;
     }
     public static void finishFrame(){
         for(var entry:PENDING.entrySet()){

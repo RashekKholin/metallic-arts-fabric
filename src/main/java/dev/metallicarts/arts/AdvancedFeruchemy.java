@@ -192,13 +192,7 @@ public final class AdvancedFeruchemy {
             CUES.put(p.getUUID(),String.join(" • ",cues));
         }
     }
-    private static Optional<String> opportunity(ServerPlayer p){
-        int checked=0;var ores=TagKey.create(Registries.BLOCK,MetallicArts.id("fortune_opportunities"));
-        for(int y=-6;y<=6;y+=2)for(int x=-dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();x<=dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();x+=2)for(int z=-dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();z<=dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();z+=2){
-            if(checked++>=dev.metallicarts.config.AdvancedConfig.get().body().opportunityProbes())return Optional.empty();var pos=p.blockPosition().offset(x,y,z);if(!p.level().hasChunkAt(pos))continue;
-            if(p.level().getBlockState(pos).is(ores)){String direction=Math.abs(x)>Math.abs(z)?x>0?"east":"west":z>0?"south":"north";return Optional.of("Fortune: an opportunity feels "+direction+(y<0?" and below":""));}
-        }return Optional.empty();
-    }
+    private static Optional<String> opportunity(ServerPlayer p){return dev.metallicarts.api.FortuneOpportunities.cue(p);}
     private static UUID key(ServerPlayer p,MetalmindAsset a){
         var identity=p.getAttachedOrCreate(ModRegistries.SPIRITWEB).identity();if(a.charge()==0||a.accessible(identity))return identity;
         return a.identity().filter(HemalurgyRuntime.donorKeys(p,a.metal())::contains).orElseThrow(()->new IllegalArgumentException("Foreign Identity"));
@@ -238,7 +232,7 @@ public final class AdvancedFeruchemy {
     }
     public static boolean memory(ServerPlayer p,MemoryAction request){
         int tick=p.level().getServer().getTickCount();var throttle=REQUESTS.computeIfAbsent(p.getUUID(),u->new int[]{tick,0});if(tick-throttle[0]>=20){throttle[0]=tick;throttle[1]=0;}
-        if(++throttle[1]>20||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(p)||!p.isAlive()||p.isSpectator()||request.slot()<0||request.slot()>=12||request.page()<0||request.page()>42||request.action()<0||request.action()>3||request.text()==null||request.text().length()>64||request.text().chars().anyMatch(Character::isISOControl))return false;
+        if(++throttle[1]>20||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(p)||!p.isAlive()||p.isSpectator()||request.slot()<0||request.slot()>=12||request.page()<0||request.page()>42||request.action()<0||request.action()>4||request.text()==null||request.text().length()>64||request.text().chars().anyMatch(Character::isISOControl))return false;
         try{
             if(EffectivePower.strength(p,Art.FERUCHEMY,Metal.COPPER)<=0)throw new IllegalArgumentException("Need Copper Feruchemy");
             var data=ContactService.equipment(p).item(request.slot()).get(ModRegistries.METALMIND);if(data==null)throw new IllegalArgumentException("Choose a contacted coppermind");
@@ -250,6 +244,7 @@ public final class AdvancedFeruchemy {
                 var restored=ledger.takeMemory(a.token(),lease,key,request.memory());p.setAttached(ModRegistries.JOURNAL,journal.remember(restored.memory()));
             }
             if(request.action()==3)p.setAttached(ModRegistries.JOURNAL,p.getAttachedOrCreate(ModRegistries.JOURNAL).rename(request.memory(),request.text()));
+            if(request.action()==4){var target=AdvancedAllomancy.aimed(p,3).orElseThrow(()->new IllegalArgumentException("Aim at a consenting recipient"));if(!(target instanceof ServerPlayer recipient))throw new IllegalArgumentException("Choose a player recipient");MemorySharing.transfer(p,recipient,request.memory());}
             String query=request.action()==3?"":request.text();
             a=ledger.owned(data.token(),lease);var json=AdvancedAllomancy.journalData(p,request.page());
             var available=p.getAttachedOrCreate(ModRegistries.JOURNAL).memories().stream().filter(m->ArtsJournal.matches(m,query)).toList();json.add("memories",new Gson().toJsonTree(available.stream().skip(request.page()*6L).limit(6).toList()));json.addProperty("memoryTotal",available.size());json.addProperty("query",query);var gson=new Gson();json.add("stored",gson.toJsonTree(a.content().memories().stream().filter(m->ArtsJournal.matches(m,query)).skip(request.page()*6L).limit(6).toList()));json.addProperty("storedTotal",a.content().memories().stream().filter(m->ArtsJournal.matches(m,query)).count());json.addProperty("memorySlot",request.slot());

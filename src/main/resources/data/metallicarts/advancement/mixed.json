@@ -1,0 +1,42 @@
+{
+  "parent": "metallicarts:root",
+  "display": {
+    "icon": {
+      "id": "metallicarts:mixed_vial"
+    },
+    "title": {
+      "translate": "advancement.metallicarts.mixed.title"
+    },
+    "description": {
+      "translate": "advancement.metallicarts.mixed.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "metallicarts:mixed_vial"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "metallicarts:field_guide"
+    ]
+  }
+}

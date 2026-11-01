@@ -93,9 +93,24 @@ public final class RestartSmoke implements ModInitializer {
                     stand.setItem(3,new ItemStack(EconomyContent.item("gold","flakes"),5));stand.setItem(4,new ItemStack(Items.BLAZE_POWDER));
                     for(int n=0;n<=100;n++)BrewingStandBlockEntity.serverTick(server.overworld(),brewPos,stand.getBlockState(),stand);
                     server.saveEverything(false,true,true);
-                }else if(mode.equals("verify")){
+                }else if(mode.equals("legacy05")||mode.equals("legacy07")){
+                    var tag=server.getPlayerList().loadPlayerData(new NameAndId(PLAYER,"StorageSmoke")).orElseThrow();player.load(TagValueInput.create(ProblemReporter.DISCARDING,server.registryAccess(),tag));
+                    if(!expected().equals(player.getAttached(ModRegistries.SPIRITWEB))||!itemData().equals(player.getInventory().getItem(0).get(ModRegistries.METAL_DATA)))throw new AssertionError("Legacy spiritweb/fuel changed during upgrade");
+                    var mind=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(0).get(ModRegistries.METALMIND);var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(server).owned(mind.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,0));
+                    if(asset.charge()!=123456||asset.consumed()||!asset.identity().orElseThrow().equals(IDENTITY))throw new AssertionError("Legacy canonical charge/Identity changed");
+                    var spike=player.getAttachedOrCreate(ModRegistries.SPIKES).item(4).get(ModRegistries.SPIKE);if(dev.metallicarts.hemalurgy.SpikeLedger.get(server).owned(spike.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,4)).potency()!=.9)throw new AssertionError("Legacy implant changed");
+                    if(!player.getAttachedOrCreate(ModRegistries.CONSTRUCT).equals(dev.metallicarts.hemalurgy.ConstructState.HUMAN)||player.getAttachedOrCreate(ModRegistries.TRAUMA).total()!=0||!player.getAttachedOrCreate(ModRegistries.FACTIONS).values().isEmpty()||player.getAttachedOrCreate(ModRegistries.MEMORY_SHARING)||player.getAttachedOrCreate(ModRegistries.PAST_VISION_CONSENT))throw new AssertionError("New defaults grant unwanted state or permissions");
+                    if(mode.equals("legacy07")){var memory=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(1).get(ModRegistries.METALMIND);if(memory==null||dev.metallicarts.feruchemy.MetalmindLedger.get(server).resolve(memory.token()).content().memories().size()!=1)throw new AssertionError("Legacy advanced memory was lost");}
+                    ((ServerStorageAccess)server).metallicarts$storage().save(player);server.saveEverything(false,true,true);                }else if(mode.equals("fault")||mode.equals("recover")||mode.equals("verify")){
                     var tag=server.getPlayerList().loadPlayerData(new NameAndId(PLAYER,"StorageSmoke")).orElseThrow(()->new AssertionError("No player save after restart"));
                     player.load(TagValueInput.create(ProblemReporter.DISCARDING,server.registryAccess(),tag));
+                    if(mode.equals("fault")){
+                        player.setAttached(ModRegistries.CONTACT_EQUIPMENT,player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).with(0,ItemStack.EMPTY));
+                        ((ServerStorageAccess)server).metallicarts$storage().save(player);
+                        Files.writeString(Path.of("restart-fault.result"),"INTENTIONAL_CRASH_AFTER_PLAYER_SAVE_BEFORE_WORLD_SAVE");
+                        Runtime.getRuntime().halt(71);
+                    }
+                    if(mode.equals("recover")&&dev.metallicarts.arts.SystemsCommands.recoverLeases(player)!=1)throw new AssertionError("Expected exactly one existing canonical lease to be restored");
                     if(!player.getAttachedOrCreate(ModRegistries.PROGRESSION).snapped()||!player.getAttachedOrCreate(ModRegistries.LERASIUM_CLAIMED)||player.getAttachedOrCreate(ModRegistries.TRAUMA).total()!=4||player.getAttachedOrCreate(ModRegistries.RELATIONSHIPS).merchants().get(ITEM)!=42||player.getAttachedOrCreate(ModRegistries.CONSTRUCT).shape()!=dev.metallicarts.hemalurgy.ConstructState.Shape.WOLF)throw new AssertionError("Restart lost progression/body/trauma/relationship state");
                     var checkLedger=dev.metallicarts.feruchemy.MetalmindLedger.get(server);var spent=player.getInventory().getItem(2).get(ModRegistries.METALMIND);if(!checkLedger.find(spent.token().instance()).orElseThrow().consumed())throw new AssertionError("Consumed source resurrected");boolean rejected=false;try{checkLedger.resolve(spent.token());}catch(IllegalArgumentException e){rejected=true;}if(!rejected)throw new AssertionError("Copied spent source became spendable after restart");
                     var output=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(2).get(ModRegistries.METALMIND);if(checkLedger.owned(output.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,2)).charge()!=10000)throw new AssertionError("Compounded charge changed over restart");
@@ -135,4 +150,3 @@ public final class RestartSmoke implements ModInitializer {
         });
     }
 }
-

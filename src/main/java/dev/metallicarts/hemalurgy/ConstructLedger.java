@@ -20,6 +20,8 @@ public final class ConstructLedger extends SavedData {
  private ConstructLedger(List<Preparation> list){for(var v:list)if(entries.putIfAbsent(v.spike(),v)!=null)throw new IllegalArgumentException("Duplicate spike preparation");var pairs=new HashMap<UUID,Integer>();list.forEach(v->v.pair().ifPresent(id->pairs.merge(id,1,Integer::sum)));if(pairs.values().stream().anyMatch(n->n!=2))throw new IllegalArgumentException("Incomplete or duplicated Blessing pair");}
  public static ConstructLedger get(MinecraftServer server){return server.overworld().getDataStorage().computeIfAbsent(TYPE);}
  public List<Preparation> all(){return entries.values().stream().sorted(Comparator.comparing(Preparation::spike)).toList();}
+ public boolean room(int count){return entries.size()+count<99998;}
+ public void discard(Set<UUID> destroyed){var pairs=new HashSet<UUID>();for(var p:entries.values())if(p.pair().isPresent()&&destroyed.contains(p.spike())){UUID pair=p.pair().get();if(entries.values().stream().filter(v->v.pair().filter(pair::equals).isPresent()).allMatch(v->destroyed.contains(v.spike())))pairs.add(pair);}if(entries.values().removeIf(p->destroyed.contains(p.spike())&&(p.pair().isEmpty()||pairs.contains(p.pair().get()))))setDirty();}
  public Optional<Preparation> find(UUID spike){return Optional.ofNullable(entries.get(spike));}
  public void prepare(SpikeAsset source,Purpose purpose){
   free(source);if(purpose==Purpose.KANDRA_BLESSING)throw new IllegalArgumentException("Blessings require a linked pair");

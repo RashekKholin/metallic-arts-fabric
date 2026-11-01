@@ -1,0 +1,42 @@
+{
+  "parent": "metallicarts:root",
+  "display": {
+    "icon": {
+      "id": "metallicarts:medallion"
+    },
+    "title": {
+      "translate": "advancement.metallicarts.medallion.title"
+    },
+    "description": {
+      "translate": "advancement.metallicarts.medallion.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "metallicarts:medallion"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "metallicarts:field_guide"
+    ]
+  }
+}

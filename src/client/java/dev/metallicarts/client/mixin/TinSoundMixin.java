@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class TinSoundMixin {
     @Inject(method="calculateVolume(Lnet/minecraft/client/resources/sounds/SoundInstance;)F",at=@At("RETURN"),cancellable=true)
     private void metallicarts$tin(SoundInstance sound,CallbackInfoReturnable<Float> cir){
+        if(!ClientPreferences.value(3)&&sound.getIdentifier().equals(dev.metallicarts.MetallicArts.id("bronze_pulse"))){cir.setReturnValue(0f);return;}
         if(
             java.util.Set.of(net.minecraft.sounds.SoundSource.BLOCKS,net.minecraft.sounds.SoundSource.HOSTILE,
                 net.minecraft.sounds.SoundSource.NEUTRAL,net.minecraft.sounds.SoundSource.AMBIENT,net.minecraft.sounds.SoundSource.PLAYERS).contains(sound.getSource()))
