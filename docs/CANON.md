@@ -4,6 +4,8 @@ The executable provenance catalog is `src/main/resources/metallicarts/rules.json
 
 Use published narrative/Ars Arcanum material first, author statements with their context second, and explicit documented interpretations where evidence is incomplete. Never mark an engineering choice as established canon. Future entries should include specific source locators and separate conflicting-era evidence rather than guessing a precise number or binding point.
 
+**Current 0.8 scope:** [ADVANCED_SYSTEMS.md](ADVANCED_SYSTEMS.md) documents compounding, prepared player constructs, once-only progression, mixed vials, multi-core carriers and the researched Lerasium subset. Sections below record historical implementation decisions; their original future-work notes do not describe the current feature inventory.
+
 ## Evidence reviewed for this foundation
 
 Brandon Sanderson's [Hero of Ages chapter 39 annotation](https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine), under “The Mechanism of Hemalurgy,” describes transferring Allomantic/Feruchemical abilities and the relevance of spike placement and use. This supports separate typed powers and source provenance. It does not establish this mod's numeric strength scale, duplicate-grant stacking rule, UUID representation or any complete binding-point table.
@@ -58,4 +60,4 @@ Player extraction is off by default and further requires current donor consent p
 
 ## Phase 6–7 interpretations
 
-ADVANCED_ARTS.md and bundled rules.json explicitly distinguish observed Minecraft behavior from canonical claims. Local temporal clocks, finite body escrow, recorded-path Gold, collision-bounded Electrum, villager Connection, Luck/opportunity Fortune and single-type unsealed construction are documented game adaptations. The consumed Duralumin binder is not a verified canonical Excisor recipe. Full constructs, god metals and Compounding remain deferred.
+ADVANCED_ARTS.md and bundled rules.json explicitly distinguish observed Minecraft behavior from canonical claims. Local temporal clocks, finite body escrow, recorded-path Gold, collision-bounded Electrum, villager Connection, Luck/opportunity Fortune and single-type unsealed construction are documented game adaptations. The consumed Duralumin binder is not a verified canonical Excisor recipe. The original Phase 7 baseline deferred constructs, god metals and Compounding; bounded player constructs, compounding and Lerasium now exist as documented in ADVANCED_SYSTEMS.md. Unresolved god metals and complete canonical metaphysics remain deferred.

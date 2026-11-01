@@ -1,4 +1,4 @@
-# The Metallic Arts 0.8.0-alpha.1
+# The Metallic Arts 0.8.0-alpha.2
 
 Minecraft Java **26.1**, Java **25**, Fabric Loader **0.18.4+**, Fabric API **0.145.1+26.1**. Install the ordinary jar on server and clients; the sources jar is for development. Back up the entire world and remove the old mod jar.
 
@@ -12,3 +12,6 @@ Minecraft Java **26.1**, Java **25**, Fabric Loader **0.18.4+**, Fabric API **0.
 The public, host-configurable RashekKholin/The17thShard UUID access remains; it grants no operator privileges or free fuel.
 
 Read the [README](https://github.com/RashekKholin/metallic-arts-fabric#readme), [actual validation](https://github.com/RashekKholin/metallic-arts-fabric/blob/main/docs/RELEASE_VALIDATION.md) and [remaining work](https://github.com/RashekKholin/metallic-arts-fabric/blob/main/docs/REMAINING_WORK.md). This alpha implements bounded interpretations; it does not claim every canonical interaction, complete localization, arbitrary NPC powers, third-party/platform certification or licensing clearance.
+
+
+Alpha.2 corrects stale provenance and historical documentation from alpha.1; tested mechanics are unchanged.

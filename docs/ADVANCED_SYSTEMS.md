@@ -1,4 +1,4 @@
-# Advanced systems in 0.8.0-alpha.1
+# Advanced systems in 0.8.0-alpha.2
 
 These are playable, bounded Minecraft interpretations. A listed feature does not imply every cosmere interaction has been simulated. See the bundled `metallicarts/rules.json` and [canon policy](CANON.md).
 

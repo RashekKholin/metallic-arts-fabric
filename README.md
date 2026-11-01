@@ -1,6 +1,6 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **0.8.0-alpha.1**
+Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **0.8.0-alpha.2**
 
 Playable fan-mod alpha: all sixteen standard Allomantic metals and sixteen Feruchemical metals (five separate Tin senses), metal economy, source-tracked Hemalurgy, canonical equipment, compounding and prepared player constructs. This update also adds survival discovery, powered hostile populations, mixed vials, multi-core medallions and a researched Lerasium subset. These are bounded Minecraft interpretations, not every canonical interaction.
 
@@ -10,7 +10,7 @@ Read [advanced systems and exact limits](docs/ADVANCED_SYSTEMS.md), [host config
 
 ## Download and launch
 
-1. Open [versioned GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Choose **v0.8.0-alpha.1** and download **metallic-arts-fabric-0.8.0-alpha.1.jar**. The `-sources.jar` is source code, not the playable mod. Releases are published after successful main-branch CI; if that release is not present, use a successful [build artifact](https://github.com/RashekKholin/metallic-arts-fabric/actions/workflows/build.yml) or build below.
+1. Open [versioned GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Choose **v0.8.0-alpha.2** and download **metallic-arts-fabric-0.8.0-alpha.2.jar**. The `-sources.jar` is source code, not the playable mod. Releases are published after successful main-branch CI; if that release is not present, use a successful [build artifact](https://github.com/RashekKholin/metallic-arts-fabric/actions/workflows/build.yml) or build below.
 2. Create a Minecraft **26.1** instance using **Java 25**, **Fabric Loader 0.18.4+**, and **Fabric API 0.145.1+26.1**. Download dependencies from their official projects; this jar does not bundle them.
 3. Put the ordinary mod jar and matching Fabric API jar in that instance's `mods` folder. Install the same mod version on the dedicated server and every client. Keep only one Metallic Arts jar.
 4. Launch the Fabric profile and create/join a world. Press **M**, then **Guide**. The mod's keys can be rebound in vanilla Controls.
@@ -81,7 +81,7 @@ node scripts/generate-economy.cjs
 node scripts/generate-advanced.cjs
 ```
 
-Build output: `build/libs/metallic-arts-fabric-0.8.0-alpha.1.jar`. Test XML/reports: `build/test-results` and `build/reports/tests`. Client screenshots: `build/run/clientGameTest/screenshots`. Multiplayer writes a timestamped result under `build/run/multiplayer-*`. Never run resource rebuilds concurrently with Minecraft test processes using those resources.
+Build output: `build/libs/metallic-arts-fabric-0.8.0-alpha.2.jar`. Test XML/reports: `build/test-results` and `build/reports/tests`. Client screenshots: `build/run/clientGameTest/screenshots`. Multiplayer writes a timestamped result under `build/run/multiplayer-*`. Never run resource rebuilds concurrently with Minecraft test processes using those resources.
 
 Manual smoke test: open/close M/F/H/P and Guide; reconnect; store/tap a real contacted mind; verify its balance after saving/restarting; test failed compounding preserves its source; test medallion copies cannot equip twice. Use a disposable backed-up test world for extraction/body dependency consequences. [Current validation](docs/RELEASE_VALIDATION.md) records actual automated scope and exclusions.
 
@@ -142,4 +142,3 @@ Phases 1–7 retain their playable foundations. Steps 1–8 of the follow-up now
 - Obtain the owner's source-license choice and any branding/fan-use review. The technical attribution inventory is not legal clearance.
 - Maintain immutable versioned Releases, checksums, matching dependency notes and changelogs; do not overwrite existing assets under the same version.
 - Expand CI/native/multiplayer regressions and issue templates as adapters land; distinguish implemented scope, observed tests and open acceptance.
-

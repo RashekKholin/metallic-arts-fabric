@@ -1,4 +1,4 @@
-# 0.8.0-alpha.1 validation
+# 0.8.0-alpha.2 validation
 
 Observed on Windows, this development laptop, Java 25.0.5, Minecraft 26.1, Loader 0.18.4, Fabric API 0.145.1+26.1, Loom 1.15.5 and Gradle 9.4.0, 2026-10-31 local time. Historical 0.7/0.5 reports are separate evidence.
 
@@ -31,3 +31,6 @@ Machine-readable [two-client result](validation/0.8/multiplayer-result.json), [s
 Not observed: authenticated real-account perk login, a remote public server, packet loss/latency injection, an installed third-party protection/claim mod, Linux/macOS native clients, archived production-world migrations, crash fault injection or hours-long capacity tests. Linux GitHub CI validates build/unit/datagen and publishes the matching alpha assets; it does not run the local native suites. Loader/Mixin emits its existing Java compatibility/remap warnings in the development harness; they did not fail these tests. Development client profile/Realms authentication warnings are not authenticated-account evidence.
 
 Unknown god metals, full Excisor manufacture, arbitrary local time, every NPC metal/construct AI, universal social/language systems and complete translations are not claimed complete. [Ordered remaining work](REMAINING_WORK.md) states what remains. Attribution inventory does not resolve owner licensing/third-party rights.
+
+
+Alpha.2 retains the tested alpha.1 mechanics and test classes, with corrected bundled provenance, historical guide status and release metadata. No mechanics changed in this documentation follow-up.

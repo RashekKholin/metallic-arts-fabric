@@ -41,7 +41,7 @@
   {
     "id": "uncertain_advanced_rules",
     "status": "DEFERRED",
-    "statement": "God metals, a complete canonical anatomy map, advanced constructs and Compounding remain deferred. Fortune, Connection and unsealed access have bounded game interpretations; their exact canonical metaphysics and medallion construction are not asserted.",
+    "statement": "Unknown god metals, a complete canonical anatomy map and exact Excisor metaphysics remain deferred. Bounded player constructs, compounding, Lerasium, Fortune, Connection and unsealed carriers are implemented interpretations, not complete canonical simulation.",
     "sources": [],
     "implementation": "ADVANCED_ARTS.md records actual handlers and limits. No Excisor simulation or arbitrary causality/language translation is claimed."
   },
@@ -59,7 +59,7 @@
     "status": "GAMEPLAY_POLICY",
     "statement": "Ordinary fuel excludes the invested subset. Integer prepaid costs, a fourfold flare cost, a 1.8 flare strength multiplier, effect caps and transient active modes are implementation policies.",
     "sources": [],
-    "implementation": "ReserveLedger, BurnBudget, BurnEngine and AllomancyRuntime. Invested fuel is reserved until Compounding is designed."
+    "implementation": "ReserveLedger, BurnBudget, BurnEngine and AllomancyRuntime. Legacy invested fuel stays segregated; Compounding consumes canonical physical source assets through a separate transaction."
   },
   {
     "id": "first_physical_powers",
@@ -75,7 +75,7 @@
     "status": "GAMEPLAY_POLICY",
     "statement": "Physical Feruchemy uses individual contacted assets, integer charge, up to 75% storing, aggregate tapping up to 400% and superlinear high-rate costs. Numerical effects, capacity, death-retained equipment and carrying profiles are game adaptations.",
     "sources": [],
-    "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, unsealed access and Compounding are not implemented."
+    "implementation": "Canonical world ledger, transfer revisions, Identity checks, separate Tin senses and source-independent modifier IDs. Identity-free filling, finite unsealed typed access and canonical-once Compounding now have separate documented implementations."
   },
   {
     "id": "alloy_ratio_policy",
@@ -119,7 +119,7 @@
     "status": "INTERPRETATION",
     "statement": "Native cognition supports analysis; Connection/Identity adds bounded rapport and donor-key authorization; Fortune changes Luck and opportunity cues; Investiture scales existing access. These bounded handlers do not complete destiny, constructs or arbitrary abilities.",
     "sources": [],
-    "implementation": "HemalurgyRuntime, EffectivePower and AdvancedFeruchemy; full constructs and exceptional nonlethal extraction remain deferred."
+    "implementation": "HemalurgyRuntime, EffectivePower and AdvancedFeruchemy; prepared player constructs and default-off exceptional nonlethal extraction have explicit dependency and source-accounting rules; arbitrary NPC constructs remain deferred."
   },
   {
     "id": "mental_emotional_policy",

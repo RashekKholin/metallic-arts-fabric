@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0-alpha.2
+
+- Corrects stale bundled provenance, historical phase-guide status and release metadata. The tested alpha.1 mechanics are unchanged.
+
 ## 0.8.0-alpha.1
 
 - Added compounding/spent-source tombstones, prepared player constructs and real body rendering, default-off exceptional extraction and permanent spiritual consequences.
@@ -24,4 +28,3 @@
 - Adds a dedicated two-normal-client harness, advanced unit/server/client tests, and extended separate-process saved-data fixtures.
 - Preserves old physical asset decoding with optional content fields. Existing four-metal Allomancy rates migrate with custom values retained and a backup. Back up whole worlds; do not downgrade after using new data.
 - Adds advanced controls, typed charge/memory previews, detailed approximation/provenance policies and an ordered remaining-work document. See PHASE67_VALIDATION.md for actual results and limits; this remains a playable alpha.
-
