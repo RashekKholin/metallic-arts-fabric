@@ -14,7 +14,8 @@
     "VillagerConnectionMixin",
     "GoldRecoveryMixin",
     "MerchantRelationshipMixin",
-    "TemporalItemUseMixin"
+    "TemporalItemUseMixin",
+    "EmotionalMobMixin"
   ],
   "injectors": {
     "defaultRequire": 1

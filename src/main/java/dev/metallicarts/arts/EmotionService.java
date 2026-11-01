@@ -17,10 +17,13 @@ public final class EmotionService {
     private record Pending(Map<EmotionProfile.Emotion,Double> changes,LivingEntity caster){}
     private static final Map<LivingEntity,Pending> PENDING=new HashMap<>();
     private static final Map<LivingEntity,LivingEntity> AFFECTED=new HashMap<>();
-    public static boolean susceptible(LivingEntity target){return target instanceof ServerPlayer||target.getType().builtInRegistryHolder().is(TagKey.create(Registries.ENTITY_TYPE,MetallicArts.id("emotion_susceptible")));}
+    public static boolean susceptible(LivingEntity target){return !target.getType().builtInRegistryHolder().is(TagKey.create(Registries.ENTITY_TYPE,MetallicArts.id("emotion_immune")))&&(target instanceof Mob||target instanceof ServerPlayer||target.getType().builtInRegistryHolder().is(TagKey.create(Registries.ENTITY_TYPE,MetallicArts.id("emotion_susceptible"))));}
+    public static boolean blocksAttack(Mob mob,LivingEntity victim){var actor=AFFECTED.get(mob);if(actor==null||actor!=victim)return false;var mood=mob.getAttachedOrCreate(ModRegistries.EMOTIONS).settle(mob.level().getGameTime());boolean provoked=mob.getLastHurtByMob()==actor&&mob.tickCount-mob.getLastHurtByMobTimestamp()<600;return !provoked&&(mood.value(EmotionProfile.Emotion.ANGER)<.15||mood.value(EmotionProfile.Emotion.TRUST)>.75);}
+    public static LivingEntity aggressor(Mob mob){var actor=AFFECTED.get(mob);if(actor==null||!actor.isAlive()||actor.level()!=mob.level()||mob.distanceToSqr(actor)>Math.pow(dev.metallicarts.config.AdvancedConfig.get().emotions().range(),2)||blocksAttack(mob,actor))return null;if(actor instanceof ServerPlayer p&&(p.isCreative()||p.isSpectator()||!dev.metallicarts.api.ArtsProtection.allows(p,mob,dev.metallicarts.api.ArtsProtection.Action.EMOTION)))return null;var mood=mob.getAttachedOrCreate(ModRegistries.EMOTIONS).settle(mob.level().getGameTime());return mood.value(EmotionProfile.Emotion.TRUST)<.15||mood.value(EmotionProfile.Emotion.ANGER)>.65?actor:null;}
     public static boolean influence(ServerPlayer caster,LivingEntity target,EmotionProfile.Emotion emotion,double amount){
         if(!dev.metallicarts.api.ArtsProtection.allows(caster,target,dev.metallicarts.api.ArtsProtection.Action.EMOTION))return false;
         if(!susceptible(target)||!target.isAlive()||target.isSpectator()||caster.distanceToSqr(target)>Math.pow(dev.metallicarts.config.AdvancedConfig.get().emotions().range(),2)||!caster.hasLineOfSight(target))return false;
+        if(target instanceof Mob mob&&NpcArts.powers(mob).getOrDefault(Metal.COPPER,0.0)>0)return false;
         double resistance=1+Math.max(0,NpcFeruchemy.effect(target,dev.metallicarts.feruchemy.FeruchemicalAttribute.IDENTITY))*2;
         if(target instanceof ServerPlayer other){
             if(!caster.canHarmPlayer(other)||other.isCreative()||AllomancyRuntime.power(other,Metal.COPPER)>0)return false;
@@ -54,7 +57,7 @@ public final class EmotionService {
             if(target instanceof Mob mob&&target.tickCount%20==0){
                 var threat=mob.getTarget()!=null?mob.getTarget():mob.getLastHurtByMob();
                 if(fear>.65&&threat!=null){var away=mob.position().subtract(threat.position()).normalize().scale(6);mob.getNavigation().moveTo(mob.getX()+away.x,mob.getY(),mob.getZ()+away.z,1.1);}
-                if(trust>.75&&mob.getTarget()==entry.getValue())mob.setTarget(null);
+                if(blocksAttack(mob,entry.getValue())){mob.setTarget(null);mob.getNavigation().stop();mob.setAggressive(false);}else if(aggressor(mob)!=null)mob.setTarget(entry.getValue());
             }
             if(profile.awareness()==0&&Arrays.stream(EmotionProfile.Emotion.values()).allMatch(e->Math.abs(profile.value(e)-e.baseline())<.0001)){clearModifiers(target);iterator.remove();}
         }

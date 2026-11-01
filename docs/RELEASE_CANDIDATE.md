@@ -1,3 +1,5 @@
+> RC3 supersedes the earlier targeting, bubble sizes/rendering, Duralumin timing, emotion selection and menu pagination described below. See [RC3_REFINEMENTS.md](RC3_REFINEMENTS.md) and current [validation](RELEASE_VALIDATION.md).
+
 # Release-candidate mechanics and limits
 
 This document describes **1.0.0-rc.2**, supplementing earlier phase guides. Read RELEASE_VALIDATION.md for observed results; implementation and verification are separate.

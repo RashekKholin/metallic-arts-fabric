@@ -1,3 +1,5 @@
+> RC3 supersedes the earlier targeting, bubble sizes/rendering, Duralumin timing, emotion selection and menu pagination described below. See [RC3_REFINEMENTS.md](RC3_REFINEMENTS.md) and current [validation](RELEASE_VALIDATION.md).
+
 > Historical phase guide: current 1.0.0-rc.2 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
 
 # Phase 6–7 playable alpha guide

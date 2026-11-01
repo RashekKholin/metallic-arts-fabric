@@ -19,6 +19,9 @@ public final class AllomancyCommands {
     public static void initialize() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registry, environment) -> dispatcher.register(
             Commands.literal("metallicarts").requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(Commands.literal("grantall").then(Commands.argument("player",EntityArgument.player()).executes(c->all(c,false))))
+                .then(Commands.literal("fuelall").then(Commands.argument("player",EntityArgument.player())
+                    .then(Commands.argument("micrograms",LongArgumentType.longArg(1,Spiritweb.MAX_RESERVE)).executes(c->all(c,true)))))
                 .then(Commands.literal("grant").then(Commands.argument("player",EntityArgument.player())
                     .then(metal().then(Commands.argument("strength",DoubleArgumentType.doubleArg(0.000001,1000))
                         .executes(c->edit(c,"grant"))))))
@@ -76,6 +79,13 @@ public final class AllomancyCommands {
         } catch(IllegalArgumentException e) {
             throw new SimpleCommandExceptionType(Component.literal(e.getMessage())).create();
         }
+    }
+    private static int all(CommandContext<CommandSourceStack> c,boolean fuel) throws CommandSyntaxException {
+        var player=EntityArgument.getPlayer(c,"player");var before=player.getAttachedOrCreate(ModRegistries.SPIRITWEB);var after=before;
+        try{for(var metal:Metal.values())if(fuel)after=ReserveLedger.credit(after,metal,LongArgumentType.getLong(c,"micrograms"));else for(var art:Art.values())if(after.strength(art,metal)<1){var id=UUID.randomUUID();after=ReserveLedger.grant(after,new PowerGrant(id,art,metal,PowerGrant.Origin.ADMIN,id,1));}
+            player.setAttached(ModRegistries.SPIRITWEB,after);ModNetworking.send(player);
+            c.getSource().sendSuccess(()->Component.literal(fuel?"Added fuel to all sixteen Allomantic metals":"Granted all sixteen Allomantic and sixteen Feruchemical powers; existing grants retained"),true);return 1;
+        }catch(IllegalArgumentException e){throw new SimpleCommandExceptionType(Component.literal(e.getMessage())).create();}
     }
     private static int inspect(CommandContext<CommandSourceStack> c) throws CommandSyntaxException {
         var player=EntityArgument.getPlayer(c,"player");

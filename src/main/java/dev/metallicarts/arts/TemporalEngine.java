@@ -15,9 +15,11 @@ import java.util.*;
 public final class TemporalEngine {
     public record Bubble(ServerPlayer owner,Object level,Vec3 center,double radius,double rate,Metal metal){}
     private static final Map<UUID,Bubble> BUBBLES=new HashMap<>();
+    public static double radius(Metal metal){var t=dev.metallicarts.config.AdvancedConfig.get().time();return Math.min(t.maximumRadius(),metal==Metal.CADMIUM?8:4);}
+    public static List<Vec3> particleShell(Vec3 center,double radius,int count,double phase){var result=new ArrayList<Vec3>();for(int i=0;i<count;i++){double y=1-2*(i+.5)/count,a=i*Math.PI*(3-Math.sqrt(5))+phase,r=Math.sqrt(1-y*y);result.add(center.add(radius*r*Math.cos(a),radius*y,radius*r*Math.sin(a)));}return List.copyOf(result);}
     private record NpcBubble(Mob owner,Vec3 center,double radius,double rate,Metal metal){}
     private static final Map<UUID,NpcBubble> NPC_BUBBLES=new HashMap<>();
-    public static void updateNpc(Mob owner,Map<Metal,Double> powers){Metal metal=powers.getOrDefault(Metal.BENDALLOY,0.0)>0?Metal.BENDALLOY:Metal.CADMIUM;double power=powers.getOrDefault(metal,0.0);var old=NPC_BUBBLES.get(owner.getUUID());if(power<=0||!owner.isAlive()||owner.isRemoved()){NPC_BUBBLES.remove(owner.getUUID());return;}var policy=dev.metallicarts.config.AdvancedConfig.get().time();double radius=Math.min(policy.maximumRadius(),policy.baseRadius()+power);if(old!=null&&owner.position().distanceToSqr(old.center())>radius*radius){NpcArts.request(owner,metal,dev.metallicarts.allomancy.BurnMode.OFF);NPC_BUBBLES.remove(owner.getUUID());return;}double rate=metal==Metal.BENDALLOY?Math.min(policy.maximum(),1+policy.speedFactor()*power):Math.max(policy.minimum(),1/(1+policy.slowFactor()*power));var bubble=new NpcBubble(owner,old==null||old.metal()!=metal?owner.position():old.center(),radius,rate,metal);NPC_BUBBLES.put(owner.getUUID(),bubble);if(owner.level().getServer().getTickCount()%20==0)drawSphere((ServerLevel)owner.level(),bubble.center(),radius,metal);}
+    public static void updateNpc(Mob owner,Map<Metal,Double> powers){Metal metal=powers.getOrDefault(Metal.BENDALLOY,0.0)>0?Metal.BENDALLOY:Metal.CADMIUM;double power=powers.getOrDefault(metal,0.0);var old=NPC_BUBBLES.get(owner.getUUID());if(power<=0||!owner.isAlive()||owner.isRemoved()){NPC_BUBBLES.remove(owner.getUUID());return;}var policy=dev.metallicarts.config.AdvancedConfig.get().time();double radius=radius(metal);if(old!=null&&owner.position().distanceToSqr(old.center())>radius*radius){NpcArts.request(owner,metal,dev.metallicarts.allomancy.BurnMode.OFF);NPC_BUBBLES.remove(owner.getUUID());return;}double rate=metal==Metal.BENDALLOY?Math.min(policy.maximum(),1+policy.speedFactor()*power):Math.max(policy.minimum(),1/(1+policy.slowFactor()*power));var bubble=new NpcBubble(owner,old==null||old.metal()!=metal?owner.position():old.center(),radius,rate,metal);NPC_BUBBLES.put(owner.getUUID(),bubble);}
     private static final Map<UUID,Double> CLOCKS=new HashMap<>(),PREVIOUS=new HashMap<>();
     private static final Map<UUID,Integer> STEPS=new HashMap<>();
     private record Machine(Object level,BlockPos pos,String type){}
@@ -27,11 +29,11 @@ public final class TemporalEngine {
         Metal metal=powers.getOrDefault(Metal.BENDALLOY,0.0)>0?Metal.BENDALLOY:Metal.CADMIUM;
         double power=powers.getOrDefault(metal,0.0);var old=BUBBLES.get(p.getUUID());
         if(power<=0||!p.isAlive()||p.isSpectator()){stop(p);return;}
-        var policy=dev.metallicarts.config.AdvancedConfig.get().time();double radius=Math.min(policy.maximumRadius(),policy.baseRadius()+power),rate=metal==Metal.BENDALLOY?Math.min(policy.maximum(),1+policy.speedFactor()*power):Math.max(policy.minimum(),1/(1+policy.slowFactor()*power));
+        var policy=dev.metallicarts.config.AdvancedConfig.get().time();double radius=radius(metal),rate=metal==Metal.BENDALLOY?Math.min(policy.maximum(),1+policy.speedFactor()*power):Math.max(policy.minimum(),1/(1+policy.slowFactor()*power));
         if(old==null||old.level()!=p.level()||old.metal()!=metal)old=new Bubble(p,p.level(),p.position(),radius,rate,metal);
         if(p.position().distanceToSqr(old.center())>radius*radius){AllomancyRuntime.stopMetal(p,metal);stop(p);return;}
         var bubble=new Bubble(p,p.level(),old.center(),radius,rate,metal);BUBBLES.put(p.getUUID(),bubble);
-        if(tick%20==0)drawSphere(p.level(),bubble.center(),radius,metal);
+
     }
     public static List<Vec3> sphere(Vec3 center,double radius){var result=new ArrayList<Vec3>();for(int latitude=-2;latitude<=2;latitude++){double phi=latitude*Math.PI/6;for(int n=0;n<32;n++){double a=n*Math.PI/16;result.add(center.add(radius*Math.cos(phi)*Math.cos(a),radius*Math.sin(phi),radius*Math.cos(phi)*Math.sin(a)));}}for(int meridian=0;meridian<4;meridian++){double a=meridian*Math.PI/4;for(int n=0;n<32;n++){double phi=n*Math.PI/16;result.add(center.add(radius*Math.cos(phi)*Math.cos(a),radius*Math.sin(phi),radius*Math.cos(phi)*Math.sin(a)));}}return List.copyOf(result);}
     private static void drawSphere(ServerLevel level,Vec3 center,double radius,Metal metal){int pointIndex=0;for(var point:sphere(center,radius)){if(pointIndex++%4!=0)continue;level.sendParticles(new dev.metallicarts.registry.ModPresentation.Dust(metal==Metal.CADMIUM?0x7777DD:0xDDCC77,.8f),point.x,point.y,point.z,1,0,0,0,0);}}

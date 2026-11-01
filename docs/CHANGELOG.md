@@ -1,3 +1,7 @@
+# 1.0.0-rc.3
+
+Camera-local depth-labelled metal sight; face-only grouping regressions; bounded automatic selection; real four/eight-block particle bubbles; bulk grant/fuel commands; five-second paid amplification and auto-off; independent nearby emotions and real protected mob behavior; all-sixteen radial/grid controls and constellation HUD. See RC3_REFINEMENTS.md and current RELEASE_VALIDATION.md.
+
 # Changelog
 
 ## 1.0.0-rc.2

@@ -1,6 +1,6 @@
 # Candidate in-game acceptance checklist
 
-Use a disposable world or a backup copy with the ordinary 1.0.0-rc.2 jar, Minecraft 26.1, Java 25 and the Fabric dependencies listed in README. Check the version on both server and clients. These are checks for a person to perform; they are not claims that remote/hardware acceptance has already happened.
+Use a disposable world or a backup copy with the ordinary 1.0.0-rc.3 jar, Minecraft 26.1, Java 25 and the Fabric dependencies listed in README. Check the version on both server and clients. These are checks for a person to perform; they are not claims that remote/hardware acceptance has already happened.
 
 ## Preparation
 
@@ -23,3 +23,6 @@ Prepare separate Iron/Gold/Copper blocks, an attached mixed-metal group, Aluminu
 ## Record acceptance
 
 Record jar checksum, mod/dependency versions, server online-mode, player count, latency, operating system, graphics driver, keybindings and reproduction steps for each failure. Retain logs and screenshots. Repeat transfers, death, dimensions, save/restart and permissions with both remote accounts before declaring stable multiplayer acceptance. Follow REMAINING_WORK.md for hours-long capacity, survival balance, accessibility, localization and distribution gates.
+
+
+RC3 additions: use N/Auto metals and H to disable; check diagonal contacts do not group. Compare four-block gold and eight-block blue particle spheres. Select Zinc/Brass emotions separately; verify anger calming, real provocation and low-trust aggression in Survival. Start Duralumin and time 100 ticks, confirming normal fuel debit and automatic off. Use the bulk operator commands listed in RC3_REFINEMENTS.md. Rotate through all directions and compare labelled target distance/size; rear markers must say behind and never draw mirrored sky rays.

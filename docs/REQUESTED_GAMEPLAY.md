@@ -1,3 +1,5 @@
+> RC3 supersedes the earlier targeting, bubble sizes/rendering, Duralumin timing, emotion selection and menu pagination described below. See [RC3_REFINEMENTS.md](RC3_REFINEMENTS.md) and current [validation](RELEASE_VALIDATION.md).
+
 # Requested gameplay fixes in 1.0.0-rc.2
 
 These eleven requests are implemented. Validation is recorded separately in RELEASE_VALIDATION.md; the precise resource/visibility limits below are intentional.

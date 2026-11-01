@@ -24,7 +24,7 @@ public final class AllomancyRuntime {
         List<MetalPhysics.Target> nearby=List.of();
         Map<Metal,Double> lastPowers=Map.of();
         int preparedTick=Integer.MIN_VALUE;
-        int requests,window,held,heartbeat,pewterTicks,fatigue,lastModes=-1,lastFlags=-1,lastToss=-20;boolean overload,dirty,explicitSelection;
+        int requests,window,held,heartbeat,pewterTicks,fatigue,lastModes=-1,lastFlags=-1,lastToss=-20;boolean overload,dirty,explicitSelection,autoSelect;
         Session(ServerPlayer p){player=p;level=p.level();}
     }
     private static Session session(ServerPlayer p) {
@@ -88,19 +88,22 @@ public final class AllomancyRuntime {
         var s=session(player);
         if(!allow(s,tick)||metal<0||metal>=AllomancyConfig.SUPPORTED.size()||mode<0||mode>2||!player.isAlive()||player.isSpectator()||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(player))return false;
         var type=AllomancyConfig.SUPPORTED.get(metal);
-        if(mode>0&&(type==Metal.CADMIUM&&s.engine.mode(Metal.BENDALLOY)!=BurnMode.OFF||type==Metal.BENDALLOY&&s.engine.mode(Metal.CADMIUM)!=BurnMode.OFF))return false;
+        if(mode>0&&(type==Metal.CADMIUM&&(s.engine.mode(Metal.BENDALLOY)!=BurnMode.OFF||s.lastPowers.containsKey(Metal.BENDALLOY))||type==Metal.BENDALLOY&&(s.engine.mode(Metal.CADMIUM)!=BurnMode.OFF||s.lastPowers.containsKey(Metal.CADMIUM))))return false;
+        if(mode==0){stopMetal(player,type);return true;}
+        if(ReserveLedger.ordinary(player.getAttachedOrCreate(ModRegistries.SPIRITWEB),type)==0&&s.lastPowers.containsKey(type)){stopMetal(player,type);return true;}
         return s.engine.request(player.getAttachedOrCreate(ModRegistries.SPIRITWEB),type,BurnMode.from(mode),m->dev.metallicarts.arts.EffectivePower.strength(player,Art.ALLOMANCY,m));
     }
     public static boolean select(ServerPlayer player,int action,int tick) {
         var s=session(player);
-        if(!allow(s,tick)||action<0||action>1||!player.isAlive()||player.isSpectator())return false;
-        if(action==1){s.selected.clear();s.missingSince.clear();s.explicitSelection=false;return true;}
-        if(s.engine.mode(Metal.STEEL)==BurnMode.OFF&&s.engine.mode(Metal.IRON)==BurnMode.OFF)return false;
+        if(!allow(s,tick)||action<0||action>2||!player.isAlive()||player.isSpectator())return false;
+        if(action==1){s.selected.clear();s.missingSince.clear();s.explicitSelection=false;s.autoSelect=false;return true;}
+        if(action==2){s.autoSelect=!s.autoSelect;s.explicitSelection=true;return true;}
+        if(s.engine.mode(Metal.STEEL)==BurnMode.OFF&&s.engine.mode(Metal.IRON)==BurnMode.OFF&&!s.lastPowers.containsKey(Metal.STEEL)&&!s.lastPowers.containsKey(Metal.IRON))return false;
         var target=MetalPhysics.aimed(player,config);
         if(target.isEmpty())return false;
         var key=MetalPhysics.key(target.get());
         if(s.selected.remove(key)!=null)return true;
-        if(s.selected.size()>=8)return false;
+        if(s.selected.size()>=(s.autoSelect?64:8))return false;
         s.selected.put(key,target.get());s.explicitSelection=true;return true;
     }
     /** Push and Pull are separate intents; holding both applies their signed difference once. */
@@ -109,13 +112,13 @@ public final class AllomancyRuntime {
     public static void recoverCoin(CoinProjectile coin,net.minecraft.world.entity.item.ItemEntity dropped){if(dropped==null)return;for(var s:SESSIONS.values()){String old="entity:"+coin.getUUID();if(s.selected.remove(old)!=null){s.missingSince.remove(old);var target=new MetalPhysics.Target(dropped.getBoundingBox().getCenter(),dropped,1,false);s.selected.put(MetalPhysics.key(target),target);}}}
     public static List<MetalPhysics.Target> selections(ServerPlayer p){return List.copyOf(session(p).selected.values());}
     public static void stop(ServerPlayer p) {var s=SESSIONS.remove(p.getUUID());if(s!=null)clear(s);}
-    private static void clear(Session s){dev.metallicarts.arts.TemporalPlayers.clear(s.player);s.engine.stopAll();s.lastPowers=Map.of();s.selected.clear();s.missingSince.clear();s.nearby=List.of();s.explicitSelection=false;s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);dev.metallicarts.arts.AdvancedAllomancy.stop(s.player);}
-    public static double power(ServerPlayer p,Metal metal){var s=SESSIONS.get(p.getUUID());return s!=null&&s.player==p&&s.level==p.level()&&s.engine.mode(metal)!=BurnMode.OFF?s.lastPowers.getOrDefault(metal,0.0):0;}
+    private static void clear(Session s){dev.metallicarts.arts.TemporalPlayers.clear(s.player);s.engine.stopAll();s.lastPowers=Map.of();s.selected.clear();s.missingSince.clear();s.nearby=List.of();s.explicitSelection=false;s.autoSelect=false;s.held=0;s.pewterTicks=0;s.fatigue=0;s.overload=false;removeModifiers(s.player);dev.metallicarts.arts.AdvancedAllomancy.stop(s.player);}
+    public static double power(ServerPlayer p,Metal metal){var s=SESSIONS.get(p.getUUID());return s!=null&&s.player==p&&s.level==p.level()?s.lastPowers.getOrDefault(metal,0.0):0;}
     public static Map<Metal,Double> powers(ServerPlayer p){var s=SESSIONS.get(p.getUUID());return s!=null&&s.player==p&&s.level==p.level()?s.lastPowers:Map.of();}
-    public static void stopMetal(ServerPlayer p,Metal metal){var s=SESSIONS.get(p.getUUID());if(s!=null)s.engine.stop(metal);}
+    public static void stopMetal(ServerPlayer p,Metal metal){var s=SESSIONS.get(p.getUUID());if(s!=null){s.engine.stop(metal);var next=new EnumMap<Metal,Double>(Metal.class);next.putAll(s.lastPowers);next.remove(metal);s.lastPowers=Map.copyOf(next);dev.metallicarts.arts.AdvancedAllomancy.cancelBurst(p,metal);}}
     public static double tinStrength(ServerPlayer p){
         var s=SESSIONS.get(p.getUUID());
-        return s!=null&&s.player==p&&s.level==p.level()&&s.engine.mode(Metal.TIN)!=BurnMode.OFF?s.lastPowers.getOrDefault(Metal.TIN,0.0):0;
+        return s!=null&&s.player==p&&s.level==p.level()?s.lastPowers.getOrDefault(Metal.TIN,0.0):0;
     }
     public static void tick(ServerPlayer p,int tick) {
         var s=session(p);
@@ -149,6 +152,8 @@ public final class AllomancyRuntime {
             var active=new ArrayList<MetalPhysics.Target>();
             for(var iterator=s.selected.entrySet().iterator();iterator.hasNext();){var entry=iterator.next();var current=MetalPhysics.refresh(p,entry.getValue(),config);if(current.isPresent()){entry.setValue(current.get());s.missingSince.remove(entry.getKey());active.add(current.get());}else{int missing=s.missingSince.computeIfAbsent(entry.getKey(),k->tick);if(tick-missing>=200){s.missingSince.remove(entry.getKey());iterator.remove();}}}
             if(tick%20==0||s.nearby.isEmpty())s.nearby=MetalPhysics.nearby(p,config);
+            if(s.autoSelect)s.explicitSelection=true;
+            if(s.autoSelect)for(var target:s.nearby)if(s.selected.size()<64)s.selected.putIfAbsent(MetalPhysics.key(target),target);
             var normalized=new LinkedHashMap<String,MetalPhysics.Target>();for(var target:s.selected.values())normalized.put(MetalPhysics.key(target),target);s.selected.clear();s.selected.putAll(normalized);s.missingSince.keySet().retainAll(s.selected.keySet());var unique=new LinkedHashMap<String,MetalPhysics.Target>();for(var target:active)unique.put(MetalPhysics.key(target),target);
             var aimed=MetalPhysics.aimed(p,config);var targets=s.explicitSelection?List.copyOf(unique.values()):aimed.stream().toList();
             double net=netForce(s.held,powers);
@@ -163,6 +168,7 @@ public final class AllomancyRuntime {
         var s=session(p);if(s.preparedTick==tick)return;
         if(!p.isAlive()||p.isSpectator()){clear(s);s.preparedTick=tick;return;}
         var before=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);
+        dev.metallicarts.arts.AdvancedAllomancy.beforeBurn(p,tick,s.engine);
         var step=s.engine.step(before,config,m->dev.metallicarts.arts.EffectivePower.strength(p,Art.ALLOMANCY,m));
         p.setAttached(ModRegistries.SPIRITWEB,step.state());
         s.lastPowers=dev.metallicarts.arts.AdvancedAllomancy.prepare(p,tick,step.strengths(),s.engine);
@@ -181,8 +187,8 @@ public final class AllomancyRuntime {
     }
     private static void removeModifiers(ServerPlayer p){removePewter(p);remove(p,Attributes.MOVEMENT_SPEED,"pewter_fatigue");remove(p,Attributes.MOVEMENT_SPEED,"tin_overload");}
     private static void send(Session s) {
-        int modes=0;for(int i=0;i<AllomancyConfig.SUPPORTED.size();i++)modes|=s.engine.mode(AllomancyConfig.SUPPORTED.get(i)).ordinal()<<(i*2);
-        int flags=(s.overload?1:0)|(s.fatigue>0?2:0)|(s.explicitSelection?4:0)|(s.selected.size()<<8);
+        int modes=0;for(int i=0;i<AllomancyConfig.SUPPORTED.size();i++){var metal=AllomancyConfig.SUPPORTED.get(i);int mode=s.engine.mode(metal).ordinal();if(mode==0&&s.lastPowers.containsKey(metal))mode=1;modes|=mode<<(i*2);}
+        int flags=(s.overload?1:0)|(s.fatigue>0?2:0)|(s.explicitSelection?4:0)|(s.autoSelect?8:0)|(s.selected.size()<<8);
         if(modes==s.lastModes&&flags==s.lastFlags)return;
         if(ServerPlayNetworking.canSend(s.player,AllomancyStatus.TYPE))ServerPlayNetworking.send(s.player,new AllomancyStatus(modes,flags));
         s.lastModes=modes;s.lastFlags=flags;

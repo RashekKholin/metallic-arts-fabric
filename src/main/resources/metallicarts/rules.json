@@ -103,16 +103,16 @@
   {
     "id": "mental_emotional_policy",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Persistent emotion intensity, awareness and recovery affect eligible AI/player attributes. Aimed influence is resisted by Copper, determination, Identity and fortitude; no unrestricted mind control.",
+    "statement": "Independent Zinc/Brass choices raise/lower protected nearby minds with line of sight and bounded resistance/recovery. Low anger calms until provoked; low trust creates hostility with a temporary finite melee goal.",
     "sources": [],
-    "implementation": "Combined frame deltas, entity tags, PvP/Creative protection."
+    "implementation": "Ordinary mobs are eligible; boss exceptions use emotion_immune. Player traits do not issue arbitrary client commands. Scope and thresholds are documented game interpretations."
   },
   {
     "id": "enhancement_reserve_policy",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Aluminum/Chromium consume internal fuel including invested subsets without deleting ownership. Duralumin/Nicrosil exhaust concurrently paid eligible metals for one bounded amplified frame.",
+    "statement": "Aluminum/Chromium consume internal fuel without deleting ownership. Duralumin/Nicrosil consume eligible active fuel once for a 100-tick amplified window. Duralumin burns normally during its window and automatically turns off.",
     "sources": [],
-    "implementation": "Snapshot/resolve, power cap32, boost cap8; physical safety limits retained."
+    "implementation": "Paid cached strengths remain subject to ownership, lifecycle, manual stop and depletion checks. Exact duration and caps are requested game balance choices."
   },
   {
     "id": "temporal_simulation_policy",
@@ -282,7 +282,7 @@
   {
     "id": "physical_distance_and_selection",
     "status": "GAMEPLAY_POLICY",
-    "statement": "Impulse weakens with distance after the mass/force cap. Explicit Push and Pull keys apply opposing signed paid strengths, and equal strength cancels. Eight locks share one force budget; unavailable locks persist 200 ticks without remote force.",
+    "statement": "Impulse weakens with distance after the mass/force cap. Explicit Push and Pull keys apply opposing signed paid strengths, and equal strength cancels. Eight manual or up to 64 automatic locks share one force budget; unavailable locks persist 200 ticks without remote force.",
     "sources": [],
     "implementation": "MetalPhysics, ConnectedMetals and AllomancyRuntime; numerical falloff and limits are gameplay choices."
   },
@@ -299,5 +299,12 @@
     "statement": "One nutrition charge unit exchanges symmetrically for twenty body units. Filling drains visible food first, then saturation; paid tapping refills hunger through exact persistent fractional escrow.",
     "sources": [],
     "implementation": "NutritionExchange conserves food and charge; existing nutrition charge gains this balance value without any saved balance rewrite."
+  },
+  {
+    "id": "targeting_and_emotion_refinements",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Owner-requested 100-tick amplification with normal Duralumin payment and automatic off; independent Zinc/Brass traits with real protected mob AI; fixed four/eight-block particle spheres; six-face metal grouping, camera-local depth cues and bounded automatic selection.",
+    "sources": [],
+    "implementation": "These exact durations, sizes, interface conventions and mob trait thresholds are explicit Minecraft gameplay interpretations, not claims about unpublished canon. See RC3_REFINEMENTS.md."
   }
 ]

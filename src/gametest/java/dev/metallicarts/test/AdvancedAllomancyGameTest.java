@@ -26,8 +26,10 @@ public final class AdvancedAllomancyGameTest {
         var p=c.makeMockServerPlayerInLevel();access(p,Metal.DURALUMIN);access(p,Metal.STEEL);access(p,Metal.IRON);
         burn(p,Metal.STEEL,100);burn(p,Metal.DURALUMIN,100);AllomancyRuntime.prepare(p,100);
         c.assertTrue(AllomancyRuntime.power(p,Metal.STEEL)>1,"Concurrent Steel receives amplification");
-        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);c.assertTrue(state.reserves().getOrDefault(Metal.STEEL,0L)==0&&state.reserves().getOrDefault(Metal.DURALUMIN,0L)==0&&state.reserves().get(Metal.IRON)==10000,"Only active fuel is exhausted");
-        AllomancyRuntime.prepare(p,101);c.assertTrue(AllomancyRuntime.power(p,Metal.STEEL)==0,"Exhausted burst cannot repeat from prepaid credit");c.succeed();
+        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);long duralumin=ReserveLedger.ordinary(state,Metal.DURALUMIN);c.assertTrue(state.reserves().getOrDefault(Metal.STEEL,0L)==0&&duralumin>0&&state.reserves().get(Metal.IRON)==10000,"Active ordinary metals exhausted, Duralumin pays normal fuel only");
+        for(int tick=101;tick<200;tick++){AllomancyRuntime.prepare(p,tick);c.assertTrue(AllomancyRuntime.power(p,Metal.STEEL)>1,"Paid amplified effect lasts all 100 ticks");}
+        c.assertTrue(ReserveLedger.ordinary(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.DURALUMIN)<duralumin,"Duralumin continues paying through the window");
+        AllomancyRuntime.prepare(p,200);c.assertTrue(AllomancyRuntime.power(p,Metal.STEEL)==0&&AllomancyRuntime.power(p,Metal.DURALUMIN)==0,"Both burst and Duralumin stop at five seconds");long stopped=ReserveLedger.ordinary(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.DURALUMIN);AllomancyRuntime.prepare(p,201);c.assertTrue(ReserveLedger.ordinary(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.DURALUMIN)==stopped,"Automatic off stops further fuel debit");c.succeed();
     }
     @GameTest public void copperCloudAndBronzeUseCurrentPaidStrength(GameTestHelper c){
         var smoker=c.makeMockServerPlayerInLevel();var seeker=c.makeMockServerPlayerInLevel();seeker.teleportTo(smoker.getX()+2,smoker.getY(),smoker.getZ());

@@ -25,8 +25,9 @@ import java.util.*;
 public final class AdvancedAllomancy {
     private static final Gson GSON=new Gson();
     private static final class Session {
-        final ServerPlayer player;final Object level;int emotion,history,journalPage,actionWindow,actions,dodge=-1000,contact=-1000,journalUntil;
-        boolean burst;String notice="";
+        final ServerPlayer player;final Object level;int emotion,brassEmotion,history,journalPage,actionWindow,actions,dodge=-1000,contact=-1000,journalUntil,burstUntil;
+        final Map<Metal,Double> burstPowers=new EnumMap<>(Metal.class);
+        boolean burst,selfBurst;String notice="";
         Session(ServerPlayer p){player=p;level=p.level();}
     }
     private static final Map<UUID,Session> SESSIONS=new HashMap<>();
@@ -39,6 +40,8 @@ public final class AdvancedAllomancy {
         ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.clear();PulseHistory.clear();TemporalEngine.clear();EmotionService.clear();EffectivePower.clear();});
     }
     public static void amplify(ServerPlayer p){session(p).burst=true;}
+    public static void beforeBurn(ServerPlayer p,int tick,BurnEngine engine){var s=SESSIONS.get(p.getUUID());if(s!=null&&s.selfBurst&&s.burstUntil>0&&tick>=s.burstUntil)engine.stop(Metal.DURALUMIN);}
+    public static void cancelBurst(ServerPlayer p,Metal metal){var s=SESSIONS.get(p.getUUID());if(s!=null){if(metal==Metal.DURALUMIN){s.burstPowers.clear();s.burstUntil=0;}else s.burstPowers.remove(metal);}}
     public static Spiritweb drain(Spiritweb state,Set<Metal> metals){
         var reserves=new EnumMap<Metal,Long>(Metal.class);state.reserves().forEach((m,v)->{if(!metals.contains(m))reserves.put(m,v);});
         return new Spiritweb(state.schema(),state.identity(),state.grants(),reserves,state.investedReserves().stream().filter(d->!metals.contains(d.metal())).toList());
@@ -47,17 +50,20 @@ public final class AdvancedAllomancy {
         var s=session(p);var powers=new EnumMap<Metal,Double>(Metal.class);powers.putAll(paid);
         if(powers.containsKey(Metal.ALUMINUM)){
             p.setAttached(ModRegistries.SPIRITWEB,drain(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),EnumSet.allOf(Metal.class)));
-            engine.stopAll();s.burst=false;s.notice="Aluminum consumed all internal metal reserves";return Map.of();
+            engine.stopAll();s.burst=false;s.burstPowers.clear();s.burstUntil=0;s.notice="Aluminum consumed all internal metal reserves";return Map.of();
         }
-        if(powers.containsKey(Metal.DURALUMIN)||s.burst){
+        if(s.burstUntil>0&&tick>=s.burstUntil){if(s.selfBurst){engine.stop(Metal.DURALUMIN);powers.remove(Metal.DURALUMIN);}s.burstPowers.clear();s.burstUntil=0;s.burst=false;}
+        if(s.selfBurst&&s.burstUntil>tick&&!powers.containsKey(Metal.DURALUMIN)){s.burstPowers.clear();s.burstUntil=0;}
+        if((s.burstUntil==0||s.selfBurst)&&(powers.containsKey(Metal.DURALUMIN)||s.burst)){
+            s.selfBurst=powers.containsKey(Metal.DURALUMIN);
             s.burst=false;var exhausted=EnumSet.noneOf(Metal.class);
-            for(var m:List.copyOf(powers.keySet()))if(!Set.of(Metal.DURALUMIN,Metal.ALUMINUM,Metal.CHROMIUM,Metal.NICROSIL).contains(m)){
+            for(var m:List.copyOf(powers.keySet()))if(!s.burstPowers.containsKey(m)&&!Set.of(Metal.DURALUMIN,Metal.ALUMINUM,Metal.CHROMIUM,Metal.NICROSIL).contains(m)){
                 long mass=ReserveLedger.ordinary(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m);
-                double boost=Math.clamp(1+Math.sqrt(mass/(double)dev.metallicarts.config.AdvancedConfig.get().enhancement().massScale()),1,dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumBoost());powers.put(m,Math.min(dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumPower(),powers.get(m)*boost));exhausted.add(m);engine.exhaust(m);
+                double boost=Math.clamp(1+Math.sqrt(mass/(double)dev.metallicarts.config.AdvancedConfig.get().enhancement().massScale()),1,dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumBoost());s.burstPowers.put(m,Math.min(dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumPower(),powers.get(m)*boost));exhausted.add(m);engine.exhaust(m);
             }
-            if(powers.containsKey(Metal.DURALUMIN)){exhausted.add(Metal.DURALUMIN);engine.exhaust(Metal.DURALUMIN);}
-            if(!exhausted.isEmpty()){p.setAttached(ModRegistries.SPIRITWEB,drain(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),exhausted));s.notice="Amplified burst consumed active metals";}
+            if(!exhausted.isEmpty()||s.selfBurst){p.setAttached(ModRegistries.SPIRITWEB,drain(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),exhausted));if(s.burstUntil==0)s.burstUntil=tick+100;s.notice="Amplified burst: five seconds; active metal fuel consumed";}
         }
+        if(tick<s.burstUntil)for(var entry:s.burstPowers.entrySet())if(EffectivePower.strength(p,Art.ALLOMANCY,entry.getKey())>0)powers.put(entry.getKey(),entry.getValue());
         return Map.copyOf(powers);
     }
     /** Resolve simultaneous contact intents after every caster has paid and before any caster applies effects. */
@@ -90,14 +96,18 @@ public final class AdvancedAllomancy {
             var journal=p.getAttachedOrCreate(ModRegistries.JOURNAL);p.setAttached(ModRegistries.JOURNAL,journal.observe(p,"discovery","Visited "+biome,"region:"+p.level().dimension().identifier()+":"+(p.getBlockX()>>6)+":"+(p.getBlockZ()>>6)));
         }
         double time=TemporalEngine.rate(p.level(),p.position());
-        modifier(p,Attributes.MOVEMENT_SPEED,"local_time_movement",time-1,AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        modifier(p,Attributes.ATTACK_SPEED,"local_time_actions",time-1,AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-        modifier(p,Attributes.BLOCK_BREAK_SPEED,"local_time_mining",time-1,AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        // TemporalPlayers owns these modifiers for casters and visitors alike.
         if(Math.abs(time-1)>.001)cues.add(String.format(Locale.ROOT,"Local time %.2fx",time));
         double zinc=powers.getOrDefault(Metal.ZINC,0.0),brass=powers.getOrDefault(Metal.BRASS,0.0);
         if(zinc>0||brass>0){
-            var target=aimed(p,dev.metallicarts.config.AdvancedConfig.get().emotions().range()).orElse(null);var emotion=EmotionProfile.Emotion.values()[s.emotion];
-            if(target!=null&&EmotionService.influence(p,target,emotion,(zinc-brass)*dev.metallicarts.config.AdvancedConfig.get().emotions().rate()))cues.add((zinc>=brass?"Rioting ":"Soothing ")+emotion.name().toLowerCase(Locale.ROOT)+" • "+target.getName().getString());
+            double range=dev.metallicarts.config.AdvancedConfig.get().emotions().range();int affected=0;
+            for(var target:p.level().getEntitiesOfClass(LivingEntity.class,p.getBoundingBox().inflate(range),t->t!=p&&t.distanceToSqr(p)<=range*range).stream().sorted(Comparator.comparingDouble(p::distanceToSqr)).limit(64).toList()){
+                boolean changed=false;double rate=dev.metallicarts.config.AdvancedConfig.get().emotions().rate();
+                if(zinc>0)changed|=EmotionService.influence(p,target,EmotionProfile.Emotion.values()[s.emotion],zinc*rate);
+                if(brass>0)changed|=EmotionService.influence(p,target,EmotionProfile.Emotion.values()[s.brassEmotion],-brass*rate);
+                if(changed)affected++;
+            }
+            cues.add("Emotions: "+affected+" nearby • Zinc "+EmotionProfile.Emotion.values()[s.emotion].name().toLowerCase(Locale.ROOT)+" / Brass "+EmotionProfile.Emotion.values()[s.brassEmotion].name().toLowerCase(Locale.ROOT));
         }
         double bronze=powers.getOrDefault(Metal.BRONZE,0.0);
         if(bronze>0&&tick%dev.metallicarts.config.AdvancedConfig.get().detection().interval()==0){
@@ -168,12 +178,13 @@ public final class AdvancedAllomancy {
     public static boolean action(ServerPlayer p,ArtAction action){
         var s=session(p);int tick=p.level().getServer().getTickCount();
         if(tick-s.actionWindow>=20){s.actionWindow=tick;s.actions=0;}
-        if(++s.actions>20||!p.isAlive()||p.isSpectator()||action.action()<0||action.action()>3||action.value()<0||action.value()>127)return false;
+        if(++s.actions>20||!p.isAlive()||p.isSpectator()||action.action()<0||action.action()>4||action.value()<0||action.value()>127)return false;
         switch(action.action()){
             case 0 -> {if(action.value()>=EmotionProfile.Emotion.values().length)return false;s.emotion=action.value();s.notice="Selected "+EmotionProfile.Emotion.values()[s.emotion].name().toLowerCase(Locale.ROOT);}
             case 1 -> {return dodge(p,s,tick);}
             case 2 -> {if(AllomancyRuntime.power(p,Metal.GOLD)<=0)return false;s.history=action.value();s.journalUntil=tick+200;}
             case 3 -> {s.journalUntil=tick+200;s.journalPage=Math.min(42,action.value());}
+            case 4 -> {if(action.value()>=EmotionProfile.Emotion.values().length)return false;s.brassEmotion=action.value();s.notice="Brass soothes "+EmotionProfile.Emotion.values()[s.brassEmotion].name().toLowerCase(Locale.ROOT);}
         }
         feedback(p,s.notice,true);return true;
     }
@@ -199,7 +210,7 @@ public final class AdvancedAllomancy {
         json.add("memories",GSON.toJsonTree(j.memories().stream().skip(page*6L).limit(6).toList()));
         json.add("history",GSON.toJsonTree(j.history().stream().skip(page*6L).limit(6).toList()));
         json.addProperty("memoryTotal",j.memories().size());json.addProperty("historyTotal",j.history().size());json.addProperty("page",page);
-        var access=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())access.addProperty(art.name()+":"+metal.name(),EffectivePower.strength(p,art,metal));json.add("access",access);var owned=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())owned.addProperty(art.name()+":"+metal.name(),EffectivePower.base(p,art,metal));json.add("baseAccess",owned);return json;
+        var access=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())access.addProperty(art.name()+":"+metal.name(),EffectivePower.strength(p,art,metal));json.add("access",access);var owned=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())owned.addProperty(art.name()+":"+metal.name(),EffectivePower.base(p,art,metal));json.add("baseAccess",owned);json.addProperty("zincEmotion",session(p).emotion);json.addProperty("brassEmotion",session(p).brassEmotion);json.addProperty("burstTicks",Math.max(0,session(p).burstUntil-p.level().getServer().getTickCount()));return json;
     }
     private static void point(ServerPlayer p,Vec3 position,int color){if(p.level().hasChunkAt(net.minecraft.core.BlockPos.containing(position)))p.level().sendParticles(p,new dev.metallicarts.registry.ModPresentation.Dust(color,.6f),true,false,position.x,position.y,position.z,1,0,0,0,0);}
     private static void modifier(ServerPlayer p,net.minecraft.core.Holder<Attribute> attribute,String name,double amount,AttributeModifier.Operation operation){
