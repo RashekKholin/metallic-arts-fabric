@@ -1,0 +1,2 @@
+8283ca214bb72f6171bd4d8bd52104e06000a4f54a479f628c24d97a7c3e883b  metallic-arts-fabric-0.7.0-alpha.2.jar
+56a212f05e001cfacdcf5a84084d3a70867be64b39ac2154f6174fdd5aded93e  metallic-arts-fabric-0.7.0-alpha.2-sources.jar

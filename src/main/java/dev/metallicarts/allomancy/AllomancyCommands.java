@@ -81,6 +81,7 @@ public final class AllomancyCommands {
         var player=EntityArgument.getPlayer(c,"player");
         var state=player.getAttachedOrCreate(ModRegistries.SPIRITWEB);
         c.getSource().sendSuccess(()->Component.literal(player.getName().getString()+" | Identity "+state.identity()+" | valid="+ReserveLedger.valid(state)),false);
+        if(AccountPowers.enabled(player.getUUID(),dev.metallicarts.MetallicArts.config.enableAccountPowers()))c.getSource().sendSuccess(()->Component.literal("Documented account access: all standard Allomancy/Feruchemy, strength1 baseline; costs apply; enableAccountPowers controls access"),false);
         for(var grant:state.grants())c.getSource().sendSuccess(()->Component.literal(
             grant.id()+" | "+grant.art()+" "+grant.metal().id()+" strength="+grant.strength()+" origin="+grant.origin()+" source="+grant.source()),false);
         for(Metal metal:Metal.values())if(state.reserves().getOrDefault(metal,0L)>0) {

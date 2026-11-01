@@ -183,5 +183,12 @@
     "statement": "Connection affects supported villager rapport and actual regional familiarity. Fortune modifies vanilla Luck and bounded loaded-world opportunities. No arbitrary factions, universal translation or causality.",
     "sources": [],
     "implementation": "Reversible merchant price deltas preserve reputation; tagged probes never generate chunks."
+  },
+  {
+    "id": "documented_account_access",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "RashekKholin and The17thShard receive baseline access to all standard Allomantic and Feruchemical metals through verified account UUIDs when enableAccountPowers is true. This public configurable perk is not a canonical acquisition rule or operator privilege.",
+    "sources": [],
+    "implementation": "AccountPowers and EffectivePower apply a nonpersistent access overlay. Normal fuel/contact/charge/Identity costs, Nicrosil suppression and protections remain. Disabling removes only this overlay; raw grants are untouched. No username fallback, hidden dependency or tamper penalty."
   }
 ]

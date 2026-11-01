@@ -15,6 +15,7 @@ public final class ModNetworking {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             handler.player.getAttachedOrCreate(ModRegistries.SPIRITWEB);
             send(handler.player);
+            if(dev.metallicarts.domain.AccountPowers.enabled(handler.player.getUUID(),MetallicArts.config.enableAccountPowers()))handler.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("The Metallic Arts: account access grants all standard Allomancy and Feruchemy. Normal costs apply; server policy can disable this perk."));
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> LAST_REQUEST.remove(handler.player));
         ServerPlayNetworking.registerGlobalReceiver(RequestSpiritweb.TYPE, (payload, context) -> {

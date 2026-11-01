@@ -20,6 +20,7 @@ public final class MetallicArts implements ModInitializer {
 
     @Override public void onInitialize() {
         config = ServerConfig.load();
+        LOGGER.info("Documented account power access: {} (RashekKholin, The17thShard); config enableAccountPowers controls this perk",config.enableAccountPowers());
         ModRegistries.initialize();
         EconomyContent.initialize();
         MetallurgyRecipes.initialize();

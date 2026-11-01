@@ -44,7 +44,7 @@ This is the ordered backlog for the 0.7 playable alpha. A standard metal having 
 
 ## 5. Survival acquisition and world progression
 
-- Design natural access to Misting/Mistborn/Ferring/Feruchemist powers, rarity and progression, with configurable server policy. New characters currently start powerless; operator grants and powered-donor setup are development tools.
+- Design natural access to Misting/Mistborn/Ferring/Feruchemist powers, rarity and progression, with configurable server policy. Ordinary new characters start powerless; operator grants and powered-donor setup are development tools. The documented configurable two-account perk does not complete natural progression.
 - Add genuinely powered NPCs with actual spiritwebs, fuel, AI and loot/protection behavior. Hemalurgy currently transfers actual configured donors; it does not seed a world population of powered NPCs.
 - Add discovery/tutorial progression, balanced recipes/trades and resource scarcity. Decide how unsealed equipment is acquired and produced in survival.
 - Optional mixed-metal vials need composition, purity, capacity, invested-subset handling, brewing/ingestion UI and conservation tests. Expand material/tag interoperability and deliberate Investiture resistance.

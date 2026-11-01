@@ -1,0 +1,22 @@
+{
+  "version": "0.7.0-alpha.2",
+  "unit": {
+    "tests": 71,
+    "failures": 0,
+    "errors": 0
+  },
+  "server": {
+    "required": 62,
+    "failed": 0,
+    "log": "account-powers-package2.log"
+  },
+  "clients": {
+    "suites": 6,
+    "status": "PASS",
+    "log": "account-powers-native.log"
+  },
+  "profileSource": "Mojang official profile API, 2026-10-31",
+  "authenticatedAccountLoginObserved": false,
+  "configurationMigrationObserved": true,
+  "earlierMultiplayerRestartEvidence": "phase7-results.json (alpha.1); not rerun for this update"
+}

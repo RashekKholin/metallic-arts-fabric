@@ -24,7 +24,8 @@
       "dev.metallicarts.test.PhysicalEquipmentGameTest",
       "dev.metallicarts.test.HemalurgyGameTest",
       "dev.metallicarts.test.AdvancedAllomancyGameTest",
-      "dev.metallicarts.test.AdvancedFeruchemyGameTest"
+      "dev.metallicarts.test.AdvancedFeruchemyGameTest",
+      "dev.metallicarts.test.AccountPowersGameTest"
     ],
     "fabric-client-gametest": [
       "dev.metallicarts.test.FoundationClientGameTest",

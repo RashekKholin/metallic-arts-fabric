@@ -1,10 +1,10 @@
 # Phase 6–7 playable alpha guide
 
-Version **0.7.0-alpha.1**, Minecraft 26.1/Fabric/Java 25. These are bounded Minecraft implementations. Numerical values are gameplay policies, recorded in the provenance catalog. Physical Arts and the economy remain available.
+Version **0.7.0-alpha.2**, Minecraft 26.1/Fabric/Java 25. These are bounded Minecraft implementations. Numerical values are gameplay policies, recorded in the provenance catalog. Physical Arts and the economy remain available.
 
 ## Setup and controls
 
-New characters still have no powers. Use operator development grants, e.g. `/metallicarts grant @s bronze 1` and `/metallicarts grantferuchemy @s gold 1`; use tab completion to confirm command arguments. Drink ordinary corresponding vials for fuel. Drinking never grants powers. Invested fuel remains reserved for later Compounding.
+Ordinary new characters have no powers; the documented [account-access perk](ACCOUNT_ACCESS.md) is a configurable exception. Use operator development grants, e.g. `/metallicarts grant @s bronze 1` and `/metallicarts grantferuchemy @s gold 1`; use tab completion to confirm command arguments. Drink ordinary corresponding vials for fuel. Drinking never grants powers. Invested fuel remains reserved for later Compounding.
 
 M opens Allomancy. < / > or [ / ] switch Physical, Mental, Enhancement and Temporal groups. Click a metal: Off → Burn → Flare. W switches grid/wheel. F opens contact equipment; H opens spikes; Esc closes. Key bindings are editable in Minecraft Controls. Screen shortcuts are listed below.
 
@@ -19,7 +19,7 @@ M opens Allomancy. < / > or [ / ] switch Physical, Mental, Enhancement and Tempo
 | Chromium / Nicrosil | Aim at an actual player within2.5 blocks: leech internal fuel / force next eligible paid burst. One contact action per second; PvP, Creative and attack-protection checks apply. NPC active-burning progression is deferred. Ownership is preserved. |
 | Gold | K opens actual recorded routes. While burning, select a route for a nearby alternate-path echo and its real recorded location. Explore new regions to record entries. No invented biography, parallel inventory or alternate world. |
 | Electrum | Bounded movement branches, actual incoming-projectile cues and uncertainty. J follows a collision-checked opening when danger exists, costs1000ordinary micrograms, and has a cooldown. Adds movement, not invulnerability. Cognitive speed supports reaction assistance. No guaranteed futures/atium resolution. |
-| Cadmium / Bendalloy | Anchored slow/fast bubbles; walk beyond anchor radius to collapse. Base radius6 blocks/cap8, rates0.25x/3x at strength1, multiplicative overlaps clamped0.25..4. Changes non-player entity clocks and supported machine clocks; player movement/attack/mining multipliers synchronize. Projectile rate boundaries deflect velocity five degrees. |
+| Cadmium / Bendalloy | Anchored slow/fast bubbles; walk beyond anchor radius to collapse. Base radius6 blocks/cap8, rates0.25x/3x at strength 1, multiplicative overlaps clamped0.25..4. Changes non-player entity clocks and supported machine clocks; player movement/attack/mining multipliers synchronize. Projectile rate boundaries deflect velocity five degrees. |
 
 Supported machines: furnace, blast furnace, smoker, Brewing Stand, Metallurgy Table. **Global-clock exceptions:** vehicles, player body/hunger/potions, arbitrary block entities, scheduled/random block ticks and general redstone. No time travel. Other mods require compatibility checks/adapters.
 

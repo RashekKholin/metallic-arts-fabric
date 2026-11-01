@@ -200,7 +200,7 @@ public final class AdvancedAllomancy {
         json.add("memories",GSON.toJsonTree(j.memories().stream().skip(page*6L).limit(6).toList()));
         json.add("history",GSON.toJsonTree(j.history().stream().skip(page*6L).limit(6).toList()));
         json.addProperty("memoryTotal",j.memories().size());json.addProperty("historyTotal",j.history().size());json.addProperty("page",page);
-        var access=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())access.addProperty(art.name()+":"+metal.name(),EffectivePower.strength(p,art,metal));json.add("access",access);return json;
+        var access=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())access.addProperty(art.name()+":"+metal.name(),EffectivePower.strength(p,art,metal));json.add("access",access);var owned=new JsonObject();for(var art:Art.values())for(var metal:Metal.values())owned.addProperty(art.name()+":"+metal.name(),EffectivePower.base(p,art,metal));json.add("baseAccess",owned);return json;
     }
     private static void point(ServerPlayer p,Vec3 position,int color){if(p.level().hasChunkAt(net.minecraft.core.BlockPos.containing(position)))p.level().sendParticles(p,new DustParticleOptions(color,.6f),true,false,position.x,position.y,position.z,1,0,0,0,0);}
     private static void modifier(ServerPlayer p,net.minecraft.core.Holder<Attribute> attribute,String name,double amount,AttributeModifier.Operation operation){

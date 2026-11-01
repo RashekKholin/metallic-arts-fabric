@@ -1,16 +1,22 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.7.0-alpha.1**
+Minecraft Java **26.1** • Fabric • Java **25** • mod ID `metallicarts` • version **0.7.0-alpha.2**
 
 Playable alpha through **Phase 7**: metal economy, all sixteen standard Allomantic metals, all sixteen Feruchemical metals (five separate Tin senses), typed Hemalurgy and canonical contacted equipment. Drinking supplies fuel; it never grants powers.
 
 Read [advanced Arts controls and exact limits](docs/ADVANCED_ARTS.md), [physical Allomancy](docs/ALLOMANCY.md), [Feruchemy](docs/FERUCHEMY.md) and [Hemalurgy](docs/HEMALURGY.md). Temporal clocks, prediction, memories, Connection, Fortune and unsealed construction are explicit bounded Minecraft adaptations. Compounding, full constructs and natural power progression remain future work.
 
-**Observed validation:** 66 unit tests,61 required server tests, all 6 client suites,48 two-client checks and a two-process restart check passed. Details and limits are recorded in [Phase 6–7 evidence](docs/PHASE67_VALIDATION.md). The historical Phase 5 results remain in their own record. Two real independent local clients now have a repeatable test harness; authenticated remote multiplayer and third-party compatibility remain separate acceptance work.
+**Phase 7 baseline validation (alpha.1):** 66 unit tests,61 required server tests, all 6 client suites,48 two-client checks and a two-process restart check passed. Details and limits are recorded in [Phase 6–7 evidence](docs/PHASE67_VALIDATION.md). The historical Phase 5 results remain in their own record. Two real independent local clients now have a repeatable test harness; authenticated remote multiplayer and third-party compatibility remain separate acceptance work.
+
+**Current alpha.2 checks:** 71 unit tests, 62 required server tests and all six native client suites passed. [Account-access validation](docs/ACCOUNT_ACCESS_VALIDATION.md) distinguishes current results from earlier multiplayer/restart evidence.
+
+## Documented account access
+
+**RashekKholin and The17thShard have automatic baseline access to all standard Allomancy and Feruchemy**, matched by verified account UUID. Normal fuel, storage/tapping costs, contact and Identity rules still apply. Server owners can disable this with `"enableAccountPowers": false` and restart; earned powers and saved assets are preserved. This does not grant operator permissions. Offline-mode usernames alone are not trusted. See [exact policy and UUIDs](docs/ACCOUNT_ACCESS.md) and [validation](docs/ACCOUNT_ACCESS_VALIDATION.md).
 
 ## Install / upgrade
 
-Use `metallic-arts-fabric-0.7.0-alpha.1.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
+Use `metallic-arts-fabric-0.7.0-alpha.2.jar`, not the sources jar. Install Fabric Loader 0.18.4+ and Fabric API 0.145.1+26.1 for exactly Minecraft 26.1. Put the mod jar in both client and server mods folders. Remove the previous Metallic Arts jar before adding this version. Keep a backup of existing worlds before upgrading.
 
 Existing Phase 1 spiritweb saves load with an empty invested-reserve collection. Do not downgrade a world after adding newer blocks/items or canonical invested assets. Back up the whole world folder so player equipment and the world's charge/provenance ledgers stay together; copying an invested token into another world does not transfer its charge. Ores appear in newly generated chunks; existing terrain is not rewritten.
 
@@ -157,7 +163,7 @@ Unofficial fan project. No book text or official illustrations are bundled.
 
 ## 5. Survival acquisition and world progression
 
-- Design natural access to Misting/Mistborn/Ferring/Feruchemist powers, rarity and progression, with configurable server policy. New characters currently start powerless; operator grants and powered-donor setup are development tools.
+- Design natural access to Misting/Mistborn/Ferring/Feruchemist powers, rarity and progression, with configurable server policy. Ordinary new characters start powerless; the documented account perk is a configurable exception. operator grants and powered-donor setup are development tools.
 - Add genuinely powered NPCs with actual spiritwebs, fuel, AI and loot/protection behavior. Hemalurgy currently transfers actual configured donors; it does not seed a world population of powered NPCs.
 - Add discovery/tutorial progression, balanced recipes/trades and resource scarcity. Decide how unsealed equipment is acquired and produced in survival.
 - Optional mixed-metal vials need composition, purity, capacity, invested-subset handling, brewing/ingestion UI and conservation tests. Expand material/tag interoperability and deliberate Investiture resistance.

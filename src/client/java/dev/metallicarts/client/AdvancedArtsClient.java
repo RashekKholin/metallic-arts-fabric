@@ -32,5 +32,6 @@ public final class AdvancedArtsClient {
     public static void action(int action,int value){if(ClientPlayNetworking.canSend(ArtAction.TYPE))ClientPlayNetworking.send(new ArtAction(action,value));}
     public static void openJournal(){action(3,0);Minecraft.getInstance().setScreen(new JournalScreen());}
     public static double access(dev.metallicarts.domain.Spiritweb state,dev.metallicarts.domain.Art art,dev.metallicarts.domain.Metal metal){var access=journal.getAsJsonObject("access");String key=art.name()+":"+metal.name();return access!=null&&access.has(key)?access.get(key).getAsDouble():state.strength(art,metal);}
+    public static double ownedAccess(dev.metallicarts.domain.Spiritweb state,dev.metallicarts.domain.Art art,dev.metallicarts.domain.Metal metal){var access=journal.getAsJsonObject("baseAccess");String key=art.name()+":"+metal.name();return access!=null&&access.has(key)?access.get(key).getAsDouble():state.strength(art,metal);}
     private AdvancedArtsClient(){}
 }
