@@ -1,3 +1,5 @@
+**Version 0.7 update:** this physical/foundation guide is extended by [ADVANCED_ARTS.md](ADVANCED_ARTS.md). Read that guide for remaining-metal handlers, native advanced passives, Identity/unsealed access, controls and exact limits. Historical future-scope statements below describe the original foundation release.
+
 # Phase 3 development: first Allomancy
 
 This is a playable physical-power alpha, version 0.5.0-alpha.1. The other twelve Allomantic effects, advanced cognitive/Spiritual Hemalurgy, Compounding, god metals and survival power acquisition remain unimplemented. Physical Feruchemy, contact equipment and carrying are documented in FERUCHEMY.md. Real Hemalurgic extraction and implantation are documented in HEMALURGY.md. Multiplayer/compatibility acceptance remains incomplete.

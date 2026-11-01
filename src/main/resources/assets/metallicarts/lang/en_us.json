@@ -2,7 +2,7 @@
   "key.category.metallicarts.general": "The Metallic Arts",
   "key.metallicarts.open": "Open Spiritweb",
   "screen.metallicarts.title": "The Metallic Arts — Spiritweb",
-  "screen.metallicarts.phase": "Development build • physical Metallic Arts",
+  "screen.metallicarts.phase": "Playable alpha • standard Metallic Arts",
   "screen.metallicarts.waiting": "Waiting for a compatible server snapshot…",
   "screen.metallicarts.legend": "F: Feruchemy • H: Hemalurgy • Esc: close",
   "metal.metallicarts.iron": "Iron",
@@ -323,5 +323,9 @@
   "item.metallicarts.cadmium_earring": "Cadmium Earring",
   "item.metallicarts.bendalloy_earring": "Bendalloy Earring",
   "item.metallicarts.coin_pouch": "Coin Pouch",
-  "item.metallicarts.blood_vial": "Blood Vial"
+  "item.metallicarts.blood_vial": "Blood Vial",
+  "key.metallicarts.opening": "Follow a predicted Electrum opening",
+  "key.metallicarts.journal": "Open recorded routes",
+  "key.category.metallicarts.advanced_arts": "The Metallic Arts — Mental and Temporal",
+  "death.attack.feruchemical_storage": "%1$s surrendered too much health"
 }

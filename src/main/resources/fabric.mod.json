@@ -3,13 +3,27 @@
   "id": "metallicarts",
   "version": "${version}",
   "name": "The Metallic Arts",
-  "description": "Metal economy and experimental server-controlled Steel, Iron, Pewter and Tin Allomancy. Phase 3 development build; other powers remain unimplemented.",
+  "description": "Playable alpha: metal economy, all sixteen standard Allomantic and Feruchemical metals, typed Hemalurgy, canonical invested equipment, and documented bounded game adaptations. Compounding, full constructs and survival power progression remain future work.",
   "environment": "*",
-  "mixins": ["metallicarts.mixins.json", "metallicarts.client.mixins.json"],
+  "mixins": [
+    "metallicarts.mixins.json",
+    "metallicarts.client.mixins.json"
+  ],
   "entrypoints": {
-    "main": ["dev.metallicarts.MetallicArts"],
-    "client": ["dev.metallicarts.client.MetallicArtsClient"],
-    "fabric-datagen": ["dev.metallicarts.datagen.MetallicArtsDataGenerator"]
+    "main": [
+      "dev.metallicarts.MetallicArts"
+    ],
+    "client": [
+      "dev.metallicarts.client.MetallicArtsClient"
+    ],
+    "fabric-datagen": [
+      "dev.metallicarts.datagen.MetallicArtsDataGenerator"
+    ]
   },
-  "depends": { "fabricloader": ">=0.18.4", "minecraft": "26.1", "java": ">=25", "fabric-api": ">=0.145.1+26.1" }
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "26.1",
+    "java": ">=25",
+    "fabric-api": ">=0.145.1+26.1"
+  }
 }

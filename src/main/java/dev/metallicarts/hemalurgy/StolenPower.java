@@ -16,8 +16,8 @@ public record StolenPower(Kind kind, Metal metal) {
     public Optional<Art> art(){return kind==Kind.ALLOMANCY?Optional.of(Art.ALLOMANCY):kind==Kind.FERUCHEMY?Optional.of(Art.FERUCHEMY):Optional.empty();}
     public String label(){return art().isPresent()?kind.name().toLowerCase(Locale.ROOT)+" "+metal.id():kind.name().toLowerCase(Locale.ROOT).replace('_',' ');}
     public String implementation(){
-        if(art().isPresent())return physical(metal)?"Physical handler available":"Effect planned";
-        return switch(kind){case STRENGTH,SENSES,EMOTIONAL_FORTITUDE -> "Passive handler available";
+        if(art().isPresent())return "Standard metal handler available";
+        return switch(kind){case STRENGTH,SENSES,EMOTIONAL_FORTITUDE,COGNITION,CONNECTION_IDENTITY,FORTUNE,INVESTITURE -> "Passive handler available";
             case NULLIFICATION -> "Destructive; spent after use";default -> "Typed hook; effect planned";};
     }
     public boolean compatible(Metal spike){

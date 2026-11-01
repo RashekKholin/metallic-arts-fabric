@@ -1,0 +1,79 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:coal_ores",
+    "#minecraft:iron_ores",
+    "#minecraft:copper_ores",
+    "#minecraft:gold_ores",
+    "#minecraft:redstone_ores",
+    "#minecraft:lapis_ores",
+    "#minecraft:diamond_ores",
+    "#minecraft:emerald_ores",
+    "minecraft:nether_quartz_ore",
+    "minecraft:ancient_debris",
+    {
+      "id": "metallicarts:tin_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_tin_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:zinc_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_zinc_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:aluminum_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_aluminum_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:silver_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_silver_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:nickel_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_nickel_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:lead_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_lead_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:bismuth_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_bismuth_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:silicon_ore",
+      "required": false
+    },
+    {
+      "id": "metallicarts:deepslate_silicon_ore",
+      "required": false
+    }
+  ]
+}

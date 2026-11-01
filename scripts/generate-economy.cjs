@@ -11,7 +11,7 @@ const item=(m,k)=>vanilla.has(m)&&['ingot','nugget'].includes(k)?'minecraft:'+m+
 const human=s=>s.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 let lang=JSON.parse(fs.readFileSync(path.join(root,'assets/metallicarts/lang/en_us.json'),'utf8'));
 lang['container.metallicarts.metallurgy']='Metallurgy Table';
-lang['screen.metallicarts.phase']='Development build • physical Metallic Arts';
+lang['screen.metallicarts.phase']='Playable alpha • standard Metallic Arts';
 lang['screen.metallicarts.legend']='F: Feruchemy • H: Hemalurgy • Esc: close';
 function crc32(buf){let c=0xffffffff;for(const b of buf){c^=b;for(let j=0;j<8;j++)c=(c>>>1)^((c&1)?0xedb88320:0);}return(c^0xffffffff)>>>0;}
 function png(p,pixel,w=16,h=16){

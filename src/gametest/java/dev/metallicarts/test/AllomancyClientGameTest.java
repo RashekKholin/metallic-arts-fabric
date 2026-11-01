@@ -38,7 +38,7 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
                 p.getInventory().setItem(0,new ItemStack(EconomyContent.item("steel","coin"),3));
                 ModNetworking.send(p);
             });
-            c.waitFor(client->MetallicArtsClient.snapshot()!=null&&MetallicArtsClient.snapshot().grants().size()==4);
+            c.waitFor(client->MetallicArtsClient.snapshot()!=null&&MetallicArtsClient.snapshot().grants().size()==AllomancyConfig.SUPPORTED.size());
             c.getInput().pressKey(GLFW.GLFW_KEY_M);c.waitForScreen(SpiritwebScreen.class);
             c.getInput().pressKey(GLFW.GLFW_KEY_W);c.takeScreenshot("metallicarts-allomancy-wheel");c.getInput().pressKey(GLFW.GLFW_KEY_W);
             c.clickScreenButton("steel");c.waitFor(client->AllomancyClient.status.mode(0)==1);

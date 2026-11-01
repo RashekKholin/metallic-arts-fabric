@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /** Twelve dedicated contact slots. Buttons request atomic server inventory transactions. */
 public final class MetalmindScreen extends Screen {
-    private int selected,rate=1,sense;private boolean wheel;
+    private int selected,rate=1,sense,power;private boolean wheel;
     private final String[] senses={"sight","hearing","touch","smell","taste"};
     private int gridWidth,left,cell;
     public MetalmindScreen(){super(Component.literal("The Metallic Arts — Metalminds"));}
@@ -35,14 +35,22 @@ public final class MetalmindScreen extends Screen {
         int x=(width-288)/2;
         addRenderableWidget(Button.builder(Component.literal("Equip held"),b->send(0,0)).bounds(x,208,60,18).build());x+=64;
         addRenderableWidget(Button.builder(Component.literal("Unequip"),b->send(1,0)).bounds(x,208,60,18).build());x+=64;
-        addRenderableWidget(Button.builder(Component.literal("Store"),b->{rate=Math.min(3,rate);send(2,1);}).bounds(x,208,42,18).build());x+=46;
+        addRenderableWidget(Button.builder(Component.literal("Store"),b->{if(memory())openMemory();else{rate=Math.min(identity()?4:3,rate);send(2,1);}}).bounds(x,208,42,18).build());x+=46;
         addRenderableWidget(Button.builder(Component.literal("Off"),b->send(2,0)).bounds(x,208,28,18).build());x+=32;
-        addRenderableWidget(Button.builder(Component.literal("Tap"),b->send(2,2)).bounds(x,208,34,18).build());x+=38;
+        addRenderableWidget(Button.builder(Component.literal("Tap"),b->{if(memory())openMemory();else send(2,2);}).bounds(x,208,34,18).build());x+=38;
         addRenderableWidget(Button.builder(Component.literal("-"),b->rate=Math.max(1,rate-1)).bounds(x,208,20,18).build());x+=24;
         addRenderableWidget(Button.builder(Component.literal("+"),b->rate=Math.min(5,rate+1)).bounds(x,208,20,18).build());
     }
-    private void send(int action,int mode){FeruchemyClient.action(action,selected,sense,mode,rate);}
+    private void send(int action,int mode){FeruchemyClient.action(action,selected,nicrosil()?power:sense,mode,rate);}
+    private boolean attribute(dev.metallicarts.feruchemy.FeruchemicalAttribute a){var s=FeruchemyClient.snapshot;if(s==null)return false;var d=s.equipment().item(selected).get(ModRegistries.METALMIND);return d!=null&&d.attribute()==a;}
+    private boolean identity(){return attribute(dev.metallicarts.feruchemy.FeruchemicalAttribute.IDENTITY);}
+    private boolean memory(){return attribute(dev.metallicarts.feruchemy.FeruchemicalAttribute.MEMORY);}
+    private boolean nicrosil(){var p=minecraft.player;if(p==null)return false;var form=dev.metallicarts.economy.EconomyContent.form(p.getMainHandItem().getItem());return form!=null&&form.material().equals("nicrosil");}
+    private void openMemory(){minecraft.setScreen(new MemoryScreen(selected));}
     @Override public boolean keyPressed(KeyEvent event){
+        if(event.key()==GLFW.GLFW_KEY_N){minecraft.setScreen(new PowerSelectScreen(value->{power=value;minecraft.setScreen(this);}));return true;}
+        if(event.key()==GLFW.GLFW_KEY_K){openMemory();return true;}
+        if(event.key()==GLFW.GLFW_KEY_U){send(4,0);return true;}
         if(event.key()==GLFW.GLFW_KEY_W){wheel=!wheel;rebuildWidgets();return true;}
         if(event.key()==GLFW.GLFW_KEY_A){minecraft.setScreen(new SpiritwebScreen());return true;}
         return super.keyPressed(event);
@@ -64,7 +72,7 @@ public final class MetalmindScreen extends Screen {
         }
         super.extractRenderState(g,mouseX,mouseY,partialTick);
         g.centeredText(font,title,width/2,10,0xFFFFFFFF);
-        g.text(font,"Slot "+(selected+1)+" | rate "+new String[]{"25%","50%","75%/100%","200%","400%"}[rate-1],8,30,0xFFCCDDEE);
+        g.text(font,"Slot "+(selected+1)+" | Store "+(identity()&&rate==4?"100%":rate<=3?(rate*25)+"%":"invalid")+" / Tap "+new int[]{25,50,100,200,400}[rate-1]+"%",8,30,0xFFCCDDEE);
         var state=FeruchemyClient.snapshot;
         if(state==null){g.centeredText(font,Component.literal("Waiting for server equipment"),width/2,100,0xFFFFFFFF);return;}
         for(int i=0;i<12;i++){
@@ -80,7 +88,8 @@ public final class MetalmindScreen extends Screen {
             g.fill(x,y+18,x+bar,y+19,0xFF333B40);
             g.fill(x,y+18,x+(int)(bar*data.charge()/data.capacity()),y+19,0xFF66CC99);
         }
-        String message=state.message().isEmpty()?"A: Allomancy • W: grid/wheel • hold jewelry to equip • Esc: close":state.message();
+        var selectedData=state.equipment().item(selected).get(ModRegistries.METALMIND);if(selectedData!=null){String detail=selectedData.contentLabel().isEmpty()?selectedData.memories()>0?selectedData.memories()+" recorded memories":"":selectedData.contentLabel();if(selectedData.unsealed())detail+=" • unsealed";if(!detail.isEmpty())g.centeredText(font,Component.literal(detail),width/2,194,0xFFBBCCDD);}
+        String message=state.message().isEmpty()?"N: nicrosil type • K: memories • U: unseal • W: grid/wheel":state.message();
         if(font.width(message)>width-16)message=font.plainSubstrByWidth(message,width-28)+"…";
         g.centeredText(font,Component.literal(message),width/2,231,state.message().isEmpty()?0xFFAAAAAA:0xFFFFBB77);
     }

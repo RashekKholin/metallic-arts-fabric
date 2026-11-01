@@ -61,3 +61,7 @@ The historical foundation below is extended by `allomancy/ReserveLedger`, `BurnB
 The client uses Fabric 26.1 HUD extraction, normal screen buttons and rebindable held keys. Tin hooks lightmap extraction at all returns and environmental sound volume calculation; it never writes vanilla settings or potion effects. Client-only mixins are listed in a separate client mixin configuration.
 
 See [ALLOMANCY.md](ALLOMANCY.md) for exact implemented behavior and unfinished scope.
+
+## Phase 6–7 extension
+
+The shared arts package owns bounded emotions, journal/history, body escrow, effective typed power access, social price deltas and local clocks. Server order is Hemalurgy → paid Feruchemy → prepare all paid Allomancy → resolve contact/time snapshot → accumulate all forces → finish emotions/cleanup. Temporary access never overwrites persistent grants. Source-aware suppliers reject stopped/removed Nicrosil contact immediately. Discrete Copper records are world-indexed, private and moved by UUID; preview stacks contain no memory text. Optional content fields retain old physical saves. See ADVANCED_ARTS.md and PHASE67_VALIDATION.md for current scope/evidence.

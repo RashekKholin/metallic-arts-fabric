@@ -54,6 +54,13 @@ public final class RestartSmoke implements ModInitializer {
                     spike=spikeLedger.claim(spike.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,4),server.overworld().getGameTime());
                     var spikeItem=new ItemStack(EconomyContent.item("steel","spike"));spikeItem.set(ModRegistries.SPIKE,dev.metallicarts.hemalurgy.SpikeData.of(spike));
                     player.setAttached(ModRegistries.SPIKES,dev.metallicarts.equipment.ContactEquipment.empty().with(4,spikeItem));
+                    player.setAttached(ModRegistries.BODY,new dev.metallicarts.arts.BodyState(1234,35500000,5678,250,10,900));
+                    var memory=new dev.metallicarts.arts.MemoryEntry(ITEM,"route","Restart memory","minecraft:overworld",1,80,2,5);
+                    player.setAttached(ModRegistries.JOURNAL,new dev.metallicarts.arts.ArtsJournal(List.of(),List.of(),List.of("restart")));
+                    player.setAttached(ModRegistries.CONNECTIONS,new dev.metallicarts.arts.ConnectionState(Map.of("minecraft:overworld:0:0",120)));
+                    var memoryLease=new dev.metallicarts.equipment.AssetLease(PLAYER,1);var copper=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.MEMORY,9000000,1,false).token(),memoryLease);copper=ledger.storeMemory(copper.token(),memoryLease,IDENTITY,memory,false);
+                    var copperItem=new ItemStack(EconomyContent.item("copper","ring"));copperItem.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(copper));player.setAttached(ModRegistries.CONTACT_EQUIPMENT,player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).with(1,copperItem));
+                    var typed=new dev.metallicarts.feruchemy.MetalmindContent(Optional.of(new dev.metallicarts.feruchemy.StoredPower(Art.FERUCHEMY,Metal.GOLD,1)),List.of(),false);var nLease=new dev.metallicarts.equipment.AssetLease(PLAYER,2);var nicrosil=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.INVESTITURE,9000000,1,false,typed).token(),nLease);nicrosil=ledger.change(nicrosil.token(),nLease,IDENTITY,54321,true);nicrosil=ledger.release(nicrosil.token(),nLease);nicrosil=ledger.unseal(nicrosil.token());var nItem=new ItemStack(EconomyContent.item("nicrosil","ring"));nItem.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(nicrosil));player.getInventory().setItem(1,nItem);
                     ((ServerStorageAccess)server).metallicarts$storage().save(player);
                     server.overworld().setBlock(pos,Blocks.AIR.defaultBlockState(),3);
                     server.overworld().setBlock(pos,EconomyContent.TABLE.defaultBlockState(),3);
@@ -74,6 +81,11 @@ public final class RestartSmoke implements ModInitializer {
                     player.load(TagValueInput.create(ProblemReporter.DISCARDING,server.registryAccess(),tag));
                     if(!expected().equals(player.getAttached(ModRegistries.SPIRITWEB)))throw new AssertionError("Restart lost spiritweb");
                     if(!itemData().equals(player.getInventory().getItem(0).get(ModRegistries.METAL_DATA)))throw new AssertionError("Restart lost item data");
+                    if(!new dev.metallicarts.arts.BodyState(1234,35500000,5678,250,10,900).equals(player.getAttached(ModRegistries.BODY)))throw new AssertionError("Restart lost body resource escrow");
+                    if(!player.getAttachedOrCreate(ModRegistries.JOURNAL).memories().isEmpty()||!player.getAttachedOrCreate(ModRegistries.JOURNAL).discoveries().equals(List.of("restart")))throw new AssertionError("Stored memory leaked back into journal");
+                    if(player.getAttachedOrCreate(ModRegistries.CONNECTIONS).regions().get("minecraft:overworld:0:0")!=120)throw new AssertionError("Restart lost actual region familiarity");
+                    var newLedger=dev.metallicarts.feruchemy.MetalmindLedger.get(server);var cp=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(1).get(ModRegistries.METALMIND);var ca=newLedger.owned(cp.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,1));if(ca.charge()!=1000||!ca.content().memories().getFirst().id().equals(ITEM)||!ca.content().memories().getFirst().label().equals("Restart memory"))throw new AssertionError("Restart lost unique stored memory");
+                    var nd=player.getInventory().getItem(1).get(ModRegistries.METALMIND);var na=newLedger.resolve(nd.token());if(na.charge()!=54321||!na.content().unsealed()||na.content().power().orElseThrow().metal()!=Metal.GOLD||!na.unkeyed())throw new AssertionError("Restart lost typed unsealed Investiture");
                     var mind=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(0).get(ModRegistries.METALMIND);
                     if(mind==null)throw new AssertionError("Restart lost contact item");
                     var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(server).owned(mind.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,0));

@@ -14,6 +14,24 @@ import net.minecraft.world.phys.Vec3;
 import java.util.*;
 
 public final class AllomancyGameTest {
+    @GameTest public void opposingCastersCombineBeforeCappingTheSameMovingBody(GameTestHelper c){
+        var a=c.makeMockServerPlayerInLevel();var b=c.makeMockServerPlayerInLevel();
+        var pos=Vec3.atCenterOf(c.absolutePos(new net.minecraft.core.BlockPos(2,2,2)));
+        a.teleportTo(pos.x-3,pos.y-a.getBbHeight()/2,pos.z);b.teleportTo(pos.x+3,pos.y-b.getBbHeight()/2,pos.z);
+        var item=new ItemEntity(c.getLevel(),pos.x,pos.y,pos.z,new ItemStack(Items.IRON_NUGGET));item.setNoGravity(true);c.getLevel().addFreshEntity(item);
+        var target=new MetalPhysics.Target(pos,item,1,false);
+        for(boolean reverse:List.of(false,true)){
+            item.setDeltaMovement(3.9,0,0);a.setDeltaMovement(Vec3.ZERO);b.setDeltaMovement(Vec3.ZERO);
+            try(var frame=MetalPhysics.beginFrame()){
+                MetalPhysics.apply(reverse?b:a,target,1,true,AllomancyConfig.DEFAULT);
+                MetalPhysics.apply(reverse?a:b,target,1,true,AllomancyConfig.DEFAULT);
+                c.assertTrue(Math.abs(item.getDeltaMovement().x-3.9)<.000001,"No intermediate cap is applied inside the force frame");
+            }
+            c.assertTrue(Math.abs(item.getDeltaMovement().x-3.9)<.000001,"Opposing casters preserve initial motion regardless of order");
+            c.assertTrue(a.getDeltaMovement().x<0&&b.getDeltaMovement().x>0,"Both casters receive reciprocal recoil");
+        }
+        c.succeed();
+    }
     @GameTest public void combinedRecoilIsOrderIndependentAndSharesForceBudget(GameTestHelper c) {
         var p=c.makeMockServerPlayerInLevel();var center=p.getBoundingBox().getCenter();
         var left=new MetalPhysics.Target(center.add(-3,0,0),null,Double.POSITIVE_INFINITY,true);

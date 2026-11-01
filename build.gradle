@@ -37,6 +37,17 @@ processResources { from(zipTree('src/main/texture-assets.zip')) }
 tasks.named('sourcesJar') { mustRunAfter 'runDatagen' }
 
 loom.runs {
+    multiplayerServer {
+        server(); source sourceSets.gametest; runDir providers.gradleProperty('multiplayerRunRoot').getOrElse('build/run')+'/multiplayerServer'
+        vmArg '-Dmetallicarts.multiplayer=server'; programArg 'nogui'
+    }
+    ['A','B'].each { role ->
+        create("multiplayerClient${role}") {
+            client(); source sourceSets.gametest; runDir providers.gradleProperty('multiplayerRunRoot').getOrElse('build/run')+"/multiplayerClient${role}"
+            vmArg "-Dmetallicarts.multiplayer=${role}"
+            programArgs '--username', "MetalTest${role}", '--width', '854', '--height', '480'
+        }
+    }
     restartSmoke {
         server()
         source sourceSets.gametest

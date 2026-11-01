@@ -27,9 +27,11 @@ public final class MetallicArts implements ModInitializer {
         LOGGER.info("Loaded {} provenance rules", RuleRegistry.load().size());
         ModNetworking.initialize();
         dev.metallicarts.allomancy.AllomancyCommands.initialize();
+        dev.metallicarts.arts.AdvancedFeruchemy.initialize();
         dev.metallicarts.feruchemy.FeruchemyRuntime.initialize();
         dev.metallicarts.hemalurgy.HemalurgyRuntime.initialize();
+        dev.metallicarts.arts.AdvancedAllomancy.initialize();
         dev.metallicarts.allomancy.AllomancyRuntime.initialize();
-        LOGGER.info("The Metallic Arts initialized with physical Allomancy and Feruchemy");
+        LOGGER.info("The Metallic Arts initialized with the sixteen standard Allomantic and Feruchemical metals");
     }
 }

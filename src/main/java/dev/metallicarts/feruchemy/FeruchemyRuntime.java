@@ -52,15 +52,16 @@ public final class FeruchemyRuntime {
     public static boolean act(ServerPlayer p,ContactIntent intent,int tick){
         var s=session(p);
         if(tick-s.window>=20){s.window=tick;s.requests=0;}
-        if(++s.requests>30||intent.action()<0||intent.action()>3||intent.slot()<0||intent.slot()>=12||
-            intent.sense()<0||intent.sense()>4||intent.mode()<0||intent.mode()>2||intent.rate()<1||intent.rate()>5)return false;
+        if(++s.requests>30||intent.action()<0||intent.action()>4||intent.slot()<0||intent.slot()>=12||
+            intent.sense()<0||intent.sense()>31||intent.mode()<0||intent.mode()>2||intent.rate()<1||intent.rate()>5)return false;
         if(intent.action()==3){send(p,s,"");return true;}
         if(!p.isAlive()||p.isSpectator())return false;
         try{
             if(intent.action()==0){ContactService.equip(p,intent.slot(),intent.sense());s.engine.stop(intent.slot());}
             else if(intent.action()==1){ContactService.unequip(p,intent.slot());s.engine.stop(intent.slot());}
+            else if(intent.action()==4)dev.metallicarts.arts.AdvancedFeruchemy.unsealHeld(p);
             else if(!s.engine.request(intent.slot(),FeruchemicalEngine.Mode.values()[intent.mode()],intent.rate(),
-                ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m->dev.metallicarts.hemalurgy.HemalurgyRuntime.donorKeys(p,m)))
+                ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),dev.metallicarts.arts.AdvancedFeruchemy.requestContext(p,s.engine)))
                 throw new IllegalArgumentException("Check ability, Identity, contact, rate or opposite active action");
             s.dirty=true;send(p,s,"");return true;
         }catch(IllegalArgumentException|ArithmeticException e){send(p,s,e.getMessage());return false;}
@@ -78,8 +79,10 @@ public final class FeruchemyRuntime {
             if(s.dirty){send(p,s,"");s.dirty=false;}return;
         }
         var before=new ArrayList<FeruchemicalEngine.Mode>();for(int i=0;i<12;i++)before.add(s.engine.mode(i));
+        var advanced=dev.metallicarts.arts.AdvancedFeruchemy.context(p,s.engine);
         s.effects=s.engine.step(ContactService.tokens(ContactService.equipment(p)),MetalmindLedger.get(p.level().getServer()),
-            p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m->dev.metallicarts.hemalurgy.HemalurgyRuntime.donorKeys(p,m));
+            p.getUUID(),p.getAttachedOrCreate(ModRegistries.SPIRITWEB),advanced);
+        advanced.finish(s.effects,tick);
         for(int i=0;i<12;i++)if(before.get(i)!=s.engine.mode(i))s.dirty=true;
         apply(p,Attributes.MOVEMENT_SPEED,"feruchemical_speed",delta(s,FeruchemicalAttribute.SPEED),AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
         apply(p,Attributes.ATTACK_SPEED,"feruchemical_actions",delta(s,FeruchemicalAttribute.SPEED),AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
@@ -118,6 +121,7 @@ public final class FeruchemyRuntime {
         if(old==null||old.amount()!=amount)value.addOrUpdateTransientModifier(new AttributeModifier(id,amount,operation));
     }
     private static void clear(Session s){
+        dev.metallicarts.arts.AdvancedFeruchemy.stop(s.player);
         boolean active=!s.effects.isEmpty();s.engine.stopAll();s.effects=Map.of();s.cue="";
         apply(s.player,Attributes.MOVEMENT_SPEED,"feruchemical_speed",0,AttributeModifier.Operation.ADD_VALUE);
         apply(s.player,Attributes.ATTACK_SPEED,"feruchemical_actions",0,AttributeModifier.Operation.ADD_VALUE);

@@ -1,3 +1,5 @@
+**Version 0.7 update:** this physical/foundation guide is extended by [ADVANCED_ARTS.md](ADVANCED_ARTS.md). Read that guide for remaining-metal handlers, native advanced passives, Identity/unsealed access, controls and exact limits. Historical future-scope statements below describe the original foundation release.
+
 # Hemalurgy foundation — 0.5.0-alpha.1
 
 Hemalurgy now has real intentional extraction, canonical charged spikes, anatomical insertion/removal, sourced Allomantic/Feruchemical access, decay and blood preservation. Some stolen types are **typed hooks only**, not finished cognitive/Spiritual effects. Neither a registered power nor an implanted spike implements one of the twelve still-missing Allomantic/Feruchemical effects.

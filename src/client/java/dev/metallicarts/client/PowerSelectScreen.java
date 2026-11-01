@@ -1,0 +1,17 @@
+package dev.metallicarts.client;
+import dev.metallicarts.domain.*;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import java.util.function.IntConsumer;
+public final class PowerSelectScreen extends Screen {
+ private final IntConsumer select;private int art;
+ public PowerSelectScreen(IntConsumer select){super(Component.literal("Choose the ability this new nicrosilmind stores"));this.select=select;}
+ public boolean isPauseScreen(){return false;}
+ protected void init(){
+  addRenderableWidget(Button.builder(Component.literal(art==0?"Allomancy / switch":"Feruchemy / switch"),b->{art=1-art;rebuildWidgets();}).bounds(width/2-90,35,180,18).build());
+  for(int i=0;i<16;i++){final int value=art*16+i;var metal=Metal.values()[i];var button=Button.builder(Component.literal(metal.id()),b->select.accept(value)).bounds(width/2-154+(i%4)*78,62+(i/4)*29,74,22).build();button.active=MetallicArtsClient.snapshot!=null&&MetallicArtsClient.snapshot.strength(art==0?Art.ALLOMANCY:Art.FERUCHEMY,metal)>0;addRenderableWidget(button);}
+ }
+ public void extractRenderState(GuiGraphicsExtractor g,int x,int y,float d){super.extractRenderState(g,x,y,d);g.centeredText(font,title,width/2,15,0xFFFFFFFF);g.centeredText(font,Component.literal("A specific owned ability; existing minds keep their stored type"),width/2,200,0xFFCCCCCC);}
+}

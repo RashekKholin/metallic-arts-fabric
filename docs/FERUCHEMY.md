@@ -1,3 +1,5 @@
+**Version 0.7 update:** this physical/foundation guide is extended by [ADVANCED_ARTS.md](ADVANCED_ARTS.md). Read that guide for remaining-metal handlers, native advanced passives, Identity/unsealed access, controls and exact limits. Historical future-scope statements below describe the original foundation release.
+
 # Physical Feruchemy (0.5.0-alpha.1)
 
 This build implements Iron weight, Steel speed, Pewter strength and five separate Tin senses. The other twelve Feruchemical metals have no effects yet. Power acquisition remains administrative; crafting jewelry does not grant Feruchemy.

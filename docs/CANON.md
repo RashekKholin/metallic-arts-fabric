@@ -55,3 +55,7 @@ This phase revises the historical strongest-only Allomantic policy: distinct spi
 The twelve anatomical point layouts and critical upper-back hook are labelled interpretations. Critical removal attempts lethal damage once, respecting ordinary damage handling. Full construct transformations, complete canonical binding maps, cognitive/memory theft, Connection/Identity rewrites, Fortune/destiny and arbitrary Investiture effects remain deferred. Their typed records do not count as working powers.
 
 Player extraction is off by default and further requires current donor consent plus PvP permission. Humanoid NPC eligibility uses an explicit Minecraft data-pack tag. Blood collection is an ordinary damaging collection action, not a claim to implement exceptional nonlethal extraction. Aluminum's destructive spent-record behavior, 90-percent extraction retention, the nonzero-floor decay curve, twentyfold blood preservation and equipment retained on death are game policies.
+
+## Phase 6–7 interpretations
+
+ADVANCED_ARTS.md and bundled rules.json explicitly distinguish observed Minecraft behavior from canonical claims. Local temporal clocks, finite body escrow, recorded-path Gold, collision-bounded Electrum, villager Connection, Luck/opportunity Fortune and single-type unsealed construction are documented game adaptations. The consumed Duralumin binder is not a verified canonical Excisor recipe. Full constructs, god metals and Compounding remain deferred.

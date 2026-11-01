@@ -103,17 +103,38 @@ public final class MetalPhysics {
     public static void apply(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config) {
         applyMany(player,List.of(target),strength,push,config);
     }
+    private record Motion(Vec3 change,double cap){}
+    private static final ThreadLocal<ForceFrame> FRAME=new ThreadLocal<>();
+    /** All casters contribute against the same pre-force velocity before any speed cap is applied. */
+    public static final class ForceFrame implements AutoCloseable {
+        private final Map<Entity,Motion> motion=new HashMap<>();private boolean closed;
+        private ForceFrame(){}
+        @Override public void close(){
+            if(closed)return;closed=true;FRAME.remove();
+            motion.forEach((entity,value)->{if(!entity.isRemoved())applyMotion(entity,value.change(),value.cap());});
+        }
+    }
+    public static ForceFrame beginFrame(){
+        if(FRAME.get()!=null)throw new IllegalStateException("Nested metal-force frame");
+        var frame=new ForceFrame();FRAME.set(frame);return frame;
+    }
+    private static void motion(Entity entity,Vec3 change,double cap){
+        var frame=FRAME.get();
+        if(frame==null){applyMotion(entity,change,cap);return;}
+        frame.motion.merge(entity,new Motion(change,cap),(a,b)->new Motion(a.change().add(b.change()),Math.min(a.cap(),b.cap())));
+    }
+    private static void applyMotion(Entity entity,Vec3 change,double cap){
+        entity.setDeltaMovement(limited(entity.getDeltaMovement().add(change),cap));entity.hurtMarked=true;
+    }
     /** Split a fixed force budget and combine player recoil before applying the player speed cap. */
     public static void applyMany(ServerPlayer player,List<Target> targets,double strength,boolean push,AllomancyConfig config) {
         if(targets.isEmpty())return;
         Vec3 recoil=Vec3.ZERO;
         var motion=new HashMap<Entity,Vec3>();
         for(Target target:targets)recoil=recoil.subtract(impulse(player,target,strength/targets.size(),push,config,motion).scale(1.0/dev.metallicarts.feruchemy.FeruchemyRuntime.mass(player)));
-        player.setDeltaMovement(limited(player.getDeltaMovement().add(recoil),config.maximumPlayerSpeed()));
-        player.hurtMarked=true;
+        motion(player,recoil,config.maximumPlayerSpeed());
         motion.forEach((entity,change)->{
-            entity.setDeltaMovement(limited(entity.getDeltaMovement().add(change),entity instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed()));
-            entity.hurtMarked=true;
+            motion(entity,change,entity instanceof ServerPlayer?config.maximumPlayerSpeed():config.maximumObjectSpeed());
         });
     }
     private static Vec3 impulse(ServerPlayer player,Target target,double strength,boolean push,AllomancyConfig config,Map<Entity,Vec3> motion) {

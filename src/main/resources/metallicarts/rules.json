@@ -41,9 +41,9 @@
   {
     "id": "uncertain_advanced_rules",
     "status": "DEFERRED",
-    "statement": "God metals, a complete canonical anatomy map, advanced constructs, Compounding, Fortune, Connection and unsealed metalmind behavior remain unresolved. Working metal compatibility and point grids are explicit interpretations.",
+    "statement": "God metals, a complete canonical anatomy map, advanced constructs and Compounding remain deferred. Fortune, Connection and unsealed access have bounded game interpretations; their exact canonical metaphysics and medallion construction are not asserted.",
     "sources": [],
-    "implementation": "First physical powers and Hemalurgy transactions exist. Cognitive/Spiritual stolen types retain labelled hooks without claiming their advanced effects are implemented."
+    "implementation": "ADVANCED_ARTS.md records actual handlers and limits. No Excisor simulation or arbitrary causality/language translation is claimed."
   },
   {
     "id": "small_metal_anchors",
@@ -116,9 +116,72 @@
   },
   {
     "id": "stolen_advanced_hooks",
-    "status": "DEFERRED",
-    "statement": "Typed cognition, Connection/Identity, Fortune/destiny and Investiture charge does not imply working memory, social, destiny or arbitrary-power effects. Full construct templates and exceptional nonlethal extraction remain future research.",
+    "status": "INTERPRETATION",
+    "statement": "Native cognition supports analysis; Connection/Identity adds bounded rapport and donor-key authorization; Fortune changes Luck and opportunity cues; Investiture scales existing access. These bounded handlers do not complete destiny, constructs or arbitrary abilities.",
     "sources": [],
-    "implementation": "StolenPower labels every available vs planned handler in the UI. Aluminum extraction is a destructive spent record, not a transferable nullification power."
+    "implementation": "HemalurgyRuntime, EffectivePower and AdvancedFeruchemy; full constructs and exceptional nonlethal extraction remain deferred."
+  },
+  {
+    "id": "mental_emotional_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Persistent emotion intensity, awareness and recovery affect eligible AI/player attributes. Aimed influence is resisted by Copper, determination, Identity and fortitude; no unrestricted mind control.",
+    "sources": [],
+    "implementation": "Combined frame deltas, entity tags, PvP/Creative protection."
+  },
+  {
+    "id": "enhancement_reserve_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Aluminum/Chromium consume internal fuel including invested subsets without deleting ownership. Duralumin/Nicrosil exhaust concurrently paid eligible metals for one bounded amplified frame.",
+    "sources": [],
+    "implementation": "Snapshot/resolve, power cap32, boost cap8; physical safety limits retained."
+  },
+  {
+    "id": "temporal_simulation_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Anchored bubbles affect non-player clocks and supported processing machines. Players receive movement/action multipliers. Vehicles, general scheduled/random/redstone ticks and player physiology retain global time.",
+    "sources": [],
+    "implementation": "TemporalEngine overlaps clamp0.25..4; collapse on owner exit; five-degree projectile boundary deflection is a game interpretation."
+  },
+  {
+    "id": "history_prediction_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Gold interprets real recorded routes; Electrum projects bounded movement/projectile possibilities. Neither invents biography nor promises arbitrary futures.",
+    "sources": [],
+    "implementation": "Owner-only branches, uncertainty cues, paid collision-checked opening."
+  },
+  {
+    "id": "finite_body_storage_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Actual body resources precede storage credit; canonical tapping charge precedes benefit. Numeric temperature, fatigue, food/air escrow and healing rates are game adaptations.",
+    "sources": [],
+    "implementation": "Body resets on death; journal/Connection and charged equipment persist; no offline body accrual."
+  },
+  {
+    "id": "copper_memory_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Copper moves access to specific observed mod records. Stored entries leave mod journal/history; tapping restores once. Player knowledge, vanilla advancements and arbitrary mod data are outside this model.",
+    "sources": [],
+    "implementation": "World-indexed unique memory IDs, contact/Identity checks, private paginated UI."
+  },
+  {
+    "id": "typed_investiture_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Nicrosil stores a specific owned A/F ability type. Paid storage suppresses access; tapping grants temporary sourced access. Types cannot be exchanged as generic energy.",
+    "sources": [],
+    "implementation": "Art/metal/strength payload, per-type caps, physical source checks, no persistent grant."
+  },
+  {
+    "id": "unsealed_construction_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Full paid Identity suppression fills empty pools unkeyed. Deliberate unsealing consumes an ordinary Duralumin ring while tapping Connection and storing full Identity. This is an intuitive crafting adaptation, not a verified Excisor recipe.",
+    "sources": [],
+    "implementation": "Free charged unkeyed typed nicrosilmind; ordinary recipients spend charge for one temporary type; other minds still require ability/contact/key."
+  },
+  {
+    "id": "connection_fortune_policy",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Connection affects supported villager rapport and actual regional familiarity. Fortune modifies vanilla Luck and bounded loaded-world opportunities. No arbitrary factions, universal translation or causality.",
+    "sources": [],
+    "implementation": "Reversible merchant price deltas preserve reputation; tagged probes never generate chunks."
   }
 ]

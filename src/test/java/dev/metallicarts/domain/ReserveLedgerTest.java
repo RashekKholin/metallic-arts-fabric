@@ -86,7 +86,8 @@ class ReserveLedgerTest {
         assertEquals(0,config.rate(Metal.STEEL,BurnMode.OFF));
         assertEquals(100,config.rate(Metal.STEEL,BurnMode.BURN));
         assertEquals(400,config.rate(Metal.STEEL,BurnMode.FLARE));
-        assertThrows(IllegalArgumentException.class,()->config.rate(Metal.GOLD,BurnMode.BURN));
+        assertEquals(100,config.rate(Metal.GOLD,BurnMode.BURN));
+        assertEquals(16,config.rates().size());
         assertThrows(IllegalArgumentException.class,()->BurnMode.from(-1));
         assertThrows(IllegalArgumentException.class,()->BurnMode.from(3));
         assertThrows(IllegalArgumentException.class,()->new AllomancyConfig(1,Map.of("steel",100L),4,1.8,24,48,14,2.4,4));

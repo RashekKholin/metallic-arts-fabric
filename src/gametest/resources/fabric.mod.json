@@ -4,10 +4,35 @@
   "version": "1.0.0",
   "name": "The Metallic Arts Tests",
   "environment": "*",
-  "mixins": ["metallicarts-test.mixins.json"],
+  "mixins": [
+    "metallicarts-test.mixins.json"
+  ],
   "entrypoints": {
-    "main": ["dev.metallicarts.test.RestartSmoke"],
-    "fabric-gametest": ["dev.metallicarts.test.FoundationGameTest", "dev.metallicarts.test.EconomyGameTest", "dev.metallicarts.test.AllomancyFoundationGameTest", "dev.metallicarts.test.AllomancyGameTest", "dev.metallicarts.test.FeruchemyGameTest", "dev.metallicarts.test.PhysicalEquipmentGameTest", "dev.metallicarts.test.HemalurgyGameTest"],
-    "fabric-client-gametest": ["dev.metallicarts.test.FoundationClientGameTest", "dev.metallicarts.test.EconomyClientGameTest", "dev.metallicarts.test.AllomancyClientGameTest", "dev.metallicarts.test.FeruchemyClientGameTest", "dev.metallicarts.test.HemalurgyClientGameTest"]
+    "main": [
+      "dev.metallicarts.test.RestartSmoke",
+      "dev.metallicarts.test.MultiplayerServer"
+    ],
+    "client": [
+      "dev.metallicarts.test.MultiplayerClient"
+    ],
+    "fabric-gametest": [
+      "dev.metallicarts.test.FoundationGameTest",
+      "dev.metallicarts.test.EconomyGameTest",
+      "dev.metallicarts.test.AllomancyFoundationGameTest",
+      "dev.metallicarts.test.AllomancyGameTest",
+      "dev.metallicarts.test.FeruchemyGameTest",
+      "dev.metallicarts.test.PhysicalEquipmentGameTest",
+      "dev.metallicarts.test.HemalurgyGameTest",
+      "dev.metallicarts.test.AdvancedAllomancyGameTest",
+      "dev.metallicarts.test.AdvancedFeruchemyGameTest"
+    ],
+    "fabric-client-gametest": [
+      "dev.metallicarts.test.FoundationClientGameTest",
+      "dev.metallicarts.test.EconomyClientGameTest",
+      "dev.metallicarts.test.AllomancyClientGameTest",
+      "dev.metallicarts.test.FeruchemyClientGameTest",
+      "dev.metallicarts.test.HemalurgyClientGameTest",
+      "dev.metallicarts.test.AdvancedArtsClientGameTest"
+    ]
   }
 }

@@ -99,6 +99,7 @@ public final class HemalurgyRuntime {
             throw new IllegalArgumentException("This entity is not a supported humanoid donor");
         if(donor instanceof ServerPlayer other&&(!MetallicArts.config.allowPlayerHemalurgy()||!CONSENT.contains(other.getUUID())||!p.canHarmPlayer(other)||other.isCreative()))
             throw new IllegalArgumentException("Player extraction requires server policy, donor consent and PvP permission");
+        if(donor instanceof ServerPlayer goldDonor&&dev.metallicarts.arts.AdvancedFeruchemy.canEmergency(goldDonor))throw new IllegalArgumentException("Donor has active paid Gold emergency recovery");
         if(donor.getMainHandItem().is(Items.TOTEM_OF_UNDYING)||donor.getOffhandItem().is(Items.TOTEM_OF_UNDYING))throw new IllegalArgumentException("Donor has a death-prevention item");
         var held=p.getMainHandItem();var form=EconomyContent.form(held.getItem());
         if(held.getCount()!=1||form==null||!List.of("spike","earring").contains(form.kind())||held.has(ModRegistries.SPIKE)||held.has(ModRegistries.METALMIND))
@@ -188,7 +189,7 @@ public final class HemalurgyRuntime {
             var data=equipment(p).item(i).get(ModRegistries.SPIKE);if(data==null)continue;
             try{var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),i));
                 boolean granted=p.getAttachedOrCreate(ModRegistries.SPIRITWEB).grants().stream().anyMatch(g->g.origin()==PowerGrant.Origin.HEMALURGIC&&g.source().equals(a.token().instance())&&g.art()==Art.FERUCHEMY&&g.metal()==metal);
-                if(granted&&!a.drained()&&BindingPoints.ALL.get(i).accepts(a.metal())&&a.power().kind()==StolenPower.Kind.FERUCHEMY&&a.power().metal()==metal)keys.add(a.donorIdentity());
+                if(!a.drained()&&BindingPoints.ALL.get(i).accepts(a.metal())&&(granted&&a.power().kind()==StolenPower.Kind.FERUCHEMY&&a.power().metal()==metal||a.power().kind()==StolenPower.Kind.CONNECTION_IDENTITY))keys.add(a.donorIdentity());
             }catch(IllegalArgumentException ignored){}
         }
         return Set.copyOf(keys);

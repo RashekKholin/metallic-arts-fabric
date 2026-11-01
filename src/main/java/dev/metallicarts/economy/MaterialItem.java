@@ -22,14 +22,16 @@ public class MaterialItem extends Item {
         var mind=stack.get(ModRegistries.METALMIND);
         if(mind!=null){
             text.accept(Component.literal("Feruchemical "+mind.attribute().id()+" • "+mind.charge()+"/"+mind.capacity()+" charge units"));
-            text.accept(Component.literal(mind.keyed()?"Identity keyed • ability and matching Identity required":mind.unkeyed()?"Unkeyed • relevant Feruchemical ability still required":"Unfilled • keys to the first filler"));
+            text.accept(Component.literal(mind.unsealed()?"Unsealed • tap to spend charge for typed temporary access":mind.keyed()?"Identity keyed • ability and matching Identity required":mind.unkeyed()?"Unkeyed • relevant Feruchemical ability still required":"Unfilled • keys to the first filler"));
+            if(!mind.contentLabel().isEmpty())text.accept(Component.literal("Stored ability: "+mind.contentLabel()));
+            if(mind.attribute()==dev.metallicarts.feruchemy.FeruchemicalAttribute.MEMORY)text.accept(Component.literal(mind.memories()+" recorded memories • select contact slot then K"));
         }
         if(form!=null&&java.util.List.of("ring","bracelet","bracer","earring").contains(form.kind()))text.accept(Component.literal("Contact equipment • M then F"));
         var spike=stack.get(ModRegistries.SPIKE);
         if(spike!=null){
             text.accept(Component.literal("Hemalurgic "+spike.power().label()+" • "+String.format(java.util.Locale.ROOT,"%.3f",spike.potency())+" potency preview"));
             text.accept(Component.literal(spike.drained()?"Spent • grants no power":spike.blood()?"Blood preserved • slower outside decay":"Outside-body decay • preview refreshes on use"));
-            text.accept(Component.literal("M then H • later power handlers may be unavailable"));
+            text.accept(Component.literal("M then H • bounded handlers; full constructs remain planned"));
         }else if(form!=null&&form.kind().equals("spike"))text.accept(Component.literal("Uncharged spike • M then H for intentional extraction"));
     }
 }

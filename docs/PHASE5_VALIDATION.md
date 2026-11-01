@@ -1,3 +1,5 @@
+**Later acceptance update:** the foundation two-client checks and expanded advanced interactions now pass in the 0.7 run; see [PHASE67_VALIDATION.md](PHASE67_VALIDATION.md). The results below remain the original0.5 record.
+
 # Phase 5 validation — 0.5.0-alpha.1
 
 Environment remains Minecraft 26.1 / Fabric Loader 0.18.4 / Fabric API 0.145.1+26.1 / JDK 25.0.5 / Gradle 9.4.0 on Windows. Local Minecraft EULA acceptance was explicitly authorized by the user.

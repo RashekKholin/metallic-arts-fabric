@@ -17,7 +17,7 @@ public final class ContactService {
     }
     public static void equip(ServerPlayer player,int slot,int sense){
         var equipment=equipment(player);
-        if(slot<0||slot>=12||sense<0||sense>=5||!equipment.item(slot).isEmpty())throw new IllegalArgumentException("Choose an empty contact slot");
+        if(slot<0||slot>=12||sense<0||sense>=32||!equipment.item(slot).isEmpty())throw new IllegalArgumentException("Choose an empty contact slot");
         var held=player.getMainHandItem();
         if(held.has(ModRegistries.SPIKE))throw new IllegalArgumentException("Hemalurgic charge cannot be repurposed as a metalmind");
         var form=EconomyContent.form(held.getItem());
@@ -32,6 +32,7 @@ public final class ContactService {
             if(!asset.metal().id().equals(form.material())||asset.lease().isPresent())throw new IllegalArgumentException("Invalid or already equipped metalmind");
         }else{
             var material=Materials.metal(form.material()).orElseThrow(()->new IllegalArgumentException("Unsupported Feruchemical material"));
+            if(material==Metal.TIN&&sense>=5)throw new IllegalArgumentException("Select one of five Tin senses");
             var attribute=material==Metal.TIN?new FeruchemicalAttribute[]{FeruchemicalAttribute.SIGHT,FeruchemicalAttribute.HEARING,FeruchemicalAttribute.TOUCH,FeruchemicalAttribute.SMELL,FeruchemicalAttribute.TASTE}[sense]:
                 Arrays.stream(FeruchemicalAttribute.values()).filter(a->a.metal()==material).findFirst().orElseThrow(()->new IllegalArgumentException("This Feruchemical metal is not implemented"));
             var data=held.get(ModRegistries.METAL_DATA);
@@ -40,7 +41,14 @@ public final class ContactService {
             var composition=held.get(EconomyContent.COMPOSITION);
             double purity=data!=null?data.purity():composition==null?1:composition.purity();
             if(purity<.000001)throw new IllegalArgumentException("Invalid material purity");
-            asset=ledger.create(attribute,mass,purity,false);
+            var content=MetalmindContent.EMPTY;
+            if(material==Metal.NICROSIL){
+                var art=sense<16?Art.ALLOMANCY:Art.FERUCHEMY;var power=Metal.values()[sense%16];
+                double strength=dev.metallicarts.arts.EffectivePower.base(player,art,power);
+                if(strength<=0)throw new IllegalArgumentException("Press N and choose an ability you actually own");
+                content=new MetalmindContent(Optional.of(new StoredPower(art,power,strength)),List.of(),false);
+            }
+            asset=ledger.create(attribute,mass,purity,false,content);
         }
         var worn=ledger.claim(asset.token(),lease);
         var stack=held.copyWithCount(1);stack.set(ModRegistries.METALMIND,MetalmindData.of(worn));

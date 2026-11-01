@@ -13,6 +13,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class ModRegistries {
+    public static final AttachmentType<dev.metallicarts.arts.ConnectionState> CONNECTIONS=AttachmentRegistry.create(MetallicArts.id("connections"),
+        b->b.initializer(dev.metallicarts.arts.ConnectionState::empty).persistent(dev.metallicarts.arts.ConnectionState.CODEC).copyOnDeath());
+    public static final AttachmentType<dev.metallicarts.arts.BodyState> BODY=AttachmentRegistry.create(MetallicArts.id("body_resources"),
+        b->b.initializer(()->dev.metallicarts.arts.BodyState.DEFAULT).persistent(dev.metallicarts.arts.BodyState.CODEC));
+    public static final AttachmentType<dev.metallicarts.arts.EmotionProfile> EMOTIONS=AttachmentRegistry.create(MetallicArts.id("emotions"),
+        b->b.initializer(dev.metallicarts.arts.EmotionProfile::baseline).persistent(dev.metallicarts.arts.EmotionProfile.CODEC).copyOnDeath());
+    public static final AttachmentType<dev.metallicarts.arts.ArtsJournal> JOURNAL=AttachmentRegistry.create(MetallicArts.id("arts_journal"),
+        b->b.initializer(dev.metallicarts.arts.ArtsJournal::empty).persistent(dev.metallicarts.arts.ArtsJournal.CODEC).copyOnDeath());
     /** Shared closed catalog; not a dynamic Minecraft registry. Unknown IDs fail decoding. */
     public static final Map<String, Metal> METALS = Arrays.stream(Metal.values()).collect(Collectors.toUnmodifiableMap(Metal::id, Function.identity()));
     public static final AttachmentType<Spiritweb> SPIRITWEB = AttachmentRegistry.create(MetallicArts.id("spiritweb"),
