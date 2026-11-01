@@ -2,17 +2,44 @@
 
 Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **1.0.0-rc.3**
 
+## Install and play — start here
+
+**You need Minecraft Java Edition 26.1, Fabric Loader, and TWO mod files.** Use the versions below; this release targets **26.1**, not Bedrock Edition or another Minecraft version.
+
+**Download these two files:**
+
+| Required file | Download |
+|---|---|
+| The Metallic Arts — playable mod | **[metallic-arts-fabric-1.0.0-rc.3.jar](https://github.com/RashekKholin/metallic-arts-fabric/releases/download/v1.0.0-rc.3/metallic-arts-fabric-1.0.0-rc.3.jar)** |
+| Fabric API — required dependency | **[fabric-api-0.145.1+26.1.jar](https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.145.1%2B26.1/fabric-api-0.145.1%2B26.1.jar)** |
+
+**Download the ordinary mod jar above. Do not install the `-sources.jar`, Source code ZIP, or Source code TAR files. Leave both downloaded jars as they are; do not extract or double-click them.** The [release page](https://github.com/RashekKholin/metallic-arts-fabric/releases/tag/v1.0.0-rc.3) also provides [SHA-256 checksums](https://github.com/RashekKholin/metallic-arts-fabric/releases/download/v1.0.0-rc.3/SHA256SUMS).
+
+### Windows: official Minecraft Launcher
+
+1. **Prepare Minecraft 26.1.** In the Minecraft Launcher, launch vanilla **26.1** once if you have not already. Then close Minecraft and the launcher.
+2. **Install Fabric Loader.** Download and run the **Windows installer** from the [official Fabric download page](https://fabricmc.net/use/installer/). Choose **Client**, Minecraft **26.1**, and Loader **0.18.4** (the tested version; the mod requires 0.18.4 or newer). Leave **Create profile** checked and click **Install**. Fabric also provides an [illustrated installation guide](https://docs.fabricmc.net/players/installing-fabric/windows).
+3. **Find your game folder.** For the default Windows installation, press **Windows + R**, enter `%APPDATA%\.minecraft`, and press Enter. Open the `mods` folder, or create a folder named exactly `mods` if it is missing. If your launcher/profile uses a custom game folder, use that instance's `mods` folder instead.
+4. **Copy BOTH jars into `mods`.** Download them using the table above. Your folder should contain these two files (other compatible mods may also be present):
+
+   ```text
+   mods/
+     metallic-arts-fabric-1.0.0-rc.3.jar
+     fabric-api-0.145.1+26.1.jar
+   ```
+
+5. **Launch the Fabric profile.** Reopen the Minecraft Launcher, select the **Fabric 26.1** profile, and click **Play**. The game must use **Java 25**. If your launcher reports an older Java version, install [Eclipse Temurin Java 25](https://adoptium.net/temurin/releases?version=25&os=windows&arch=x64) and select its `bin/javaw.exe` under **Installations → your Fabric profile → Edit → More Options → Java Executable**.
+6. **Open the mod in game.** Create or join a world, then press **M** for the metals menu and **Guide**, or **I** for controls. The inventory also has an **Arts help** tab. Read the [in-game acceptance checklist](docs/MANUAL_ACCEPTANCE.md) to check your installation.
+
+### Other launchers, operating systems, and servers
+
+- **Another launcher or Linux/macOS:** create a **Minecraft 26.1 + Fabric Loader 0.18.4+** instance using **Java 25**. Open that instance's game folder and place the same two jars in its `mods` folder. Follow [Fabric's installation guides](https://wiki.fabricmc.net/install) for your launcher/system; the default Windows folder above may not apply.
+- **Dedicated server:** use the [official Fabric server setup](https://fabricmc.net/use/server/) for Minecraft **26.1**, Loader **0.18.4+**, and Java **25**. Stop the server, place both jars in the server's `mods` folder, then start it following Fabric's instructions. **Every connecting player must also install the same Metallic Arts version and the required Fabric API.**
+- **Updating an existing installation:** stop the game/server and back up the **whole world and configs** first. Remove the previous Metallic Arts jar before adding RC3; keep only one Metallic Arts jar installed. Update clients and server together, test a copy of the world first, and do not downgrade the original world in place. See [backup and recovery instructions](docs/OPERATIONS.md).
+
 A playable unofficial Mistborn fan mod: sixteen standard Allomantic metals, sixteen Feruchemical metals with five separate Tin senses, metallurgy, source-tracked Hemalurgy, compounding, unsealed equipment, player and NPC constructs, survival discovery and researched god-metal interpretations. **Release candidate, pending the acceptance checks below.** This does not implement every unpublished canonical interaction.
 
 **License: All rights reserved.** The [LICENSE](LICENSE) permits official downloads, gameplay, server use, configuration and local backups. It does not grant general modification or redistribution rights. Third-party rights remain separate. Read [attribution](docs/ATTRIBUTION_REVIEW.md) and [contribution policy](CONTRIBUTING.md).
-
-## Download and launch
-
-1. Open the [1.0.0-rc.3 release](https://github.com/RashekKholin/metallic-arts-fabric/releases/tag/v1.0.0-rc.3) and download the ordinary **metallic-arts-fabric-1.0.0-rc.3.jar**. **Do not install the `-sources.jar`**; that is developer source. Publication is gated by the required CI jobs; check their status if the release is still being prepared.
-2. Create a Minecraft **26.1** instance with **Java 25**, **Fabric Loader 0.18.4+** and **Fabric API 0.145.1+26.1** from their official projects. The mod does not bundle these dependencies.
-3. Place the ordinary mod jar and Fabric API jar in the instance's `mods` folder. Use the same mod version on server and clients; remove duplicate/older Metallic Arts jars.
-4. Launch the Fabric profile, join a world and press **M → Guide**. All world and contextual keys can be rebound under vanilla Controls.
-5. Before upgrading, stop the game/server and back up the **whole world plus configs**. Test a copy first. Do not downgrade in place. A copied item preview from another world cannot transfer canonical charge.
 
 Versioned releases include sources and SHA-256 checksums. CI artifacts may expire and require sign-in. See [actual validation](docs/RELEASE_VALIDATION.md), including precise platform, multiplayer and migration limits, and the [in-game acceptance checklist](docs/MANUAL_ACCEPTANCE.md) to check a downloaded candidate yourself.
 
