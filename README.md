@@ -8,13 +8,13 @@ A playable unofficial Mistborn fan mod: sixteen standard Allomantic metals, sixt
 
 ## Download and launch
 
-1. Open [GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Download the ordinary **metallic-arts-fabric-1.0.0-rc.2.jar** when that candidate is published after CI passes. **Do not install the `-sources.jar`**; that is developer source. If the candidate is absent, the latest published alpha is a different, earlier build; use it or build this checkout yourself.
+1. Open the [1.0.0-rc.2 release](https://github.com/RashekKholin/metallic-arts-fabric/releases/tag/v1.0.0-rc.2) and download the ordinary **metallic-arts-fabric-1.0.0-rc.2.jar**. **Do not install the `-sources.jar`**; that is developer source. Publication is gated by the required CI jobs; check their status if the release is still being prepared.
 2. Create a Minecraft **26.1** instance with **Java 25**, **Fabric Loader 0.18.4+** and **Fabric API 0.145.1+26.1** from their official projects. The mod does not bundle these dependencies.
 3. Place the ordinary mod jar and Fabric API jar in the instance's `mods` folder. Use the same mod version on server and clients; remove duplicate/older Metallic Arts jars.
 4. Launch the Fabric profile, join a world and press **M → Guide**. All world and contextual keys can be rebound under vanilla Controls.
 5. Before upgrading, stop the game/server and back up the **whole world plus configs**. Test a copy first. Do not downgrade in place. A copied item preview from another world cannot transfer canonical charge.
 
-Versioned releases include sources and SHA-256 checksums. CI artifacts may expire and require sign-in. See [actual validation](docs/RELEASE_VALIDATION.md), including precise platform, multiplayer and migration limits.
+Versioned releases include sources and SHA-256 checksums. CI artifacts may expire and require sign-in. See [actual validation](docs/RELEASE_VALIDATION.md), including precise platform, multiplayer and migration limits, and the [in-game acceptance checklist](docs/MANUAL_ACCEPTANCE.md) to check a downloaded candidate yourself.
 
 ## Your first survival session
 

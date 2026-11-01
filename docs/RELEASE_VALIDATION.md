@@ -12,8 +12,8 @@ Observed locally on Windows, Java 25.0.5, Minecraft 26.1, Fabric Loader 0.18.4, 
 | Separate-process orderly save/reload | PASS in isolated fresh world |
 | Intentional partial player-save crash / canonical lease recovery | PASS in a separate isolated world; expected exit 71 and fault marker required |
 | Actual old-version save upgrades | PASS; committed 0.5 and 0.7 sources generated worlds; current version upgraded/reloaded each twice |
-| Two-client extended load | Pending current-candidate run; prior alpha's 50-check/1,200-tick baseline is not substituted |
-| Cross-platform native CI | Current rc.2 execution pending. Earlier rc.1 commit `f4cd80a` passed all jobs in run 41281988673; those 98-server/eight-client results are not substituted for this expanded version |
+| Two-client extended load | PASS; 50 checks, 18,000 measured ticks (15 minutes), mean 1.1718 ms / maximum 56.3722 ms; 40 mobs, four furnaces, 32 metal sources and both clients' Steel/Iron sight |
+| Cross-platform native CI | PASS on rc.2 commit `a637f66`: [run 41301257587](https://github.com/RashekKholin/metallic-arts-fabric/actions/runs/41301257587); Windows/Linux/macOS native servers, Linux graphical clients, full build, actual OpenPAC, crash recovery and historical upgrades |
 
 ## Exercised behavior
 
@@ -27,13 +27,15 @@ The historical migration fixtures generate old saves using archived committed so
 
 Use the README commands. Run fixtures sequentially: Fabric's test-directory deletion task invalidates a concurrent graphical run, even when starting a different server fixture. One earlier client run was invalidated by that test orchestration mistake and was not counted as passing; the isolated rerun passed. An asynchronous reaction test's original 20-tick deadline matched its scheduled 20-tick assertion and was corrected to a 100-tick deadline before the final successful build.
 
-Local retained fixtures: `build/run/recovery-20261101-001228` and `build/legacy-20261101-002529`. Final local logs/screenshots are preserved outside disposable build directories in the task's `rc-evidence` output. CI uploads separate unit/server/client/recovery evidence and gates immutable prerelease publication on all required jobs.
+Final rc.2 loopback fixture: `build/run/multiplayer-20261101-041702` (two ordinary offline clients, not authenticated accounts). Local retained fixtures: `build/run/recovery-20261101-001228` and `build/legacy-20261101-002529`. Final local logs/screenshots are preserved outside disposable build directories in the task's `rc-evidence` output. CI uploads separate unit/server/client/recovery evidence and gates immutable prerelease publication on all required jobs.
 
 ## Requested gameplay regression scope
 
 Nine additional native cases verify distance falloff with reciprocal recoil; explicit dual-force cancellation; all standard material immunity; connected/behind-source discovery; auto-selected coin locks and actual impact entity replacement; a full 200-tick unavailable-lock interval without remote force; 64-stack output/legacy quantity conservation; exact visible hunger repayment; vertical caster/visitor sphere boundaries; and the configured player item-use clock inside versus outside. Earlier assertions for 99+1 portions, disconnected iron-floor cells and distance-independent recoil were updated to the requested behavior rather than preserved as obsolete expectations.
 
-The earlier 15-minute rc.1 load run reached 18,000 measured ticks (mean 2.8351 ms, max 52.7347 ms) but FAILED its final active-field assertion; it is not counted as a passing soak. The revised fixture uses a deterministic flat world, stationary invulnerable casters, early active-field diagnostics, both clients' metal sight, 32 separate metal sources, 40 mobs and four furnaces. Its actual current result is recorded in the table when available.
+The earlier 15-minute rc.1 load run reached 18,000 measured ticks (mean 2.8351 ms, max 52.7347 ms) but FAILED its final active-field assertion; it is not counted as a passing soak. The revised fixture uses a deterministic flat world, stationary invulnerable casters, early active-field diagnostics, both clients' metal sight, 32 separate metal sources, 40 mobs and four furnaces. The final rc.2 run passed all 50 checks and 18,000 measured ticks, including continuously active fields and final furnace conservation. These measured server-tick durations are not client frame times, network latency or hours-long capacity certification.
+
+An initial rc.2 run was stopped before completion to add worn-body detection and close client menus during the visual workload. A later fixture failed before the soak when a moving dropped asset escaped its pickup staging bounds. The fixture now parks the same real client-dropped item on its test platform, preserving its canonical token and normal pickup delay; it does not mint a replacement. Neither incomplete/failed run is counted as passing.
 
 ## What remains unverified
 
