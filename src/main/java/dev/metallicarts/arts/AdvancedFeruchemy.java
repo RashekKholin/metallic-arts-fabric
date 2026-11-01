@@ -39,10 +39,10 @@ public final class AdvancedFeruchemy {
     private static BodyState natural(ServerPlayer p){
         var state=p.getAttachedOrCreate(ModRegistries.BODY);long now=p.level().getGameTime();
         if(state.updated()==now)return state;
-        long fatigue=p.isSleeping()?Math.max(0,state.fatigue()-500000):Math.min(BodyState.MAX_FATIGUE,state.fatigue()+1000);
+        long fatigue=p.isSleeping()?Math.max(0,state.fatigue()-dev.metallicarts.config.AdvancedConfig.get().body().sleepRecovery()):Math.min(BodyState.MAX_FATIGUE,state.fatigue()+dev.metallicarts.config.AdvancedConfig.get().body().awakeFatigue());
         double climate=p.level().getBiome(p.blockPosition()).value().getBaseTemperature();
         long target=36500000+(long)((climate-.8)*1000000)-(p.isInWater()?4000000:0)-(p.level().isRainingAt(p.blockPosition())?2000000:0)+(p.isOnFire()?8000000:0);
-        long temperature=Math.clamp(state.temperature()+Math.clamp((target-state.temperature())/1000,-5000L,5000L),BodyState.MIN_TEMP,BodyState.MAX_TEMP);
+        long temperature=Math.clamp(state.temperature()+Math.clamp((target-state.temperature())/1000,-dev.metallicarts.config.AdvancedConfig.get().body().thermalStep(),dev.metallicarts.config.AdvancedConfig.get().body().thermalStep()),BodyState.MIN_TEMP,BodyState.MAX_TEMP);
         state=state.fatigue(fatigue).temperature(temperature).updated(now);p.setAttached(ModRegistries.BODY,state);return state;
     }
     public static final class Context implements FeruchemicalEngine.Context {
@@ -111,7 +111,7 @@ public final class AdvancedFeruchemy {
                 default -> units;
             });
         }
-        @Override public boolean waitWhenFull(MetalmindAsset asset){return asset.attribute()==FeruchemicalAttribute.HEALTH&&(asset.charge()>=EMERGENCY_COST||asset.charge()>=CURE_COST&&(p.hasEffect(MobEffects.POISON)||p.hasEffect(MobEffects.WITHER)));}
+        @Override public boolean waitWhenFull(MetalmindAsset asset){return asset.attribute()==FeruchemicalAttribute.HEALTH&&(asset.charge()>=dev.metallicarts.config.AdvancedConfig.get().body().emergencyCost()||asset.charge()>=dev.metallicarts.config.AdvancedConfig.get().body().cureCost()&&(p.hasEffect(MobEffects.POISON)||p.hasEffect(MobEffects.WITHER)||p.getAttachedOrCreate(ModRegistries.TRAUMA).total()>0));}
         @Override public void paid(MetalmindAsset asset,int slot,int units){
             if(asset.attribute()==FeruchemicalAttribute.IDENTITY&&units<0)identity-=units;
             if(asset.attribute()==FeruchemicalAttribute.INVESTITURE){
@@ -144,7 +144,7 @@ public final class AdvancedFeruchemy {
             }
             saveBody();var tokens=ContactService.tokens(ContactService.equipment(p));FRAMES.put(p.getUUID(),new Frame(p,p.level(),engine,tokens,effects));
             EffectivePower.publish(p,()->typedAccess(p,engine,tokens,true),()->typedAccess(p,engine,tokens,false));
-            apply(p,effects,tick,body);SocialConnections.tick(p,tick);
+            apply(p,effects,tick,body);Injuries.tick(p);SocialConnections.tick(p,tick);
         }
     }
     private static Map<EffectivePower.Key,Double> typedAccess(ServerPlayer p,FeruchemicalEngine engine,List<Optional<AssetToken>> tokens,boolean tapping){
@@ -183,7 +183,7 @@ public final class AdvancedFeruchemy {
         if(effects.getOrDefault(FeruchemicalAttribute.WAKEFULNESS,0.0)!=0&&tick%20==0)p.getStats().setValue(p,Stats.CUSTOM.get(Stats.TIME_SINCE_REST),(int)(body.fatigue()/1000));
         if(tick%100==0)cure(p);
         if(tick%20==0){
-            var cues=new ArrayList<String>();if(!effects.isEmpty()||sleepy||cold||hot)cues.add(String.format(Locale.ROOT,"Body %.1f°C • fatigue %d%% • nutrition %.2f",body.temperature()/1000000.0,Math.round(body.fatigue()*100.0/BodyState.MAX_FATIGUE),body.nutrition()/(double)BodyState.FOOD_POINT));
+            var cues=new ArrayList<String>();if(p.getAttachedOrCreate(ModRegistries.TRAUMA).total()>0)cues.add("Injury: arm "+p.getAttachedOrCreate(ModRegistries.TRAUMA).arm()+" / leg "+p.getAttachedOrCreate(ModRegistries.TRAUMA).leg()+" / head "+p.getAttachedOrCreate(ModRegistries.TRAUMA).head());if(!effects.isEmpty()||sleepy||cold||hot)cues.add(String.format(Locale.ROOT,"Body %.1f°C • fatigue %d%% • nutrition %.2f",body.temperature()/1000000.0,Math.round(body.fatigue()*100.0/BodyState.MAX_FATIGUE),body.nutrition()/(double)BodyState.FOOD_POINT));
             if(effects.getOrDefault(FeruchemicalAttribute.CONNECTION,0.0)!=0)cues.add("Local rapport "+Math.round(p.getAttachedOrCreate(ModRegistries.CONNECTIONS).familiarity(SocialConnections.region(p))*100)+"% • supported villager trade Connection");
             if(effect(p,FeruchemicalAttribute.IDENTITY)<=-1)cues.add("Identity suppressed • empty pools fill unkeyed");
             if(effect(p,FeruchemicalAttribute.INVESTITURE)!=0)cues.add("Typed ability access changes while nicrosilminds are active");
@@ -194,8 +194,8 @@ public final class AdvancedFeruchemy {
     }
     private static Optional<String> opportunity(ServerPlayer p){
         int checked=0;var ores=TagKey.create(Registries.BLOCK,MetallicArts.id("fortune_opportunities"));
-        for(int y=-6;y<=6;y+=2)for(int x=-8;x<=8;x+=2)for(int z=-8;z<=8;z+=2){
-            if(checked++>=512)return Optional.empty();var pos=p.blockPosition().offset(x,y,z);if(!p.level().hasChunkAt(pos))continue;
+        for(int y=-6;y<=6;y+=2)for(int x=-dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();x<=dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();x+=2)for(int z=-dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();z<=dev.metallicarts.config.AdvancedConfig.get().body().opportunityRadius();z+=2){
+            if(checked++>=dev.metallicarts.config.AdvancedConfig.get().body().opportunityProbes())return Optional.empty();var pos=p.blockPosition().offset(x,y,z);if(!p.level().hasChunkAt(pos))continue;
             if(p.level().getBlockState(pos).is(ores)){String direction=Math.abs(x)>Math.abs(z)?x>0?"east":"west":z>0?"south":"north";return Optional.of("Fortune: an opportunity feels "+direction+(y<0?" and below":""));}
         }return Optional.empty();
     }
@@ -209,7 +209,7 @@ public final class AdvancedFeruchemy {
         var ledger=MetalmindLedger.get(p.level().getServer());
         for(int i=0;i<12;i++)try{
             if(frame.engine().mode(i)!=FeruchemicalEngine.Mode.TAP)continue;var data=ContactService.equipment(p).item(i).get(ModRegistries.METALMIND);if(data==null)continue;
-            var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),i));if(a.attribute()==FeruchemicalAttribute.HEALTH&&a.charge()>=EMERGENCY_COST){key(p,a);return Optional.of(i);}
+            var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),i));if(a.attribute()==FeruchemicalAttribute.HEALTH&&a.charge()>=dev.metallicarts.config.AdvancedConfig.get().body().emergencyCost()){key(p,a);return Optional.of(i);}
         }catch(IllegalArgumentException ignored){}
         return Optional.empty();
     }
@@ -217,28 +217,28 @@ public final class AdvancedFeruchemy {
         if(source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)||p.getAttachedOrCreate(ModRegistries.BODY).rescueUntil()>p.level().getGameTime())return false;
         var slot=emergencyAsset(p);if(slot.isEmpty())return false;
         var data=ContactService.equipment(p).item(slot.get()).get(ModRegistries.METALMIND);var ledger=MetalmindLedger.get(p.level().getServer());var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),slot.get()));
-        ledger.change(a.token(),a.lease().orElseThrow(),key(p,a),-EMERGENCY_COST);p.setAttached(ModRegistries.BODY,p.getAttachedOrCreate(ModRegistries.BODY).rescueUntil(p.level().getGameTime()+1200));p.setHealth(Math.min(4,p.getMaxHealth()));
+        ledger.change(a.token(),a.lease().orElseThrow(),key(p,a),-dev.metallicarts.config.AdvancedConfig.get().body().emergencyCost());p.setAttached(ModRegistries.BODY,p.getAttachedOrCreate(ModRegistries.BODY).rescueUntil(p.level().getGameTime()+dev.metallicarts.config.AdvancedConfig.get().body().emergencyCooldown()));p.setHealth(Math.min(4,p.getMaxHealth()));
         p.sendOverlayMessage(net.minecraft.network.chat.Component.literal("Your goldmind paid for emergency recovery"));return true;
     }
     private static void cure(ServerPlayer p){
-        var frame=FRAMES.get(p.getUUID());if(frame==null||EffectivePower.strength(p,Art.FERUCHEMY,Metal.GOLD)<=0||!p.hasEffect(MobEffects.POISON)&&!p.hasEffect(MobEffects.WITHER))return;
+        var frame=FRAMES.get(p.getUUID());if(frame==null||EffectivePower.strength(p,Art.FERUCHEMY,Metal.GOLD)<=0||!p.hasEffect(MobEffects.POISON)&&!p.hasEffect(MobEffects.WITHER)&&p.getAttachedOrCreate(ModRegistries.TRAUMA).total()==0)return;
         for(int i=0;i<12;i++)try{
             if(frame.engine().mode(i)!=FeruchemicalEngine.Mode.TAP)continue;var data=ContactService.equipment(p).item(i).get(ModRegistries.METALMIND);if(data==null)continue;var ledger=MetalmindLedger.get(p.level().getServer());var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),i));
-            if(a.attribute()!=FeruchemicalAttribute.HEALTH||a.charge()<CURE_COST)continue;ledger.change(a.token(),a.lease().orElseThrow(),key(p,a),-CURE_COST);
-            if(p.hasEffect(MobEffects.POISON))p.removeEffect(MobEffects.POISON);else p.removeEffect(MobEffects.WITHER);return;
+            if(a.attribute()!=FeruchemicalAttribute.HEALTH||a.charge()<dev.metallicarts.config.AdvancedConfig.get().body().cureCost())continue;ledger.change(a.token(),a.lease().orElseThrow(),key(p,a),-dev.metallicarts.config.AdvancedConfig.get().body().cureCost());
+            if(p.hasEffect(MobEffects.POISON))p.removeEffect(MobEffects.POISON);else if(p.hasEffect(MobEffects.WITHER))p.removeEffect(MobEffects.WITHER);else p.setAttached(ModRegistries.TRAUMA,p.getAttachedOrCreate(ModRegistries.TRAUMA).heal());return;
         }catch(IllegalArgumentException ignored){}
     }
     public static boolean unsealHeld(ServerPlayer p){
         if(effect(p,FeruchemicalAttribute.IDENTITY)>-1||effect(p,FeruchemicalAttribute.CONNECTION)<=0||EffectivePower.strength(p,Art.FERUCHEMY,Metal.NICROSIL)<=0)throw new IllegalArgumentException("Need paid full Identity suppression, tapped Connection and nicrosil access");
         var held=p.getMainHandItem();var data=held.get(ModRegistries.METALMIND);var binder=p.getOffhandItem();var form=EconomyContent.form(binder.getItem());
-        if(held.getCount()!=1||data==null||form==null||!form.material().equals("duralumin")||!form.kind().equals("ring")||binder.has(ModRegistries.METALMIND)||binder.has(ModRegistries.SPIKE))throw new IllegalArgumentException("Hold a free typed nicrosilmind and an ordinary Duralumin ring in the offhand");
+        if(held.getCount()!=1||data==null||binder.getCount()<dev.metallicarts.config.AdvancedConfig.get().constructs().unsealingRings()||form==null||!form.material().equals("duralumin")||!form.kind().equals("ring")||binder.has(ModRegistries.METALMIND)||binder.has(ModRegistries.SPIKE))throw new IllegalArgumentException("Hold a free typed nicrosilmind and an ordinary Duralumin ring in the offhand");
         var legacy=binder.get(ModRegistries.METAL_DATA);var composition=binder.get(EconomyContent.COMPOSITION);
         if(legacy!=null&&(legacy.charge()>0||legacy.identity().isPresent())||composition!=null&&!composition.viable())throw new IllegalArgumentException("Binder must be ordinary viable metal");
-        var next=MetalmindLedger.get(p.level().getServer()).unseal(data.token());binder.shrink(1);held.set(ModRegistries.METALMIND,MetalmindData.of(next));return true;
+        var next=MetalmindLedger.get(p.level().getServer()).unseal(data.token());binder.shrink(dev.metallicarts.config.AdvancedConfig.get().constructs().unsealingRings());held.set(ModRegistries.METALMIND,MetalmindData.of(next));return true;
     }
     public static boolean memory(ServerPlayer p,MemoryAction request){
         int tick=p.level().getServer().getTickCount();var throttle=REQUESTS.computeIfAbsent(p.getUUID(),u->new int[]{tick,0});if(tick-throttle[0]>=20){throttle[0]=tick;throttle[1]=0;}
-        if(++throttle[1]>20||!p.isAlive()||p.isSpectator()||request.slot()<0||request.slot()>=12||request.page()<0||request.page()>42||request.action()<0||request.action()>2)return false;
+        if(++throttle[1]>20||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(p)||!p.isAlive()||p.isSpectator()||request.slot()<0||request.slot()>=12||request.page()<0||request.page()>42||request.action()<0||request.action()>3||request.text()==null||request.text().length()>64||request.text().chars().anyMatch(Character::isISOControl))return false;
         try{
             if(EffectivePower.strength(p,Art.FERUCHEMY,Metal.COPPER)<=0)throw new IllegalArgumentException("Need Copper Feruchemy");
             var data=ContactService.equipment(p).item(request.slot()).get(ModRegistries.METALMIND);if(data==null)throw new IllegalArgumentException("Choose a contacted coppermind");
@@ -249,7 +249,10 @@ public final class AdvancedFeruchemy {
                 if(journal.memories().size()>=256||journal.memories().stream().anyMatch(m->m.id().equals(request.memory())))throw new IllegalArgumentException("Memory already accessible or journal full");
                 var restored=ledger.takeMemory(a.token(),lease,key,request.memory());p.setAttached(ModRegistries.JOURNAL,journal.remember(restored.memory()));
             }
-            a=ledger.owned(data.token(),lease);var json=AdvancedAllomancy.journalData(p,request.page());var gson=new Gson();json.add("stored",gson.toJsonTree(a.content().memories().stream().skip(request.page()*6L).limit(6).toList()));json.addProperty("storedTotal",a.content().memories().size());json.addProperty("memorySlot",request.slot());
+            if(request.action()==3)p.setAttached(ModRegistries.JOURNAL,p.getAttachedOrCreate(ModRegistries.JOURNAL).rename(request.memory(),request.text()));
+            String query=request.action()==3?"":request.text();
+            a=ledger.owned(data.token(),lease);var json=AdvancedAllomancy.journalData(p,request.page());
+            var available=p.getAttachedOrCreate(ModRegistries.JOURNAL).memories().stream().filter(m->ArtsJournal.matches(m,query)).toList();json.add("memories",new Gson().toJsonTree(available.stream().skip(request.page()*6L).limit(6).toList()));json.addProperty("memoryTotal",available.size());json.addProperty("query",query);var gson=new Gson();json.add("stored",gson.toJsonTree(a.content().memories().stream().filter(m->ArtsJournal.matches(m,query)).skip(request.page()*6L).limit(6).toList()));json.addProperty("storedTotal",a.content().memories().stream().filter(m->ArtsJournal.matches(m,query)).count());json.addProperty("memorySlot",request.slot());
             if(ServerPlayNetworking.canSend(p,ArtsFeedback.TYPE))ServerPlayNetworking.send(p,new ArtsFeedback("Copper memories: access moves with the canonical record",json.toString()));return true;
         }catch(IllegalArgumentException e){AdvancedAllomancy.feedback(p,e.getMessage(),false);return false;}
     }

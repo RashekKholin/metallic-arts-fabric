@@ -19,7 +19,8 @@ public final class EmotionService {
     private static final Map<LivingEntity,ServerPlayer> AFFECTED=new HashMap<>();
     public static boolean susceptible(LivingEntity target){return target instanceof ServerPlayer||target.getType().builtInRegistryHolder().is(TagKey.create(Registries.ENTITY_TYPE,MetallicArts.id("emotion_susceptible")));}
     public static boolean influence(ServerPlayer caster,LivingEntity target,EmotionProfile.Emotion emotion,double amount){
-        if(!susceptible(target)||!target.isAlive()||target.isSpectator()||caster.distanceToSqr(target)>144||!caster.hasLineOfSight(target))return false;
+        if(!dev.metallicarts.api.ArtsProtection.allows(caster,target,dev.metallicarts.api.ArtsProtection.Action.EMOTION))return false;
+        if(!susceptible(target)||!target.isAlive()||target.isSpectator()||caster.distanceToSqr(target)>Math.pow(dev.metallicarts.config.AdvancedConfig.get().emotions().range(),2)||!caster.hasLineOfSight(target))return false;
         double resistance=1;
         if(target instanceof ServerPlayer other){
             if(!caster.canHarmPlayer(other)||other.isCreative()||AllomancyRuntime.power(other,Metal.COPPER)>0)return false;
@@ -28,7 +29,7 @@ public final class EmotionService {
             resistance+=Math.max(0,other.getAttachedOrCreate(ModRegistries.EMOTIONS).value(EmotionProfile.Emotion.DETERMINATION)-.5)*2;
         }
         var pending=PENDING.computeIfAbsent(target,t->new Pending(new EnumMap<>(EmotionProfile.Emotion.class),caster));
-        pending.changes().merge(emotion,Math.clamp(amount/resistance,-.025,.025),Double::sum);return true;
+        pending.changes().merge(emotion,Math.clamp(amount/resistance,-dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap(),dev.metallicarts.config.AdvancedConfig.get().emotions().frameCap()),Double::sum);return true;
     }
     public static void finishFrame(){
         for(var entry:PENDING.entrySet()){

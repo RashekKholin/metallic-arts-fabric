@@ -190,5 +190,47 @@
     "statement": "RashekKholin and The17thShard receive baseline access to all standard Allomantic and Feruchemical metals through verified account UUIDs when enableAccountPowers is true. This public configurable perk is not a canonical acquisition rule or operator privilege.",
     "sources": [],
     "implementation": "AccountPowers and EffectivePower apply a nonpersistent access overlay. Normal fuel/contact/charge/Identity costs, Nicrosil suppression and protections remain. Disabling removes only this overlay; raw grants are untouched. No username fallback, hidden dependency or tamper penalty."
+  },
+  {
+    "id": "advanced_compounding",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "A compatible charged physical source is consumed once into a compatible contacted destination at the configured multiplier. Copper restores existing memories once without duplicating facts.",
+    "sources": [],
+    "implementation": "MetalmindLedger spent tombstones and Compounding preflight preserve source, type and Identity."
+  },
+  {
+    "id": "construct_anatomy",
+    "status": "INTERPRETATION",
+    "statement": "Prepared canonical spikes and paired innate Blessings enable bounded Koloss, Inquisitor and Kandra body templates; preparation costs and template slots are gameplay adaptations.",
+    "sources": [],
+    "implementation": "ConstructLedger and ConstructRuntime; author discussion: https://www.brandonsanderson.com/blogs/blog/annotation-mistborn-3-chapter-thirty-nine"
+  },
+  {
+    "id": "survival_acquisition",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Once-only latent allocation, injury awakening, XP discovery, powered hostile population and the optional mistwraith ritual are survival adaptations, not verified cosmere genetics or a canonical human-to-mistwraith recipe.",
+    "sources": [],
+    "implementation": "ProgressionState persists independently of grants so extraction/death cannot reroll powers."
+  },
+  {
+    "id": "medallion_carriers",
+    "status": "INTERPRETATION",
+    "statement": "Two or three unsealed typed ability cores retain independent charge and leases. The assembly command is a gameplay substitute for the incompletely published Excisor process.",
+    "sources": [],
+    "implementation": "Medallions carrier unfolds into actual contact slots; no universal unlimited-power item."
+  },
+  {
+    "id": "lerasium_alloys",
+    "status": "INTERPRETATION",
+    "statement": "Pure Lerasium grants standard Allomancy; alloys grant the associated standard-metal Allomancy. Strength 2, crouch-use, bounded non-stacking and the optional boss/material acquisition recipe are gameplay choices.",
+    "sources": [],
+    "implementation": "LerasiumItem; author interview index https://wob.coppermind.net/adv_search/?tags=lerasium and https://wob.coppermind.net/events/9-calamity-philadelphia-signing/#e7624. Direct event retrieval was blocked during this audit; do not treat exact quantities as canon."
+  },
+  {
+    "id": "unresolved_god_metals",
+    "status": "DEFERRED",
+    "statement": "Pure Atium, Era-one Atium/electrum, Malatium, Harmonium, Trellium and other shard metals/alloys need separate evidenced designs. No invented unknown effect is enabled.",
+    "sources": [],
+    "implementation": "Stable sixteen-metal contracts are unchanged; Lerasium is separate."
   }
 ]

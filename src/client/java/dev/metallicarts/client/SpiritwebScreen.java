@@ -12,6 +12,7 @@ public final class SpiritwebScreen extends Screen {
     public SpiritwebScreen() { super(Component.translatable("screen.metallicarts.title")); }
     @Override protected void init(){
         AdvancedArtsClient.action(3,0);
+        addRenderableWidget(net.minecraft.client.gui.components.Button.builder(Component.translatable("metallicarts.guide.title"),b->minecraft.setScreen(new GuideScreen())).bounds(8,8,70,18).build());
         for(int i=0;i<4;i++){
             final int index=page*4+i;
             double angle=-Math.PI/2+i*Math.PI/2;
@@ -30,6 +31,7 @@ public final class SpiritwebScreen extends Screen {
     @Override public boolean isPauseScreen() { return false; }
     @Override public boolean keyPressed(net.minecraft.client.input.KeyEvent event){
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_W){wheel=!wheel;rebuildWidgets();return true;}
+        if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_P){SystemsClient.open();return true;}
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_F){FeruchemyClient.open();return true;}
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_H){HemalurgyClient.open();return true;}
         if(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_BRACKET||event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_BRACKET){page=Math.floorMod(page+(event.key()==org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_BRACKET?-1:1),4);rebuildWidgets();return true;}
@@ -83,3 +85,5 @@ public final class SpiritwebScreen extends Screen {
         graphics.centeredText(font,Component.literal(page==0?"G select / H clear • R push / V pull / C coin":"[ / ] group • J predicted opening • K journal"),width/2,231,0xFFAAAAAA);
     }
 }
+
+

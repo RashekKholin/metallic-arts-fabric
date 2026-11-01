@@ -1,0 +1,23 @@
+package dev.metallicarts.arts;
+import dev.metallicarts.MetallicArts;
+import dev.metallicarts.config.ProgressionConfig;
+import dev.metallicarts.domain.*;
+import dev.metallicarts.allomancy.*;
+import dev.metallicarts.registry.ModRegistries;
+import net.fabricmc.fabric.api.event.lifecycle.v1.*;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.*;
+import net.minecraft.network.chat.Component;
+import java.util.*;
+public final class SurvivalProgression {
+ public static ProgressionState allocation(UUID id,long seed,ProgressionConfig policy){var random=new Random(seed^id.getMostSignificantBits()^id.getLeastSignificantBits());var a=random.nextDouble()<policy.allomancerChance()?Optional.of(Metal.values()[random.nextInt(16)]):Optional.<Metal>empty();var f=random.nextDouble()<policy.feruchemistChance()?Optional.of(Metal.values()[random.nextInt(16)]):Optional.<Metal>empty();return new ProgressionState(true,a,f,false,false);}
+ public static void initializePlayer(ServerPlayer p){if(!ProgressionConfig.get().enabled()||p.getAttachedOrCreate(ModRegistries.PROGRESSION).initialized())return;p.setAttached(ModRegistries.PROGRESSION,allocation(p.getUUID(),p.level().getSeed(),ProgressionConfig.get()));p.sendSystemMessage(Component.translatable("metallicarts.guide.welcome"));}
+ private static void grant(LivingEntity p,Art art,Metal metal){var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);if(state.strength(art,metal)>0)return;var source=UUID.randomUUID();p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.grant(state,new PowerGrant(source,art,metal,PowerGrant.Origin.INNATE,source,1)));}
+ public static boolean awaken(ServerPlayer p,boolean snap){if(!ProgressionConfig.get().enabled())return false;initializePlayer(p);var s=p.getAttachedOrCreate(ModRegistries.PROGRESSION);if(snap){if(s.snapped())return false;s.allomancy().ifPresent(m->grant(p,Art.ALLOMANCY,m));p.setAttached(ModRegistries.PROGRESSION,new ProgressionState(true,s.allomancy(),s.feruchemy(),true,s.discovered()));}else{if(s.discovered()||p.experienceLevel<ProgressionConfig.get().discoveryLevels())return false;s.feruchemy().ifPresent(m->grant(p,Art.FERUCHEMY,m));p.setAttached(ModRegistries.PROGRESSION,new ProgressionState(true,s.allomancy(),s.feruchemy(),s.snapped(),true));}dev.metallicarts.network.ModNetworking.send(p);return true;}
+ public static void initializeMob(Mob mob){if(!ProgressionConfig.get().enabled()||mob.getAttachedOrCreate(ModRegistries.PROGRESSION).initialized())return;mob.setAttached(ModRegistries.PROGRESSION,new ProgressionState(true,Optional.empty(),Optional.empty(),false,false));if(!(mob instanceof net.minecraft.world.entity.monster.Monster))return;var random=new Random(mob.getUUID().getLeastSignificantBits()^mob.level().getServer().overworld().getSeed());if(random.nextDouble()>=ProgressionConfig.get().npcChance())return;var choices=List.of(Metal.IRON,Metal.STEEL,Metal.PEWTER,Metal.TIN,Metal.COPPER);var metal=choices.get(random.nextInt(choices.size()));grant(mob,Art.ALLOMANCY,metal);if(random.nextBoolean())grant(mob,Art.FERUCHEMY,Metal.values()[random.nextInt(16)]);mob.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(mob.getAttachedOrCreate(ModRegistries.SPIRITWEB),metal,ProgressionConfig.get().npcFuel()));mob.setAttached(ModRegistries.PROGRESSION,new ProgressionState(true,Optional.of(metal),Optional.empty(),true,true));}
+ public static void initialize(){ServerPlayConnectionEvents.JOIN.register((h,s,server)->initializePlayer(h.player));ServerLivingEntityEvents.AFTER_DAMAGE.register((entity,source,base,taken,blocked)->{if(entity instanceof ServerPlayer p&&!blocked&&taken>=6&&p.isAlive()&&p.getHealth()<=6&&awaken(p,true))p.sendSystemMessage(Component.translatable("metallicarts.guide.snapped"));});ServerEntityEvents.ENTITY_LOAD.register((entity,level)->{if(entity instanceof LivingEntity living)dev.metallicarts.hemalurgy.HemalurgyRuntime.applySpiritualWounds(living);if(entity instanceof Mob mob)initializeMob(mob);});ServerTickEvents.END_SERVER_TICK.register(server->{if(server.getTickCount()%40!=0||!ProgressionConfig.get().enabled())return;for(var level:server.getAllLevels())for(var entity:level.getAllEntities())if(entity instanceof Mob mob&&mob.isAlive()&&mob.getTarget()!=null){var s=mob.getAttachedOrCreate(ModRegistries.PROGRESSION);if(s.initialized()&&s.allomancy().isPresent()&&s.snapped())NpcArts.request(mob,s.allomancy().get(),BurnMode.BURN);}});}
+ private SurvivalProgression(){}
+}
+

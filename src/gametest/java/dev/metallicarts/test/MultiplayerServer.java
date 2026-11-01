@@ -31,7 +31,7 @@ public final class MultiplayerServer implements ModInitializer {
     private final Map<UUID,Integer> expected=new HashMap<>();private final Map<UUID,JsonObject> reports=new HashMap<>();
     private final Map<String,UUID> identities=new HashMap<>();private final List<String> passed=new ArrayList<>();
     private UUID mind;private long charge,offlineCharge;private ServerPlayer oldA;private ItemEntity forceItem;private double lastForceX;
-    private long began;
+    private long began,stressStarted,tickStarted,stressNanos,stressMaximum;private int stressTicks;private boolean stressing;private final List<net.minecraft.world.entity.Mob> stressMobs=new ArrayList<>();
     @Override public void onInitialize(){
         String role=System.getProperty("metallicarts.multiplayer");if(role==null)return;
         PayloadTypeRegistry.clientboundPlay().register(MultiplayerProbe.Instruction.TYPE,MultiplayerProbe.Instruction.CODEC);
@@ -42,7 +42,8 @@ public final class MultiplayerServer implements ModInitializer {
             reports.put(p.getUUID(),JsonParser.parseString(payload.data()).getAsJsonObject());
         });
         ServerLifecycleEvents.SERVER_STARTED.register(s->{server=s;began=System.currentTimeMillis();});
-        ServerTickEvents.START_SERVER_TICK.register(s->{if(server!=null)tick();});
+        ServerTickEvents.START_SERVER_TICK.register(s->{tickStarted=System.nanoTime();if(server!=null)tick();});
+        ServerTickEvents.END_SERVER_TICK.register(s->{if(stressing){long duration=System.nanoTime()-tickStarted;stressNanos+=duration;stressMaximum=Math.max(stressMaximum,duration);stressTicks++;}});
     }
     private ServerPlayer a(){return server.getPlayerList().getPlayerByName("MetalTestA");}
     private ServerPlayer b(){return server.getPlayerList().getPlayerByName("MetalTestB");}
@@ -91,7 +92,7 @@ public final class MultiplayerServer implements ModInitializer {
             if(steps==null){if(a()==null||b()==null)return;setup();steps=plan();}
             if(index>=steps.size()){finish(null);return;}
             var step=steps.get(index);if(startTick<0){startTick=server.getTickCount();step.start().run();}
-            if(server.getTickCount()-startTick>600)throw new AssertionError("Timed out: "+step.name()+" reports="+reports);
+            if(server.getTickCount()-startTick>1800)throw new AssertionError("Timed out: "+step.name()+" reports="+reports);
             if(server.getTickCount()-startTick>=20&&step.ready().getAsBoolean()){
                 step.verify().run();passed.add(step.name());MetallicArts.LOGGER.info("MULTIPLAYER PASS: {}",step.name());index++;startTick=-1;
             }
@@ -149,14 +150,23 @@ public final class MultiplayerServer implements ModInitializer {
         new Step("stop leech and prepare forced burst",()->both("STOP"),this::bothAck,()->{b().setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.STEEL,200000));}),
         new Step("real contact Nicrosil exhausts concurrently active target Steel",()->{command(a(),"BURN:11");command(b(),"BURN_STEEL");},this::bothAck,()->check(ReserveLedger.ordinary(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.STEEL)==0,"Forced burst did not consume actual concurrent fuel")),
         new Step("private advanced journals remain owner-only",()->both("M"),this::bothAck,()->{check(report(a()).get("journal").getAsString().contains("A private route")&&!report(a()).get("journal").getAsString().contains("B private route"),"A received foreign memory");check(report(b()).get("journal").getAsString().contains("B private route")&&!report(b()).get("journal").getAsString().contains("A private route"),"B received foreign memory");}),
+        new Step("prepare temporal load with forty mobs and four real furnaces",()->both("STOP"),this::bothAck,()->{
+            a().teleportTo(.5,81,.5);b().teleportTo(2.5,81,.5);for(var p:List.of(a(),b()))for(var m:List.of(Metal.CADMIUM,Metal.BENDALLOY))p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m,200000));
+            for(int i=0;i<40;i++){var mob=net.minecraft.world.entity.EntityType.PIG.create(server.overworld(),net.minecraft.world.entity.EntitySpawnReason.COMMAND);mob.setPos(.5+i%8,81,.5+i/8);mob.setInvulnerable(true);server.overworld().addFreshEntity(mob);stressMobs.add(mob);}
+            for(int i=0;i<4;i++){var pos=new BlockPos(i*2,80,4);server.overworld().setBlock(pos,Blocks.FURNACE.defaultBlockState(),3);var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(pos);furnace.setItem(0,new ItemStack(Items.IRON_ORE,64));furnace.setItem(1,new ItemStack(Items.COAL,8));}
+        }),
+        new Step("sixty seconds of overlapping paid temporal fields under load",()->{command(a(),"BURN:14");command(b(),"BURN:15");stressStarted=server.getTickCount();stressing=true;},()->bothAck()&&server.getTickCount()-stressStarted>=1200,()->{stressing=false;check(stressTicks>=1190,"Insufficient measured ticks");for(int i=0;i<4;i++){var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(new BlockPos(i*2,80,4));check(furnace.getItem(0).getCount()+furnace.getItem(2).getCount()==64&&furnace.getItem(2).getCount()>0,"Temporal machine lost/created inputs or stopped");}stressMobs.forEach(net.minecraft.world.entity.Entity::discard);}),
         new Step("final owner-only snapshots on both live clients",()->both("M"),this::bothAck,this::privateData)
     );}
     private void finish(Throwable failure){
         try{
             var result=new JsonObject();result.addProperty("status",failure==null?"PASS":"FAIL");result.addProperty("authenticatedAccounts",false);result.addProperty("clients",2);
+            result.addProperty("temporalStressTicks",stressTicks);result.addProperty("temporalStressMeanTickMs",stressTicks==0?0:stressNanos/1000000.0/stressTicks);result.addProperty("temporalStressMaxTickMs",stressMaximum/1000000.0);result.addProperty("temporalStressMobs",40);result.addProperty("temporalStressFurnaces",4);
             result.addProperty("completedChecks",passed.size());var checks=new JsonArray();passed.forEach(checks::add);result.add("checks",checks);
             if(failure!=null)result.addProperty("failure",failure.toString());
             Files.writeString(Path.of("multiplayer-result.json"),new GsonBuilder().setPrettyPrinting().create().toJson(result));
         }catch(Exception e){throw new RuntimeException(e);}finally{var s=server;server=null;s.halt(false);}
     }
 }
+
+

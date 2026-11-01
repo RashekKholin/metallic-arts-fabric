@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0-alpha.1
+
+- Added compounding/spent-source tombstones, prepared player constructs and real body rendering, default-off exceptional extraction and permanent spiritual consequences.
+- Added advanced/progression policies, deny-wins adapters, reference audits, injuries/bandages, pulse history, fractional clocks, memory search/annotation and actual merchant familiarity.
+- Added once-only survival discovery, finite-fuel powered hostile populations, mixed vials, 2–3 typed-core carriers, separate Lerasium/alloy items and an in-game Guide.
+- Added versioned alpha release automation, upgrade/recovery/attribution review and current validation/backlog documentation. The prior documented account policy remains unchanged.
+- This is bounded alpha scope: unknown god metals, full NPC construct/metal AI, complete translations, remote/protection/platform acceptance and licensing choice remain open. See RELEASE_VALIDATION.md and REMAINING_WORK.md.
+
+
 ## 0.7.0-alpha.2 — documented account access
 
 - Adds verified-UUID baseline access to every standard Allomantic/Feruchemical metal for RashekKholin and The17thShard. Normal resource/contact/Identity costs remain.
@@ -15,3 +24,4 @@
 - Adds a dedicated two-normal-client harness, advanced unit/server/client tests, and extended separate-process saved-data fixtures.
 - Preserves old physical asset decoding with optional content fields. Existing four-metal Allomancy rates migrate with custom values retained and a backup. Back up whole worlds; do not downgrade after using new data.
 - Adds advanced controls, typed charge/memory previews, detailed approximation/provenance policies and an ordered remaining-work document. See PHASE67_VALIDATION.md for actual results and limits; this remains a playable alpha.
+

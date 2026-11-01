@@ -33,7 +33,7 @@ public final class MetalmindLedger extends SavedData {
     public List<MetalmindAsset> all(){return assets.values().stream().sorted(Comparator.comparing(a->a.token().instance())).toList();}
     public MetalmindAsset resolve(AssetToken token){
         var asset=assets.get(token.instance());
-        if(asset==null||!asset.token().equals(token))throw new IllegalArgumentException("Unknown, copied or stale metalmind reference");
+        if(asset==null||asset.consumed()||!asset.token().equals(token))throw new IllegalArgumentException("Unknown, copied or stale metalmind reference");
         return asset;
     }
     public MetalmindAsset create(FeruchemicalAttribute attribute,long mass,double purity,boolean unkeyed){
@@ -108,6 +108,27 @@ public final class MetalmindLedger extends SavedData {
         var memory=a.content().memories().stream().filter(m->m.id().equals(memoryId)).findFirst().orElseThrow(()->new IllegalArgumentException("Memory no longer stored here"));
         var next=replace(new MetalmindAsset(a.token(),a.metal(),a.massMicrograms(),a.purity(),a.attribute(),a.charge()-1000,a.capacity(),a.identity(),a.unkeyed(),a.lease(),new MetalmindContent(Optional.empty(),a.content().memories().stream().filter(m->!m.id().equals(memoryId)).toList(),false)));
         return new MemoryTake(next,memory);
+    }
+    public Optional<MetalmindAsset> find(UUID instance){return Optional.ofNullable(assets.get(instance));}
+    /** Whole-item burn; both poststates are constructed before either canonical record is changed. */
+    public MetalmindAsset compound(AssetToken sourceToken,AssetToken destinationToken,AssetLease destinationLease,UUID sourceKey,UUID destinationKey,boolean blank,int multiplier){
+        var source=resolve(sourceToken);var destination=owned(destinationToken,destinationLease);
+        if(multiplier<2||multiplier>100||source.lease().isPresent()||source.charge()<=0||!source.accessible(sourceKey)||source.attribute()==FeruchemicalAttribute.MEMORY)throw new IllegalArgumentException("Need free authorized charged source");
+        if(source.attribute()!=destination.attribute()||!source.content().power().equals(destination.content().power()))throw new IllegalArgumentException("Compounding requires the exact same attribute and typed ability");
+        long output=Math.multiplyExact(source.charge(),multiplier);
+        if(output>destination.capacity()-destination.charge())throw new IllegalArgumentException("Destination has insufficient capacity; nothing consumed");
+        if(destination.charge()==0)destination=new MetalmindAsset(destination.token(),destination.metal(),destination.massMicrograms(),destination.purity(),destination.attribute(),0,destination.capacity(),Optional.empty(),blank,destination.lease(),destination.content());
+        if(!destination.accessible(destinationKey)||destination.unkeyed()&&!blank)throw new IllegalArgumentException("Destination Identity does not authorize filling");
+        var next=destination.withCharge(Math.addExact(destination.charge(),output),destinationKey);var spent=spent(source);
+        replace(spent);return replace(next);
+    }
+    public List<dev.metallicarts.arts.MemoryEntry> burnMemories(AssetToken token,UUID key){
+        var source=resolve(token);if(source.lease().isPresent()||source.attribute()!=FeruchemicalAttribute.MEMORY||source.charge()==0||!source.accessible(key))throw new IllegalArgumentException("Need a free authorized coppermind");
+        var memories=source.content().memories();replace(spent(source));return memories;
+    }
+    private static MetalmindAsset spent(MetalmindAsset source){
+        var content=new MetalmindContent(source.content().power(),List.of(),source.content().unsealed());
+        return new MetalmindAsset(source.token(),source.metal(),source.massMicrograms(),source.purity(),source.attribute(),0,source.capacity(),source.identity(),source.unkeyed(),Optional.empty(),content,true);
     }
     private MetalmindAsset replace(MetalmindAsset asset){
         var old=assets.get(asset.token().instance());

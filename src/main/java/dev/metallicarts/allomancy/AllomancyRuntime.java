@@ -59,16 +59,20 @@ public final class AllomancyRuntime {
             select(context.player(),payload.action(),context.server().getTickCount()));
         ServerTickEvents.END_SERVER_TICK.register(server->{
             for(var player:server.getPlayerList().getPlayers())dev.metallicarts.hemalurgy.HemalurgyRuntime.tick(player,server.getTickCount());
+            for(var player:server.getPlayerList().getPlayers())dev.metallicarts.hemalurgy.ConstructRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())dev.metallicarts.feruchemy.FeruchemyRuntime.tick(player,server.getTickCount());
             for(var player:server.getPlayerList().getPlayers())prepare(player,server.getTickCount());
+            dev.metallicarts.arts.NpcArts.prepare(server);
             dev.metallicarts.arts.AdvancedAllomancy.frame(server);
             try(var frame=MetalPhysics.beginFrame()){
+                dev.metallicarts.arts.NpcArts.apply();
                 for(var player:server.getPlayerList().getPlayers())tick(player,server.getTickCount());
             }
             dev.metallicarts.arts.AdvancedAllomancy.finishFrame();
+            dev.metallicarts.hemalurgy.ConstructRuntime.controlFrame(server.getTickCount());
         });
         ServerPlayConnectionEvents.DISCONNECT.register((handler,server)->stop(handler.player));
-        ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.values().forEach(AllomancyRuntime::clear);SESSIONS.clear();});
+        ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.values().forEach(AllomancyRuntime::clear);SESSIONS.clear();dev.metallicarts.arts.NpcArts.clear();});
     }
     private static boolean allow(Session s,int tick){
         if(tick-s.window>=20){s.window=tick;s.requests=0;}
@@ -76,7 +80,7 @@ public final class AllomancyRuntime {
     }
     public static boolean request(ServerPlayer player,int metal,int mode,int tick) {
         var s=session(player);
-        if(!allow(s,tick)||metal<0||metal>=AllomancyConfig.SUPPORTED.size()||mode<0||mode>2||!player.isAlive()||player.isSpectator())return false;
+        if(!allow(s,tick)||metal<0||metal>=AllomancyConfig.SUPPORTED.size()||mode<0||mode>2||!player.isAlive()||player.isSpectator()||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(player))return false;
         var type=AllomancyConfig.SUPPORTED.get(metal);
         if(mode>0&&(type==Metal.CADMIUM&&s.engine.mode(Metal.BENDALLOY)!=BurnMode.OFF||type==Metal.BENDALLOY&&s.engine.mode(Metal.CADMIUM)!=BurnMode.OFF))return false;
         return s.engine.request(player.getAttachedOrCreate(ModRegistries.SPIRITWEB),type,BurnMode.from(mode),m->dev.metallicarts.arts.EffectivePower.strength(player,Art.ALLOMANCY,m));
@@ -104,7 +108,7 @@ public final class AllomancyRuntime {
     }
     public static void tick(ServerPlayer p,int tick) {
         var s=session(p);
-        if(!p.isAlive()||p.isSpectator()){clear(s);send(s);return;}
+        if(!p.isAlive()||p.isSpectator()||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(p)){clear(s);send(s);return;}
         if(s.preparedTick!=tick)prepare(p,tick);
         var powers=s.lastPowers;
         double pewter=powers.getOrDefault(Metal.PEWTER,0.0);

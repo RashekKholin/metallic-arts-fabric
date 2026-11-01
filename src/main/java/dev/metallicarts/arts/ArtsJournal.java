@@ -15,11 +15,17 @@ public record ArtsJournal(List<MemoryEntry> memories,List<MemoryEntry> history,L
     public ArtsJournal{memories=List.copyOf(memories);history=List.copyOf(history);discoveries=List.copyOf(discoveries);}
     public static ArtsJournal empty(){return new ArtsJournal(List.of(),List.of(),List.of());}
     public ArtsJournal observe(ServerPlayer p,String kind,String label,String key){
-        if(discoveries.contains(key)||discoveries.size()>=512)return this;
+        if(discoveries.contains(key))return this;
         var pos=p.blockPosition();var entry=new MemoryEntry(UUID.randomUUID(),kind,label,p.level().dimension().identifier().toString(),pos.getX(),pos.getY(),pos.getZ(),p.level().getGameTime());
         var m=new ArrayList<>(memories);if(m.size()<256)m.add(entry);var h=new ArrayList<>(history);h.add(entry);if(h.size()>128)h.removeFirst();
-        var d=new ArrayList<>(discoveries);d.add(key);return new ArtsJournal(m,h,d);
+        var d=new ArrayList<>(discoveries);if(d.size()>=512)d.removeFirst();d.add(key);return new ArtsJournal(m,h,d);
     }
+    public ArtsJournal rename(UUID id,String label){
+        if(label==null||label.isBlank()||label.length()>64||label.chars().anyMatch(Character::isISOControl)||memories.stream().noneMatch(m->m.id().equals(id)))throw new IllegalArgumentException("Choose an accessible memory and a 1–64 character label");
+        java.util.function.Function<MemoryEntry,MemoryEntry> rename=m->m.id().equals(id)?new MemoryEntry(m.id(),m.kind(),label,m.dimension(),m.x(),m.y(),m.z(),m.time()):m;
+        return new ArtsJournal(memories.stream().map(rename).toList(),history.stream().map(rename).toList(),discoveries);
+    }
+    public static boolean matches(MemoryEntry m,String query){String q=query.toLowerCase(Locale.ROOT);return (m.label()+" "+m.kind()+" "+m.dimension()+" "+m.x()+" "+m.z()).toLowerCase(Locale.ROOT).contains(q);}
     public ArtsJournal forget(UUID id){return new ArtsJournal(memories.stream().filter(e->!e.id().equals(id)).toList(),history.stream().filter(e->!e.id().equals(id)).toList(),discoveries);}
     public ArtsJournal remember(MemoryEntry entry){
         if(memories.size()>=256||memories.stream().anyMatch(m->m.id().equals(entry.id())))throw new IllegalArgumentException("Memory collection full or entry already accessible");

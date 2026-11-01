@@ -1,60 +1,57 @@
-# Remaining work after Phase 7
+# Ordered work after the 0.8 alpha
 
-This is the ordered backlog for the 0.7 playable alpha. A standard metal having a bounded playable handler does not mean every canonical edge case or release acceptance check is complete. Compounding and full constructs have not been implemented.
+Steps 1–8 now have concrete implementation or release infrastructure. That does **not** mean every acceptance check or canonical interaction is complete. See [implemented scope](ADVANCED_SYSTEMS.md) and [actual validation](RELEASE_VALIDATION.md).
 
-## 1. Hardening and compatibility before more powers
+## 1. External acceptance before a stable release
 
-- Exercise the existing multiplayer harness on authenticated accounts and a remote dedicated server; repeat under latency, packet loss, reconnects, different client frame rates and additional players. Local offline loopback evidence is distinct from public-server validation.
-- Test actual protection/claim/PvP mods, especially Chromium/Nicrosil contact, emotions, lifting blocks, moving objects, extraction, inventory transfers and merchant price updates. Existing native protection events are not a guarantee of every mod's integration.
-- Run sustained sessions with overlapping temporal bubbles, many entities/machines/projectiles and multiple concurrent users. Profile CPU, network traffic, save size, client interpolation and entity removal. Preserve force-order independence and bounded work.
-- Expand adversarial tests for exhausted source removal, partial payments, death/respawn/dimension changes during every advanced effect, disconnect mid-memory transfer, capped body resources, duplicate/stale references and cross-dimension copies. Keep whole-world recovery instructions and fixtures current.
-- Add explicit schema migration tooling and operator recovery/inspection commands. Never reconstruct charge from a preview or silently repair duplicated ownership. Test upgrades from archived real 0.5 worlds as well as codec fixtures; document irreversible changes/downgrade limits.
-- Extract tunable advanced constants into validated server configuration: bubble rates/radii, emotion cadence/caps, body rates, healing/cure/emergency prices, opportunity scans, trade coefficients and unsealing costs. Current explicit defaults are documented policies, not fully exposed configuration.
+- Run authenticated accounts on a remote dedicated server, then test latency, loss, extra players and long sessions. Local ordinary clients use offline-mode loopback.
+- Install actual claim/PvP/protection mods and test adapters against their APIs. Deny-wins hooks and native cancellation tests do not certify an untested mod.
+- Profile temporal fields, entities, projectiles and machines over hours; measure CPU, bandwidth, save growth and interpolation. The 60-second load fixture is a regression baseline, not capacity certification.
+- Test archived real 0.5/0.7 world upgrades, crashes during transfers/saves and whole-backup restoration. Serialization fixtures do not certify every historical save or crash boundary.
+- Validate Linux/macOS native clients and servers. Linux CI covers build/unit/datagen, not the graphical runtime.
 
-## 2. Refine standard-metal interpretations
+## 2. Presentation and accessibility
 
-- Allomantic Bronze: short-pulse history, accessible sound signatures, sensory options, stronger/weaker concealment edge cases and broader Investiture detection only after explicit rules. Current ten-tick sampling can miss very brief burns.
-- Zinc/Brass: richer eligible NPC reactions, opposing influences, awareness UI, resistances and recovery tuning; no unrestricted mind control. Expand NPC state support deliberately.
-- Enhancement: research and test per-metal burst duration/output, protection-mod callbacks and simultaneous mutual contact. Current one-frame capped burst and one-second contact cadence are documented approximations. Add active-burning NPC targets with actual fuel/ownership rather than pretending every mob burns.
-- Gold: richer actual character events, useful alternate-self choices and presentation; no fabricated biography. Electrum: projectile-specific physics, uncertainty, latency, more combat possibilities and eventual atium interaction. Predictions currently approximate bounded movement/projectiles.
-- Temporal bubbles: preserve native clock accounting under rate changes, collision/entry/exit and nesting; add supported adapters where justified. Vehicles, player physiology, general redstone/random/scheduled ticks and arbitrary block entities currently use global time. An arbitrary local-time simulation is a separate research/performance task.
-- Feruchemical Bronze/Brass/Cadmium/Bendalloy: longer balance sessions for fatigue/sleep, temperature/environment, oxygen and food/saturation; adapters for gas, seasons, survival/temperature mods. Body escrow resets on death; evaluate that policy without duplication or death loops.
-- Zinc/Electrum: broaden useful cognition and adversity interactions beyond current action/analysis/emotional resistance handlers. Keep these distinct from physical speed and strength.
-- Copper: capture more actual discoveries/events, naming/search and memory organization, permission-safe sharing, reliable long-term journal limits. Integrate other knowledge systems only through explicit adapters; real player knowledge cannot be erased.
-- Gold: anatomical injury/status adapters, healing priorities, interrupted/cancelled damage tests and emergency-balance review. No current limb regrowth/age/disease simulation or exceptional Hemalurgic survivability.
-- Identity/Connection: broader supported social/faction/language systems, per-person relationships and documented access policies. Current Connection is villager trade rapport plus actual regional familiarity; Identity is filling/access/resistance, not arbitrary impersonation.
-- Fortune: more meaningful bounded opportunity providers, explicit uncertainty and balance across loot contexts. Vanilla Luck alone does not change every random roll; no arbitrary destiny/causality simulation.
-- Nicrosil/unsealed equipment: research fuller medallion/Excisor behavior, multiple ability constructions, production and accessible ownership previews. Current one-type finite-access construction is an explicit game adaptation, not a verified canonical medallion factory.
+- Replace remaining English literals and translate the full UI/tutorial. Current coverage is the English guide and initial Spanish navigation/messages.
+- Rebind every contextual shortcut; test keyboard/narration, high GUI scales and narrow windows across all menus. Add per-client sensory controls; Bronze sound is currently a host setting.
+- Add per-metal tutorial examples, clearer typed ownership/charge tooltips, source shutdown explanations and combined medallion status. Current carriers unfold into independent slots.
+- Replace shared vanilla placeholder item references with distinctive original art, with provenance review.
 
-## 3. Compounding
+## 3. Standard-metal depth
 
-1. Specify the transaction contract: distinguish ordinary fuel, invested material, stored attribute/ability content, mass, Identity and ownership.
-2. Define supported per-attribute outputs and costs. Typed abilities and discrete memories cannot silently become generic energy.
-3. Consume the exact authorized physical invested material once; invalidate its previous canonical use and preserve residual mass/charge accurately. Prevent burning and tapping the same charge twice, copying/splitting exploits and invalid cross-world references.
-4. Implement amplification through separate Allomantic/Feruchemical accounting, with interruptions, capacities, source shutdown and usable feedback.
-5. Add unit, server, client, two-client and dedicated restart regressions before exposing normal gameplay recipes. Compounding is currently absent.
+- Bronze: broader evidenced Investiture detection and weak/strong concealment tuning beyond paid player/NPC Allomancy pulses.
+- Zinc/Brass: richer NPC decisions, competing influences and awareness; add each NPC metal with actual ownership/fuel.
+- Enhancement: researched per-metal burst duration/output and actual third-party protection/mutual-contact tests. Current one-frame capped burst is an approximation.
+- Gold/Electrum: more actual character alternatives and projectile/latency uncertainty. No fabricated biography or perfect future prediction.
+- Temporal: explicit new machine/vehicle adapters and entry/exit tests. General redstone, random/scheduled ticks and player physiology remain global.
+- Body Feruchemy: environmental/survival-mod adapters, long balance sessions and healing priorities. Bounded trauma is not amputation/regrowth, ageing or disease simulation.
+- Copper: permission-safe sharing, richer organization and knowledge-system adapters. Real human knowledge cannot be erased.
+- Identity/Connection/Fortune: explicit faction/language/social adapters and meaningful bounded opportunities. No arbitrary impersonation, universal translation or destiny control.
+- Compounding: consider a separately swallowed-metalmind interface and residual-material recovery; current whole-source burn is deliberate and canonical-once.
 
-## 4. Advanced Hemalurgy and constructs
+## 4. Constructs and spiritual consequences
 
-- Research canonical evidence for supported placements, exceptions and construct dependencies. Existing twelve-point human grid is an explicitly inferred playable layout.
-- Implement distinct researched Inquisitor/koloss/kandra templates, anatomy/body changes, required spikes, removal dependencies and linchpin consequences; do not use one generic stat multiplier as a full construct.
-- Expand spiritual vulnerability and emotional control interactions while retaining consent/protection policy for players. Current fortitude/instability/passive handlers do not simulate every construct psychology.
-- Implement exceptional/nonlethal extraction only with explicit rules, consequences and rollback/resource accounting. Normal extraction currently requires lethal donor loss and refuses death-prevention equipment/armed Gold recovery.
-- Research unusual Invested/god-metal spikes, multiple-power extraction and native-attribute consequences separately; source-scoped theft must preserve unrelated grants and keep extracted-source tombstones.
+- Add distinct NPC construct species/AI and more researched forms. Current player templates are Koloss/Inquisitor/Kandra, with wolf/slime Kandra bodies.
+- Research more placements, unusual spikes, multiple-power extraction, anatomy and psychology. The twelve-point grid and preparation recipes are adaptations.
+- Expand exceptional extraction and Invested resistance only with explicit source accounting and consent/protection policy.
+- Balance growth, collapse, lineage acquisition and recovery through survival playthroughs. The human-to-mistwraith ritual is a game recipe, not asserted canon.
 
-## 5. Survival acquisition and world progression
+## 5. Survival depth
 
-- Design natural access to Misting/Mistborn/Ferring/Feruchemist powers, rarity and progression, with configurable server policy. Ordinary new characters start powerless; operator grants and powered-donor setup are development tools. The documented configurable two-account perk does not complete natural progression.
-- Add genuinely powered NPCs with actual spiritwebs, fuel, AI and loot/protection behavior. Hemalurgy currently transfers actual configured donors; it does not seed a world population of powered NPCs.
-- Add discovery/tutorial progression, balanced recipes/trades and resource scarcity. Decide how unsealed equipment is acquired and produced in survival.
-- Optional mixed-metal vials need composition, purity, capacity, invested-subset handling, brewing/ingestion UI and conservation tests. Expand material/tag interoperability and deliberate Investiture resistance.
-- Add god metals/alloys only after explicit researched rules, source provenance and separately scoped effects. No fictional universal compatibility promises.
+- Add custom powered NPC identities, factions, quests, structures and authored discoveries. Current powered population uses vanilla hostile mobs, finite fuel and a bounded active subset.
+- Add autonomous NPC storage/tapping and more metal AI. NPC Feruchemy is currently an actual donor source, not active Feruchemical AI.
+- Balance latent allocation/snapping/discovery through playtests. Some characters have neither Art; unsealed equipment and Hemalurgy are alternate paths. Death/extraction must not reroll powers.
+- Add authored advancements, recipe-book onboarding, rare loot/trade structures and individual-metal tutorials. Existing ore economy/four professions remain the baseline.
 
-## 6. Presentation, accessibility and release
+## 6. Invested material research
 
-- Finish wheel icons/highlighting, readable tooltips, clear typed-charge/access/Identity states, status messages, key-conflict handling and low-resolution/high-GUI-scale layouts. Keep source-specific shutdown understandable.
-- Add optional sound/visual accessibility controls, color-independent cues, screen-reader/localization coverage and translations. Current advanced explanatory strings are mostly English.
-- Add in-game tutorials and examples for every Art, metal, body cost, privacy, equipment transfer and unsealing. Keep the README and test guide synchronized.
-- Publish permanent versioned GitHub Releases with installable jar, sources, checksums, changelog and exact matching dependencies; CI artifacts currently expire and require GitHub sign-in.
-- Add platform coverage (Linux/macOS clients/dedicated servers), longer save/recovery and compatibility matrices, automated repeated multiplayer runs and performance baselines. GitHub CI currently validates compile/unit/datagen; local native tests are separately recorded.
-- Finish attribution/license review and public issue templates; label experimental approximations and unsupported interactions in release notes. A playable alpha is not a finished public release.
+- Verify a published Excisor process before asserting canonical manufacturing. Extend the 2–3 core carrier only with independent charge/lease accounting and evidence.
+- Design pure Atium separately from Era-one Atium/electrum; design Malatium and researched prediction interactions.
+- Research Harmonium, Trellium and other shard metals/alloys/hazards individually. Unknown effects remain disabled rather than guessed.
+- Recheck direct author sources when accessible. Lerasium strength, non-stacking and acquisition costs are balance choices, not canon quantities.
+
+## 7. Release governance
+
+- Obtain the owner's source-license choice and any branding/fan-use review. The technical attribution inventory is not legal clearance.
+- Maintain immutable versioned Releases, checksums, matching dependency notes and changelogs; do not overwrite existing assets under the same version.
+- Expand CI/native/multiplayer regressions and issue templates as adapters land; distinguish implemented scope, observed tests and open acceptance.

@@ -33,6 +33,7 @@ public final class FoundationClientGameTest implements FabricClientGameTest {
             context.runOnClient(client -> client.setScreen(new SpiritwebScreen()));
             context.waitTicks(140); // Let vanilla recipe toasts clear before visual verification.
             context.takeScreenshot("metallicarts-spiritweb");
+            context.clickScreenButton("Guide");context.waitForScreen(dev.metallicarts.client.GuideScreen.class);context.clickScreenButton("Next");context.takeScreenshot("metallicarts-survival-guide");context.clickScreenButton("Close");
         }
         // Full disconnect + integrated server shutdown + disk reload, not just a codec round-trip.
         try (TestSingleplayerContext reopened = save.open()) {
@@ -67,3 +68,4 @@ public final class FoundationClientGameTest implements FabricClientGameTest {
         }
     }
 }
+

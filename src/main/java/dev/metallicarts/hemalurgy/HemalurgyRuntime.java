@@ -20,6 +20,7 @@ import java.util.*;
 
 /** Main-thread physical transactions and source-specific grants. Advanced stolen types retain explicit hooks. */
 public final class HemalurgyRuntime {
+    private static final Set<UUID> NONLETHAL=new HashSet<>();
     private static final Set<UUID> CONSENT=new HashSet<>();
     private static final Map<UUID,int[]> REQUESTS=new HashMap<>();
     private static final Map<UUID,Map<StolenPower.Kind,Double>> PASSIVE=new HashMap<>();
@@ -28,13 +29,14 @@ public final class HemalurgyRuntime {
     private static long now(ServerPlayer p){return p.level().getServer().overworld().getGameTime();}
     public static void initialize(){
         BindingPoints.ALL.size();
+        net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DEATH.register((entity,source,amount)->{if(NONLETHAL.contains(entity.getUUID())){entity.setHealth(1);return false;}return true;});
         PayloadTypeRegistry.serverboundPlay().register(SpikeIntent.TYPE,SpikeIntent.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SpikeSnapshot.TYPE,SpikeSnapshot.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(SpikeIntent.TYPE,(payload,context)->act(context.player(),payload));
         ServerPlayConnectionEvents.DISCONNECT.register((handler,server)->{
             CONSENT.remove(handler.player.getUUID());REQUESTS.remove(handler.player.getUUID());PASSIVE.remove(handler.player.getUUID());VULNERABILITY.remove(handler.player.getUUID());
         });
-        ServerLifecycleEvents.SERVER_STOPPING.register(server->{CONSENT.clear();REQUESTS.clear();PASSIVE.clear();VULNERABILITY.clear();});
+        ServerLifecycleEvents.SERVER_STOPPING.register(server->{CONSENT.clear();NONLETHAL.clear();REQUESTS.clear();PASSIVE.clear();VULNERABILITY.clear();ConstructRuntime.clear();});
         HemalurgyCommands.initialize();
     }
     public static boolean act(ServerPlayer p,SpikeIntent intent){
@@ -64,7 +66,7 @@ public final class HemalurgyRuntime {
         var preview=held.get(ModRegistries.SPIKE);var form=EconomyContent.form(held.getItem());
         if(held.getCount()!=1||preview==null||form==null||!List.of("spike","earring").contains(form.kind()))throw new IllegalArgumentException("Hold one canonically charged spike or earring");
         var ledger=SpikeLedger.get(p.level().getServer());var asset=ledger.resolve(preview.token());
-        if(!asset.metal().id().equals(form.material())||!binding.accepts(asset.metal()))throw new IllegalArgumentException("Material incompatible with this binding point");
+        if(!asset.metal().id().equals(form.material())||!ConstructRuntime.accepts(p,point,asset))throw new IllegalArgumentException("Material incompatible with this binding point");
         if(asset.drained()||asset.power().kind()==StolenPower.Kind.NULLIFICATION)throw new IllegalArgumentException("This spike is spent");
         long existing=p.getAttachedOrCreate(ModRegistries.SPIRITWEB).grants().stream().filter(g->g.origin()!=PowerGrant.Origin.HEMALURGIC||!ledger.known(g.source())).count();
         if(existing+12>128)throw new IllegalArgumentException("Spiritweb grant capacity reached");
@@ -77,6 +79,7 @@ public final class HemalurgyRuntime {
         if(data==null)throw new IllegalArgumentException("Binding point empty");
         int slot=-1;for(int i=0;i<36;i++)if(p.getInventory().getItem(i).isEmpty()){slot=i;break;}
         if(slot<0)throw new IllegalArgumentException("Make inventory space first");
+        boolean inquisitor=p.getAttachedOrCreate(ModRegistries.CONSTRUCT).kind()==ConstructState.Kind.INQUISITOR;
         boolean critical=BindingPoints.ALL.get(point).critical()&&equipment.items().stream().filter(s->s.has(ModRegistries.SPIKE)).count()>1;
         var free=SpikeLedger.get(p.level().getServer()).release(data.token(),new AssetLease(p.getUUID(),point),now(p));
         stack.set(ModRegistries.SPIKE,SpikeData.of(free));p.getInventory().setItem(slot,stack);
@@ -84,7 +87,7 @@ public final class HemalurgyRuntime {
         p.setAttached(ModRegistries.SPIRITWEB,p.getAttachedOrCreate(ModRegistries.SPIRITWEB).withoutSource(data.token().instance()));
         tick(p,p.level().getServer().getTickCount());
         // Explicit experimental linchpin policy, once per removal; never a serialized repeated death action.
-        if(critical)p.hurtServer(p.level(),p.damageSources().magic(),Float.MAX_VALUE);
+        if(critical)p.hurtServer(p.level(),inquisitor?p.damageSources().genericKill():p.damageSources().magic(),Float.MAX_VALUE);
     }
     public static Optional<LivingEntity> aimedDonor(ServerPlayer p){
         Vec3 eye=p.getEyePosition(),look=p.getLookAngle();
@@ -92,7 +95,9 @@ public final class HemalurgyRuntime {
             .filter(e->{var delta=e.position().add(0,e.getBbHeight()*.55,0).subtract(eye);double along=delta.dot(look);return along>0&&delta.length()<=3&&delta.subtract(look.scale(along)).length()<.5;})
             .min(Comparator.comparingDouble(p::distanceToSqr));
     }
-    public static void extract(ServerPlayer p,LivingEntity donor,StolenPower power){
+    public static void extract(ServerPlayer p,LivingEntity donor,StolenPower power){extract(p,donor,power,false);}
+    public static void extract(ServerPlayer p,LivingEntity donor,StolenPower power,boolean exceptional){
+        if(exceptional&&(!dev.metallicarts.config.AdvancedConfig.get().constructs().exceptionalExtraction()||power.art().isEmpty()||donor.getHealth()<=6||donor.getAttachedOrCreate(ModRegistries.SPIRITUAL_WOUNDS)>=64))throw new IllegalArgumentException("Exceptional extraction is disabled, unsupported, or donor too weak");
         if(!p.isAlive()||p.isSpectator()||donor==p||!donor.isAlive()||donor.level()!=p.level()||p.distanceToSqr(donor)>9||!p.hasLineOfSight(donor))
             throw new IllegalArgumentException("Invalid living donor or reach");
         if(!(donor instanceof ServerPlayer)&&!donor.getType().builtInRegistryHolder().is(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ENTITY_TYPE,MetallicArts.id("hemalurgic_donors"))))
@@ -114,20 +119,23 @@ public final class HemalurgyRuntime {
         if(power.kind()==StolenPower.Kind.NULLIFICATION&&before.grants().isEmpty())throw new IllegalArgumentException("Donor has no powers to remove");
         UUID source=chosen==null?UUID.nameUUIDFromBytes((donor.getUUID()+":"+power.kind()).getBytes(StandardCharsets.UTF_8)):chosen.id();
         var ledger=SpikeLedger.get(p.level().getServer());if(!ledger.canCreate(source))throw new IllegalArgumentException("Donor source already extracted or world limit reached");
-        if(AttackEntityCallback.EVENT.invoker().interact(p,p.level(),InteractionHand.MAIN_HAND,donor,null)!=InteractionResult.PASS)
+        if(!dev.metallicarts.api.ArtsProtection.allows(p,donor,dev.metallicarts.api.ArtsProtection.Action.EXTRACTION))
             throw new IllegalArgumentException("Extraction blocked by attack protection");
         var escrow=held.copy();double strength=chosen==null?1:chosen.strength();PowerGrant selected=chosen;
         if(!before.equals(donor.getAttachedOrCreate(ModRegistries.SPIRITWEB))||!ItemStack.matches(escrow,p.getMainHandItem()))
             throw new IllegalArgumentException("Donor or held item changed during protection checks");
         // Reserve the unique source before damage callbacks can reenter extraction. No item exposes this token yet.
-        var asset=ledger.create(metal,power,donor.getUUID(),before.identity(),source,strength,now(p));
+        if(exceptional&&donor.getHealth()<=6)throw new IllegalArgumentException("Donor changed during protection checks");
+        var asset=ledger.create(metal,power,donor.getUUID(),before.identity(),source,strength,now(p),exceptional?dev.metallicarts.config.AdvancedConfig.get().constructs().nonlethalRetention():.9);
         var remaining=power.kind()==StolenPower.Kind.NULLIFICATION?List.<PowerGrant>of():before.grants().stream().filter(g->selected==null||!g.id().equals(selected.id())).toList();
         var after=new Spiritweb(before.schema(),before.identity(),remaining,before.reserves(),before.investedReserves());
-        float health=donor.getHealth();p.setItemInHand(InteractionHand.MAIN_HAND,ItemStack.EMPTY);donor.setAttached(ModRegistries.SPIRITWEB,after);
+        float health=donor.getHealth(),absorption=donor.getAbsorptionAmount();p.setItemInHand(InteractionHand.MAIN_HAND,ItemStack.EMPTY);donor.setAttached(ModRegistries.SPIRITWEB,after);
         boolean died;
-        try{donor.hurtServer(p.level(),p.damageSources().playerAttack(p),Float.MAX_VALUE);died=!donor.isAlive();}
-        catch(RuntimeException e){ledger.cancelUnpublished(asset.token());donor.setAttached(ModRegistries.SPIRITWEB,before);p.setItemInHand(InteractionHand.MAIN_HAND,escrow);throw e;}
-        if(!died){ledger.cancelUnpublished(asset.token());donor.setAttached(ModRegistries.SPIRITWEB,before);donor.setHealth(health);p.setItemInHand(InteractionHand.MAIN_HAND,escrow);throw new IllegalArgumentException("Donor death prevented; power and spike restored");}
+        try{if(exceptional)NONLETHAL.add(donor.getUUID());boolean hurt=donor.hurtServer(p.level(),p.damageSources().playerAttack(p),exceptional?4:Float.MAX_VALUE);died=exceptional?hurt&&donor.isAlive()&&donor.getHealth()+donor.getAbsorptionAmount()<health+absorption:!donor.isAlive();}
+        catch(RuntimeException e){ledger.cancelUnpublished(asset.token());donor.setAttached(ModRegistries.SPIRITWEB,before);p.setItemInHand(InteractionHand.MAIN_HAND,escrow);donor.setHealth(health);donor.setAbsorptionAmount(absorption);throw e;}
+        finally{NONLETHAL.remove(donor.getUUID());}
+        if(!died){ledger.cancelUnpublished(asset.token());donor.setAttached(ModRegistries.SPIRITWEB,before);donor.setHealth(health);donor.setAbsorptionAmount(absorption);p.setItemInHand(InteractionHand.MAIN_HAND,escrow);throw new IllegalArgumentException("Donor death prevented; power and spike restored");}
+        if(exceptional){donor.setAttached(ModRegistries.SPIRITUAL_WOUNDS,donor.getAttachedOrCreate(ModRegistries.SPIRITUAL_WOUNDS)+1);applySpiritualWounds(donor);}
         if(chosen!=null&&chosen.origin()==PowerGrant.Origin.HEMALURGIC)ledger.drainSource(chosen.source());
         if(power.kind()==StolenPower.Kind.NULLIFICATION)before.grants().stream().filter(g->g.origin()==PowerGrant.Origin.HEMALURGIC).forEach(g->ledger.drainSource(g.source()));
         if(power.kind()==StolenPower.Kind.NULLIFICATION){ledger.drainSource(asset.token().instance());asset=ledger.resolve(asset.token());}
@@ -156,7 +164,7 @@ public final class HemalurgyRuntime {
             var data=equipment(p).item(slot).get(ModRegistries.SPIKE);if(data==null)continue;
             try{
                 var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),slot));
-                if(!BindingPoints.ALL.get(slot).accepts(a.metal())||a.drained())continue;
+                if(!ConstructRuntime.accepts(p,slot,a)||a.drained())continue;
                 a=ledger.advance(a.token(),now(p));count++;
                 if(a.power().art().isPresent()){
                     UUID id=UUID.nameUUIDFromBytes(("spike:"+a.token().instance()).getBytes(StandardCharsets.UTF_8));
@@ -167,6 +175,8 @@ public final class HemalurgyRuntime {
         PASSIVE.put(p.getUUID(),p.isAlive()?Map.copyOf(passive):Map.of());
         int vulnerability=Math.max(0,count-(int)Math.floor(passive.getOrDefault(StolenPower.Kind.EMOTIONAL_FORTITUDE,0.0)));
         VULNERABILITY.put(p.getUUID(),vulnerability);
+        modifier(p,Attributes.MAX_HEALTH,"hemalurgic_wounds",-Math.min(16,p.getAttachedOrCreate(ModRegistries.SPIRITUAL_WOUNDS)*2));
+        if(p.getHealth()>p.getMaxHealth())p.setHealth(p.getMaxHealth());
         double strength=passive(p,StolenPower.Kind.STRENGTH);
         modifier(p,Attributes.ATTACK_DAMAGE,"hemalurgic_strength",2*strength);
         modifier(p,Attributes.ATTACK_KNOCKBACK,"hemalurgic_force",.5*strength);
@@ -189,7 +199,7 @@ public final class HemalurgyRuntime {
             var data=equipment(p).item(i).get(ModRegistries.SPIKE);if(data==null)continue;
             try{var a=ledger.owned(data.token(),new AssetLease(p.getUUID(),i));
                 boolean granted=p.getAttachedOrCreate(ModRegistries.SPIRITWEB).grants().stream().anyMatch(g->g.origin()==PowerGrant.Origin.HEMALURGIC&&g.source().equals(a.token().instance())&&g.art()==Art.FERUCHEMY&&g.metal()==metal);
-                if(!a.drained()&&BindingPoints.ALL.get(i).accepts(a.metal())&&(granted&&a.power().kind()==StolenPower.Kind.FERUCHEMY&&a.power().metal()==metal||a.power().kind()==StolenPower.Kind.CONNECTION_IDENTITY))keys.add(a.donorIdentity());
+                if(!a.drained()&&ConstructRuntime.accepts(p,i,a)&&(granted&&a.power().kind()==StolenPower.Kind.FERUCHEMY&&a.power().metal()==metal||a.power().kind()==StolenPower.Kind.CONNECTION_IDENTITY))keys.add(a.donorIdentity());
             }catch(IllegalArgumentException ignored){}
         }
         return Set.copyOf(keys);
@@ -204,5 +214,7 @@ public final class HemalurgyRuntime {
         }
         ServerPlayNetworking.send(p,new SpikeSnapshot(equipment,message==null?"Action refused":message,CONSENT.contains(p.getUUID()),vulnerability(p)));
     }
+    public static void applySpiritualWounds(net.minecraft.world.entity.LivingEntity donor){var attribute=donor.getAttribute(Attributes.MAX_HEALTH);if(attribute==null)return;int wounds=donor.getAttachedOrCreate(ModRegistries.SPIRITUAL_WOUNDS);var id=dev.metallicarts.MetallicArts.id("hemalurgic_wounds");if(wounds==0)attribute.removeModifier(id);else attribute.addOrUpdateTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(id,-Math.min(16,wounds*2),net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));if(donor.getHealth()>donor.getMaxHealth())donor.setHealth(donor.getMaxHealth());}
     private HemalurgyRuntime(){}
 }
+

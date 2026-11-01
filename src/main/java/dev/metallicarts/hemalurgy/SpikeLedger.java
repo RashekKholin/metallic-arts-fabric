@@ -32,12 +32,17 @@ public final class SpikeLedger extends SavedData {
     }
     public static SpikeLedger get(MinecraftServer server){return server.overworld().getDataStorage().computeIfAbsent(TYPE);}
     public List<SpikeAsset> all(){return assets.values().stream().sorted(Comparator.comparing(a->a.token().instance())).toList();}
+    public Optional<SpikeAsset> find(UUID instance){return Optional.ofNullable(assets.get(instance));}
     public boolean extracted(UUID source){return extractions.contains(source);}
     public boolean known(UUID source){return assets.containsKey(source);}
     public boolean canCreate(UUID source){return assets.size()<LIMIT&&extractions.size()<LIMIT&&!extracted(source);}
     public SpikeAsset create(Metal metal,StolenPower power,UUID donor,UUID identity,UUID source,double strength,long now){
+        return create(metal,power,donor,identity,source,strength,now,.9);
+    }
+    public SpikeAsset create(Metal metal,StolenPower power,UUID donor,UUID identity,UUID source,double strength,long now,double retention){
+        if(!Double.isFinite(retention)||retention<.01||retention>1)throw new IllegalArgumentException("Invalid extraction retention");
         if(!canCreate(source))throw new IllegalArgumentException("Donor source already extracted or world limit reached");
-        var asset=new SpikeAsset(new AssetToken(UUID.randomUUID(),UUID.randomUUID(),0),metal,power,donor,identity,source,strength,strength*.9,0,Math.max(0,now),false,Optional.empty(),false);
+        var asset=new SpikeAsset(new AssetToken(UUID.randomUUID(),UUID.randomUUID(),0),metal,power,donor,identity,source,strength,strength*retention,0,Math.max(0,now),false,Optional.empty(),false);
         extractions.add(source);return replace(asset);
     }
     public SpikeAsset resolve(AssetToken token){

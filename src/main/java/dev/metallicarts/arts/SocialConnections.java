@@ -15,10 +15,12 @@ public final class SocialConnections {
   var previous=PRICES.remove(v);if(previous!=null)previous.deltas().forEach((offer,delta)->offer.addToSpecialPriceDiff(-delta));
   double connection=AdvancedFeruchemy.effect(p,FeruchemicalAttribute.CONNECTION)+.25*HemalurgyRuntime.passive(p,StolenPower.Kind.CONNECTION_IDENTITY);
   double trust=v.getAttachedOrCreate(ModRegistries.EMOTIONS).value(EmotionProfile.Emotion.TRUST)-.25;
-  double fraction=Math.clamp(connection*.1*(1+.25*p.getAttachedOrCreate(ModRegistries.CONNECTIONS).familiarity(region(p)))+trust*.1,-.3,.4);var deltas=new IdentityHashMap<MerchantOffer,Integer>();
+  double rapport=p.getAttachedOrCreate(ModRegistries.RELATIONSHIPS).familiarity(v.getUUID())*.1;double faction=p.getTeam()==null||v.getTeam()==null?0:p.getTeam()==v.getTeam()?.03:-.02;
+  double fraction=Math.clamp(rapport+faction+connection*dev.metallicarts.config.AdvancedConfig.get().social().tradeCoefficient()*(1+dev.metallicarts.config.AdvancedConfig.get().social().familiarityBonus()*p.getAttachedOrCreate(ModRegistries.CONNECTIONS).familiarity(region(p)))+trust*.1,-dev.metallicarts.config.AdvancedConfig.get().social().maximumSurcharge(),dev.metallicarts.config.AdvancedConfig.get().social().maximumDiscount());var deltas=new IdentityHashMap<MerchantOffer,Integer>();
   for(var offer:v.getOffers()){int delta=-(int)Math.floor(offer.getBaseCostA().getCount()*fraction);if(delta!=0){offer.addToSpecialPriceDiff(delta);deltas.put(offer,delta);}}
   PRICES.put(v,new Prices(p,deltas));
  }
+ public static void trade(net.minecraft.world.entity.npc.villager.Villager v){if(v.getTradingPlayer() instanceof ServerPlayer p){p.setAttached(ModRegistries.RELATIONSHIPS,p.getAttachedOrCreate(ModRegistries.RELATIONSHIPS).trade(v.getUUID()));MemoryCapture.observe(p,"relationship","Traded with "+v.getName().getString(),"merchant:"+v.getUUID());}}
  public static void forget(Villager v){PRICES.remove(v);}
  public static void tick(ServerPlayer p,int tick){
   if(tick%20==0){String region=region(p);p.setAttached(ModRegistries.CONNECTIONS,p.getAttachedOrCreate(ModRegistries.CONNECTIONS).visit(region));}

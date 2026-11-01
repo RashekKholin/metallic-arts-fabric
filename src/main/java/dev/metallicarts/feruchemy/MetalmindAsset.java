@@ -9,7 +9,7 @@ import java.util.*;
 
 /** Canonical world-owned charge. Item components merely reference this record. */
 public record MetalmindAsset(AssetToken token,Metal metal,long massMicrograms,double purity,
-    FeruchemicalAttribute attribute,long charge,long capacity,Optional<UUID> identity,boolean unkeyed,Optional<AssetLease> lease,MetalmindContent content) {
+    FeruchemicalAttribute attribute,long charge,long capacity,Optional<UUID> identity,boolean unkeyed,Optional<AssetLease> lease,MetalmindContent content,boolean consumed) {
     public static final long MAX_CAPACITY=1_000_000_000_000L;
     public static final Codec<MetalmindAsset> CODEC=RecordCodecBuilder.create(i->i.group(
         AssetToken.CODEC.fieldOf("token").forGetter(MetalmindAsset::token),
@@ -22,11 +22,13 @@ public record MetalmindAsset(AssetToken token,Metal metal,long massMicrograms,do
         UUIDUtil.CODEC.optionalFieldOf("identity").forGetter(MetalmindAsset::identity),
         Codec.BOOL.fieldOf("unkeyed").forGetter(MetalmindAsset::unkeyed),
         AssetLease.CODEC.optionalFieldOf("lease").forGetter(MetalmindAsset::lease),
-        MetalmindContent.CODEC.optionalFieldOf("content",MetalmindContent.EMPTY).forGetter(MetalmindAsset::content)
+        MetalmindContent.CODEC.optionalFieldOf("content",MetalmindContent.EMPTY).forGetter(MetalmindAsset::content),
+        Codec.BOOL.optionalFieldOf("consumed",false).forGetter(MetalmindAsset::consumed)
     ).apply(i,MetalmindAsset::new));
     public MetalmindAsset{
         Objects.requireNonNull(token);Objects.requireNonNull(metal);Objects.requireNonNull(attribute);
         Objects.requireNonNull(identity);Objects.requireNonNull(lease);Objects.requireNonNull(content);
+        if(consumed&&(charge!=0||lease.isPresent()))throw new IllegalArgumentException("Consumed assets cannot retain charge/contact");
         if(attribute.metal()!=metal||massMicrograms<1||massMicrograms>MAX_CAPACITY||
             !Double.isFinite(purity)||purity<.000001||purity>1||capacity<1||
             capacity>Math.max(1,(long)Math.floor(massMicrograms*purity))||charge<0||charge>capacity||
@@ -39,6 +41,9 @@ public record MetalmindAsset(AssetToken token,Metal metal,long massMicrograms,do
     }
     public MetalmindAsset(AssetToken token,Metal metal,long mass,double purity,FeruchemicalAttribute attribute,long charge,long capacity,Optional<UUID> identity,boolean unkeyed,Optional<AssetLease> lease){
         this(token,metal,mass,purity,attribute,charge,capacity,identity,unkeyed,lease,MetalmindContent.EMPTY);
+    }
+    public MetalmindAsset(AssetToken token,Metal metal,long mass,double purity,FeruchemicalAttribute attribute,long charge,long capacity,Optional<UUID> identity,boolean unkeyed,Optional<AssetLease> lease,MetalmindContent content){
+        this(token,metal,mass,purity,attribute,charge,capacity,identity,unkeyed,lease,content,false);
     }
     public boolean accessible(UUID userIdentity){return unkeyed||identity.isEmpty()||identity.get().equals(userIdentity);}
     public MetalmindAsset withCharge(long next,UUID filler){

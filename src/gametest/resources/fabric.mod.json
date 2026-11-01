@@ -25,7 +25,9 @@
       "dev.metallicarts.test.HemalurgyGameTest",
       "dev.metallicarts.test.AdvancedAllomancyGameTest",
       "dev.metallicarts.test.AdvancedFeruchemyGameTest",
-      "dev.metallicarts.test.AccountPowersGameTest"
+      "dev.metallicarts.test.AccountPowersGameTest",
+      "dev.metallicarts.test.AdvancedSystemsGameTest",
+      "dev.metallicarts.test.SurvivalGameTest"
     ],
     "fabric-client-gametest": [
       "dev.metallicarts.test.FoundationClientGameTest",
@@ -33,7 +35,9 @@
       "dev.metallicarts.test.AllomancyClientGameTest",
       "dev.metallicarts.test.FeruchemyClientGameTest",
       "dev.metallicarts.test.HemalurgyClientGameTest",
-      "dev.metallicarts.test.AdvancedArtsClientGameTest"
+      "dev.metallicarts.test.AdvancedArtsClientGameTest",
+      "dev.metallicarts.test.SystemsClientGameTest"
     ]
   }
 }
+

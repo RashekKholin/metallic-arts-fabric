@@ -36,7 +36,7 @@ public final class AdvancedAllomancy {
         PayloadTypeRegistry.clientboundPlay().register(ArtsFeedback.TYPE,ArtsFeedback.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ArtAction.TYPE,(payload,context)->action(context.player(),payload));
         ServerPlayConnectionEvents.DISCONNECT.register((handler,server)->{stop(handler.player);EffectivePower.stop(handler.player);});
-        ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.clear();TemporalEngine.clear();EmotionService.clear();EffectivePower.clear();});
+        ServerLifecycleEvents.SERVER_STOPPING.register(server->{SESSIONS.clear();PulseHistory.clear();TemporalEngine.clear();EmotionService.clear();EffectivePower.clear();});
     }
     public static Spiritweb drain(Spiritweb state,Set<Metal> metals){
         var reserves=new EnumMap<Metal,Long>(Metal.class);state.reserves().forEach((m,v)->{if(!metals.contains(m))reserves.put(m,v);});
@@ -52,7 +52,7 @@ public final class AdvancedAllomancy {
             s.burst=false;var exhausted=EnumSet.noneOf(Metal.class);
             for(var m:List.copyOf(powers.keySet()))if(!Set.of(Metal.DURALUMIN,Metal.ALUMINUM,Metal.CHROMIUM,Metal.NICROSIL).contains(m)){
                 long mass=ReserveLedger.ordinary(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m);
-                double boost=Math.clamp(1+Math.sqrt(mass/1000.0),1,8);powers.put(m,Math.min(32,powers.get(m)*boost));exhausted.add(m);engine.exhaust(m);
+                double boost=Math.clamp(1+Math.sqrt(mass/(double)dev.metallicarts.config.AdvancedConfig.get().enhancement().massScale()),1,dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumBoost());powers.put(m,Math.min(dev.metallicarts.config.AdvancedConfig.get().enhancement().maximumPower(),powers.get(m)*boost));exhausted.add(m);engine.exhaust(m);
             }
             if(powers.containsKey(Metal.DURALUMIN)){exhausted.add(Metal.DURALUMIN);engine.exhaust(Metal.DURALUMIN);}
             if(!exhausted.isEmpty()){p.setAttached(ModRegistries.SPIRITWEB,drain(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),exhausted));s.notice="Amplified burst consumed active metals";}
@@ -61,14 +61,19 @@ public final class AdvancedAllomancy {
     }
     /** Resolve simultaneous contact intents after every caster has paid and before any caster applies effects. */
     public static void frame(MinecraftServer server){
+        PulseHistory.record(server);
         var drained=new HashSet<ServerPlayer>();var amplified=new HashSet<ServerPlayer>();
         for(var p:server.getPlayerList().getPlayers()){
-            var s=session(p);if(server.getTickCount()-s.contact<20)continue;
+            var s=session(p);if(server.getTickCount()-s.contact<dev.metallicarts.config.AdvancedConfig.get().enhancement().contactCooldown())continue;
             double chromium=AllomancyRuntime.power(p,Metal.CHROMIUM),nicrosil=AllomancyRuntime.power(p,Metal.NICROSIL);
             if(chromium<=0&&nicrosil<=0)continue;
             var target=aimed(p,2.5).orElse(null);
+            if(target instanceof Mob mob&&NpcArts.active(mob)){
+                if(!dev.metallicarts.api.ArtsProtection.allows(p,mob,chromium>0?dev.metallicarts.api.ArtsProtection.Action.LEECH:dev.metallicarts.api.ArtsProtection.Action.AMPLIFY))continue;
+                s.contact=server.getTickCount();if(chromium>0){NpcArts.leech(mob);s.notice="Chromium: depleted actual NPC reserves";}else{NpcArts.boost(mob);s.notice="Nicrosil: forced next paid NPC burst";}continue;
+            }
             if(!(target instanceof ServerPlayer other)||!p.canHarmPlayer(other)||other.isCreative()||
-                AttackEntityCallback.EVENT.invoker().interact(p,p.level(),InteractionHand.MAIN_HAND,other,null)!=InteractionResult.PASS)continue;
+                !dev.metallicarts.api.ArtsProtection.allows(p,other,chromium>0?dev.metallicarts.api.ArtsProtection.Action.LEECH:dev.metallicarts.api.ArtsProtection.Action.AMPLIFY))continue;
             s.contact=server.getTickCount();
             if(chromium>0){drained.add(other);s.notice="Chromium: contact depleted target's internal metals";}
             else {amplified.add(other);s.notice="Nicrosil: next paid active-metal burst amplified";}
@@ -90,22 +95,15 @@ public final class AdvancedAllomancy {
         if(Math.abs(time-1)>.001)cues.add(String.format(Locale.ROOT,"Local time %.2fx",time));
         double zinc=powers.getOrDefault(Metal.ZINC,0.0),brass=powers.getOrDefault(Metal.BRASS,0.0);
         if(zinc>0||brass>0){
-            var target=aimed(p,12).orElse(null);var emotion=EmotionProfile.Emotion.values()[s.emotion];
-            if(target!=null&&EmotionService.influence(p,target,emotion,(zinc-brass)*.003))cues.add((zinc>=brass?"Rioting ":"Soothing ")+emotion.name().toLowerCase(Locale.ROOT)+" • "+target.getName().getString());
+            var target=aimed(p,dev.metallicarts.config.AdvancedConfig.get().emotions().range()).orElse(null);var emotion=EmotionProfile.Emotion.values()[s.emotion];
+            if(target!=null&&EmotionService.influence(p,target,emotion,(zinc-brass)*dev.metallicarts.config.AdvancedConfig.get().emotions().rate()))cues.add((zinc>=brass?"Rioting ":"Soothing ")+emotion.name().toLowerCase(Locale.ROOT)+" • "+target.getName().getString());
         }
         double bronze=powers.getOrDefault(Metal.BRONZE,0.0);
-        if(bronze>0&&tick%10==0){
-            int detected=0;double range=Math.min(32,12+3*bronze);
-            for(var other:p.level().getServer().getPlayerList().getPlayers()){
-                if(other==p||other.level()!=p.level()||!other.isAlive()||other.isSpectator()||p.distanceToSqr(other)>range*range)continue;
-                double concealment=concealment(other);if(concealment>=bronze)continue;
-                var metals=AllomancyRuntime.powers(other).keySet().stream().filter(m->m!=Metal.COPPER).toList();
-                if(metals.isEmpty())continue;
-                detected++;cues.add("Pulse "+String.join("/",metals.stream().map(Metal::id).toList())+" • "+(int)p.distanceTo(other)+"m"+(concealment>0?" (pierced cloud)":""));
-                point(p,other.getBoundingBox().getCenter(),0xDD8833);
-                if(detected>=4)break;
-            }
-            if(detected==0)cues.add("Bronze: no detectable Allomantic pulse");
+        if(bronze>0&&tick%dev.metallicarts.config.AdvancedConfig.get().detection().interval()==0){
+            var pulses=PulseHistory.detectable(p,bronze);
+            for(var pulse:pulses){cues.add("Pulse "+String.join("/",pulse.metals().stream().map(Metal::id).sorted().toList())+" • "+(int)p.position().distanceTo(pulse.position())+"m"+(pulse.concealment()>0?" (pierced cloud)":""));point(p,pulse.position().add(0,1,0),0xDD8833);}
+            if(pulses.isEmpty())cues.add("Bronze: no detectable Allomantic pulse");
+            else if(dev.metallicarts.config.AdvancedConfig.get().detection().sound()){var metal=pulses.getFirst().metals().stream().min(Comparator.naturalOrder()).orElse(Metal.IRON);p.connection.send(new net.minecraft.network.protocol.game.ClientboundSoundPacket(net.minecraft.core.Holder.direct(net.minecraft.sounds.SoundEvents.AMETHYST_BLOCK_CHIME),net.minecraft.sounds.SoundSource.PLAYERS,p.getX(),p.getY(),p.getZ(),.15f,.6f+metal.ordinal()*.04f,p.getRandom().nextLong()));}
         }
         if(powers.containsKey(Metal.COPPER))cues.add("Coppercloud • emotional immunity");
         if(powers.containsKey(Metal.GOLD))gold(p,s,cues,tick,powers.get(Metal.GOLD));
@@ -116,7 +114,7 @@ public final class AdvancedAllomancy {
         if(tick%10==0)feedback(p,String.join(" • ",cues),s.journalUntil>=tick||powers.containsKey(Metal.GOLD));
     }
     public static double concealment(ServerPlayer target){
-        double strength=0;for(var smoker:target.level().getServer().getPlayerList().getPlayers()){
+        double strength=NpcArts.cloudAt(target);for(var smoker:target.level().getServer().getPlayerList().getPlayers()){
             if(smoker.level()!=target.level())continue;double power=AllomancyRuntime.power(smoker,Metal.COPPER);
             if(power>0&&smoker.distanceToSqr(target)<=Math.pow(Math.min(18,6+3*power),2))strength=Math.max(strength,power);
         }return strength;
@@ -179,13 +177,13 @@ public final class AdvancedAllomancy {
         feedback(p,s.notice,true);return true;
     }
     private static boolean dodge(ServerPlayer p,Session s,int tick){
-        if(AllomancyRuntime.power(p,Metal.ELECTRUM)<=0||tick-s.dodge<Math.clamp((int)(10/(1+AdvancedFeruchemy.effect(p,dev.metallicarts.feruchemy.FeruchemicalAttribute.MENTAL_SPEED)*.5)),4,20)||threat(p,p.getBoundingBox(),15).isEmpty())return false;
-        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);if(ReserveLedger.ordinary(state,Metal.ELECTRUM)<1000)return false;
+        if(AllomancyRuntime.power(p,Metal.ELECTRUM)<=0||tick-s.dodge<Math.clamp((int)(dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCooldown()/(1+AdvancedFeruchemy.effect(p,dev.metallicarts.feruchemy.FeruchemicalAttribute.MENTAL_SPEED)*.5)),4,20)||threat(p,p.getBoundingBox(),15).isEmpty())return false;
+        var state=p.getAttachedOrCreate(ModRegistries.SPIRITWEB);if(ReserveLedger.ordinary(state,Metal.ELECTRUM)<dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost())return false;
         var right=p.getLookAngle().multiply(1,0,1).normalize().yRot((float)(Math.PI/2));
         for(double side:new double[]{1,-1}){
             var change=right.scale(side*.65);var destination=p.getBoundingBox().move(change);
             if(!p.level().noCollision(p,destination)||threat(p,destination,15).isPresent())continue;
-            p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.debit(state,Metal.ELECTRUM,1000));
+            p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.debit(state,Metal.ELECTRUM,dev.metallicarts.config.AdvancedConfig.get().enhancement().dodgeCost()));
             p.setDeltaMovement(MetalPhysics.limited(p.getDeltaMovement().add(change),AllomancyRuntime.config.maximumPlayerSpeed()));p.hurtMarked=true;s.dodge=tick;s.notice="Followed a predicted opening";ModNetworking.send(p);return true;
         }return false;
     }

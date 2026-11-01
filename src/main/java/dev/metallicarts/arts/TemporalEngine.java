@@ -17,12 +17,14 @@ public final class TemporalEngine {
     private static final Map<UUID,Bubble> BUBBLES=new HashMap<>();
     private static final Map<UUID,Double> CLOCKS=new HashMap<>(),PREVIOUS=new HashMap<>();
     private static final Map<UUID,Integer> STEPS=new HashMap<>();
+    private record Machine(Object level,BlockPos pos,String type){}
+    private static final Map<Machine,FractionalClock> MACHINES=new HashMap<>();
     private static final ThreadLocal<Boolean> EXTRA=ThreadLocal.withInitial(()->false);
     public static void update(ServerPlayer p,Map<Metal,Double> powers,int tick){
         Metal metal=powers.getOrDefault(Metal.BENDALLOY,0.0)>0?Metal.BENDALLOY:Metal.CADMIUM;
         double power=powers.getOrDefault(metal,0.0);var old=BUBBLES.get(p.getUUID());
         if(power<=0||!p.isAlive()||p.isSpectator()){stop(p);return;}
-        double radius=Math.min(8,5+power),rate=metal==Metal.BENDALLOY?Math.min(4,1+2*power):Math.max(.25,1/(1+3*power));
+        var policy=dev.metallicarts.config.AdvancedConfig.get().time();double radius=Math.min(policy.maximumRadius(),policy.baseRadius()+power),rate=metal==Metal.BENDALLOY?Math.min(policy.maximum(),1+policy.speedFactor()*power):Math.max(policy.minimum(),1/(1+policy.slowFactor()*power));
         if(old==null||old.level()!=p.level()||old.metal()!=metal)old=new Bubble(p,p.level(),p.position(),radius,rate,metal);
         if(p.position().distanceToSqr(old.center())>radius*radius){AllomancyRuntime.stopMetal(p,metal);stop(p);return;}
         var bubble=new Bubble(p,p.level(),old.center(),radius,rate,metal);BUBBLES.put(p.getUUID(),bubble);
@@ -30,14 +32,14 @@ public final class TemporalEngine {
     }
     private static boolean valid(Bubble b){return b.owner().isAlive()&&!b.owner().isSpectator()&&b.owner().level()==b.level()&&AllomancyRuntime.power(b.owner(),b.metal())>0&&b.owner().position().distanceToSqr(b.center())<=b.radius()*b.radius();}
     public static double rate(ServerLevel level,Vec3 position){
-        double rate=1;for(var b:BUBBLES.values())if(b.level()==level&&valid(b)&&position.distanceToSqr(b.center())<=b.radius()*b.radius())rate*=b.rate();return Math.clamp(rate,.25,4);
+        double rate=1;for(var b:BUBBLES.values())if(b.level()==level&&valid(b)&&position.distanceToSqr(b.center())<=b.radius()*b.radius())rate*=b.rate();return Math.clamp(rate,dev.metallicarts.config.AdvancedConfig.get().time().minimum(),dev.metallicarts.config.AdvancedConfig.get().time().maximum());
     }
     public static int entitySteps(Entity entity){
         if(entity instanceof net.minecraft.world.entity.player.Player||entity.isVehicle()||!(entity.level() instanceof ServerLevel level))return 1;
         if(BUBBLES.isEmpty()&&!PREVIOUS.containsKey(entity.getUUID()))return 1;
         double rate=rate(level,entity.position());Double previous=PREVIOUS.put(entity.getUUID(),rate);
         if(entity instanceof Projectile&&previous!=null&&Math.abs(previous-rate)>.001){
-            double angle=Math.toRadians((entity.getUUID().hashCode()%2==0?1:-1)*5);var velocity=entity.getDeltaMovement();entity.setDeltaMovement(velocity.yRot((float)angle));entity.hurtMarked=true;
+            double angle=Math.toRadians((entity.getUUID().hashCode()%2==0?1:-1)*dev.metallicarts.config.AdvancedConfig.get().time().boundaryDegrees());var velocity=entity.getDeltaMovement();entity.setDeltaMovement(velocity.yRot((float)angle));entity.hurtMarked=true;
         }
         double total=CLOCKS.getOrDefault(entity.getUUID(),0.0)+rate;int steps=(int)Math.floor(total);CLOCKS.put(entity.getUUID(),total-steps);STEPS.put(entity.getUUID(),steps);
         return steps;
@@ -46,16 +48,19 @@ public final class TemporalEngine {
     public static boolean extra(){return EXTRA.get();}
     public static void runExtra(Runnable operation){EXTRA.set(true);try{operation.run();}finally{EXTRA.remove();}}
     public static int machineSteps(ServerLevel level,BlockPos pos,String type){
-        if(!Set.of("minecraft:furnace","minecraft:blast_furnace","minecraft:smoker","minecraft:brewing_stand","metallicarts:metallurgy_table").contains(type))return 1;
-        double rate=rate(level,Vec3.atCenterOf(pos));long tick=level.getGameTime(),offset=Math.floorMod(pos.asLong(),4);
-        return (int)(Math.floor((tick+offset+1)*rate)-Math.floor((tick+offset)*rate));
+        if(!dev.metallicarts.config.AdvancedConfig.get().time().machines().contains(type))return 1;
+        double rate=rate(level,Vec3.atCenterOf(pos));var key=new Machine(level,pos.immutable(),type);
+        if(rate==1&&!MACHINES.containsKey(key))return 1;
+        if(MACHINES.size()>=4096&&!MACHINES.containsKey(key))return 1;
+        return MACHINES.computeIfAbsent(key,k->new FractionalClock()).advance(level.getGameTime(),rate);
     }
     public static void cleanup(){
+        MACHINES.entrySet().removeIf(e->e.getKey().level() instanceof ServerLevel l&&l.getGameTime()-e.getValue().last()>1200);
         BUBBLES.values().removeIf(b->!valid(b));
         if(CLOCKS.size()>4096){CLOCKS.clear();PREVIOUS.clear();STEPS.clear();}
     }
     public static void stop(ServerPlayer p){BUBBLES.remove(p.getUUID());}
     public static Collection<Bubble> bubbles(){return List.copyOf(BUBBLES.values());}
-    public static void clear(){BUBBLES.clear();CLOCKS.clear();PREVIOUS.clear();STEPS.clear();EXTRA.remove();}
+    public static void clear(){BUBBLES.clear();MACHINES.clear();CLOCKS.clear();PREVIOUS.clear();STEPS.clear();EXTRA.remove();}
     private TemporalEngine(){}
 }

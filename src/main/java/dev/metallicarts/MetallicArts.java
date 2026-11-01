@@ -20,6 +20,8 @@ public final class MetallicArts implements ModInitializer {
 
     @Override public void onInitialize() {
         config = ServerConfig.load();
+        dev.metallicarts.config.AdvancedConfig.load();
+        dev.metallicarts.config.ProgressionConfig.load();
         LOGGER.info("Documented account power access: {} (RashekKholin, The17thShard); config enableAccountPowers controls this perk",config.enableAccountPowers());
         ModRegistries.initialize();
         EconomyContent.initialize();
@@ -32,7 +34,13 @@ public final class MetallicArts implements ModInitializer {
         dev.metallicarts.feruchemy.FeruchemyRuntime.initialize();
         dev.metallicarts.hemalurgy.HemalurgyRuntime.initialize();
         dev.metallicarts.arts.AdvancedAllomancy.initialize();
+        dev.metallicarts.arts.MemoryCapture.initialize();
+        dev.metallicarts.arts.Injuries.initialize();
+        dev.metallicarts.arts.AdvancedSystems.initialize();
+        dev.metallicarts.arts.SurvivalProgression.initialize();
+        dev.metallicarts.arts.SurvivalCommands.initialize();
         dev.metallicarts.allomancy.AllomancyRuntime.initialize();
         LOGGER.info("The Metallic Arts initialized with the sixteen standard Allomantic and Feruchemical metals");
     }
 }
+

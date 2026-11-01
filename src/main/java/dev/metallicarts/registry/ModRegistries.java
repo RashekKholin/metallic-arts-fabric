@@ -13,6 +13,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class ModRegistries {
+    public static final AttachmentType<dev.metallicarts.arts.ProgressionState> PROGRESSION=AttachmentRegistry.create(MetallicArts.id("survival_progression"),b->b.initializer(()->dev.metallicarts.arts.ProgressionState.EMPTY).persistent(dev.metallicarts.arts.ProgressionState.CODEC).copyOnDeath());
+    public static final AttachmentType<Boolean> LERASIUM_CLAIMED=AttachmentRegistry.create(MetallicArts.id("lerasium_claimed"),b->b.initializer(()->false).persistent(com.mojang.serialization.Codec.BOOL).copyOnDeath());
+    public static final AttachmentType<dev.metallicarts.arts.Relationships> RELATIONSHIPS=AttachmentRegistry.create(MetallicArts.id("relationships"),b->b.initializer(dev.metallicarts.arts.Relationships::empty).persistent(dev.metallicarts.arts.Relationships.CODEC).copyOnDeath());
+    public static final AttachmentType<dev.metallicarts.arts.TraumaState> TRAUMA=AttachmentRegistry.create(MetallicArts.id("physical_trauma"),b->b.initializer(()->dev.metallicarts.arts.TraumaState.NONE).persistent(dev.metallicarts.arts.TraumaState.CODEC));
+    public static final AttachmentType<Integer> SPIRITUAL_WOUNDS=AttachmentRegistry.create(MetallicArts.id("spiritual_wounds"),b->b.initializer(()->0).persistent(com.mojang.serialization.Codec.intRange(0,64)).copyOnDeath());
+    public static final AttachmentType<dev.metallicarts.hemalurgy.ConstructState> CONSTRUCT=AttachmentRegistry.create(MetallicArts.id("construct_body"),b->b.initializer(()->dev.metallicarts.hemalurgy.ConstructState.HUMAN).persistent(dev.metallicarts.hemalurgy.ConstructState.CODEC).copyOnDeath());
     public static final AttachmentType<dev.metallicarts.arts.ConnectionState> CONNECTIONS=AttachmentRegistry.create(MetallicArts.id("connections"),
         b->b.initializer(dev.metallicarts.arts.ConnectionState::empty).persistent(dev.metallicarts.arts.ConnectionState.CODEC).copyOnDeath());
     public static final AttachmentType<dev.metallicarts.arts.BodyState> BODY=AttachmentRegistry.create(MetallicArts.id("body_resources"),
@@ -46,3 +52,4 @@ public final class ModRegistries {
     public static void initialize() { MetallicArts.LOGGER.info("Registered {} base metal IDs, spiritweb attachment and metal component", METALS.size()); }
     private ModRegistries() {}
 }
+

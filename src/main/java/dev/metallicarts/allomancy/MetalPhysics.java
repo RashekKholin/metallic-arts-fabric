@@ -118,6 +118,7 @@ public final class MetalPhysics {
         if(FRAME.get()!=null)throw new IllegalStateException("Nested metal-force frame");
         var frame=new ForceFrame();FRAME.set(frame);return frame;
     }
+    public static void externalMotion(Entity entity,Vec3 change,double cap){motion(entity,change,cap);}
     private static void motion(Entity entity,Vec3 change,double cap){
         var frame=FRAME.get();
         if(frame==null){applyMotion(entity,change,cap);return;}

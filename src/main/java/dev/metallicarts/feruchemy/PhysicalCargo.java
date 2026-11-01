@@ -53,6 +53,7 @@ public final class PhysicalCargo extends Display.BlockDisplay {
         var level=player.level();var pos=block.getBlockPos();var state=level.getBlockState(pos);
         double mass=MASS.getOrDefault(state.getBlock(),Double.POSITIVE_INFINITY);
         if(mass>FeruchemyRuntime.carryCapacity(player)||!level.hasChunkAt(pos)||level.getBlockEntity(pos)!=null||!player.mayInteract(level,pos)||
+            !dev.metallicarts.api.ArtsProtection.BLOCK_EVENT.invoker().allow(player,pos,dev.metallicarts.api.ArtsProtection.Action.MOVE_BLOCK)||
             !PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(level,player,pos,state,null)||!level.getBlockState(pos).equals(state))return false;
         var cargo=new PhysicalCargo(TYPE,level);cargo.owner=player.getUUID();
         ((BlockDisplayAccess)(Object)cargo).metallicarts$setBlockState(state);cargo.setPos(player.getX()-.5,player.getBoundingBox().maxY+.25,player.getZ()-.5);

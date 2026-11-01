@@ -3,7 +3,7 @@
   "id": "metallicarts",
   "version": "${version}",
   "name": "The Metallic Arts",
-  "description": "Playable alpha: metal economy, all sixteen standard Allomantic and Feruchemical metals, typed Hemalurgy, canonical invested equipment, and documented bounded game adaptations. Compounding, full constructs and survival power progression remain future work.",
+  "description": "Playable alpha: metal economy, all sixteen standard Allomantic and Feruchemical metals, typed Hemalurgy, canonical invested equipment, and documented bounded game adaptations. Includes compounding, prepared player constructs, survival discovery, mixed vials and typed-core carriers; unknown god metals and external acceptance remain documented work.",
   "environment": "*",
   "mixins": [
     "metallicarts.mixins.json",

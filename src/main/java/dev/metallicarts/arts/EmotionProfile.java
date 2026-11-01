@@ -19,7 +19,7 @@ public record EmotionProfile(Map<Emotion,Double> levels,double awareness,long up
     public static EmotionProfile baseline(){return new EmotionProfile(Map.of(),0,0);}
     public double value(Emotion emotion){return levels.getOrDefault(emotion,emotion.baseline());}
     public EmotionProfile settle(long now){
-        long elapsed=Math.max(0,now-updated);double recovery=Math.min(1,elapsed*.0002);
+        long elapsed=Math.max(0,now-updated);double recovery=Math.min(1,elapsed*dev.metallicarts.config.AdvancedConfig.get().emotions().recovery());
         var next=new EnumMap<Emotion,Double>(Emotion.class);
         for(var emotion:Emotion.values()){double v=value(emotion),base=emotion.baseline();next.put(emotion,v+Math.copySign(Math.min(Math.abs(base-v),recovery),base-v));}
         return new EmotionProfile(next,Math.max(0,awareness-recovery),Math.max(now,updated));

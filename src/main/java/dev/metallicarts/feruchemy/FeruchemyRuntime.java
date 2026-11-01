@@ -55,7 +55,7 @@ public final class FeruchemyRuntime {
         if(++s.requests>30||intent.action()<0||intent.action()>4||intent.slot()<0||intent.slot()>=12||
             intent.sense()<0||intent.sense()>31||intent.mode()<0||intent.mode()>2||intent.rate()<1||intent.rate()>5)return false;
         if(intent.action()==3){send(p,s,"");return true;}
-        if(!p.isAlive()||p.isSpectator())return false;
+        if(!p.isAlive()||p.isSpectator()||!dev.metallicarts.hemalurgy.ConstructRuntime.canUsePowers(p))return false;
         try{
             if(intent.action()==0){ContactService.equip(p,intent.slot(),intent.sense());s.engine.stop(intent.slot());}
             else if(intent.action()==1){ContactService.unequip(p,intent.slot());s.engine.stop(intent.slot());}

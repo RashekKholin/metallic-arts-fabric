@@ -12,7 +12,8 @@
     "TemporalEntityMixin",
     "TemporalMachineMixin",
     "VillagerConnectionMixin",
-    "GoldRecoveryMixin"
+    "GoldRecoveryMixin",
+    "MerchantRelationshipMixin"
   ],
   "injectors": {
     "defaultRequire": 1

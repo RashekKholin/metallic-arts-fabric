@@ -61,6 +61,23 @@ public final class RestartSmoke implements ModInitializer {
                     var memoryLease=new dev.metallicarts.equipment.AssetLease(PLAYER,1);var copper=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.MEMORY,9000000,1,false).token(),memoryLease);copper=ledger.storeMemory(copper.token(),memoryLease,IDENTITY,memory,false);
                     var copperItem=new ItemStack(EconomyContent.item("copper","ring"));copperItem.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(copper));player.setAttached(ModRegistries.CONTACT_EQUIPMENT,player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).with(1,copperItem));
                     var typed=new dev.metallicarts.feruchemy.MetalmindContent(Optional.of(new dev.metallicarts.feruchemy.StoredPower(Art.FERUCHEMY,Metal.GOLD,1)),List.of(),false);var nLease=new dev.metallicarts.equipment.AssetLease(PLAYER,2);var nicrosil=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.INVESTITURE,9000000,1,false,typed).token(),nLease);nicrosil=ledger.change(nicrosil.token(),nLease,IDENTITY,54321,true);nicrosil=ledger.release(nicrosil.token(),nLease);nicrosil=ledger.unseal(nicrosil.token());var nItem=new ItemStack(EconomyContent.item("nicrosil","ring"));nItem.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(nicrosil));player.getInventory().setItem(1,nItem);
+                    player.setAttached(ModRegistries.PROGRESSION,new dev.metallicarts.arts.ProgressionState(true,Optional.of(Metal.IRON),Optional.of(Metal.GOLD),true,true));
+                    player.setAttached(ModRegistries.LERASIUM_CLAIMED,true);
+                    player.setAttached(ModRegistries.TRAUMA,new dev.metallicarts.arts.TraumaState(1,2,1));
+                    player.setAttached(ModRegistries.RELATIONSHIPS,new dev.metallicarts.arts.Relationships(Map.of(ITEM,42)));
+                    player.setAttached(ModRegistries.CONSTRUCT,new dev.metallicarts.hemalurgy.ConstructState(dev.metallicarts.hemalurgy.ConstructState.Lineage.MISTWRAITH,dev.metallicarts.hemalurgy.ConstructState.Kind.KANDRA,dev.metallicarts.hemalurgy.ConstructState.Shape.WOLF,1234,5,3));
+                    var outLease=new dev.metallicarts.equipment.AssetLease(PLAYER,2);
+                    var output=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.HEALTH,9000000,1,false).token(),outLease);
+                    var sourceLease=new dev.metallicarts.equipment.AssetLease(PLAYER,3);
+                    var input=ledger.claim(ledger.create(dev.metallicarts.feruchemy.FeruchemicalAttribute.HEALTH,9000000,1,false).token(),sourceLease);
+                    input=ledger.change(input.token(),sourceLease,IDENTITY,1000);input=ledger.release(input.token(),sourceLease);
+                    var spentCopy=new ItemStack(EconomyContent.item("gold","ring"));spentCopy.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(input));player.getInventory().setItem(2,spentCopy);
+                    output=ledger.compound(input.token(),output.token(),outLease,IDENTITY,IDENTITY,false,10);
+                    var outputItem=new ItemStack(EconomyContent.item("gold","ring"));outputItem.set(ModRegistries.METALMIND,dev.metallicarts.feruchemy.MetalmindData.of(output));player.setAttached(ModRegistries.CONTACT_EQUIPMENT,player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).with(2,outputItem));
+                    var pairLedger=dev.metallicarts.hemalurgy.ConstructLedger.get(server);
+                    var first=spikeLedger.create(Metal.IRON,new dev.metallicarts.hemalurgy.StolenPower(dev.metallicarts.hemalurgy.StolenPower.Kind.STRENGTH,Metal.IRON),UUID.randomUUID(),UUID.randomUUID(),UUID.randomUUID(),1,server.overworld().getGameTime());
+                    var second=spikeLedger.create(Metal.IRON,new dev.metallicarts.hemalurgy.StolenPower(dev.metallicarts.hemalurgy.StolenPower.Kind.STRENGTH,Metal.IRON),UUID.randomUUID(),UUID.randomUUID(),UUID.randomUUID(),1,server.overworld().getGameTime());pairLedger.bless(first,second);
+                    int index=4;for(var member:List.of(first,second)){var stack=new ItemStack(EconomyContent.item("iron","spike"));stack.set(ModRegistries.SPIKE,dev.metallicarts.hemalurgy.SpikeData.of(member));player.getInventory().setItem(index++,stack);}
                     ((ServerStorageAccess)server).metallicarts$storage().save(player);
                     server.overworld().setBlock(pos,Blocks.AIR.defaultBlockState(),3);
                     server.overworld().setBlock(pos,EconomyContent.TABLE.defaultBlockState(),3);
@@ -79,6 +96,10 @@ public final class RestartSmoke implements ModInitializer {
                 }else if(mode.equals("verify")){
                     var tag=server.getPlayerList().loadPlayerData(new NameAndId(PLAYER,"StorageSmoke")).orElseThrow(()->new AssertionError("No player save after restart"));
                     player.load(TagValueInput.create(ProblemReporter.DISCARDING,server.registryAccess(),tag));
+                    if(!player.getAttachedOrCreate(ModRegistries.PROGRESSION).snapped()||!player.getAttachedOrCreate(ModRegistries.LERASIUM_CLAIMED)||player.getAttachedOrCreate(ModRegistries.TRAUMA).total()!=4||player.getAttachedOrCreate(ModRegistries.RELATIONSHIPS).merchants().get(ITEM)!=42||player.getAttachedOrCreate(ModRegistries.CONSTRUCT).shape()!=dev.metallicarts.hemalurgy.ConstructState.Shape.WOLF)throw new AssertionError("Restart lost progression/body/trauma/relationship state");
+                    var checkLedger=dev.metallicarts.feruchemy.MetalmindLedger.get(server);var spent=player.getInventory().getItem(2).get(ModRegistries.METALMIND);if(!checkLedger.find(spent.token().instance()).orElseThrow().consumed())throw new AssertionError("Consumed source resurrected");boolean rejected=false;try{checkLedger.resolve(spent.token());}catch(IllegalArgumentException e){rejected=true;}if(!rejected)throw new AssertionError("Copied spent source became spendable after restart");
+                    var output=player.getAttachedOrCreate(ModRegistries.CONTACT_EQUIPMENT).item(2).get(ModRegistries.METALMIND);if(checkLedger.owned(output.token(),new dev.metallicarts.equipment.AssetLease(PLAYER,2)).charge()!=10000)throw new AssertionError("Compounded charge changed over restart");
+                    var preparationLedger=dev.metallicarts.hemalurgy.ConstructLedger.get(server);var first=preparationLedger.find(player.getInventory().getItem(4).get(ModRegistries.SPIKE).token().instance()).orElseThrow();var second=preparationLedger.find(player.getInventory().getItem(5).get(ModRegistries.SPIKE).token().instance()).orElseThrow();if(!first.pair().equals(second.pair()))throw new AssertionError("Blessing pairing lost over restart");
                     if(!expected().equals(player.getAttached(ModRegistries.SPIRITWEB)))throw new AssertionError("Restart lost spiritweb");
                     if(!itemData().equals(player.getInventory().getItem(0).get(ModRegistries.METAL_DATA)))throw new AssertionError("Restart lost item data");
                     if(!new dev.metallicarts.arts.BodyState(1234,35500000,5678,250,10,900).equals(player.getAttached(ModRegistries.BODY)))throw new AssertionError("Restart lost body resource escrow");
@@ -114,3 +135,4 @@ public final class RestartSmoke implements ModInitializer {
         });
     }
 }
+

@@ -51,6 +51,11 @@ public final class EconomyContent {
                 add(material + "_vial", 1, p -> new MetalVialItem(p, metal));
             }
         }
+        add("mixed_vial",1,MixedVialItem::new);
+        add("medallion",1,MaterialItem::new);
+        dev.metallicarts.equipment.Medallions.CORES.toString();
+        add("lerasium_bead",1,p->new LerasiumItem(p,Optional.empty()));
+        for(var metal:Metal.values())add("lerasium_"+metal.id()+"_bead",1,p->new LerasiumItem(p,Optional.of(metal)));
         SLAG = add("invalid_alloy", 99, MaterialItem::new);
         add("coin_pouch",1,CoinPouchItem::new);
         for (String ore : List.of("tin", "zinc", "silver", "bauxite", "nickel", "chromite", "lead", "bismuth")) {
@@ -94,3 +99,4 @@ public final class EconomyContent {
     public static boolean flakes(ItemStack stack) { Form form = form(stack.getItem()); return form != null && form.kind().equals("flakes") && Materials.metal(form.material()).isPresent(); }
     private EconomyContent() {}
 }
+
