@@ -5,7 +5,7 @@
 1. Craft a **Metallurgy Table**: three iron ingots across the top, three cobblestone in the middle, and three planks along the bottom.
 2. Open it and put coal or another furnace fuel in the **Fuel** slot.
 3. Put an iron ingot into an input slot. Select **Shape**, use the arrow buttons until the ghost recipe shows iron nuggets, then press **Start/Stop**.
-4. Turn one iron nugget into **100 Iron Portions**. The two stacks in the outputs are 99 + 1.
+4. Turn one iron nugget into **100 Iron Portions**. The two stacks in the outputs are 64 + 36.
 5. Move a portion to the inputs. Select the flakes recipe and process it into **Iron Flakes**.
 6. Put water bottles, iron flakes, and blaze powder in a normal **Brewing Stand**. It takes the usual 400 ticks. One flake fills one bottle; two fill two; three fill three. Unused flakes and unfilled bottles remain.
 7. Drink the resulting **Iron Vial**. The bottle returns. Press **M** to see **0.01g** of ingested iron.

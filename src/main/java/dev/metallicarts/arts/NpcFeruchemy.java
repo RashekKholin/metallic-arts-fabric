@@ -60,13 +60,13 @@ public final class NpcFeruchemy {
   var context=new FeruchemicalEngine.Context(){
    public int storeLimit(MetalmindAsset a,int units){return switch(a.attribute()){
     case HEALTH->Math.min(units,Math.max(0,(int)((mob.getHealth()-6)*1000)));
-    case NUTRITION->(int)Math.min(units,mob.getAttachedOrCreate(ModRegistries.BODY).nutrition());
+    case NUTRITION->(int)Math.min(units,mob.getAttachedOrCreate(ModRegistries.BODY).nutrition()/NutritionExchange.SCALE);
     case BREATH->Math.min(units,Math.max(0,(mob.getAirSupply()-40)*1000));
     case WARMTH->(int)Math.min(units,Math.max(0,mob.getAttachedOrCreate(ModRegistries.BODY).temperature()-BodyState.MIN_TEMP));
     case WAKEFULNESS->(int)Math.min(units,BodyState.MAX_FATIGUE-mob.getAttachedOrCreate(ModRegistries.BODY).fatigue());default->units;};}
    public int payStore(MetalmindAsset a,int units){switch(a.attribute()){
     case HEALTH->mob.setHealth(mob.getHealth()-units/1000f);
-    case NUTRITION->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.nutrition(b.nutrition()-units));}
+    case NUTRITION->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.nutrition(b.nutrition()-(long)units*NutritionExchange.SCALE));}
     case BREATH->mob.setAirSupply(mob.getAirSupply()-(units+999)/1000);
     case WARMTH->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.temperature(b.temperature()-units));}
     case WAKEFULNESS->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.fatigue(b.fatigue()+units));}
@@ -74,13 +74,13 @@ public final class NpcFeruchemy {
    }return units;}
    public int tapLimit(MetalmindAsset a,int units){return switch(a.attribute()){
     case HEALTH->Math.min(units,Math.max(0,(int)((mob.getMaxHealth()-mob.getHealth())*1000)));
-    case NUTRITION->(int)Math.min(units,BodyState.MAX_NUTRITION-mob.getAttachedOrCreate(ModRegistries.BODY).nutrition());
+    case NUTRITION->(int)Math.min(units,(BodyState.MAX_NUTRITION-mob.getAttachedOrCreate(ModRegistries.BODY).nutrition())/NutritionExchange.SCALE);
     case BREATH->Math.min(units,Math.max(0,(mob.getMaxAirSupply()-mob.getAirSupply())*1000));
     case WARMTH->(int)Math.min(units,BodyState.MAX_TEMP-mob.getAttachedOrCreate(ModRegistries.BODY).temperature());
     case WAKEFULNESS->(int)Math.min(units,mob.getAttachedOrCreate(ModRegistries.BODY).fatigue());default->units;};}
    public void paid(MetalmindAsset a,int slot,int units){if(units<=0)return;switch(a.attribute()){
     case HEALTH->mob.heal(units/1000f);
-    case NUTRITION->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.nutrition(b.nutrition()+units));}
+    case NUTRITION->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.nutrition(b.nutrition()+(long)units*NutritionExchange.SCALE));}
     case BREATH->mob.setAirSupply(Math.min(mob.getMaxAirSupply(),mob.getAirSupply()+units/1000));
     case WARMTH->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.temperature(b.temperature()+units));}
     case WAKEFULNESS->{var b=mob.getAttachedOrCreate(ModRegistries.BODY);mob.setAttached(ModRegistries.BODY,b.fatigue(b.fatigue()-units));}

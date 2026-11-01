@@ -1,6 +1,6 @@
 # The Metallic Arts
 
-Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **1.0.0-rc.1**
+Minecraft Java **26.1** · Fabric · Java **25** · mod ID `metallicarts` · **1.0.0-rc.2**
 
 A playable unofficial Mistborn fan mod: sixteen standard Allomantic metals, sixteen Feruchemical metals with five separate Tin senses, metallurgy, source-tracked Hemalurgy, compounding, unsealed equipment, player and NPC constructs, survival discovery and researched god-metal interpretations. **Release candidate, pending the acceptance checks below.** This does not implement every unpublished canonical interaction.
 
@@ -8,7 +8,7 @@ A playable unofficial Mistborn fan mod: sixteen standard Allomantic metals, sixt
 
 ## Download and launch
 
-1. Open [GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Download the ordinary **metallic-arts-fabric-1.0.0-rc.1.jar** when that candidate is published after CI passes. **Do not install the `-sources.jar`**; that is developer source. If the candidate is absent, the latest published alpha is a different, earlier build; use it or build this checkout yourself.
+1. Open [GitHub Releases](https://github.com/RashekKholin/metallic-arts-fabric/releases). Download the ordinary **metallic-arts-fabric-1.0.0-rc.2.jar** when that candidate is published after CI passes. **Do not install the `-sources.jar`**; that is developer source. If the candidate is absent, the latest published alpha is a different, earlier build; use it or build this checkout yourself.
 2. Create a Minecraft **26.1** instance with **Java 25**, **Fabric Loader 0.18.4+** and **Fabric API 0.145.1+26.1** from their official projects. The mod does not bundle these dependencies.
 3. Place the ordinary mod jar and Fabric API jar in the instance's `mods` folder. Use the same mod version on server and clients; remove duplicate/older Metallic Arts jars.
 4. Launch the Fabric profile, join a world and press **M → Guide**. All world and contextual keys can be rebound under vanilla Controls.
@@ -31,15 +31,17 @@ Powered hostile populations use finite actual fuel and owned powers. NPC Feruche
 | Action | Use |
 |---|---|
 | **M** | Ownership, reserves, burn/flare, Guide |
+| **I / inventory Arts help tab** | Live keybindings, targeting, storage/tapping and time-field explanations |
 | **F** within an Arts menu | Contact gear, store/tap, rate, Tin sense, typed Nicrosil |
 | **H** within an Arts menu | Hemalurgy anatomy, source-aware insert/remove and explicit donor consent |
 | **K** | Recorded history and selected coppermind records |
 | **P** | Compounding, prepared spikes, constructs/forms, bounded compulsion and extraction |
-| **C / B / J** | Toss coins / supported cargo / paid prediction opening |
+| **R / V / G / H** in the world | Push / Pull / toggle selection / clear; both force keys oppose and equal strength cancels |
+| **C / B / J** | Toss and auto-lock coins / supported cargo / paid prediction opening |
 | **W**, arrows and other menu shortcuts | Contextual grid/wheel/navigation; separately rebindable |
 | **Esc** | Close/back |
 
-M → Guide has eleven pages and 32 per-metal lessons. **Sensory settings** control Tin brightness/sound, overload indicators, Bronze sound, mod particles, cues and high contrast. These affect presentation, never ownership or payment. Mod-only sound/particle filtering preserves unrelated vanilla effects. The guide wraps, scrolls and narrates its text. English is the complete reference locale; Spanish coverage is explicitly partial pending translation review.
+M → Guide has eleven pages and 32 per-metal lessons. Press I or use the inventory Arts help tab for three narrated controls pages showing your actual rebound keys. A compact force-key HUD appears while Steel/Iron is burning. **Sensory settings** control Tin brightness/sound, overload indicators, Bronze sound, mod particles, cues and high contrast. These affect presentation, never ownership or payment. Mod-only sound/particle filtering preserves unrelated vanilla effects. The guide wraps, scrolls and narrates its text. English is the complete reference locale; Spanish coverage is explicitly partial pending translation review.
 
 ## Main workflows
 
@@ -54,7 +56,7 @@ M → Guide has eleven pages and 32 per-metal lessons. **Sensory settings** cont
 - **God metals:** crouch-use a Lerasium bead for standard Allomancy, or a standard alloy bead for that metal. Pure Atium, Atium/Electrum (Nalatium) and Atium/Gold (Malatium) have distinct finite prepaid windows. Nalatium requires Electrum access; Malatium requires Gold access as documented interpretations. Predictions are uncertain nearby trajectories, not guaranteed futures or fabricated biographies.
 - **God-metal crafting:** hold one Atium bead and an ordinary Gold/Electrum ingot offhand; `/metallicarts-survival atiumalloy` makes the supported alloy. `split` uses one Harmonium sample, a retained Trellium catalyst, eight blaze powder, inventory space and a dry permitted Metallurgy Table underfoot. The host's default-off Lerasium acquisition policy must permit it. Wet dropped Harmonium reacts without destroying terrain; ownerless reactions cannot anonymously damage entities.
 
-See [release-candidate mechanics](docs/RELEASE_CANDIDATE.md), [economy](docs/ECONOMY.md), [Allomancy](docs/ALLOMANCY.md), [Feruchemy](docs/FERUCHEMY.md), [Hemalurgy](docs/HEMALURGY.md), [advanced Arts](docs/ADVANCED_ARTS.md) and [advanced systems](docs/ADVANCED_SYSTEMS.md). Earlier phase notes describe their historical scope; the current release notes and validation supersede their old status statements.
+See [all eleven requested gameplay fixes and exact limits](docs/REQUESTED_GAMEPLAY.md) and [release-candidate mechanics](docs/RELEASE_CANDIDATE.md), [economy](docs/ECONOMY.md), [Allomancy](docs/ALLOMANCY.md), [Feruchemy](docs/FERUCHEMY.md), [Hemalurgy](docs/HEMALURGY.md), [advanced Arts](docs/ADVANCED_ARTS.md) and [advanced systems](docs/ADVANCED_SYSTEMS.md). Earlier phase notes describe their historical scope; the current release notes and validation supersede their old status statements.
 
 ## Account access and server policy
 
@@ -71,7 +73,7 @@ Use PowerShell 7 (`pwsh`) for the portable recovery/migration scripts. The wrapp
 ```powershell
 .\gradlew.bat clean build -x runGameTest --console=plain
 .\gradlew.bat runDatagen
-# Native server + eight graphical client suites, if you accept the EULA:
+# Native server + nine graphical client suites, if you accept the EULA:
 .\gradlew.bat runGameTest runClientGameTest -PacceptMinecraftEula=true --console=plain
 # Windows: two ordinary offline-mode loopback clients, port 25570 free:
 .\scripts\verify-multiplayer.ps1 -AcceptMinecraftEula -SoakMinutes 15
@@ -87,7 +89,7 @@ Use PowerShell 7 (`pwsh`) for the portable recovery/migration scripts. The wrapp
 .\gradlew.bat runServer
 ```
 
-On Linux/macOS use `./gradlew` and PowerShell 7 (`pwsh`) for portable fixture scripts. Build output: `build/libs/metallic-arts-fabric-1.0.0-rc.1.jar`. Reports: `build/reports/tests`; graphical screenshots: `build/run/clientGameTest/screenshots`; isolated fixtures retain logs/results in their timestamped directories. Do not rebuild classes/resources while a test JVM is using them.
+On Linux/macOS use `./gradlew` and PowerShell 7 (`pwsh`) for portable fixture scripts. Build output: `build/libs/metallic-arts-fabric-1.0.0-rc.2.jar`. Reports: `build/reports/tests`; graphical screenshots: `build/run/clientGameTest/screenshots`; isolated fixtures retain logs/results in their timestamped directories. Do not rebuild classes/resources while a test JVM is using them.
 
 Asset/data regeneration order: `node scripts/generate-economy.cjs`, `node scripts/generate-advanced.cjs`, `node scripts/generate-release.cjs`, `node scripts/localize-ui.cjs`. All art is original deterministic pixel art; no Minecraft textures are copied. [Canon provenance](docs/CANON.md) separates author evidence from intuitive interpretations and balance policy.
 

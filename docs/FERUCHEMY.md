@@ -1,4 +1,4 @@
-> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+> Historical phase guide: current 1.0.0-rc.2 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
 
 **Version 0.7 update:** this physical/foundation guide is extended by [ADVANCED_ARTS.md](ADVANCED_ARTS.md). Read that guide for remaining-metal handlers, native advanced passives, Identity/unsealed access, controls and exact limits. Historical future-scope statements below describe the original foundation release.
 

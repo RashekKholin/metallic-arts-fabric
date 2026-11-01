@@ -18,11 +18,14 @@ public final class MetallicArtsClient implements ClientModInitializer {
     public static Spiritweb snapshot() { return snapshot; }
     @Override public void onInitializeClient() {
         AllomancyClient.initialize();
+        MetalSightClient.initialize();
+        TemporalFieldsClient.initialize();
         FeruchemyClient.initialize();
         HemalurgyClient.initialize();
         AdvancedArtsClient.initialize();
         SystemsClient.initialize();
         ContextKeys.initialize();
+        ControlsHelp.initialize();
         net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(dev.metallicarts.hemalurgy.NpcConstructs.KOLOSS,c->new ConstructMobRenderer(c,"koloss"));
         net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(dev.metallicarts.hemalurgy.NpcConstructs.INQUISITOR,c->new ConstructMobRenderer(c,"inquisitor"));
         net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(dev.metallicarts.hemalurgy.NpcConstructs.KANDRA,c->new ConstructMobRenderer(c,"kandra"));

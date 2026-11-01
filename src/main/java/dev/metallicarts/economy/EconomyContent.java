@@ -39,7 +39,7 @@ public final class EconomyContent {
             FORMS.put(ingot, new Form(material, "ingot", 900));
             FORMS.put(nugget, new Form(material, "nugget", 100));
             for (String kind : List.of("portion", "flakes")) {
-                Item item = add(material + "_" + kind, 99, MaterialItem::new);
+                Item item = add(material + "_" + kind, 64, MaterialItem::new);
                 FORMS.put(item, new Form(material, kind, 1));
             }
             if (Materials.metal(material).isPresent()) {
@@ -59,7 +59,7 @@ public final class EconomyContent {
         dev.metallicarts.equipment.Medallions.CORES.toString();
         add("lerasium_bead",1,p->new LerasiumItem(p,Optional.empty()));
         for(var metal:Metal.values())add("lerasium_"+metal.id()+"_bead",1,p->new LerasiumItem(p,Optional.of(metal)));
-        SLAG = add("invalid_alloy", 99, MaterialItem::new);
+        SLAG = add("invalid_alloy", 64, MaterialItem::new);
         add("coin_pouch",1,CoinPouchItem::new);
         for (String ore : List.of("tin", "zinc", "silver", "bauxite", "nickel", "chromite", "lead", "bismuth")) {
             add("raw_" + ore, 64, MaterialItem::new);

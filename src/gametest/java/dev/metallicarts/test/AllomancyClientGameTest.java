@@ -33,7 +33,8 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
                 }
                 p.setAttached(ModRegistries.SPIRITWEB,state);
                 p.setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
-                for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)server.overworld().setBlock(new BlockPos(x,80,z),Blocks.IRON_BLOCK.defaultBlockState(),3);
+                for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)server.overworld().setBlock(new BlockPos(x,80,z),Blocks.STONE.defaultBlockState(),3);
+                server.overworld().setBlock(new BlockPos(0,80,0),Blocks.IRON_BLOCK.defaultBlockState(),3);server.overworld().setBlock(new BlockPos(2,80,0),Blocks.IRON_BLOCK.defaultBlockState(),3);
                 p.teleportTo(.5,81,.5);p.setXRot(90);p.setYRot(0);
                 p.getInventory().setItem(0,new ItemStack(EconomyContent.item("steel","coin"),3));
                 ModNetworking.send(p);
@@ -62,7 +63,7 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
             c.getInput().pressKey(GLFW.GLFW_KEY_G);
             c.waitFor(client->(AllomancyClient.status.flags()>>8)==1);
             c.runOnClient(client->{
-                var delta=net.minecraft.world.phys.Vec3.atCenterOf(new BlockPos(1,80,0)).subtract(client.player.getEyePosition());
+                var delta=net.minecraft.world.phys.Vec3.atCenterOf(new BlockPos(2,80,0)).subtract(client.player.getEyePosition());
                 client.player.setYRot((float)Math.toDegrees(Math.atan2(-delta.x,delta.z)));
                 client.player.setXRot((float)-Math.toDegrees(Math.atan2(delta.y,Math.hypot(delta.x,delta.z))));
             });
@@ -87,6 +88,7 @@ public final class AllomancyClientGameTest implements FabricClientGameTest {
                 var p=server.getPlayerList().getPlayers().getFirst();p.teleportTo(.5,85,.5);
                 p.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);p.hurtMarked=true;
             });
+            c.waitTicks(205); // Missing/out-of-range locks are retained for a full ten seconds.
             c.waitFor(client->(AllomancyClient.status.flags()&4)!=0&&(AllomancyClient.status.flags()>>8)==0);
             c.runOnClient(client->client.player.setXRot(90));
             c.waitTicks(3);c.getInput().holdKeyFor(GLFW.GLFW_KEY_R,12);

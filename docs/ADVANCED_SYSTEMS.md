@@ -1,4 +1,4 @@
-> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+> Historical phase guide: current 1.0.0-rc.2 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
 
 # Advanced systems in 0.8.0-alpha.2
 

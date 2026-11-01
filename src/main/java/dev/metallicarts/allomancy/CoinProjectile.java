@@ -30,7 +30,7 @@ public final class CoinProjectile extends ThrowableItemProjectile {
     }
     @Override protected void onHit(HitResult hit){super.onHit(hit);recover();}
     private void recover(){
-        if(!isRemoved()&&level() instanceof ServerLevel server){spawnAtLocation(server,getItem().copyWithCount(1));discard();}
+        if(!isRemoved()&&level() instanceof ServerLevel server){var dropped=spawnAtLocation(server,getItem().copyWithCount(1));AllomancyRuntime.recoverCoin(this,dropped);discard();}
     }
     @Override public void tick(){super.tick();if(tickCount>=1200)recover();}
     public static boolean toss(ServerPlayer player){
@@ -42,7 +42,7 @@ public final class CoinProjectile extends ThrowableItemProjectile {
             var projectile=new CoinProjectile(player.level(),player,stack.copyWithCount(1));
             projectile.shootFromRotation(player,player.getXRot(),player.getYRot(),0,.8f,0);
             if(!player.level().addFreshEntity(projectile))return false;
-            stack.shrink(1);return true;
+            stack.shrink(1);AllomancyRuntime.autoSelectCoin(player,projectile);return true;
         }
         for(int i=0;i<inventory.getContainerSize();i++){
             var pouch=inventory.getItem(i);
@@ -52,7 +52,7 @@ public final class CoinProjectile extends ThrowableItemProjectile {
             var projectile=new CoinProjectile(player.level(),player,coin.get());
             projectile.shootFromRotation(player,player.getXRot(),player.getYRot(),0,.8f,0);
             if(!player.level().addFreshEntity(projectile))return false;
-            dev.metallicarts.economy.CoinPouchItem.takeOne(pouch);return true;
+            dev.metallicarts.economy.CoinPouchItem.takeOne(pouch);AllomancyRuntime.autoSelectCoin(player,projectile);return true;
         }
         return false;
     }

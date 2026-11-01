@@ -1,6 +1,6 @@
 # Distribution preparation
 
-No Modrinth submission has been made. The intended downloadable artifact is the ordinary `metallic-arts-fabric-1.0.0-rc.1.jar`, for Minecraft Java 26.1, Fabric, Java 25, with Fabric API required on both sides. Mark it as a release candidate/prerelease until acceptance gates close. Include checksums and release-jar gameplay screenshots, not fabricated promotional scenes.
+No Modrinth submission has been made. The intended downloadable artifact is the ordinary `metallic-arts-fabric-1.0.0-rc.2.jar`, for Minecraft Java 26.1, Fabric, Java 25, with Fabric API required on both sides. Mark it as a release candidate/prerelease until acceptance gates close. Include checksums and release-jar gameplay screenshots, not fabricated promotional scenes.
 
 ## Rights and platform eligibility
 

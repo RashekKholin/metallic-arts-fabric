@@ -69,7 +69,7 @@ public final class AdvancedFeruchemy {
                 case WAKEFULNESS -> (int)Math.min(units,BodyState.MAX_FATIGUE-body.fatigue());
                 case WARMTH -> (int)Math.min(units,(body.temperature()-BodyState.MIN_TEMP)/5);
                 case BREATH -> (int)Math.min(units,body.air()+Math.max(0,p.getAirSupply()-10)*1000L);
-                case NUTRITION -> (int)Math.min(units,body.nutrition()+(long)(p.getFoodData().getSaturationLevel()*BodyState.FOOD_POINT)+Math.max(0,p.getFoodData().getFoodLevel()-1)*BodyState.FOOD_POINT);
+                case NUTRITION -> NutritionExchange.storeLimit(p,body,units);
                 case IDENTITY -> asset.unkeyed()&&asset.charge()>0&&!blankIdentity()&&units<1000?0:units;
                 default -> units;
             });
@@ -88,15 +88,7 @@ public final class AdvancedFeruchemy {
                     long bank=body.air();int air=p.getAirSupply();while(bank<units&&air>10){air--;bank+=1000;}
                     int amount=(int)Math.min(units,bank);p.setAirSupply(air);body=body.air(bank-amount);saveBody();return amount;
                 }
-                case NUTRITION -> {
-                    long bank=body.nutrition();int amount=(int)Math.min(units,bank);bank-=amount;int remaining=units-amount;
-                    if(remaining>0){
-                        float saturation=p.getFoodData().getSaturationLevel();int take=(int)Math.min(remaining,Math.floor(saturation*BodyState.FOOD_POINT));
-                        p.getFoodData().setSaturation(Math.max(0,saturation-take/(float)BodyState.FOOD_POINT));remaining-=take;
-                        while(remaining>0&&p.getFoodData().getFoodLevel()>1){p.getFoodData().setFoodLevel(p.getFoodData().getFoodLevel()-1);bank+=BodyState.FOOD_POINT;int paid=(int)Math.min(remaining,bank);bank-=paid;remaining-=paid;}
-                    }
-                    body=body.nutrition(bank);saveBody();return units-remaining;
-                }
+                case NUTRITION -> {body=NutritionExchange.store(p,body,units);saveBody();return units;}
                 default -> {}
             }
             saveBody();return units;
@@ -107,7 +99,7 @@ public final class AdvancedFeruchemy {
                 case WAKEFULNESS -> (int)Math.min(units,body.fatigue());
                 case WARMTH -> (int)Math.min(units,(BodyState.MAX_TEMP-body.temperature())/5);
                 case BREATH -> (int)Math.min(units,Math.max(0,(p.getMaxAirSupply()-p.getAirSupply())*1000L-body.air()));
-                case NUTRITION -> (int)Math.min(units,BodyState.MAX_NUTRITION-body.nutrition());
+                case NUTRITION -> NutritionExchange.tapLimit(body,units);
                 default -> units;
             });
         }
@@ -124,7 +116,7 @@ public final class AdvancedFeruchemy {
                 case WAKEFULNESS -> body=body.fatigue(Math.max(0,body.fatigue()-units));
                 case WARMTH -> body=body.temperature(body.temperature()+units*5L);
                 case BREATH -> body=body.air(body.air()+units);
-                case NUTRITION -> body=body.nutrition(body.nutrition()+units);
+                case NUTRITION -> body=NutritionExchange.tap(body,units);
                 default -> {}
             }
             saveBody();

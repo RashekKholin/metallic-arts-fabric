@@ -3,13 +3,8 @@
     "subtitle": "subtitle.metallicarts.bronze",
     "sounds": [
       {
-        "name": "minecraft:block/amethyst_block/chime1"
-      },
-      {
-        "name": "minecraft:block/amethyst_block/chime2"
-      },
-      {
-        "name": "minecraft:block/amethyst_block/chime3"
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event"
       }
     ]
   }

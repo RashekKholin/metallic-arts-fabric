@@ -50,7 +50,7 @@ public final class AdvancedFeruchemyGameTest {
   var p=player(c);grant(p,Art.FERUCHEMY,Metal.CADMIUM);grant(p,Art.FERUCHEMY,Metal.BENDALLOY);equip(p,Metal.CADMIUM,0,0);equip(p,Metal.BENDALLOY,1,0);p.setAirSupply(10);p.getFoodData().setFoodLevel(1);p.getFoodData().setSaturation(0);
   c.assertTrue(mode(p,0,1,3)&&mode(p,1,1,3),"Requests checked again at payment");FeruchemyRuntime.tick(p,101);c.assertTrue(asset(p,0).charge()==0&&asset(p,1).charge()==0,"No air or nutrition means no minted charge");
   p.setAirSupply(300);p.getFoodData().setFoodLevel(20);p.getFoodData().setSaturation(5);mode(p,0,1,3);mode(p,1,1,3);FeruchemyRuntime.tick(p,102);
-  c.assertTrue(p.getAirSupply()==299&&p.getAttachedOrCreate(ModRegistries.BODY).air()==250&&asset(p,0).charge()==750,"Breath debit retains fractional escrow");c.assertTrue(p.getFoodData().getSaturationLevel()<5&&asset(p,1).charge()==750,"Actual saturation is surrendered");FeruchemyRuntime.stop(p);c.succeed();
+  c.assertTrue(p.getAirSupply()==299&&p.getAttachedOrCreate(ModRegistries.BODY).air()==250&&asset(p,0).charge()==750,"Breath debit retains fractional escrow");c.assertTrue(p.getFoodData().getFoodLevel()<20&&asset(p,1).charge()==750,"Visible hunger is surrendered before saturation");FeruchemyRuntime.stop(p);c.succeed();
  }
  @GameTest public void fullIdentityAllowsUnkeyedFillingButPartialSuppressionDoesNotEraseKeys(GameTestHelper c){
   var p=player(c);grant(p,Art.FERUCHEMY,Metal.ALUMINUM);grant(p,Art.FERUCHEMY,Metal.IRON);equip(p,Metal.ALUMINUM,0,0);equip(p,Metal.IRON,1,0);

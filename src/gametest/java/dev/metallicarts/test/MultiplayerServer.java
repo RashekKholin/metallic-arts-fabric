@@ -83,13 +83,17 @@ public final class MultiplayerServer implements ModInitializer {
         a().teleportTo(.5,81,.5);b().teleportTo(5.5,81,.5);a().getInventory().setItem(0,new ItemStack(EconomyContent.item("iron","ring")));
     }
     private boolean pickup(ServerPlayer recipient){
-        var items=server.overworld().getEntitiesOfClass(ItemEntity.class,new AABB(-20,75,-20,20,90,20),e->e.getItem().has(ModRegistries.METALMIND)||e.getItem().has(ModRegistries.SPIKE));
-        if(!items.isEmpty()){var item=items.getFirst();recipient.teleportTo(item.getX(),item.getY(),item.getZ());}
+        var items=server.overworld().getEntitiesOfClass(ItemEntity.class,new AABB(-128,-64,-128,128,320,128),e->e.getItem().has(ModRegistries.METALMIND)||e.getItem().has(ModRegistries.SPIKE));
+        // Keep the real client-dropped asset on the fixture platform. Repeatedly
+        // teleporting into a moving drop can launch it outside the pickup bounds.
+        if(!items.isEmpty()){var item=items.getFirst();item.setPos(.5,81,.5);item.setDeltaMovement(Vec3.ZERO);item.setNoGravity(true);recipient.teleportTo(.5,81,.5);}
         return recipient.getInventory().getItem(0).has(ModRegistries.METALMIND)||recipient.getInventory().getItem(0).has(ModRegistries.SPIKE);
     }
     private void tick(){
         try{
             if(System.currentTimeMillis()-began>240000L+SOAK_TICKS*75L)throw new AssertionError("Multiplayer fixture exceeded bounded startup/soak allowance");
+            if(stressing){for(var participant:List.of(a(),b())){participant.setInvulnerable(true);participant.setNoGravity(true);participant.setDeltaMovement(Vec3.ZERO);participant.teleportTo(participant==a()?.5:2.5,81,.5);}}
+            if(stressing&&server.getTickCount()-stressStarted>40&&(AllomancyRuntime.power(a(),Metal.CADMIUM)<=0||AllomancyRuntime.power(b(),Metal.BENDALLOY)<=0))throw new AssertionError("Temporal field stopped: A="+AllomancyRuntime.powers(a())+" alive="+a().isAlive()+" fuel="+ReserveLedger.ordinary(a().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.CADMIUM)+" B="+AllomancyRuntime.powers(b())+" alive="+b().isAlive()+" fuel="+ReserveLedger.ordinary(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.BENDALLOY));
             if(forceItem!=null){lastForceX=forceItem.getDeltaMovement().x;forceItem.setPos(0,81.9,.5);forceItem.setDeltaMovement(Vec3.ZERO);}
             if(steps==null){if(a()==null||b()==null)return;setup();steps=plan();}
             if(index>=steps.size()){finish(null);return;}
@@ -153,17 +157,18 @@ public final class MultiplayerServer implements ModInitializer {
         new Step("real contact Nicrosil exhausts concurrently active target Steel",()->{command(a(),"BURN:11");command(b(),"BURN_STEEL");},this::bothAck,()->check(ReserveLedger.ordinary(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.STEEL)==0,"Forced burst did not consume actual concurrent fuel")),
         new Step("private advanced journals remain owner-only",()->both("M"),this::bothAck,()->{check(report(a()).get("journal").getAsString().contains("A private route")&&!report(a()).get("journal").getAsString().contains("B private route"),"A received foreign memory");check(report(b()).get("journal").getAsString().contains("B private route")&&!report(b()).get("journal").getAsString().contains("A private route"),"B received foreign memory");}),
         new Step("prepare temporal load with forty mobs and four real furnaces",()->both("STOP"),this::bothAck,()->{
-            a().teleportTo(.5,81,.5);b().teleportTo(2.5,81,.5);for(var p:List.of(a(),b()))for(var m:List.of(Metal.CADMIUM,Metal.BENDALLOY))p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m,SOAK_TICKS*100L+200000));
+            a().teleportTo(.5,81,.5);b().teleportTo(2.5,81,.5);for(var p:List.of(a(),b()))for(var m:List.of(Metal.CADMIUM,Metal.BENDALLOY,Metal.STEEL,Metal.IRON))p.setAttached(ModRegistries.SPIRITWEB,ReserveLedger.credit(p.getAttachedOrCreate(ModRegistries.SPIRITWEB),m,SOAK_TICKS*100L+200000));
+            for(int x=0;x<8;x++)for(int z=0;z<4;z++)server.overworld().setBlock(new BlockPos(-8+x*2,82,-8+z*2),Blocks.IRON_BLOCK.defaultBlockState(),3);
             for(int i=0;i<40;i++){var mob=net.minecraft.world.entity.EntityType.PIG.create(server.overworld(),net.minecraft.world.entity.EntitySpawnReason.COMMAND);mob.setPos(.5+i%8,81,.5+i/8);mob.setInvulnerable(true);server.overworld().addFreshEntity(mob);stressMobs.add(mob);}
             for(int i=0;i<4;i++){var pos=new BlockPos(i*2,80,4);server.overworld().setBlock(pos,Blocks.FURNACE.defaultBlockState(),3);var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(pos);furnace.setItem(0,new ItemStack(Items.IRON_ORE,64));furnace.setItem(1,new ItemStack(Items.COAL,8));}
         }),
-        new Step("bounded extended overlapping paid temporal fields under load",()->{command(a(),"BURN:14");command(b(),"BURN:15");stressStarted=server.getTickCount();stressing=true;},()->bothAck()&&server.getTickCount()-stressStarted>=SOAK_TICKS,()->{stressing=false;check(stressTicks>=SOAK_TICKS-10,"Insufficient measured ticks");check(AllomancyRuntime.power(a(),Metal.CADMIUM)>0&&AllomancyRuntime.power(b(),Metal.BENDALLOY)>0,"Temporal fuel ran out during soak");for(int i=0;i<4;i++){var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(new BlockPos(i*2,80,4));check(furnace.getItem(0).getCount()+furnace.getItem(2).getCount()==64&&furnace.getItem(2).getCount()>0,"Temporal machine lost/created inputs or stopped");}stressMobs.forEach(net.minecraft.world.entity.Entity::discard);}),
+        new Step("bounded extended overlapping paid temporal fields under load",()->{command(a(),"SOAK_A");command(b(),"SOAK_B");stressStarted=server.getTickCount();stressing=true;},()->bothAck()&&server.getTickCount()-stressStarted>=SOAK_TICKS,()->{stressing=false;check(stressTicks>=SOAK_TICKS-10,"Insufficient measured ticks");check(AllomancyRuntime.power(a(),Metal.CADMIUM)>0&&AllomancyRuntime.power(b(),Metal.BENDALLOY)>0,"Temporal field stopped during soak; A="+AllomancyRuntime.powers(a())+" fuel="+ReserveLedger.ordinary(a().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.CADMIUM)+" B="+AllomancyRuntime.powers(b())+" fuel="+ReserveLedger.ordinary(b().getAttachedOrCreate(ModRegistries.SPIRITWEB),Metal.BENDALLOY));for(int i=0;i<4;i++){var furnace=(net.minecraft.world.level.block.entity.FurnaceBlockEntity)server.overworld().getBlockEntity(new BlockPos(i*2,80,4));check(furnace.getItem(0).getCount()+furnace.getItem(2).getCount()==64&&furnace.getItem(2).getCount()>0,"Temporal machine lost/created inputs or stopped");}stressMobs.forEach(net.minecraft.world.entity.Entity::discard);}),
         new Step("final owner-only snapshots on both live clients",()->both("M"),this::bothAck,this::privateData)
     );}
     private void finish(Throwable failure){
         try{
             var result=new JsonObject();result.addProperty("status",failure==null?"PASS":"FAIL");result.addProperty("authenticatedAccounts",false);result.addProperty("clients",2);
-            result.addProperty("temporalStressTicks",stressTicks);result.addProperty("temporalStressMeanTickMs",stressTicks==0?0:stressNanos/1000000.0/stressTicks);result.addProperty("temporalStressMaxTickMs",stressMaximum/1000000.0);result.addProperty("temporalStressMobs",40);result.addProperty("temporalStressFurnaces",4);
+            result.addProperty("temporalStressTicks",stressTicks);result.addProperty("temporalStressMeanTickMs",stressTicks==0?0:stressNanos/1000000.0/stressTicks);result.addProperty("temporalStressMaxTickMs",stressMaximum/1000000.0);result.addProperty("temporalStressMobs",40);result.addProperty("metalSightSources",32);result.addProperty("steelIronSightEnabled",true);result.addProperty("temporalStressFurnaces",4);
             result.addProperty("completedChecks",passed.size());var checks=new JsonArray();passed.forEach(checks::add);result.add("checks",checks);
             if(failure!=null)result.addProperty("failure",failure.toString());
             Files.writeString(Path.of("multiplayer-result.json"),new GsonBuilder().setPrettyPrinting().create().toJson(result));

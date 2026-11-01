@@ -29,7 +29,8 @@
       "dev.metallicarts.test.AdvancedSystemsGameTest",
       "dev.metallicarts.test.SurvivalGameTest",
       "dev.metallicarts.test.ReleaseCandidateGameTest",
-      "dev.metallicarts.test.ReleaseGameplayGameTest"
+      "dev.metallicarts.test.ReleaseGameplayGameTest",
+      "dev.metallicarts.test.RequestedGameplayGameTest"
     ],
     "fabric-client-gametest": [
       "dev.metallicarts.test.FoundationClientGameTest",
@@ -39,7 +40,8 @@
       "dev.metallicarts.test.HemalurgyClientGameTest",
       "dev.metallicarts.test.AdvancedArtsClientGameTest",
       "dev.metallicarts.test.SystemsClientGameTest",
-      "dev.metallicarts.test.ReleaseClientGameTest"
+      "dev.metallicarts.test.ReleaseClientGameTest",
+      "dev.metallicarts.test.RequestedGameplayClientGameTest"
     ]
   }
 }

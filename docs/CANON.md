@@ -1,4 +1,4 @@
-> Historical phase guide: current 1.0.0-rc.1 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
+> Historical phase guide: current 1.0.0-rc.2 additions and limits are in [RELEASE_CANDIDATE.md](RELEASE_CANDIDATE.md), with observed results in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md). Earlier future/deferred statements below describe that phase, not the current release.
 
 # Canon and interpretation policy
 
@@ -67,8 +67,12 @@ ADVANCED_ARTS.md and bundled rules.json explicitly distinguish observed Minecraf
 
 ## Current release-candidate provenance
 
-The 1.0.0-rc.1 generator reconciles old deferred status and adds separate rules for authored NPC provenance, consent-based memory movement, camp/faction progression, distinct Atium/alloy prediction and Harmonium separation. Initial NPC implants are authored generated-world sources, not invented theft from real accounts. Exact numerical costs, body slots, predictions, finite bead windows and faction scores are explicit interpretations/game policy.
+The 1.0.0-rc.2 generator reconciles old deferred status and adds separate rules for authored NPC provenance, consent-based memory movement, camp/faction progression, distinct Atium/alloy prediction and Harmonium separation. Initial NPC implants are authored generated-world sources, not invented theft from real accounts. Exact numerical costs, body slots, predictions, finite bead windows and faction scores are explicit interpretations/game policy.
 
 The official publisher's [Lost Metal chapters sixteen–eighteen excerpt](https://reactormag.com/read-the-lost-metal-by-brandon-sanderson-chapters-sixteen-through-eighteen/) and adjacent official excerpts were consulted for Harmonium/Trellium separation context. They do not establish our crafting recipe, safe workstation, water damage or quantities. The [author Q&A event distinguishing Atium/Electrum](https://wob.coppermind.net/events/486-general-reddit-2022/#e15955) was discoverable in the search index but direct event retrieval was blocked during research; this access limitation remains recorded. No precise new ability or quantity is presented as a directly verified quote from that blocked page.
 
 Unknown god-metal alloys and the unpublished Excisor process remain unresolved. The implemented subset is listed explicitly in RELEASE_CANDIDATE.md; its existence does not certify complete canon.
+
+## Requested rc.2 interpretations
+
+The owner explicitly requested broad physical-metal force coverage with aluminum/alloy immunity, weaker distance force, connected-source grouping, ten-second lock retention and spherical effects on all players. These supersede the earlier blanket charged-item resistance and non-player-only field notes. Numerical falloff, loaded-source limits, player-safe local clocks, 64-stack migration and the twenty-to-one food exchange are gameplay policy. No extra published canonical claims are inferred from those numbers. REQUESTED_GAMEPLAY.md describes the implementation and boundaries.

@@ -11,7 +11,7 @@ $runRoot='build/run/multiplayer-'+(Get-Date -Format 'yyyyMMdd-HHmmss')
 $base=Join-Path $repo $runRoot
 foreach($name in @('multiplayerServer','multiplayerClientA','multiplayerClientB')){New-Item -ItemType Directory -Path (Join-Path $base $name) -Force | Out-Null}
 Set-Content (Join-Path $base 'multiplayerServer/eula.txt') 'eula=true'
-Set-Content (Join-Path $base 'multiplayerServer/server.properties') @('server-ip=127.0.0.1','server-port=25570','online-mode=false','level-name=world','view-distance=3','simulation-distance=3','spawn-protection=0','pvp=true','difficulty=peaceful','max-tick-time=120000')
+Set-Content (Join-Path $base 'multiplayerServer/server.properties') @('server-ip=127.0.0.1','server-port=25570','online-mode=false','level-name=world','level-type=minecraft:flat','view-distance=3','simulation-distance=3','spawn-protection=0','pvp=true','difficulty=peaceful','max-tick-time=120000')
 foreach($name in @('multiplayerClientA','multiplayerClientB')){Set-Content (Join-Path $base ($name+'/options.txt')) @('renderDistance:3','simulationDistance:5','maxFps:30','soundCategory_master:0.0','pauseOnLostFocus:false','guiScale:2')}
 $processes=@()
 try {

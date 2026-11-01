@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0-rc.2
+
+- Automatically locks thrown physical coins while Iron/Steel is burning and transfers locks to recovered items. Out-of-range locks survive 200 ticks without remote force; connected loaded metal is one source.
+- Makes Push/Pull intent explicit when both metals burn, shares one selected-target force budget and weakens impulse smoothly with distance.
+- Adds all-direction blue metal sight with selected-source colors, rear/off-screen indicators and broad physical metal coverage. Aluminum/alloy immunity replaces the prior blanket Investiture exclusion.
+- Gives temporal fields full spherical boundaries and applies bounded local movement/combat/mining/use clocks to every player inside, including the caster; exit removes them.
+- Caps all mod stacks and workstation slots at 64, splits larger batches and safely preserves legacy oversized quantities.
+- Adds inventory/live-key controls help and force HUD hints. Bendalloy storage visibly drains food first; tapping refills hunger with faster finite nutrition exchange.
+- Updates gameplay, graphical, conservation and boundary regressions. Exact current results and remaining external acceptance are in RELEASE_VALIDATION.md.
+
 ## 1.0.0-rc.1
 
 - Selects All rights reserved with gameplay/server-use permission, jar/source notices and contribution guidance.

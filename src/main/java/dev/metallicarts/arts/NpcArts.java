@@ -29,7 +29,7 @@ public final class NpcArts {
   modifier(s.mob,Attributes.ATTACK_DAMAGE,"npc_pewter",3*s.paid.getOrDefault(Metal.PEWTER,0.0));modifier(s.mob,Attributes.FOLLOW_RANGE,"npc_tin",8*s.paid.getOrDefault(Metal.TIN,0.0));
   var target=s.mob.getTarget();double force=s.paid.getOrDefault(Metal.STEEL,0.0)-s.paid.getOrDefault(Metal.IRON,0.0);if(target==null||force==0||s.mob.distanceToSqr(target)>144||!s.mob.hasLineOfSight(target)||!dev.metallicarts.api.ArtsProtection.npcAllows(s.mob,target,dev.metallicarts.api.ArtsProtection.Action.AMPLIFY))continue;
   boolean metal=false;for(var slot:EquipmentSlot.values())if(MetalPhysics.external(target.getItemBySlot(slot))){metal=true;break;}if(!metal)continue;
-  Vec3 direction=target.getBoundingBox().getCenter().subtract(s.mob.getBoundingBox().getCenter()).normalize();double impulse=Math.min(.5,Math.abs(force)*.07)*(force>0?1:-1);double targetMass=target instanceof net.minecraft.server.level.ServerPlayer p?dev.metallicarts.feruchemy.FeruchemyRuntime.mass(p):80;
+  Vec3 direction=target.getBoundingBox().getCenter().subtract(s.mob.getBoundingBox().getCenter()).normalize();double impulse=Math.min(.5,Math.abs(force)*.07)*MetalPhysics.distanceFactor(s.mob.distanceTo(target))*(force>0?1:-1);double targetMass=target instanceof net.minecraft.server.level.ServerPlayer p?dev.metallicarts.feruchemy.FeruchemyRuntime.mass(p):80;
   MetalPhysics.externalMotion(target,direction.scale(impulse*80/Math.max(1,targetMass)),target instanceof net.minecraft.server.level.ServerPlayer?AllomancyRuntime.config.maximumPlayerSpeed():AllomancyRuntime.config.maximumObjectSpeed());MetalPhysics.externalMotion(s.mob,direction.scale(-impulse),AllomancyRuntime.config.maximumObjectSpeed());
  }}
  private static void advanced(Session s){

@@ -67,7 +67,7 @@ public final class EconomyGameTest {
                     int count=ingredient.count();Item item=ingredient.item()!=null?
                         BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse(ingredient.item())):
                         BuiltInRegistries.ITEM.stream().filter(candidate->ingredient.matches(new ItemStack(candidate))).findFirst().orElseThrow();
-                    while(count>0){int n=Math.min(99,count);in.set(slot++,new ItemStack(item,n));count-=n;}
+                    while(count>0){int n=Math.min(64,count);in.set(slot++,new ItemStack(item,n));count-=n;}
                 }
             }
             var plan=MetallurgyRecipes.plan(recipe,in);c.assertTrue(plan!=null,"Recipe executable: "+recipe.id());

@@ -1,7 +1,8 @@
-# The Metallic Arts 1.0.0-rc.1
+# The Metallic Arts 1.0.0-rc.2
 
 Minecraft Java **26.1**, Java **25**, Fabric Loader **0.18.4+**, Fabric API **0.145.1+26.1**. Install the ordinary jar on server and clients; the sources jar is for development. Stop the game, back up the whole world/configs and remove the old mod jar before upgrading.
 
+- Requested gameplay fixes: automatic/recovered coin locks, ten-second range retention, connected sources, distance falloff, all-direction blue sight, aluminum/alloy immunity, full-sphere player effects, 64-item stacks, live controls help and faster visible Bendalloy nutrition. See REQUESTED_GAMEPLAY.md for exact limits.
 - All rights reserved license selected by the owner, included in ordinary/source jars with explicit gameplay/server-use permission.
 - Real NPC storage/tapping with canonical equipment, finite fuel/charge and actual attribute costs; expanded paid standard-metal AI.
 - Distinct Koloss/Inquisitor/Kandra NPCs, prepared implants, dependencies, original skins and material-fed forms.

@@ -36,7 +36,7 @@ public final class FeruchemyGameTest {
         p.setDeltaMovement(Vec3.ZERO);
         var anchor=new MetalPhysics.Target(p.getBoundingBox().getCenter().add(0,-3,0),null,Double.POSITIVE_INFINITY,true);
         MetalPhysics.apply(p,anchor,1,true,AllomancyConfig.DEFAULT);
-        c.assertTrue(Math.abs(p.getDeltaMovement().y-.7)<.000001,"Lighter player gets more anchor recoil");
+        c.assertTrue(Math.abs(p.getDeltaMovement().y-.7*MetalPhysics.distanceFactor(3))<.000001,"Lighter player gets more anchor recoil");
         c.assertTrue(mode(p,0,2,1),"Switch to tapping");
         FeruchemyRuntime.tick(p,102);
         c.assertTrue(FeruchemyRuntime.mass(p)==100&&ledger.resolve(data.token()).charge()==500,"Tapping spends before changing mass");

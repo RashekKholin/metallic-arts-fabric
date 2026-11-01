@@ -1,6 +1,6 @@
 # Ordered acceptance and future work
 
-The 1.0.0-rc.1 candidate implements the requested release engineering and a large expansion of gameplay. It is not a claim that every possible canonical system or every external acceptance condition is finished. Current results are in RELEASE_VALIDATION.md; detailed new behavior is in RELEASE_CANDIDATE.md.
+The 1.0.0-rc.2 candidate implements the requested release engineering and a large expansion of gameplay. It is not a claim that every possible canonical system or every external acceptance condition is finished. Current results are in RELEASE_VALIDATION.md; detailed new behavior is in RELEASE_CANDIDATE.md.
 
 ## Before declaring stable 1.0
 

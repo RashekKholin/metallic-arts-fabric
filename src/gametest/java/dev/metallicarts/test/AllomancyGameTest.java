@@ -43,7 +43,7 @@ public final class AllomancyGameTest {
         }
         p.setDeltaMovement(Vec3.ZERO);
         MetalPhysics.applyMany(p,List.of(right,new MetalPhysics.Target(center.add(4,0,0),null,Double.POSITIVE_INFINITY,true)),1,true,AllomancyConfig.DEFAULT);
-        c.assertTrue(Math.abs(p.getDeltaMovement().x+AllomancyConfig.DEFAULT.force()/80)<.000001,"Selection shares one force budget");
+        c.assertTrue(Math.abs(p.getDeltaMovement().x+AllomancyConfig.DEFAULT.force()*(MetalPhysics.distanceFactor(3)+MetalPhysics.distanceFactor(4))/160)<.000001,"Selection shares one force budget");
         c.succeed();
     }
     @GameTest public void selectedTargetsAreRevalidatedAgainstWorldAndComponents(GameTestHelper c) {
@@ -70,7 +70,7 @@ public final class AllomancyGameTest {
         p.setAttached(ModRegistries.SPIRITWEB,power(Metal.STEEL,10000));
         c.assertTrue(AllomancyRuntime.request(p,0,1,100),"Steel enabled");
         for(int i=0;i<9;i++){
-            var block=c.absolutePos(new net.minecraft.core.BlockPos(i%3,1+i/3,6));
+            var block=c.absolutePos(new net.minecraft.core.BlockPos((i%3)*2,1+(i/3)*2,6));
             c.getLevel().setBlock(block,net.minecraft.world.level.block.Blocks.IRON_BLOCK.defaultBlockState(),3);
             Vec3 delta=Vec3.atCenterOf(block).subtract(p.getEyePosition());
             p.setYRot((float)Math.toDegrees(Math.atan2(-delta.x,delta.z)));
@@ -127,13 +127,13 @@ public final class AllomancyGameTest {
         c.assertTrue(MetalPhysics.limited(new Vec3(Double.NaN,0,0),3).equals(Vec3.ZERO),"Nonfinite movement rejected");
         c.succeed();
     }
-    @GameTest public void aluminumInvestedAndNonmetalFormsAreExcluded(GameTestHelper c) {
+    @GameTest public void aluminumAndNonmetalAreExcludedButInvestedMetalRemainsPhysical(GameTestHelper c) {
         c.assertFalse(MetalPhysics.external(new ItemStack(EconomyContent.item("aluminum","coin"))),"Aluminum immune");
         c.assertFalse(MetalPhysics.external(new ItemStack(EconomyContent.item("carbon","portion"))),"Carbon is not metal");
         var steel=new ItemStack(EconomyContent.item("steel","coin"));
         c.assertTrue(MetalPhysics.external(steel),"Ordinary steel is detectable");
         steel.set(ModRegistries.METAL_DATA,new MetalItemData(1,UUID.randomUUID(),Metal.STEEL,100000,1,2,Optional.empty()));
-        c.assertFalse(MetalPhysics.external(steel),"Invested resistance policy");
+        c.assertTrue(MetalPhysics.external(steel),"Invested steel remains physical metal");
         c.succeed();
     }
     @GameTest(maxTicks=100) public void thrownCoinIsRemovedOnceAndRecoveredWithComponents(GameTestHelper c) {

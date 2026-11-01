@@ -61,6 +61,8 @@ public final class MultiplayerClient implements ClientModInitializer {
             case "DROP" -> {c.setScreen(null);c.player.drop(false);}
             case "BURN_STEEL" -> ClientPlayNetworking.send(new BurnIntent(0,1));
             case "BURN_IRON" -> ClientPlayNetworking.send(new BurnIntent(1,1));
+            case "SOAK_A" -> {c.setScreen(null);ClientPlayNetworking.send(new BurnIntent(0,1));ClientPlayNetworking.send(new BurnIntent(1,1));ClientPlayNetworking.send(new BurnIntent(14,1));}
+            case "SOAK_B" -> {c.setScreen(null);ClientPlayNetworking.send(new BurnIntent(0,1));ClientPlayNetworking.send(new BurnIntent(1,1));ClientPlayNetworking.send(new BurnIntent(15,1));}
             case "STOP" -> {push=false;for(int i=0;i<16;i++)ClientPlayNetworking.send(new BurnIntent(i,0));ClientPlayNetworking.send(new ForceIntent(0));}
             case "PUSH" -> {c.setScreen(null);look=true;yaw=role.equals("A")?-90:90;pitch=0;push=true;}
             case "CONSENT" -> ClientPlayNetworking.send(new SpikeIntent(5,0,0));

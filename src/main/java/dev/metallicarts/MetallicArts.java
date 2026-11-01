@@ -28,6 +28,7 @@ public final class MetallicArts implements ModInitializer {
         dev.metallicarts.registry.ModPresentation.initialize();
         dev.metallicarts.compat.OpenPacAdapter.initialize();
         EconomyContent.initialize();
+        dev.metallicarts.economy.StackLimits.initialize();
         dev.metallicarts.hemalurgy.NpcConstructs.initialize();
         MetallurgyRecipes.initialize();
         EconomyWorld.initialize();

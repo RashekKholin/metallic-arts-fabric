@@ -55,3 +55,5 @@ The checked-in recovery fixture uses distinct orderly and crash worlds: seed/ver
 **Run native fixtures sequentially.** Fabric's `deleteGameTestRunDir` dependency can clear graphical-test storage even when starting another server fixture. Do not start server/restart/legacy/multiplayer Gradle runs while a graphical suite is using its run directory, or rebuild shared classes/resources under running JVMs.
 
 Optional OpenPAC fixture versions and precise supported behavior are documented in RELEASE_CANDIDATE.md. `scripts/setup-claim-fixture.ps1` fetches official pinned Modrinth version IDs and verifies SHA-512 metadata before use. These jars are never bundled in the normal release.
+
+rc.2 changes ordinary stack limits to 64 and splits legacy surplus without deleting it. Workstation excess becomes physical drops; audit outputs after upgrading a backed-up copy. Nutrition-mind charge is unchanged, but its food exchange value changes to twenty body units per charge unit. Update client and server together: the new metal-sight and public field-surface payloads are versioned. Vanilla Controls and inventory Arts help explain the new selection and force behavior.

@@ -59,14 +59,15 @@ public final class MetallurgyBlockEntity extends BaseContainerBlockEntity implem
         for (var result : output) {
             ItemStack remainder=result.copy();
             for (var slot : slots) if (!slot.isEmpty() && ItemStack.isSameItemSameComponents(slot,remainder)) {
-                int moved=Math.min(remainder.getCount(),slot.getMaxStackSize()-slot.getCount()); slot.grow(moved); remainder.shrink(moved);
+                int moved=Math.min(remainder.getCount(),Math.max(0,Math.min(64,slot.getMaxStackSize())-slot.getCount())); slot.grow(moved); remainder.shrink(moved);
             }
-            for (int i=0;i<4 && !remainder.isEmpty();i++) if (slots.get(i).isEmpty()) { slots.set(i,remainder.copy()); remainder.setCount(0); }
+            for (int i=0;i<4 && !remainder.isEmpty();i++) if (slots.get(i).isEmpty()) { int moved=Math.min(remainder.getCount(),Math.min(64,remainder.getMaxStackSize()));slots.set(i,remainder.copyWithCount(moved));remainder.shrink(moved); }
             if (!remainder.isEmpty()) return null;
         }
         return slots;
     }
     public static void tick(Level level, BlockPos pos, BlockState state, MetallurgyBlockEntity table) {
+        if(level instanceof net.minecraft.server.level.ServerLevel server)for(var stack:table.items){int maximum=Math.min(64,stack.getMaxStackSize());while(!stack.isEmpty()&&stack.getCount()>maximum){var piece=stack.split(Math.min(maximum,stack.getCount()-maximum));net.minecraft.world.Containers.dropItemStack(level,pos.getX()+.5,pos.getY()+1,pos.getZ()+.5,piece);table.setChanged();}}
         if (!table.running) return;
         var recipe=table.selected(); var plan=recipe==null?null:MetallurgyRecipes.plan(recipe,table.inputs());
         if (plan==null) { table.status=1; table.progress=0; table.setChanged(); return; }
@@ -94,7 +95,7 @@ public final class MetallurgyBlockEntity extends BaseContainerBlockEntity implem
     @Override public int getContainerSize() { return 9; }
     @Override protected NonNullList<ItemStack> getItems() { return items; }
     @Override protected void setItems(NonNullList<ItemStack> items) { this.items=items; }
-    @Override public int getMaxStackSize() { return 99; }
+    @Override public int getMaxStackSize() { return 64; }
     @Override public boolean canPlaceItem(int slot, ItemStack stack) { return slot<4 || slot==4 && level!=null && level.fuelValues().burnDuration(stack)>0; }
     @Override protected AbstractContainerMenu createMenu(int id, Inventory inventory) { return new MetallurgyMenu(id,inventory,this,data); }
     @Override public BlockPos getScreenOpeningData(ServerPlayer player) { return worldPosition; }

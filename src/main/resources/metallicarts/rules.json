@@ -271,5 +271,33 @@
     "statement": "A separately consenting nearby player can receive one actually accessible memory, moving the exact record with provenance. Private content is not broadcast to bystanders.",
     "sources": [],
     "implementation": "MemorySharing preflights both immutable journals, line of sight, consent, range and protection before movement."
+  },
+  {
+    "id": "physical_metal_visibility",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Known physical metal, including charged equipment, can be pushed and pulled. Aluminum, Duralumin and aluminum-containing alloys are excluded at the owner request. Hidden inventories/internal reserves are never external targets.",
+    "sources": [],
+    "implementation": "MetalMaterials uses explicit composition, known forms and extension/immune tags. Loaded face-connected blocks are one bounded source; nearby endpoint payloads are owner-only."
+  },
+  {
+    "id": "physical_distance_and_selection",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Impulse weakens with distance after the mass/force cap. Explicit Push and Pull keys apply opposing signed paid strengths, and equal strength cancels. Eight locks share one force budget; unavailable locks persist 200 ticks without remote force.",
+    "sources": [],
+    "implementation": "MetalPhysics, ConnectedMetals and AllomancyRuntime; numerical falloff and limits are gameplay choices."
+  },
+  {
+    "id": "player_temporal_clocks",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "Full spherical fields affect the caster and every player inside through local movement, jump/fall, attack, mining and item-use rates. Exit restores normal rates. Global network/chat/physiology and arbitrary world clocks are unchanged.",
+    "sources": [],
+    "implementation": "TemporalPlayers transient attributes and a fractional item-use clock preserve normal network ticking. Public surface payloads contain geometry, not private ownership."
+  },
+  {
+    "id": "nutrition_exchange",
+    "status": "GAMEPLAY_POLICY",
+    "statement": "One nutrition charge unit exchanges symmetrically for twenty body units. Filling drains visible food first, then saturation; paid tapping refills hunger through exact persistent fractional escrow.",
+    "sources": [],
+    "implementation": "NutritionExchange conserves food and charge; existing nutrition charge gains this balance value without any saved balance rewrite."
   }
 ]

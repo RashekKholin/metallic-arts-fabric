@@ -18,59 +18,68 @@ import java.util.*;
 public final class MetalPhysics {
     public static final TagKey<Block> ANCHORS=TagKey.create(Registries.BLOCK,MetallicArts.id("metal_anchors"));
     public static final TagKey<net.minecraft.world.item.Item> ITEMS=TagKey.create(Registries.ITEM,MetallicArts.id("external_metals"));
-    public record Target(Vec3 position,Entity entity,double mass,boolean anchored) {}
+    public record Target(Vec3 position,Entity entity,double mass,boolean anchored,String sourceKey) {public Target(Vec3 position,Entity entity,double mass,boolean anchored){this(position,entity,mass,anchored,null);}}
     public static String key(Target target) {
-        return target.entity()==null?"block:"+BlockPos.containing(target.position()).asLong():"entity:"+target.entity().getUUID();
+        return target.sourceKey()!=null?target.sourceKey():target.entity()==null?"block:"+BlockPos.containing(target.position()).asLong():"entity:"+target.entity().getUUID();
     }
     /** Revalidate saved server targets every tick; never load chunks or trust a stale entity/profile. */
-    public static Optional<Target> refresh(ServerPlayer player,Target target,AllomancyConfig config) {
+    public static Optional<Target> refresh(ServerPlayer player,Target target,AllomancyConfig config) {return refresh(player,target,config,true);}
+    public static Optional<Target> validate(ServerPlayer player,Target target,AllomancyConfig config) {return refresh(player,target,config,false);}
+    private static Optional<Target> refresh(ServerPlayer player,Target target,AllomancyConfig config,boolean range) {
         if(target.entity()==null) {
             var pos=BlockPos.containing(target.position());
-            if(player.getEyePosition().distanceTo(target.position())>config.detectionRange()||
-                !player.level().hasChunkAt(pos)||!player.level().getBlockState(pos).is(ANCHORS))return Optional.empty();
-            return Optional.of(target);
+            if(!player.level().hasChunkAt(pos)||!MetalMaterials.block(player.level().getBlockState(pos)))return Optional.empty();
+            var group=ConnectedMetals.group(player.level(),pos);var nearest=group.members().stream().filter(player.level()::hasChunkAt).min(Comparator.comparingDouble(v->player.getEyePosition().distanceToSqr(Vec3.atCenterOf(v)))).orElse(pos);if(MetalMaterials.block(player.level().getBlockState(nearest)))pos=nearest;
+            if(range&&player.getEyePosition().distanceTo(Vec3.atCenterOf(pos))>config.detectionRange())return Optional.empty();
+            return Optional.of(blockTarget(player,pos));
         }
         var entity=target.entity();
         if(entity==player||entity.isRemoved()||entity.level()!=player.level()||entity.isSpectator()||
             entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo&&cargo.carrier()==player||
-            entity.getBoundingBox().getCenter().distanceTo(player.getEyePosition())>config.detectionRange())return Optional.empty();
+            range&&entity.getBoundingBox().getCenter().distanceTo(player.getEyePosition())>config.detectionRange())return Optional.empty();
         return entityTarget(entity);
     }
+    public static boolean candidate(Entity e){return e instanceof ItemEntity||e instanceof LivingEntity||e instanceof CoinProjectile||e instanceof Display.BlockDisplay||e instanceof net.minecraft.world.entity.vehicle.minecart.AbstractMinecart||e instanceof net.minecraft.world.entity.item.FallingBlockEntity||e instanceof net.minecraft.world.entity.projectile.arrow.ThrownTrident||e instanceof net.minecraft.world.entity.decoration.ItemFrame;}
     private static Optional<Target> entityTarget(Entity entity) {
         boolean metallic=false;double mass=entity instanceof ServerPlayer p?dev.metallicarts.feruchemy.FeruchemyRuntime.mass(p):80;
         if(entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo){
             var owner=cargo.carrier();
             return cargo.metallic()&&owner!=null&&owner.isAlive()&&!owner.isSpectator()&&owner.level()==entity.level()
-                ?Optional.of(new Target(entity.position().add(.5,.5,.5),entity,dev.metallicarts.feruchemy.FeruchemyRuntime.mass(owner),false)):Optional.empty();
+                ?Optional.of(new Target(entity.position().add(.5,.5,.5),entity,dev.metallicarts.feruchemy.FeruchemyRuntime.mass(owner),false,"entity:"+owner.getUUID())):Optional.empty();
         }
         if(entity instanceof CoinProjectile coin){metallic=externalInWorld(coin.getItem(),entity);mass=1;}
         else if(entity instanceof ItemEntity item){
             metallic=externalInWorld(item.getItem(),entity);
             var form=EconomyContent.form(item.getItem().getItem());
             mass=Math.max(.01,(form==null?1:form.units()/10.0)*item.getItem().getCount());
-        } else if(entity instanceof LivingEntity living&&living.isAlive()){
-            for(var slot:EquipmentSlot.values())if(slot.isArmor()&&external(living.getItemBySlot(slot))){metallic=true;break;}
+        } else if(entity instanceof net.minecraft.world.entity.vehicle.minecart.AbstractMinecart){metallic=true;mass=500;}
+        else if(entity instanceof net.minecraft.world.entity.item.FallingBlockEntity falling){metallic=MetalMaterials.block(falling.getBlockState());mass=300;}
+        else if(entity instanceof net.minecraft.world.entity.projectile.arrow.ThrownTrident trident){metallic=external(trident.getPickupItemStackOrigin());mass=2;}
+        else if(entity instanceof net.minecraft.world.entity.decoration.ItemFrame frame){metallic=external(frame.getItem());mass=10;}
+        else if(entity instanceof Display.BlockDisplay display){metallic=MetalMaterials.block(((dev.metallicarts.mixin.BlockDisplayAccess)display).metallicarts$getBlockState());mass=300;}
+        else if(entity instanceof LivingEntity living&&living.isAlive()){
+            var type=net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath();if(type.equals("iron_golem")||type.equals("copper_golem")){metallic=true;mass=type.equals("iron_golem")?500:150;}
+            for(var slot:EquipmentSlot.values())if(external(living.getItemBySlot(slot))){metallic=true;break;}
+            for(var attachment:List.of(ModRegistries.CONTACT_EQUIPMENT,ModRegistries.SPIKES)){var gear=living.getAttached(attachment);if(gear!=null&&gear.items().stream().anyMatch(MetalPhysics::external))metallic=true;}
         }
         return metallic&&!entity.isSpectator()?Optional.of(new Target(entity.getBoundingBox().getCenter(),entity,mass,false)):Optional.empty();
     }
-    private static boolean externalInWorld(ItemStack stack,Entity entity){
-        var mind=stack.get(ModRegistries.METALMIND);
-        if(mind!=null&&entity.level() instanceof net.minecraft.server.level.ServerLevel level)try{
-            var asset=dev.metallicarts.feruchemy.MetalmindLedger.get(level.getServer()).resolve(mind.token());
-            if(asset.charge()>0||asset.lease().isPresent())return false;
-        }catch(IllegalArgumentException e){return false;}
-        return external(stack);
-    }
-    public static boolean external(ItemStack stack) {
-        if(stack.isEmpty())return false;
-        if(stack.has(ModRegistries.SPIKE))return false;
-        var mind=stack.get(ModRegistries.METALMIND);
-        if(mind!=null&&mind.charge()>0)return false;
-        var form=EconomyContent.form(stack.getItem());
-        // Invested items resist ordinary forces; alloys retain metal behavior except pure aluminum.
-        var data=stack.get(ModRegistries.METAL_DATA);
-        if(data!=null&&(data.charge()>0||data.identity().isPresent()||data.metal()==dev.metallicarts.domain.Metal.ALUMINUM))return false;
-        return form!=null?!Set.of("aluminum","carbon","silicon").contains(form.material()):stack.is(ITEMS);
+    private static boolean externalInWorld(ItemStack stack,Entity entity){return external(stack);}
+    public static boolean external(ItemStack stack){return MetalMaterials.item(stack);}
+    public static Target blockTarget(ServerPlayer player,BlockPos pos){var group=ConnectedMetals.group(player.level(),pos);return new Target(Vec3.atCenterOf(pos),null,Double.POSITIVE_INFINITY,true,"block:"+group.root().asLong());}
+    /** Scan loaded chunk sections with metal-containing palettes, then deduplicate connected sources. */
+    public static List<Target> nearby(ServerPlayer player,AllomancyConfig config){
+        var eye=player.getEyePosition();int radius=config.detectionRange();var candidates=new HashMap<String,Target>();
+        for(int cx=(int)Math.floor((eye.x-radius)/16);cx<=(int)Math.floor((eye.x+radius)/16);cx++)for(int cz=(int)Math.floor((eye.z-radius)/16);cz<=(int)Math.floor((eye.z+radius)/16);cz++){
+            var chunk=player.level().getChunkSource().getChunkNow(cx,cz);if(chunk==null)continue;var sections=chunk.getSections();
+            for(int i=0;i<sections.length;i++){int baseY=player.level().getSectionYFromSectionIndex(i)*16;if(baseY>eye.y+radius||baseY+16<eye.y-radius)continue;var section=sections[i];if(section.hasOnlyAir()||!section.maybeHas(MetalMaterials::block))continue;
+                for(int y=0;y<16;y++)for(int x=0;x<16;x++)for(int z=0;z<16;z++){var pos=new BlockPos(cx*16+x,baseY+y,cz*16+z);if(eye.distanceToSqr(Vec3.atCenterOf(pos))>(double)radius*radius||!MetalMaterials.block(section.getBlockState(x,y,z)))continue;var target=blockTarget(player,pos);candidates.merge(key(target),target,(old,next)->old.position().distanceToSqr(eye)<=next.position().distanceToSqr(eye)?old:next);}
+            }
+        }
+        for(var entity:player.level().getEntities(player,player.getBoundingBox().inflate(radius),MetalPhysics::candidate)){
+            if(entity instanceof dev.metallicarts.feruchemy.PhysicalCargo cargo&&cargo.carrier()==player)continue;entityTarget(entity).filter(t->t.position().distanceToSqr(eye)<=(double)radius*radius).ifPresent(t->candidates.put(key(t),t));
+        }
+        return candidates.values().stream().sorted(Comparator.comparingDouble(t->t.position().distanceToSqr(eye))).limit(config.maximumTargets()).toList();
     }
     public static Optional<Target> aimed(ServerPlayer player,AllomancyConfig config) {
         Vec3 eye=player.getEyePosition(),look=player.getLookAngle();
@@ -80,10 +89,10 @@ public final class MetalPhysics {
         for(double d=0.5;d<=config.detectionRange();d+=0.5) {
             Vec3 point=eye.add(look.scale(d));BlockPos pos=BlockPos.containing(point);
             if(!level.hasChunkAt(pos))continue;
-            if(level.getBlockState(pos).is(ANCHORS)){best=new Target(Vec3.atCenterOf(pos),null,Double.POSITIVE_INFINITY,true);bestDistance=d;break;}
+            if(MetalMaterials.block(level.getBlockState(pos))){best=blockTarget(player,pos);bestDistance=d;break;}
         }
         // Entity query is limited by the loaded spatial index and range, then examined up to the configured cap.
-        var entities=level.getEntities(player,player.getBoundingBox().inflate(config.detectionRange()),e->e instanceof ItemEntity||e instanceof LivingEntity||e instanceof CoinProjectile||e instanceof dev.metallicarts.feruchemy.PhysicalCargo);
+        var entities=level.getEntities(player,player.getBoundingBox().inflate(config.detectionRange()),MetalPhysics::candidate);
         int checked=0;
         for(var entity:entities) {
             if(checked++>=config.maximumTargets())break;
@@ -152,9 +161,10 @@ public final class MetalPhysics {
         double momentum=config.force()*strength;
         if(braced&&!target.anchored())momentum*=Math.min(1,target.mass());
         if(!braced)momentum=Math.min(momentum,target.mass()*config.maximumObjectSpeed());
-        Vec3 impulse=direction.scale(momentum);
+        Vec3 impulse=direction.scale(momentum*distanceFactor(separation.length()));
         if(!braced&&body!=null)motion.merge(body,impulse.scale(1/target.mass()),Vec3::add);
         return impulse;
     }
+    public static double distanceFactor(double distance){return 1/(1+Math.pow(Math.max(0,distance)/8.0,2));}
     private MetalPhysics(){}
 }

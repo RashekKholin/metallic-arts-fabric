@@ -47,8 +47,8 @@ public final class EconomyClientGameTest implements FabricClientGameTest {
                 var options=MetallurgyRecipes.candidates(2,table.inputs());
                 for(int i=0;i<options.size();i++)if(options.get(i).id().equals("iron_nugget_to_portions"))table.selection=i;
                 table.running=true;for(int i=0;i<40;i++)MetallurgyBlockEntity.tick(level,TABLE,level.getBlockState(TABLE),table);
-                if(table.getItem(5).getCount()!=99||table.getItem(6).getCount()!=1)throw new AssertionError("Portion conversion");
-                ItemStack portions=table.removeItem(5,99);
+                if(table.getItem(5).getCount()!=64||table.getItem(6).getCount()!=36)throw new AssertionError("Portion conversion");
+                ItemStack portions=table.removeItem(5,64);
                 table.setItem(0,portions.split(1));player.getInventory().add(portions);table.running=true;table.selection=0;
                 for(int i=0;i<20;i++)MetallurgyBlockEntity.tick(level,TABLE,level.getBlockState(TABLE),table);
                 ItemStack flake=table.removeItem(5,1);
@@ -78,7 +78,7 @@ public final class EconomyClientGameTest implements FabricClientGameTest {
                 var player=server.getPlayerList().getPlayers().getFirst();
                 if(player.getAttachedOrCreate(ModRegistries.SPIRITWEB).reserves().getOrDefault(Metal.IRON,0L)!=Materials.PORTION_MASS)throw new AssertionError("Ingested reserve lost on world reload");
                 var table=(MetallurgyBlockEntity)server.overworld().getBlockEntity(TABLE);
-                if(table==null||table.getItem(6).getCount()!=1||table.getItem(4).getCount()!=1)throw new AssertionError("Workstation contents/fuel lost on reload");
+                if(table==null||table.getItem(6).getCount()!=36||table.getItem(4).getCount()!=1)throw new AssertionError("Workstation contents/fuel lost on reload");
             });
             reopened.getServer().runOnServer(server->{
                 var old=server.getPlayerList().getPlayers().getFirst();

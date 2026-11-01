@@ -1,6 +1,6 @@
 # Release-candidate mechanics and limits
 
-This document describes **1.0.0-rc.1**, supplementing earlier phase guides. Read RELEASE_VALIDATION.md for observed results; implementation and verification are separate.
+This document describes **1.0.0-rc.2**, supplementing earlier phase guides. Read RELEASE_VALIDATION.md for observed results; implementation and verification are separate.
 
 ## NPC powers and canonical resources
 
@@ -39,3 +39,11 @@ Operator `recoverleases` restores a missing contact/spike reference only for a c
 ## Presentation
 
 Eleven wrapped/narrated guide pages, 32 metal lessons, original item/NPC art, rebindable context keys and seven client sensory preferences are implemented. Mod sound/particles are separately identifiable so they can be muted without muting vanilla equivalents. Narrow menus have dedicated native regression coverage. Full English text is the reference; Spanish is partial. Text keys facilitate further localization; unreviewed fallback text must not be advertised as a completed translation.
+
+## rc.2 requested gameplay changes
+
+The authoritative eleven-request mapping is REQUESTED_GAMEPLAY.md. Physical charged metals now remain force targets; Aluminum/Duralumin/compositions containing Aluminum are immune. Connected loaded metal has one key, impulse weakens at distance, and explicit Push/Pull intents oppose rather than guessing when both metals burn. Locks persist 200 unavailable ticks with no remote force, and thrown coins transfer selection across their actual impact recovery.
+
+Full spherical field outlines use public geometry without owner/private data. Players inside receive transient local movement/combat/mining/use clocks, and boundary exit removes those modifiers. Network/keepalive/global physiology are not skipped. Source rays show nearby metal in every direction, with rear indicators; there is no hidden inventory scan. Native and graphical tests verify these paths.
+
+All item/workstation stacks now cap at 64 or their smaller item limit. Larger batches split; legacy surplus is preserved. Faster F-Bendalloy food exchange is symmetric at twenty body units per charge unit, with visible food consumed before saturation and exact persistent fractional escrow. This changes the nutrition value of existing charge, so preserve backups. Inventory Arts help and I show actual rebound keys and explain these workflows in game.
